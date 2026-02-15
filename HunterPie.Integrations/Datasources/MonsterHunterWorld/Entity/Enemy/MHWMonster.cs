@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process.Entity;
@@ -38,13 +39,14 @@ public sealed class MHWMonster : CommonMonster
     private readonly MHWMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly (nint, MHWMonsterPart)[] _parts;
     private List<(nint, MHWMonsterAilment)>? _ailments;
+    private readonly ILocalizationRepository _localizationRepository;
     #endregion
 
     public override int Id { get; protected set; }
 
     public string Em { get; }
 
-    public override string Name => MHWContext.Strings.GetMonsterNameById(Id);
+    public override string Name => _localizationRepository.FindStringBy($"//Strings/Monsters/World/Monster[@Id='{Id}']");
 
     public override float Health
     {
@@ -180,11 +182,13 @@ public sealed class MHWMonster : CommonMonster
         IScanService scanService,
         nint address,
         int id,
-        string em) : base(process, scanService)
+        string em,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
         _address = address;
         Em = em;
         Id = id;
+        _localizationRepository = localizationRepository;
 
         _definition = MonsterRepository.FindBy(GameType.World, Id) ?? MonsterRepository.UnknownDefinition;
         _parts = _definition.Parts.Select(it => (IntPtr.Zero, new MHWMonsterPart(it)))

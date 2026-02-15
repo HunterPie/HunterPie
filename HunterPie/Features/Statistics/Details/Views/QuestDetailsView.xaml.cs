@@ -20,11 +20,7 @@ internal partial class QuestDetailsView : UserControl, IView<QuestDetailsViewMod
         _slideInAnimation = (Storyboard)FindResource("SlideInAnimation");
     }
 
-    [System.Obsolete]
-    private void OnBackButtonClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToPreviousPage();
-
-    private void OnMonsterPanelViewModelChanged(object sender, DependencyPropertyChangedEventArgs _) =>
-        SetupView(sender);
+    private void OnBackButtonClick(object _, RoutedEventArgs __) => ViewModel.NavigateToPreviousPage();
 
     private void OnMonsterPanelLoaded(object sender, RoutedEventArgs _) =>
         SetupView(sender);

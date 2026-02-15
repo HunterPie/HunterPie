@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Process.Entity;
@@ -25,6 +26,7 @@ public sealed class MHRMonster : CommonMonster
 
     private readonly MonsterDefinition _definition;
     private readonly nint _address;
+    private readonly ILocalizationRepository _localizationRepository;
 
     private bool _isLoaded;
     private float _health = -1;
@@ -43,7 +45,7 @@ public sealed class MHRMonster : CommonMonster
 
     public override int Id { get; protected set; }
 
-    public override string Name => MHRContext.Strings.GetMonsterNameById(Id);
+    public override string Name => _localizationRepository.FindStringBy($"//Strings/Monsters/Rise/Monster[@Id='{Id}']");
 
     public override float Health
     {
@@ -176,10 +178,12 @@ public sealed class MHRMonster : CommonMonster
         IScanService scanService,
         nint address,
         int id,
-        MonsterType monsterType
+        MonsterType monsterType,
+        ILocalizationRepository localizationRepository
     ) : base(process, scanService)
     {
         _address = address;
+        _localizationRepository = localizationRepository;
 
         Id = id;
 

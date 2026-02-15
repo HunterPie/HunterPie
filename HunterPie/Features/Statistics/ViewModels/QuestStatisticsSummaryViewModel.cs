@@ -36,7 +36,9 @@ public class QuestStatisticsSummaryViewModel : ViewModel
 
     public QuestStatisticsSummaryViewModel() { }
 
-    internal QuestStatisticsSummaryViewModel(PoogieQuestSummaryModel model)
+    internal QuestStatisticsSummaryViewModel(
+        PoogieQuestSummaryModel model,
+        ILocalizationRepository localizationRepository)
     {
         UploadId = model.Id;
         GameType = model.GameType.ToEntity();
@@ -51,10 +53,10 @@ public class QuestStatisticsSummaryViewModel : ViewModel
         if (model.QuestDetails is not { } details)
             return;
 
-        QuestName = Localization.GetQuestNameBy(GameType, details.Id);
+        QuestName = localizationRepository.GetQuestNameBy(GameType, details.Id);
         Deaths = details.Deaths;
         MaxDeaths = details.MaxDeaths;
-        QuestType = Localization.GetEnumString(details.Type);
+        QuestType = localizationRepository.FindByEnum(details.Type).String;
         QuestLevel = details.Level;
         Stars = details.Stars;
     }

@@ -4,7 +4,6 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using System.Linq;
 
@@ -17,6 +16,7 @@ internal class MHWDiscordPresenceStrategy(
 {
     private readonly DiscordRichPresence _configuration = configuration;
     private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+    private readonly IScopedLocalizationRepository _stageLocalizationRepository = localizationRepository.WithScope("//Strings/Stages/World/Stage");
     private readonly IContext _context = context;
 
     public string AppId => "567152028070051859";
@@ -28,7 +28,8 @@ internal class MHWDiscordPresenceStrategy(
 
         string description = BuildDescription();
         string state = BuildState();
-        string stageIdName = MHWContext.Strings.GetStageNameById(player.StageId);
+        string stageId = player.StageId.ToString();
+        string stageIdName = _stageLocalizationRepository.FindStringBy(stageId);
 
         presence
             .WithDetails(description)

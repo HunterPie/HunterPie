@@ -2,6 +2,7 @@
 using HunterPie.Core.Search;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -10,8 +11,9 @@ namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 public class MonsterConfigurationsViewModel(
     MonsterGlobalConfigurationViewModel globalConfiguration,
     MonsterDetailsConfiguration configuration,
-    MonsterConfigurationViewModel[] elements
-    ) : ViewModel
+    MonsterConfigurationViewModel[] elements,
+    IBodyNavigator bodyNavigator
+) : ViewModel
 {
     private readonly MonsterDetailsConfiguration _configuration = configuration;
     private readonly MonsterConfigurationViewModel[] _elements = elements;
@@ -53,4 +55,6 @@ public class MonsterConfigurationsViewModel(
         SearchElements.Add(viewModel);
         _configuration.Monsters.Remove(viewModel.Configuration);
     }
+
+    public void Return() => bodyNavigator.Return();
 }

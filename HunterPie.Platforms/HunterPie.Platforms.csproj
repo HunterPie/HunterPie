@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>14.0</LangVersion>
-	<AssemblyVersion>1.2.0.121</AssemblyVersion>
-	<FileVersion>1.2.0.121</FileVersion>
+	<AssemblyVersion>1.2.0.129</AssemblyVersion>
+	<FileVersion>1.2.0.129</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,9 +18,4 @@
     <Folder Include="Common\Logging\" />
     <Folder Include="Windows\Memory\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-  </ItemGroup>
-
 </Project>

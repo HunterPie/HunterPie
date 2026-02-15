@@ -11,7 +11,9 @@ namespace HunterPie.Features.Account.ViewModels;
 internal class AccountLoginFlowViewModel(
     AccountPasswordResetFlowViewModel passwordResetFlowViewModel,
     IAccountUseCase accountUseCase,
-    AccountVerificationResendFlowViewModel accountVerificationResendFlowViewModel) : ViewModel
+    AccountVerificationResendFlowViewModel accountVerificationResendFlowViewModel,
+    IAppNavigator appNavigator
+) : ViewModel
 {
     public string Email
     {
@@ -21,7 +23,8 @@ internal class AccountLoginFlowViewModel(
             CanLogIn = Password.Length > 0 && value.Length > 0;
             SetValue(ref field, value);
         }
-    } = "";
+    } = string.Empty;
+
     public string Password
     {
         get;
@@ -30,11 +33,11 @@ internal class AccountLoginFlowViewModel(
             CanLogIn = Email.Length > 0 && value.Length > 0;
             SetValue(ref field, value);
         }
-    } = "";
+    } = string.Empty;
+
     public bool IsLoggingIn { get; set => SetValue(ref field, value); }
     public bool CanLogIn { get; set => SetValue(ref field, value); }
 
-    private readonly IAccountUseCase _accountUseCase = accountUseCase;
     public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; } = passwordResetFlowViewModel;
     public AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel { get; } = accountVerificationResendFlowViewModel;
 
@@ -51,7 +54,7 @@ internal class AccountLoginFlowViewModel(
             Email: Email,
             Password: Password
         );
-        PoogieResult<LoginResponse>? result = await _accountUseCase.LoginAsync(request);
+        PoogieResult<LoginResponse>? result = await accountUseCase.LoginAsync(request);
 
         IsLoggingIn = false;
         CanLogIn = true;
@@ -59,7 +62,7 @@ internal class AccountLoginFlowViewModel(
         if (result is null || result.Error is { })
             return false;
 
-        Navigator.App.Navigate<MainBodyViewModel>();
+        appNavigator.Navigate<MainBodyViewModel>();
 
         return true;
     }

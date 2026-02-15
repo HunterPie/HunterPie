@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Search;
+using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 public class AbnormalityWidgetSettingsViewModel(
     ConfigurationCategory configuration,
     ObservableCollection<AbnormalityCategoryViewModel> categories,
-    ObservableHashSet<string> selectedAbnormalities
-    ) : Architecture.ViewModel
+    ObservableHashSet<string> selectedAbnormalities,
+    IBodyNavigator bodyNavigator
+) : ViewModel
 {
     public ObservableCollection<AbnormalityCategoryViewModel> Categories { get; } = categories;
     public ObservableHashSet<string> SelectedAbnormalities { get; } = selectedAbnormalities;
@@ -53,6 +55,6 @@ public class AbnormalityWidgetSettingsViewModel(
 
     public void ExitScreen()
     {
-        Navigator.Body.Return();
+        bodyNavigator.Return();
     }
 }

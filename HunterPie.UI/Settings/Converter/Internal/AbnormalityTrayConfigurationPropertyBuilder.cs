@@ -1,5 +1,7 @@
-﻿using HunterPie.Core.Domain.Enums;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Controls.Settings.Abnormality.Builders;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings.Converter.Model;
 using HunterPie.UI.Settings.Models;
@@ -10,10 +12,11 @@ namespace HunterPie.UI.Settings.Converter.Internal;
 
 internal class AbnormalityTrayConfigurationPropertyBuilder(
     ConfigurationAdapter configurationAdapter,
-    IBodyNavigator bodyNavigator) : IConfigurationPropertyBuilder
+    IBodyNavigator bodyNavigator,
+    AbnormalityCategoryViewModelBuilder categoryViewModelBuilder,
+    ILocalizationRepository localizationRepository
+) : IConfigurationPropertyBuilder
 {
-    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
-    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
     public IConfigurationProperty Build(PropertyData data, GameProcessType game)
     {
@@ -23,8 +26,11 @@ internal class AbnormalityTrayConfigurationPropertyBuilder(
         return new AbnormalityTrayPropertyViewModel(
             trays: value.Trays,
             game: game,
-            configurationAdapter: _configurationAdapter,
-            bodyNavigator: _bodyNavigator)
+            configurationAdapter: configurationAdapter,
+            bodyNavigator: bodyNavigator,
+            categoryViewModelBuilder: categoryViewModelBuilder,
+            localizationRepository: localizationRepository
+        )
         {
             Name = data.Name,
             Description = data.Description,

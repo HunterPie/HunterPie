@@ -1,21 +1,23 @@
 ﻿using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Models;
+using HunterPie.UI.Navigation;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
 
-internal class QuestDetailsViewModelBuilder(MonsterDetailsViewModelBuilder monsterDetailsViewModelBuilder)
+internal class QuestDetailsViewModelBuilder(
+    MonsterDetailsViewModelBuilder monsterDetailsViewModelBuilder,
+    IBodyNavigator bodyNavigator
+)
 {
-    private readonly MonsterDetailsViewModelBuilder _monsterDetailsViewModelBuilder = monsterDetailsViewModelBuilder;
-
     public async Task<QuestDetailsViewModel> From(HuntStatisticsModel model)
     {
-        var quest = new QuestDetailsViewModel();
+        var quest = new QuestDetailsViewModel(bodyNavigator);
 
         Task<MonsterDetailsViewModel>[] monsterTasks = model.Monsters
             .OrderByDescending(it => it.Enrage.Activations.Length)
-            .Select(it => _monsterDetailsViewModelBuilder.Build(model, it))
+            .Select(it => monsterDetailsViewModelBuilder.Build(model, it))
             .ToArray();
 
         MonsterDetailsViewModel[] monsters = await Task.WhenAll(monsterTasks);

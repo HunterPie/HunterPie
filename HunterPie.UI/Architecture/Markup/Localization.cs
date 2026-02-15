@@ -13,7 +13,7 @@ public class Localization(string id) : MarkupExtension
 {
     private static readonly DependencyObject Dummy = new();
 
-    private ILocalizationRepository Repository => DependencyContainer.Get<ILocalizationRepository>();
+    private static ILocalizationRepository Repository => DependencyContainer.Get<ILocalizationRepository>();
 
     private readonly string _id = id;
 

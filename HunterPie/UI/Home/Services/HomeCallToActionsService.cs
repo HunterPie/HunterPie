@@ -8,31 +8,32 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Home.Services;
 
-internal class HomeCallToActionsService
+internal class HomeCallToActionsService(
+    ILocalizationRepository localizationRepository
+)
 {
     public ObservableCollection<HomeCallToActionViewModel> GetAll() =>
-        new ObservableCollection<HomeCallToActionViewModel>
-        {
-            Localization.Resolve("//Strings/Client/Home/CallToAction[@Id='DISCORD_CALL_TO_ACTION']")
+        [
+            localizationRepository.FindBy("//Strings/Client/Home/CallToAction[@Id='DISCORD_CALL_TO_ACTION']")
                 .Let((resolved) =>
                 {
                     return new HomeCallToActionViewModel(
                         icon: Resources.Icon("ICON_DISCORD"),
-                        title: resolved.Item1,
-                        description: resolved.Item2,
+                        title: resolved.String,
+                        description: resolved.Description,
                         execute: () => BrowserService.OpenUrl(CommonLinks.DISCORD)
                     );
                 })!
             ,
-            Localization.Resolve("//Strings/Client/Home/CallToAction[@Id='DOCUMENTATION_CALL_TO_ACTION']")
+            localizationRepository.FindBy("//Strings/Client/Home/CallToAction[@Id='DOCUMENTATION_CALL_TO_ACTION']")
                 .Let((resolved) =>
                 {
                     return new HomeCallToActionViewModel(
                         icon: Resources.Icon("ICON_DOCUMENTATION"),
-                        title: resolved.Item1,
-                        description: resolved.Item2,
+                        title: resolved.String,
+                        description: resolved.Description,
                         execute: () => BrowserService.OpenUrl(CommonLinks.DOCUMENTATION)
                     );
                 })!
-        };
+        ];
 }

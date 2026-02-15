@@ -9,10 +9,11 @@ using System;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountRegisterFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
+internal class AccountRegisterFlowViewModel(
+    PoogieAccountConnector accountConnector,
+    ILocalizationRepository localizationRepository
+) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = accountConnector;
-
     public string Username
     {
         get;
@@ -60,7 +61,7 @@ internal class AccountRegisterFlowViewModel(PoogieAccountConnector accountConnec
             Password: Password
         );
 
-        PoogieResult<RegisterResponse> register = await _accountConnector.RegisterAsync(request);
+        PoogieResult<RegisterResponse> register = await accountConnector.RegisterAsync(request);
 
         IsRegistering = false;
 
@@ -69,7 +70,7 @@ internal class AccountRegisterFlowViewModel(PoogieAccountConnector accountConnec
             var options = new NotificationOptions(
                 Type: NotificationType.Error,
                 Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
+                Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
             await NotificationService.Show(options);
@@ -80,7 +81,7 @@ internal class AccountRegisterFlowViewModel(PoogieAccountConnector accountConnec
         var successOptions = new NotificationOptions(
             Type: NotificationType.Success,
             Title: "Success",
-            Description: Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
+            Description: localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
                 .Replace("{Email}", register.Response!.Email),
             DisplayTime: TimeSpan.FromSeconds(10)
         );

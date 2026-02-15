@@ -22,7 +22,8 @@ internal class QuestStatisticsSummariesViewModel(
     PoogieStatisticsConnector connector,
     IAccountUseCase accountUseCase,
     IBodyNavigator bodyNavigator,
-    QuestDetailsViewModelBuilder questDetailsViewModelBuilder) : ViewModel
+    QuestDetailsViewModelBuilder questDetailsViewModelBuilder,
+    ILocalizationRepository localizationRepository) : ViewModel
 {
     private readonly PoogieStatisticsConnector _connector = connector;
     private readonly IAccountUseCase _accountUseCase = accountUseCase;
@@ -99,7 +100,10 @@ internal class QuestStatisticsSummariesViewModel(
         }
 
         Summaries.Replace(
-            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(it))
+            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(
+                model: it,
+                localizationRepository: localizationRepository
+            ))
         );
 
         LastPage = summaries.TotalPages;
@@ -111,7 +115,7 @@ internal class QuestStatisticsSummariesViewModel(
         var downloadingNotificationOptions = new NotificationOptions(
             Type: NotificationType.InProgress,
             Title: "Quest",
-            Description: Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
+            Description: localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
                 .Format(uploadId),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
@@ -125,7 +129,7 @@ internal class QuestStatisticsSummariesViewModel(
             NotificationOptions failedNotification = downloadingNotificationOptions with
             {
                 Type = NotificationType.Error,
-                Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
+                Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
             };
             NotificationService.Update(notificationId, failedNotification);
             IsFetchingDetails = false;
@@ -137,7 +141,7 @@ internal class QuestStatisticsSummariesViewModel(
         NotificationOptions successNotification = downloadingNotificationOptions with
         {
             Type = NotificationType.Success,
-            Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
+            Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
         };
         NotificationService.Update(notificationId, successNotification);
 

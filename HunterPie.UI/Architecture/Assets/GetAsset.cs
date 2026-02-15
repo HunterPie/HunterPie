@@ -44,6 +44,7 @@ public class LocalizationString(string localizationId) : MarkupExtension
 }
 
 [MarkupExtensionReturnType(typeof(string))]
+[Obsolete("Use Localization instead")]
 public class LocalizationDescription(string localizationId) : MarkupExtension
 {
     public string LocalizationId { get; set; } = localizationId;

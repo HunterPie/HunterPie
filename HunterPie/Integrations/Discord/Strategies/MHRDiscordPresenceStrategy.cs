@@ -5,7 +5,6 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Domain.Utils;
-using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using System;
 using System.Linq;
 
@@ -18,6 +17,7 @@ internal class MHRDiscordPresenceStrategy(
 {
     private readonly DiscordRichPresence _configuration = configuration;
     private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+    private readonly IScopedLocalizationRepository _stageLocalizationRepository = localizationRepository.WithScope("//Strings/Stages/Rise/Stage");
     private readonly IContext _context = context;
 
     public string AppId => "932399108017242182";
@@ -26,7 +26,8 @@ internal class MHRDiscordPresenceStrategy(
     {
         string description = BuildDescription();
         string state = BuildState();
-        string stageIdName = MHRContext.Strings.GetStageNameById(_context.Game.Player.StageId);
+        string stageId = _context.Game.Player.StageId.ToString();
+        string stageIdName = _stageLocalizationRepository.FindStringBy(stageId);
         bool isUnmappedStage = stageIdName.StartsWith("Unknown");
 
         presence

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
@@ -37,6 +38,7 @@ public sealed class MHWGame : CommonGame
     private bool _isMouseVisible;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
+    private readonly ILocalizationRepository _localizationRepository;
 
     public override IPlayer Player => _player;
 
@@ -66,8 +68,10 @@ public sealed class MHWGame : CommonGame
 
     public MHWGame(
         IGameProcess process,
-        IScanService scanService) : base(process, scanService)
+        IScanService scanService,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
+        _localizationRepository = localizationRepository;
         _player = new MHWPlayer(process, scanService);
         DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
         _player.OnStageUpdate += OnPlayerStageUpdate;
@@ -242,7 +246,8 @@ public sealed class MHWGame : CommonGame
             scanService: ScanService,
             address: address,
             id: id,
-            em: em
+            em: em,
+            localizationRepository: _localizationRepository
         );
         _monsters.Add(address, monster);
         Monsters.Add(monster);

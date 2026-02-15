@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountVerificationResendFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
+internal class AccountVerificationResendFlowViewModel(
+    PoogieAccountConnector accountConnector,
+    ILocalizationRepository localizationRepository) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = accountConnector;
-
     public bool IsRequestingVerification
     {
         get;
@@ -46,7 +46,7 @@ internal class AccountVerificationResendFlowViewModel(PoogieAccountConnector acc
     {
         IsRequestingVerification = true;
 
-        PoogieResult<RequestAccountVerificationResponse> response = await _accountConnector.RequestAccountVerificationAsync(
+        PoogieResult<RequestAccountVerificationResponse> response = await accountConnector.RequestAccountVerificationAsync(
             new RequestAccountVerifyRequest(Email: Email)
         );
 
@@ -57,7 +57,7 @@ internal class AccountVerificationResendFlowViewModel(PoogieAccountConnector acc
             var options = new NotificationOptions(
                 Type: NotificationType.Error,
                 Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
+                Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
             await NotificationService.Show(options);
@@ -68,7 +68,7 @@ internal class AccountVerificationResendFlowViewModel(PoogieAccountConnector acc
         var successOptions = new NotificationOptions(
             Type: NotificationType.Success,
             Title: "Success",
-            Description: Localization.QueryString(
+            Description: localizationRepository.FindStringBy(
                 "//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']"
             ).Replace("{Email}", Email),
             DisplayTime: TimeSpan.FromSeconds(10)

@@ -1,5 +1,6 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.UI.Controls.Settings.Abnormality.Builders;
 using HunterPie.UI.Settings.Converter.Internal;
 
 namespace HunterPie.UI.Settings;
@@ -9,6 +10,7 @@ internal class SettingsModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
+            .WithSingle<AbnormalityCategoryViewModelBuilder>()
             .WithSingle<AbnormalityTrayConfigurationPropertyBuilder>()
             .WithSingle<BooleanConfigurationPropertyBuilder>()
             .WithSingle<ColorConfigurationPropertyBuilder>()

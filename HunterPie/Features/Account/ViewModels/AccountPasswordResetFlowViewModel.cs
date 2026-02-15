@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
+internal class AccountPasswordResetFlowViewModel(
+    PoogieAccountConnector accountConnector,
+    ILocalizationRepository localizationRepository) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
     public bool IsRequestingCode { get; set => SetValue(ref field, value); }
     public bool HasCodeBeenSent { get; set => SetValue(ref field, value); }
@@ -28,7 +29,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
         IsRequestingCode = true;
 
         PoogieResult<PasswordChangeResponse> response =
-            await _accountConnector.ForgotPasswordAsync(new PasswordResetRequest(Email: Email));
+            await accountConnector.ForgotPasswordAsync(new PasswordResetRequest(Email: Email));
 
         IsRequestingCode = false;
 
@@ -37,7 +38,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
             var options = new NotificationOptions(
                 Type: NotificationType.Error,
                 Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
+                Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
             await NotificationService.Show(options);
@@ -47,7 +48,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
         var successOptions = new NotificationOptions(
             Type: NotificationType.Success,
             Title: "Success",
-            Description: Localization.QueryString(
+            Description: localizationRepository.FindStringBy(
                 "//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_EMAIL_STRING']"
             ).Replace("{Email}", Email),
             DisplayTime: TimeSpan.FromSeconds(10)
@@ -61,7 +62,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
         IsResetInProgress = true;
 
         PoogieResult<PasswordChangeResponse> response =
-            await _accountConnector.ChangePasswordAsync(new ChangePasswordRequest
+            await accountConnector.ChangePasswordAsync(new ChangePasswordRequest
             (
                 Email: Email,
                 Code: Code,
@@ -75,7 +76,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
             var errorOptions = new NotificationOptions(
                 Type: NotificationType.Error,
                 Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
+                Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
             await NotificationService.Show(errorOptions);
@@ -86,7 +87,7 @@ internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountC
         var successOptions = new NotificationOptions(
             Type: NotificationType.Success,
             Title: "Success",
-            Description: Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_SUCCESS_STRING']"),
+            Description: localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_SUCCESS_STRING']"),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
         await NotificationService.Show(successOptions);
