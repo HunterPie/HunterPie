@@ -20,7 +20,11 @@ internal partial class QuestDetailsView : UserControl, IView<QuestDetailsViewMod
         _slideInAnimation = (Storyboard)FindResource("SlideInAnimation");
     }
 
-    private void OnBackButtonClick(object _, RoutedEventArgs __) => ViewModel.NavigateToPreviousPage();
+    private void OnBackButtonClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToPreviousPage();
+
+    // Do not remove this, it is required to trigger the animation when the view model changes
+    private void OnMonsterPanelViewModelChanged(object sender, DependencyPropertyChangedEventArgs _) =>
+        SetupView(sender);
 
     private void OnMonsterPanelLoaded(object sender, RoutedEventArgs _) =>
         SetupView(sender);
