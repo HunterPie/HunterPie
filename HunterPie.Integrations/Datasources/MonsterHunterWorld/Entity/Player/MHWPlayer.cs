@@ -349,19 +349,6 @@ public sealed class MHWPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        if (quest.State.IsQuestOver() || quest.Id <= 0)
-            return;
-
-        nint partyInformationPtr = await Memory.ReadAsync(
-            address: AddressMap.GetAbsolute("PARTY_ADDRESS"),
-            offsets: AddressMap.Get<int[]>("PARTY_OFFSETS")
-        );
-
-        nint damageInformation = await Memory.ReadAsync(
-            address: AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
-            offsets: AddressMap.Get<int[]>("DAMAGE_OFFSETS")
-        );
-
         int partySize = await Memory.DerefAsync<int>(
             address: AddressMap.GetAbsolute("SESSION_OFFSET"),
             offsets: AddressMap.Get<int[]>("SESSION_PARTY_OFFSETS")
@@ -385,6 +372,19 @@ public sealed class MHWPlayer : CommonPlayer
         }
 
         _party.Remove(0);
+
+        if (quest.State.IsQuestOver() || quest.Id <= 0)
+            return;
+
+        nint partyInformationPtr = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("PARTY_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("PARTY_OFFSETS")
+        );
+
+        nint damageInformation = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("DAMAGE_OFFSETS")
+        );
 
         MHWPartyMemberStructure[] partyMembers = await Memory.ReadAsync<MHWPartyMemberStructure>(partyInformationPtr, 4);
 
