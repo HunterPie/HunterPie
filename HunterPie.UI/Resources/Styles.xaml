@@ -3,6 +3,7 @@
                     xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
                     xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                     xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
+                    xmlns:label="clr-namespace:HunterPie.UI.Controls.Label;assembly=HunterPie.UI"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                     xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
                     xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI"
@@ -724,4 +725,21 @@
 	<Style BasedOn="{StaticResource DefaultProgressBarStyle}"
 	       TargetType="{x:Type progress:Bar}" />
 
+	<Style TargetType="{x:Type label:Tag}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type label:Tag}">
+					<Border BorderBrush="{TemplateBinding Foreground}"
+					        Padding="4,4"
+					        Background="{TemplateBinding Background}"
+					        CornerRadius="5">
+						<TextBlock FontFamily="{DynamicResource Font.Default}"
+						           FontSize="13"
+						           Foreground="{TemplateBinding Foreground}"
+						           Text="{TemplateBinding Label}" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary>
