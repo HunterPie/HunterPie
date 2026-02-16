@@ -7,17 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environme
 
 public class MHWTailraiders : IEventDispatcher, IDisposable, IUpdatable<MHWTailraidersData>
 {
-
-    private int _daysLeft;
-
     public int QuestsLeft
     {
-        get => _daysLeft;
+        get;
         private set
         {
-            if (value != _daysLeft)
+            if (value != field)
             {
-                _daysLeft = value;
+                field = value;
                 this.Dispatch(_onQuestsLeftChange, this);
             }
         }

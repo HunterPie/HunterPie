@@ -1,5 +1,6 @@
 ﻿
 using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
@@ -44,6 +45,7 @@ public sealed class MHRGame : CommonGame
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<IntPtr, IMonster> _monsters = new();
     private readonly Dictionary<IntPtr, EntityDamageData[]> _damageDone = new();
+    private readonly ILocalizationRepository _localizationRepository;
 
     public override IPlayer Player => _player;
     public override List<IMonster> Monsters { get; } = new();
@@ -85,8 +87,11 @@ public sealed class MHRGame : CommonGame
 
     public MHRGame(
         IGameProcess process,
-        IScanService scanService) : base(process, scanService)
+        IScanService scanService,
+        ILocalizationRepository localizationRepository
+    ) : base(process, scanService)
     {
+        _localizationRepository = localizationRepository;
         _player = new MHRPlayer(process, scanService);
 
         HookEvents();
@@ -315,7 +320,8 @@ public sealed class MHRGame : CommonGame
             scanService: ScanService,
             address: monsterAddress,
             id: monsterId,
-            monsterType: (MonsterType)monsterType
+            monsterType: (MonsterType)monsterType,
+            localizationRepository: _localizationRepository
         );
 
         _monsters.Add(monsterAddress, monster);

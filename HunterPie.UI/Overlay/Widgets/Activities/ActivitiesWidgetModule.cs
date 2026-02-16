@@ -12,26 +12,26 @@ internal class ActivitiesWidgetModule : IDependencyModule
     {
         // Monster Hunter World
         registry
-            .WithService<HarvestBoxViewModel>()
-            .WithService<TailraidersViewModel>()
-            .WithService<SteamworksViewModel>()
-            .WithService<ArgosyViewModel>()
-            .WithService<MHWorldActivitiesViewModel>();
+            .WithFactory<HarvestBoxViewModel>()
+            .WithFactory<TailraidersViewModel>()
+            .WithFactory<SteamworksViewModel>()
+            .WithFactory<ArgosyViewModel>()
+            .WithFactory<MHWorldActivitiesViewModel>();
 
         // Monster Hunter Rise
         registry
-            .WithService<CohootNestViewModel>()
-            .WithService<CohootNestsViewModel>()
-            .WithService<MeowcenariesViewModel>()
-            .WithService<SubmarinesViewModel>()
-            .WithService<TrainingDojoViewModel>()
-            .WithService<MHRiseActivitiesViewModel>();
+            .WithFactory<CohootNestViewModel>()
+            .WithFactory<CohootNestsViewModel>()
+            .WithFactory<MeowcenariesViewModel>()
+            .WithFactory<SubmarinesViewModel>()
+            .WithFactory<TrainingDojoViewModel>()
+            .WithFactory<MHRiseActivitiesViewModel>();
 
         // Monster Hunter Wilds
         registry
-            .WithService<MaterialRetrievalViewModel>()
-            .WithService<SupportShipViewModel>()
-            .WithService<IngredientsCenterViewModel>()
-            .WithService<MHWildsActivitiesViewModel>();
+            .WithFactory<MaterialRetrievalViewModel>()
+            .WithFactory<SupportShipViewModel>()
+            .WithFactory<IngredientsCenterViewModel>()
+            .WithFactory<MHWildsActivitiesViewModel>();
     }
 }

@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Supporter;
 
-internal class PoogieSupporterConnector
+internal class PoogieSupporterConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string SUPPORTER_ENDPOINT = "/v1/supporter";
-
-    public PoogieSupporterConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<SupporterValidationResponse>> IsValidSupporterAsync() =>
         await _client.GetAsync<SupporterValidationResponse>($"{SUPPORTER_ENDPOINT}/verify");

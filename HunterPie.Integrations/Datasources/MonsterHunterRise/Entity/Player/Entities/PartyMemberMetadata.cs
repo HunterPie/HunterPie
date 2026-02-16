@@ -4,6 +4,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Ent
 
 internal record PartyMemberMetadata(
     int Index,
+    int Slot,
     bool IsValid,
     MHRCharacterData Data
 );

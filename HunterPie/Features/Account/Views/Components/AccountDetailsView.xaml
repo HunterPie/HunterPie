@@ -1,195 +1,189 @@
 ﻿<UserControl x:Class="HunterPie.Features.Account.Views.Components.AccountDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
-             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:label="clr-namespace:HunterPie.UI.Controls.Label;assembly=HunterPie.UI"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              xmlns:local="clr-namespace:HunterPie.Features.Account.Views.Components"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Account.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}"
              d:DesignWidth="800"
-             mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-        <Style x:Key="AvatarButton" TargetType="buttons:Button">
-            <EventSetter Event="Click" Handler="OnAvatarUploadClick"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-    </UserControl.Resources>
-    <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
-            Padding="10"
-            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
-            BorderThickness="1"
-            CornerRadius="5">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+		<Style x:Key="AvatarButton"
+		       TargetType="buttons:Button">
+			<EventSetter Event="Click"
+			             Handler="OnAvatarUploadClick" />
+			<Setter Property="Cursor" Value="Hand" />
+		</Style>
+	</UserControl.Resources>
+	<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+	        BorderThickness="1"
+	        Padding="10"
+	        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+	        CornerRadius="5">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="25" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
-                       Grid.Column="0" 
-                       Text="ACCOUNT DETAILS"
-                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                       FontWeight="Medium"
-                       Grid.ColumnSpan="2"
-                       FontSize="15"
-                       VerticalAlignment="Top"/>
-            <Separator Grid.Column="0" 
-                       Grid.ColumnSpan="2"
-                       Grid.Row="0"
-                       VerticalAlignment="Bottom"
-                       Background="{DynamicResource Brushes.HunterPie.Border}"/>
+			<TextBlock Grid.Row="0"
+			           Grid.Column="0"
+			           Grid.ColumnSpan="2"
+			           VerticalAlignment="Top"
+			           FontSize="15"
+			           FontWeight="Medium"
+			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+			           Text="ACCOUNT DETAILS" />
+			<Separator Grid.Row="0"
+			           Grid.Column="0"
+			           Grid.ColumnSpan="2"
+			           VerticalAlignment="Bottom"
+			           Background="{DynamicResource Brushes.HunterPie.Border}" />
 
-            <buttons:Button Height="90"
-                            Width="90"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Column="0"
-                            Grid.Row="1"
-                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
-                            Style="{StaticResource AvatarButton}">
-                <ContentPresenter>
-                    <ContentPresenter.Style>
-                        <Style TargetType="ContentPresenter">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.IsUploadingAvatar, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountDetailsView}}}"
-                                             Value="False">
-                                    <DataTrigger.Setters>
-                                        <Setter Property="Content">
-                                            <Setter.Value>
-                                                <Image d:Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
-                                                       Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
-                                                       RenderOptions.BitmapScalingMode="Fant" 
-                                                       Stretch="UniformToFill"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger.Setters>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.IsUploadingAvatar, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountDetailsView}}}"
-                                             Value="True">
-                                    <DataTrigger.Setters>
-                                        <Setter Property="Content">
-                                            <Setter.Value>
-                                                <loading:CircleLoading Width="15"
-                                                                Height="15"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger.Setters>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentPresenter.Style>
-                </ContentPresenter>
-                <buttons:Button.Clip>
-                    <EllipseGeometry Center="45,45"
-                                RadiusX="40"
-                                RadiusY="40"/>
-                </buttons:Button.Clip>
-            </buttons:Button>
+			<buttons:Button Grid.Row="1"
+			                Grid.Column="0"
+			                Width="90"
+			                Height="90"
+			                HorizontalAlignment="Center"
+			                VerticalAlignment="Center"
+			                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+			                Style="{StaticResource AvatarButton}">
+				<ContentPresenter>
+					<ContentPresenter.Style>
+						<Style TargetType="ContentPresenter">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding DataContext.IsUploadingAvatar, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountDetailsView}}}"
+								             Value="False">
+									<DataTrigger.Setters>
+										<Setter Property="Content">
+											<Setter.Value>
+												<Image d:Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
+												       RenderOptions.BitmapScalingMode="Fant"
+												       Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
+												       Stretch="UniformToFill" />
+											</Setter.Value>
+										</Setter>
+									</DataTrigger.Setters>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding DataContext.IsUploadingAvatar, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountDetailsView}}}"
+								             Value="True">
+									<DataTrigger.Setters>
+										<Setter Property="Content">
+											<Setter.Value>
+												<loading:CircleLoading Width="15"
+												                       Height="15" />
+											</Setter.Value>
+										</Setter>
+									</DataTrigger.Setters>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentPresenter.Style>
+				</ContentPresenter>
+				<buttons:Button.Clip>
+					<EllipseGeometry Center="45,45"
+					                 RadiusX="40"
+					                 RadiusY="40" />
+				</buttons:Button.Clip>
+			</buttons:Button>
 
-            <buttons:Button Height="25"
-                            Width="25"
-                            Grid.Column="0"
-                            Grid.Row="1"
-                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Margin="12.5"
-                            Padding="0"
-                            Style="{StaticResource AvatarButton}">
-                <Grid>
-                    <Ellipse Height="21"
-                             Width="21"
-                             Fill="{DynamicResource Brushes.HunterPie.Background.Tertiary}"/>
-                    <Rectangle Margin="2.5"
-                               Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                               VerticalAlignment="Stretch"
-                               HorizontalAlignment="Stretch"
-                               SnapsToDevicePixels="True"
-                               UseLayoutRounding="True">
-                        <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="{StaticResource Icons.Camera}"
-                                        Stretch="Uniform"
-                                        RenderOptions.BitmapScalingMode="Fant"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Grid>
-                <buttons:Button.Clip>
-                    <EllipseGeometry Center="12.5,12.5"
-                                     RadiusX="12.5"
-                                     RadiusY="12.5"/>
-                </buttons:Button.Clip>
-            </buttons:Button>
+			<buttons:Button Grid.Row="1"
+			                Grid.Column="0"
+			                Width="25"
+			                Height="25"
+			                Margin="12.5"
+			                Padding="0"
+			                HorizontalAlignment="Right"
+			                VerticalAlignment="Bottom"
+			                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+			                Style="{StaticResource AvatarButton}">
+				<Grid>
+					<Ellipse Width="21"
+					         Height="21"
+					         Fill="{DynamicResource Brushes.HunterPie.Background.Tertiary}" />
+					<Rectangle Margin="2.5"
+					           HorizontalAlignment="Stretch"
+					           VerticalAlignment="Stretch"
+					           Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+					           SnapsToDevicePixels="True"
+					           UseLayoutRounding="True">
+						<Rectangle.OpacityMask>
+							<ImageBrush ImageSource="{StaticResource Icons.Camera}"
+							            RenderOptions.BitmapScalingMode="Fant"
+							            Stretch="Uniform" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+				</Grid>
+				<buttons:Button.Clip>
+					<EllipseGeometry Center="12.5,12.5"
+					                 RadiusX="12.5"
+					                 RadiusY="12.5" />
+				</buttons:Button.Clip>
+			</buttons:Button>
 
-            <!-- Account Info -->
-            <Grid Grid.Column="1"
-                  Margin="10"
-                  Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" 
-                            Margin="0,0,0,10">
-                    <StackPanel Orientation="Vertical"
-                                Margin="0,0,0,5">
-                        <TextBlock Text="USERNAME"
-                                   FontSize="11"
-                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                                   FontWeight="Bold"/>
-                        <TextBlock d:Text="Haato"
-                                   Text="{Binding Username, Mode=OneWay}"
-                                   FontSize="14"
-                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   FontWeight="Regular"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="EMAIL"
-                                   FontSize="11"
-                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                                   FontWeight="Bold"/>
-                        <TextBlock d:Text="me@haato.dev"
-                                   Text="{Binding Email, Mode=OneWay}"
-                                   FontSize="14"
-                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   FontWeight="Regular"/>
-                    </StackPanel>
-                </StackPanel>
+			<!--  Account Info  -->
+			<Grid Grid.Row="1"
+			      Grid.Column="1"
+			      Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<StackPanel Grid.Row="0"
+				            Margin="0,0,0,10">
+					<StackPanel Margin="0,0,0,5"
+					            Orientation="Vertical">
+						<TextBlock FontSize="11"
+						           FontWeight="Bold"
+						           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+						           Text="USERNAME" />
+						<TextBlock HorizontalAlignment="Left"
+						           VerticalAlignment="Center"
+						           d:Text="Haato"
+						           FontSize="14"
+						           FontWeight="Regular"
+						           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+						           Text="{Binding Username, Mode=OneWay}" />
+					</StackPanel>
+					<StackPanel Orientation="Vertical">
+						<TextBlock FontSize="11"
+						           FontWeight="Bold"
+						           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+						           Text="EMAIL" />
+						<TextBlock HorizontalAlignment="Left"
+						           VerticalAlignment="Center"
+						           d:Text="me@haato.dev"
+						           FontSize="14"
+						           FontWeight="Regular"
+						           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+						           Text="{Binding Email, Mode=OneWay}" />
+					</StackPanel>
+				</StackPanel>
 
 
-                <!-- Supporter badge -->
-                <misc:Badge Grid.Row="1"
-                            VerticalAlignment="Top"
-                            HorizontalAlignment="Left"
-                            Text="Supporter" 
-                            Background="{DynamicResource Brushes.HunterPie.Accent.Transparent}" 
-                            Foreground="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
-                            Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+				<!--  Supporter badge  -->
+				<label:Tag Grid.Row="1"
+				           HorizontalAlignment="Left"
+				           VerticalAlignment="Top"
+				           d:Visibility="Visible"
+				           Background="{DynamicResource Violet@600}"
+				           Foreground="{DynamicResource LightViolet@300}"
+				           Label="Supporter"
+				           Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+			</Grid>
 
-                <!-- Badges
-        <StackPanel Orientation="Horizontal"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Margin="10"
-                    Grid.Row="2"
-                    Height="20">
-            <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"/>
-        </StackPanel>-->
-            </Grid>
-
-        </Grid>
-    </Border>
+		</Grid>
+	</Border>
 </UserControl>

@@ -4,190 +4,133 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
-             d:DataContext="{d:DesignData Type=vm:MonsterPartViewModel}"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             d:DataContext="{d:DesignInstance Type=vm:MonsterPartViewModel}"
              mc:Ignorable="d" 
              d:DesignWidth="200">
     <UserControl.Resources>
         <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
+        <arithmetics:MultiplyNumberConverter x:Key="DivideEquallyConverter"
+                                             Factor="0.5"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
-                   d:Text="Head"
-                   Foreground="{StaticResource White}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontSize="14"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Margin="35,0,0,0">
-            <TextBlock.Effect>
-                <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
-            </TextBlock.Effect>
-        </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
 
-        <Grid Margin="30,15,0,0">
+        <!-- Counter and Name -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <!-- Flinch Bar -->
-            <overlay:Bar d:Foreground="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"
-                         d:ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
-                         Height="5"
-                         VerticalAlignment="Top"
-                         Margin="4.5,0,5,0"
-                         Background="{StaticResource Gray@500}"
-                         d:Value="50"
-                         d:MaxValue="100"
-                         BorderThickness="0"
-                         RenderTransformOrigin="0.5,0.5">
-                <overlay:Bar.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="45"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Style>
-                    <Style TargetType="overlay:Bar">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Health.Default}"/>
-                                <Setter Property="ForegroundDelayed" Value="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"/>
-                                <Setter Property="MaxValue" Value="{Binding MaxFlinch, Mode=OneWay}"/>
-                                <Setter Property="Value" Value="{Binding Flinch, Mode=OneWay}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"/>
-                                <Setter Property="ForegroundDelayed" Value="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Background}"/>
-                                <Setter Property="MaxValue" Value="{Binding MaxHealth, Mode=OneWay}"/>
-                                <Setter Property="Value" Value="{Binding Health, Mode=OneWay}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </overlay:Bar.Style>
-            </overlay:Bar>
+            <!-- Counter -->
+            <Grid Grid.Column="0"
+                  Margin="1">
+                <Rectangle Fill="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                           StrokeThickness="1"
+                           Stroke="{StaticResource Gray@50}"
+                           RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"
+                           RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"/>
+
+                <TextBlock Text="{Binding Breaks, Mode=OneWay}"
+                           MinWidth="10"
+                           TextAlignment="Center"
+                           d:Text="9"
+                           Foreground="{StaticResource White@100}"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           Margin="2"/>
+            </Grid>
             
-            <!-- Sever bar -->
-            <overlay:Bar d:Foreground="{StaticResource Brushes.Widgets.Monster.Part.Severable.Foreground}"
-                         d:ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Part.Severable.Background}"
-                         Height="5"
-                         VerticalAlignment="Top"
-                         Margin="4.5,5,5,0"
-                         Background="{StaticResource Gray@500}"
-                         MaxValue="{Binding MaxSever, Mode=OneWay}"
-                         Value="{Binding Sever, Mode=OneWay}"
-                         d:Value="50"
-                         d:MaxValue="100"
-                         BorderThickness="0"
-                         RenderTransformOrigin="0.5,0.5">
-                <overlay:Bar.RenderTransform>
-                    <TransformGroup>
-                        <SkewTransform AngleX="-45"/>
-                    </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Style>
-                    <Style TargetType="overlay:Bar">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPartSevered}" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Severable.Foreground}"/>
-                                <Setter Property="ForegroundDelayed" Value="{StaticResource Brushes.Widgets.Monster.Part.Severable.Background}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsPartSevered}" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Broken.Foreground}"/>
-                                <Setter Property="ForegroundDelayed" Value="Transparent"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </overlay:Bar.Style>
-            </overlay:Bar>
-
-            <Label Foreground="{StaticResource White}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontSize="14"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"
-                   d:Content="2000.0/2000.0"
-                   Margin="0,8,0,0" Padding="0,0,0,0">
-                <Label.Effect>
-                    <DropShadowEffect Color="Black"
-                                      BlurRadius="2"
-                                      ShadowDepth="0"/>
-                </Label.Effect>
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Style.Triggers>
-                            <!-- When part is severed but not broken -->
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsPartSevered}" Value="True"/>
-                                    <Condition Binding="{Binding IsPartBroken}" Value="False"/>
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock>
-                                           <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
-                                                d:Text="2000.0"/><!--
-                                        --><Run Text="/"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"/><!--
-                                        --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"
-                                                d:Text="2000.0"/>
-                                            </TextBlock>
-                                        </Setter.Value>
-                                    </Setter>
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                            <!-- When part is severed and broken -->
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsPartSevered}" Value="True"/>
-                                    <Condition Binding="{Binding IsPartBroken}" Value="True"/>
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock>
-                                           <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
-                                                d:Text="2000.0"/><!--
-                                        --><Run Text="/"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"/><!--
-                                        --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"
-                                                d:Text="2000.0"/>
-                                            </TextBlock>
-                                        </Setter.Value>
-                                    </Setter>
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                            <DataTrigger Binding="{Binding IsPartSevered}" Value="False">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <TextBlock>
-                                           <Run Text="{Binding Sever, StringFormat=\{0:F1\}}"
-                                                d:Text="2000.0"/><!--
-                                        --><Run Text="/"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"/><!--
-                                        --><Run Text="{Binding MaxSever, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"
-                                                d:Text="2000.0"/>
-                                        </TextBlock>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
-                
-            </Label>
+            <!-- Name -->
+            <TextBlock Grid.Column="1"
+                       d:Text="Head"
+                       Text="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterPartIdToNameConverter}}"
+                       VerticalAlignment="Center"         
+                       Foreground="{StaticResource White@50}"
+                       FontSize="13"
+                       Margin="5,0,0,0"/>
         </Grid>
+
+        <!-- Flinch -->
+        <progress:Gauge Grid.Row="1"
+                        Foreground="{StaticResource Brushes.Widgets.Monster.Part.Default.Foreground}"
+                        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                        BorderBrush="{StaticResource Gray@50}"
+                        BorderThickness="1"
+                        Markers="10"
+                        CornerRadius="4"
+                        Current="{Binding Flinch, Mode=OneWay}"
+                        Max="{Binding MaxFlinch, Mode=OneWay}"
+                        d:Current="30"
+                        d:Max="100"/>
+
+        <!-- Sever -->
+        <progress:Gauge Grid.Row="2"
+                        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                        BorderBrush="{StaticResource Gray@50}"
+                        BorderThickness="1"
+                        Markers="10"
+                        CornerRadius="4"
+                        Current="{Binding Sever, Mode=OneWay}"
+                        Max="{Binding MaxSever, Mode=OneWay}"
+                        d:Current="50"
+                        d:Max="100">
+            <progress:Gauge.Style>
+                <Style TargetType="progress:Gauge">
+                    <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Severable.Foreground}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPartSevered}" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Broken.Foreground}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </progress:Gauge.Style>
+        </progress:Gauge>
+
+        <display:Conditional Grid.Row="3"
+                             HorizontalAlignment="Center"
+                             Condition="{Binding IsPartSevered, Mode=OneWay}">
+            <display:Conditional.Component>
+                <DataTemplate>
+                    <TextBlock Foreground="{StaticResource White@50}"
+                               FontSize="13">
+                        <Run Text="{Binding Flinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                             d:Text="2,000"/><!--
+                     --><Run Text="/"
+                             Foreground="{StaticResource White@100}"
+                             FontWeight="Light"/><!--
+                     --><Run Text="{Binding MaxFlinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                             Foreground="{StaticResource White@100}"
+                             d:Text="2,000"/>
+                    </TextBlock>
+                </DataTemplate>
+            </display:Conditional.Component>
+            <display:Conditional.Otherwise>
+                <DataTemplate>
+                    <TextBlock Foreground="{StaticResource White@50}"
+                               FontSize="13">
+                        <Run Text="{Binding Sever, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                             d:Text="2,000"/><!--
+                     --><Run Text="/"
+                             Foreground="{StaticResource White@100}"
+                             FontWeight="Light"/><!--
+                     --><Run Text="{Binding MaxSever, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                            Foreground="{StaticResource White@100}"
+                            d:Text="2,000"/>
+                    </TextBlock>
+                </DataTemplate>
+            </display:Conditional.Otherwise>
+        </display:Conditional>
     </Grid>
 </UserControl>

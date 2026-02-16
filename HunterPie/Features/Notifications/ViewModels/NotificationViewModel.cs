@@ -6,13 +6,8 @@ namespace HunterPie.Features.Notifications.ViewModels;
 
 internal class NotificationViewModel : ViewModel
 {
-    private string _title;
-    private string _message;
-    private NotificationType _type;
-    private DateTime _date;
-
-    public string Title { get => _title; set => SetValue(ref _title, value); }
-    public string Message { get => _message; set => SetValue(ref _message, value); }
-    public NotificationType Type { get => _type; set => SetValue(ref _type, value); }
-    public DateTime Date { get => _date; set => SetValue(ref _date, value); }
+    public string Title { get; set => SetValue(ref field, value); }
+    public string Message { get; set => SetValue(ref field, value); }
+    public NotificationType Type { get; set => SetValue(ref field, value); }
+    public DateTime Date { get; set => SetValue(ref field, value); }
 }

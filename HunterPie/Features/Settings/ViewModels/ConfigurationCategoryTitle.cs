@@ -4,6 +4,5 @@ namespace HunterPie.Features.Settings.ViewModels;
 
 internal class ConfigurationCategoryTitle : ViewModel, IConfigurationCategory
 {
-    private string _title = string.Empty;
-    public string Title { get => _title; set => SetValue(ref _title, value); }
+    public string Title { get; set => SetValue(ref field, value); } = string.Empty;
 }

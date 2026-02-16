@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class FeatureFlagsInitializer : IInitializer
+internal class FeatureFlagsInitializer(
+    DefaultFeatureFlags flagsSource) : IInitializer
 {
-    private readonly DefaultFeatureFlags _flagsSource;
-
-    public FeatureFlagsInitializer(
-        DefaultFeatureFlags flagsSource)
-    {
-        _flagsSource = flagsSource;
-    }
+    private readonly DefaultFeatureFlags _flagsSource = flagsSource;
 
     public Task Init()
     {

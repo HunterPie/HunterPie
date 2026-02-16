@@ -4,21 +4,13 @@ using System.Collections.ObjectModel;
 namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 
 #nullable enable
-public class MonsterGlobalConfigurationViewModel : ViewModel
+public class MonsterGlobalConfigurationViewModel(
+    ObservableCollection<MonsterPartGroupViewModel> parts,
+    ObservableCollection<MonsterGlobalAilmentViewModel> ailments
+    ) : ViewModel
 {
-    public ObservableCollection<MonsterPartGroupViewModel> Parts { get; }
+    public ObservableCollection<MonsterPartGroupViewModel> Parts { get; } = parts;
 
-    public ObservableCollection<MonsterGlobalAilmentViewModel> Ailments { get; }
-
-    private bool _isExpanded;
-    public bool IsExpanded { get => _isExpanded; set => SetValue(ref _isExpanded, value); }
-
-    public MonsterGlobalConfigurationViewModel(
-        ObservableCollection<MonsterPartGroupViewModel> parts,
-        ObservableCollection<MonsterGlobalAilmentViewModel> ailments
-    )
-    {
-        Parts = parts;
-        Ailments = ailments;
-    }
+    public ObservableCollection<MonsterGlobalAilmentViewModel> Ailments { get; } = ailments;
+    public bool IsExpanded { get; set => SetValue(ref field, value); }
 }

@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace HunterPie.Core.Game.Entity.Enemy;
 
@@ -24,6 +25,7 @@ public interface IMonster
     public Element[] Weaknesses { get; }
     public string[] Types { get; }
     public VariantType Variant { get; }
+    public Vector3 Position { get; }
 
     public event EventHandler<EventArgs> OnSpawn;
     public event EventHandler<EventArgs> OnLoad;
@@ -40,4 +42,5 @@ public interface IMonster
     public event EventHandler<IMonsterAilment> OnNewAilmentFound;
     public event EventHandler<Element[]> OnWeaknessesChange;
     public event EventHandler<IMonster> OnCaptureThresholdChange;
+    public event EventHandler<SimpleValueChangeEventArgs<Vector3>> PositionChange;
 }

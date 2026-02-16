@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Report;
 
-internal class PoogieReportConnector
+internal class PoogieReportConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string REPORT_ENDPOINT = "/v1/report";
-
-    public PoogieReportConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task CrashAsync(CrashReportRequest request) =>
         await _client.PostAsync<CrashReportRequest, Nothing>($"{REPORT_ENDPOINT}/crash", request);

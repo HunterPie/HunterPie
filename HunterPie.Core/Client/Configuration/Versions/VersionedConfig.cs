@@ -2,12 +2,7 @@
 
 namespace HunterPie.Core.Client.Configuration.Versions;
 
-public class VersionedConfig : IVersionedConfig, IAbstractHunterPieConfig
+public class VersionedConfig(int version) : IVersionedConfig, IAbstractHunterPieConfig
 {
-    public int Version { get; } = 0;
-
-    public VersionedConfig(int version)
-    {
-        Version = version;
-    }
+    public int Version { get; } = version;
 }

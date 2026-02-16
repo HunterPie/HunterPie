@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process.Entity;
@@ -13,6 +14,7 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 using System.Runtime.InteropServices;
 
@@ -37,13 +39,14 @@ public sealed class MHWMonster : CommonMonster
     private readonly MHWMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly (nint, MHWMonsterPart)[] _parts;
     private List<(nint, MHWMonsterAilment)>? _ailments;
+    private readonly ILocalizationRepository _localizationRepository;
     #endregion
 
     public override int Id { get; protected set; }
 
     public string Em { get; }
 
-    public override string Name => MHWContext.Strings.GetMonsterNameById(Id);
+    public override string Name => _localizationRepository.FindStringBy($"//Strings/Monsters/World/Monster[@Id='{Id}']");
 
     public override float Health
     {
@@ -146,16 +149,15 @@ public sealed class MHWMonster : CommonMonster
 
     public override string[] Types { get; } = Array.Empty<string>();
 
-    private bool _isCaptured;
     public bool IsCaptured
     {
-        get => _isCaptured;
+        get;
         private set
         {
-            if (value == _isCaptured)
+            if (value == field)
                 return;
 
-            _isCaptured = value;
+            field = value;
             this.Dispatch(_onCapture, EventArgs.Empty);
         }
     }
@@ -180,11 +182,13 @@ public sealed class MHWMonster : CommonMonster
         IScanService scanService,
         nint address,
         int id,
-        string em) : base(process, scanService)
+        string em,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
         _address = address;
         Em = em;
         Id = id;
+        _localizationRepository = localizationRepository;
 
         _definition = MonsterRepository.FindBy(GameType.World, Id) ?? MonsterRepository.UnknownDefinition;
         _parts = _definition.Parts.Select(it => (IntPtr.Zero, new MHWMonsterPart(it)))
@@ -224,6 +228,14 @@ public sealed class MHWMonster : CommonMonster
 
         MaxStamina = staminaValues[1];
         Stamina = staminaValues[0];
+    }
+
+    [ScannableMethod]
+    internal async Task GetMonsterPositionAsync()
+    {
+        MHWVector3 position = await Memory.ReadAsync<MHWVector3>(_address + 0x160);
+
+        Position = position.ToVector3();
     }
 
     [ScannableMethod]

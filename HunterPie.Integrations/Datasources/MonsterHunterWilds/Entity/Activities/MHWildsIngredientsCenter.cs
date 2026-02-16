@@ -8,16 +8,15 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activitie
 
 public class MHWildsIngredientsCenter : IEventDispatcher, IDisposable, IUpdatable<MHWildsIngredientCenterContext>
 {
-    private float _timer;
     public float Timer
     {
-        get => _timer;
+        get;
         private set
         {
-            if (value.Equals(_timer))
+            if (value.Equals(field))
                 return;
 
-            _timer = value;
+            field = value;
             this.Dispatch(
                 toDispatch: _timerChanged,
                 data: new TimerChangeEventArgs(value, MaxTimer)
@@ -27,16 +26,15 @@ public class MHWildsIngredientsCenter : IEventDispatcher, IDisposable, IUpdatabl
 
     public float MaxTimer { get; private set; }
 
-    private int _rations;
     public int Rations
     {
-        get => _rations;
+        get;
         private set
         {
-            if (value == _rations)
+            if (value == field)
                 return;
 
-            _rations = value;
+            field = value;
             this.Dispatch(
                 toDispatch: _rationsChanged,
                 data: new CounterChangeEventArgs(value, MaxRations)

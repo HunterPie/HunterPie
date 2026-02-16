@@ -13,11 +13,13 @@ internal class V2SettingsMigrator : ISettingsMigrator
     {
         if (oldSettings is Config config)
         {
+#pragma warning disable CS0612 // Ignore obsolete since this is a setting migration code 
             OverlayClientConfig overlayClientConfig = new()
             {
                 ToggleDesignMode = config.Overlay.ToggleDesignMode,
                 HideWhenUnfocus = config.Overlay.HideWhenUnfocus,
             };
+#pragma warning restore CS0612
 
             config.Overlay.DamageMeterWidget = new();
 

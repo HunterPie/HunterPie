@@ -9,18 +9,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
 public class MHWildsSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<UpdateSpecializedTool>, IDisposable
 {
-    private SpecializedToolType _id;
-    private float _cooldown;
-    private float _timer;
-
     public SpecializedToolType Id
     {
-        get => _id;
+        get;
         set
         {
-            if (value != _id)
+            if (value != field)
             {
-                _id = value;
+                field = value;
                 this.Dispatch(_onChange, this);
             }
         }
@@ -28,12 +24,12 @@ public class MHWildsSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdat
 
     public float Cooldown
     {
-        get => _cooldown;
+        get;
         set
         {
-            if (value != _cooldown)
+            if (value != field)
             {
-                _cooldown = value;
+                field = value;
                 this.Dispatch(_onCooldownUpdate, this);
             }
         }
@@ -43,12 +39,12 @@ public class MHWildsSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdat
 
     public float Timer
     {
-        get => _timer;
+        get;
         set
         {
-            if (value != _timer)
+            if (value != field)
             {
-                _timer = value;
+                field = value;
                 this.Dispatch(_onTimerUpdate, this);
             }
         }

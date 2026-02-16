@@ -7,14 +7,14 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbnormality>
+public sealed class MHRSongAbnormality(AbnormalityDefinition schema) : CommonAbnormality, IUpdatable<MHRHHAbnormality>
 {
 
     private float _timer;
 
-    public override string Id { get; protected set; }
-    public override string Name { get; protected set; }
-    public override string Icon { get; protected set; }
+    public override string Id { get; protected set; } = schema.Id;
+    public override string Name { get; protected set; } = schema.Name;
+    public override string Icon { get; protected set; } = schema.Icon;
 
     public override AbnormalityType Type
     {
@@ -36,15 +36,7 @@ public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbno
     public override float MaxTimer { get; protected set; }
     public override bool IsInfinite { get; protected set; }
     public override int Level { get; protected set; }
-    public override bool IsBuildup { get; protected set; }
-
-    public MHRSongAbnormality(AbnormalityDefinition schema)
-    {
-        Id = schema.Id;
-        Name = schema.Name;
-        Icon = schema.Icon;
-        IsBuildup = schema.IsBuildup;
-    }
+    public override bool IsBuildup { get; protected set; } = schema.IsBuildup;
 
     void IUpdatable<MHRHHAbnormality>.Update(MHRHHAbnormality data)
     {

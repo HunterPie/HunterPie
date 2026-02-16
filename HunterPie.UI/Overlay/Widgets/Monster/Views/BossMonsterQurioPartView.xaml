@@ -3,96 +3,88 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             d:DataContext="{d:DesignData Type=vm:MonsterPartViewModel}"
+             xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             d:DataContext="{d:DesignInstance Type=vm:MonsterPartViewModel}"
              mc:Ignorable="d"
              d:DesignWidth="200">
     <UserControl.Resources>
         <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
+        <arithmetics:MultiplyNumberConverter x:Key="DivideEquallyConverter"
+                                             Factor="0.5"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="33*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" 
-                   Text="{Binding Breaks}"
-                   d:Text="3"
-                   Foreground="{StaticResource White@50}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontSize="14"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center">
-            <TextBlock.Effect>
-                <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
-            </TextBlock.Effect>
-        </TextBlock>
-        <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
-                   d:Text="Head"
-                   Foreground="{StaticResource White@50}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontSize="14"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Grid.Column="1">
-            <TextBlock.Effect>
-                <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
-            </TextBlock.Effect>
-        </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" 
-              Margin="30,15,0,0" 
-              Grid.ColumnSpan="2">
-            <overlay:Bar ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Part.Qurio.Background}"
-                         Height="7"
-                         VerticalAlignment="Top"
-                         Margin="4.5,0,5,0"
-                         Background="{StaticResource Gray@500}"
-                         MaxValue="{Binding QurioMaxHealth, Mode=OneWay}"
-                         Value="{Binding QurioHealth, Mode=OneWay}"
-                         d:Value="50"
-                         d:MaxValue="100"
-                         BorderThickness="0"
-                         RenderTransformOrigin="0.5,0.5"
-                         Foreground="{StaticResource Brushes.Widgets.Monster.Part.Qurio.Foreground}">
-                <overlay:Bar.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="45"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </overlay:Bar.RenderTransform>
-            </overlay:Bar>
+        <!-- Counter and Name -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <!-- Counter -->
+            <Grid Grid.Column="0"
+                  Margin="1">
+                <Rectangle Fill="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                           StrokeThickness="1"
+                           Stroke="{StaticResource Gray@50}"
+                           RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"
+                           RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"/>
 
-            <TextBlock Foreground="{StaticResource White@50}"
-                       FontSize="14"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Center"
-                       Margin="0,8,0,0">
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="Black"
-                                      BlurRadius="2"
-                                      ShadowDepth="0"/>
-                </TextBlock.Effect>
-                <Run Text="{Binding QurioHealth, StringFormat=\{0:F1\}}"
-                     d:Text="2000.0"/><!--
-             --><Run Text="/"
-                     Foreground="{StaticResource White@200}"
-                     FontWeight="Light"/><!--
-             --><Run Text="{Binding QurioMaxHealth, StringFormat=\{0:F1\}}"
-                     Foreground="{StaticResource White@200}"
-                     FontWeight="Light"
-                     d:Text="2000.0"/>
-            </TextBlock>
+                <TextBlock Text="{Binding Breaks, Mode=OneWay}"
+                           d:Text="1"
+                           MinWidth="10"
+                           TextAlignment="Center"
+                           Foreground="{StaticResource White@100}"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           Margin="2"/>
+            </Grid>
+            
+            <!-- Name -->
+            <TextBlock Grid.Column="1"
+                       d:Text="Head"
+                       Text="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterPartIdToNameConverter}}"
+                       VerticalAlignment="Center"         
+                       Foreground="{StaticResource White@50}"
+                       FontSize="13"
+                       Margin="5,0,0,0"/>
         </Grid>
+
+        <!-- Qurio -->
+        <progress:Gauge Grid.Row="1"
+                        Foreground="{StaticResource Brushes.Widgets.Monster.Part.Qurio.Foreground}"
+                        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                        BorderBrush="{StaticResource Gray@50}"
+                        BorderThickness="1"
+                        Markers="10"
+                        CornerRadius="4"
+                        Current="{Binding QurioHealth, Mode=OneWay}"
+                        Max="{Binding QurioMaxHealth, Mode=OneWay}"
+                        d:Current="30"
+                        d:Max="100"/>
+
+        <TextBlock Grid.Row="2" 
+                   Foreground="{StaticResource White@50}"
+                   FontSize="13"
+                   HorizontalAlignment="Center">
+            <Run Text="{Binding QurioHealth, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                 d:Text="2,000"/><!--
+         --><Run Text="/"
+                 Foreground="{StaticResource White@100}"
+                 FontWeight="Light"/><!--
+         --><Run Text="{Binding QurioMaxHealth, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                 Foreground="{StaticResource White@100}"
+                 d:Text="2,000"/>
+        </TextBlock>
     </Grid>
 </UserControl>

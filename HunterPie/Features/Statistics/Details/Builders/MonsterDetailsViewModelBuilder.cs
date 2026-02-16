@@ -15,20 +15,14 @@ using System.Windows.Media;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
 
-internal sealed class MonsterDetailsViewModelBuilder
+internal sealed class MonsterDetailsViewModelBuilder(
+    MonsterNameAdapter monsterNameAdapter,
+    ILocalizationRepository localizationRepository)
 {
     private static readonly Brush EnrageBrush = Resources.Get<Brush>("Brushes.Ailments.Enrage");
     private static readonly Brush HealthStepBrush = Resources.Get<Brush>("Brushes.HunterPie.Foreground.Primary");
-    private readonly MonsterNameAdapter _monsterNameAdapter;
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public MonsterDetailsViewModelBuilder(
-        MonsterNameAdapter monsterNameAdapter,
-        ILocalizationRepository localizationRepository)
-    {
-        _monsterNameAdapter = monsterNameAdapter;
-        _localizationRepository = localizationRepository;
-    }
+    private readonly MonsterNameAdapter _monsterNameAdapter = monsterNameAdapter;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public async Task<MonsterDetailsViewModel> Build(HuntStatisticsModel hunt, MonsterModel monster)
     {

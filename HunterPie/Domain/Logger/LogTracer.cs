@@ -7,10 +7,16 @@ internal class LogTracer : TraceListener
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    public override void Write(string message)
+    public override void Write(string? message)
     {
 
     }
 
-    public override void WriteLine(string message) => _logger.Error(message);
+    public override void WriteLine(string? message)
+    {
+        if (message is not { })
+            return;
+
+        _logger.Error(message);
+    }
 }

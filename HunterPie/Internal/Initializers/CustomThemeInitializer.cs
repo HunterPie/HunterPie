@@ -7,21 +7,14 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class CustomThemeInitializer : IInitializer
+internal class CustomThemeInitializer(
+    ThemeLoaderService themeLoaderService,
+    V5Config config,
+    MainView mainView) : IInitializer
 {
-    private readonly ThemeLoaderService _themeLoaderService;
-    private readonly V5Config _config;
-    private readonly MainView _mainView;
-
-    public CustomThemeInitializer(
-        ThemeLoaderService themeLoaderService,
-        V5Config config,
-        MainView mainView)
-    {
-        _themeLoaderService = themeLoaderService;
-        _config = config;
-        _mainView = mainView;
-    }
+    private readonly ThemeLoaderService _themeLoaderService = themeLoaderService;
+    private readonly V5Config _config = config;
+    private readonly MainView _mainView = mainView;
 
     public async Task Init()
     {

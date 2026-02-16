@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace HunterPie.Core.Observability.Logging;
 
@@ -12,7 +13,7 @@ public static class LoggerFactory
 {
     private static readonly List<LogMessage> Messages = new();
     private static readonly List<ILogWriter> Writers = new();
-    private static readonly object Lock = new();
+    private static readonly Lock Lock = new();
 
     public static void Add(ILogWriter writer)
     {
@@ -39,7 +40,7 @@ public static class LoggerFactory
             : tag;
 
         return new TaggeableLogger(
-            @lock: Lock,
+            synchronizer: Lock,
             messages: Messages,
             loggers: Writers,
             tag: tag

@@ -9,6 +9,6 @@ internal class PatchesModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<PatchesViewModel>();
+            .WithFactory<PatchesViewModel>();
     }
 }

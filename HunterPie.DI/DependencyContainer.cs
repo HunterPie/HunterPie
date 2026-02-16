@@ -2,7 +2,7 @@
 
 public static class DependencyContainer
 {
-    private static readonly object Lock = new();
+    private static readonly Lock Lock = new();
 
     private static IDependencyRegistry? _registry;
 
@@ -16,6 +16,9 @@ public static class DependencyContainer
 
     public static object Get(Type type)
     {
+        if (_registry is { })
+            return _registry.Get(type);
+
         lock (Lock)
             return _registry?.Get(type) ?? throw new NullReferenceException($"{nameof(DependencyContainer)} has not been initialized yet");
     }

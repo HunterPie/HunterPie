@@ -12,40 +12,23 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.ViewModels;
 
-internal class BackupsViewModel : ViewModel
+internal class BackupsViewModel(
+    PoogieBackupConnector backupConnector,
+    AccountConfig accountConfig,
+    BackupElementFactory elementFactory) : ViewModel
 {
-    private readonly PoogieBackupConnector _backupConnector;
-    private readonly AccountConfig _accountConfig;
-    private readonly BackupElementFactory _elementFactory;
+    private readonly PoogieBackupConnector _backupConnector = backupConnector;
+    private readonly AccountConfig _accountConfig = accountConfig;
+    private readonly BackupElementFactory _elementFactory = elementFactory;
 
     public ObservableCollection<BackupElementViewModel> Backups { get; } = new();
-
-    private int _count;
-    public int Count { get => _count; set => SetValue(ref _count, value); }
-
-    private int _maxCount;
-    public int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
-
-    private DateTime _lastSync;
-    public DateTime LastSync { get => _lastSync; set => SetValue(ref _lastSync, value); }
-
-    private bool _isFetching;
-    public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
-
-    private bool _hasBackups;
-    public bool HasBackups { get => _hasBackups; set => SetValue(ref _hasBackups, value); }
+    public int Count { get; set => SetValue(ref field, value); }
+    public int MaxCount { get; set => SetValue(ref field, value); }
+    public DateTime LastSync { get; set => SetValue(ref field, value); }
+    public bool IsFetching { get; set => SetValue(ref field, value); }
+    public bool HasBackups { get; set => SetValue(ref field, value); }
 
     public bool IsBackupEnabled => _accountConfig.IsBackupEnabled.Value;
-
-    public BackupsViewModel(
-        PoogieBackupConnector backupConnector,
-        AccountConfig accountConfig,
-        BackupElementFactory elementFactory)
-    {
-        _backupConnector = backupConnector;
-        _accountConfig = accountConfig;
-        _elementFactory = elementFactory;
-    }
 
     public async Task FetchBackupsAsync()
     {

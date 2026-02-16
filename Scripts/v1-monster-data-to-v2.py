@@ -175,7 +175,14 @@ def extract_parts(monster) -> List[OrderedDict]:
         if part.get("@TenderizeIds") is not None:
             data["@TenderizeIds"] = part["@TenderizeIds"]
 
+        thresholds = part["Break"] if "Break" in part else []
+        
+        if len(thresholds) > 0:
+            data["Break"] = thresholds
+
         parts["Part"].append(data)
+         
+        
         id += 1
 
     return parts

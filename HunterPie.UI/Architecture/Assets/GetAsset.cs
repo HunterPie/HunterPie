@@ -10,14 +10,9 @@ using System.Windows.Media;
 namespace HunterPie.UI.Architecture.Assets;
 
 [MarkupExtensionReturnType(typeof(ImageSource))]
-public class MonsterIcon : MarkupExtension
+public class MonsterIcon(string monsterEm) : MarkupExtension
 {
-    public string MonsterEm { get; set; }
-
-    public MonsterIcon(string monsterEm)
-    {
-        MonsterEm = monsterEm;
-    }
+    public string MonsterEm { get; set; } = monsterEm;
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
@@ -34,14 +29,9 @@ public class MonsterIcon : MarkupExtension
 
 [MarkupExtensionReturnType(typeof(string))]
 [Obsolete("Use Localization instead")]
-public class LocalizationString : MarkupExtension
+public class LocalizationString(string localizationId) : MarkupExtension
 {
-    public string LocalizationId { get; set; }
-
-    public LocalizationString(string localizationId)
-    {
-        LocalizationId = localizationId;
-    }
+    public string LocalizationId { get; set; } = localizationId;
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
@@ -54,14 +44,10 @@ public class LocalizationString : MarkupExtension
 }
 
 [MarkupExtensionReturnType(typeof(string))]
-public class LocalizationDescription : MarkupExtension
+[Obsolete("Use Localization instead")]
+public class LocalizationDescription(string localizationId) : MarkupExtension
 {
-    public string LocalizationId { get; set; }
-
-    public LocalizationDescription(string localizationId)
-    {
-        LocalizationId = localizationId;
-    }
+    public string LocalizationId { get; set; } = localizationId;
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {

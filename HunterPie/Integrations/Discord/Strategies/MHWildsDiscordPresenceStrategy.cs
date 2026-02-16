@@ -9,25 +9,17 @@ using System.Linq;
 
 namespace HunterPie.Integrations.Discord.Strategies;
 
-public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
+public class MHWildsDiscordPresenceStrategy(
+    DiscordRichPresence configuration,
+    ILocalizationRepository localizationRepository,
+    IContext context) : IDiscordRichPresenceStrategy
 {
     public string AppId => "1346929958949224518";
 
-    private readonly DiscordRichPresence _configuration;
-    private readonly ILocalizationRepository _localizationRepository;
-    private readonly IScopedLocalizationRepository _discordLocalizationRepository;
-    private readonly IContext _context;
-
-    public MHWildsDiscordPresenceStrategy(
-        DiscordRichPresence configuration,
-        ILocalizationRepository localizationRepository,
-        IContext context)
-    {
-        _configuration = configuration;
-        _localizationRepository = localizationRepository;
-        _discordLocalizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
-        _context = context;
-    }
+    private readonly DiscordRichPresence _configuration = configuration;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
+    private readonly IScopedLocalizationRepository _discordLocalizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+    private readonly IContext _context = context;
 
     public void Update(RichPresence presence)
     {

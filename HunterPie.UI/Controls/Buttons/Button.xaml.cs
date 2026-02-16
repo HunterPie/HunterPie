@@ -32,6 +32,17 @@ public partial class Button : ClickableControl
     public static new readonly DependencyProperty ForegroundProperty =
         DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
 
+    public Brush ForegroundHover
+    {
+        get => (Brush)GetValue(ForegroundHoverProperty);
+        set => SetValue(ForegroundHoverProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for ForegroundHover.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ForegroundHoverProperty =
+        DependencyProperty.Register(nameof(ForegroundHover), typeof(Brush), typeof(Button));
+
+
     public new Brush Background
     {
         get => (Brush)GetValue(BackgroundProperty);
@@ -41,6 +52,16 @@ public partial class Button : ClickableControl
     // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty BackgroundProperty =
         DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Button));
+
+    public Brush BackgroundHover
+    {
+        get => (Brush)GetValue(BackgroundHoverProperty);
+        set => SetValue(BackgroundHoverProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for BackgroundHover.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty BackgroundHoverProperty =
+        DependencyProperty.Register(nameof(BackgroundHover), typeof(Brush), typeof(Button));
 
     public new VerticalAlignment VerticalContentAlignment
     {

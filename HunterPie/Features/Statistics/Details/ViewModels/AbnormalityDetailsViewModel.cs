@@ -7,20 +7,11 @@ namespace HunterPie.Features.Statistics.Details.ViewModels;
 
 public class AbnormalityDetailsViewModel : ViewModel, ISectionControllable
 {
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
-    private string _icon;
-    public string Icon { get => _icon; set => SetValue(ref _icon, value); }
-
-    private double _upTime;
-    public double UpTime { get => _upTime; set => SetValue(ref _upTime, value); }
-
-    private bool _isToggled;
-    public bool IsToggled { get => _isToggled; set => SetValue(ref _isToggled, value); }
+    public string Name { get; set => SetValue(ref field, value); }
+    public string Icon { get; set => SetValue(ref field, value); }
+    public double UpTime { get; set => SetValue(ref field, value); }
+    public bool IsToggled { get; set => SetValue(ref field, value); }
 
     public List<AxisSection> Activations { get; init; } = new();
-
-    private Brush _color;
-    public Brush Color { get => _color; set => SetValue(ref _color, value); }
+    public Brush Color { get; set => SetValue(ref field, value); }
 }

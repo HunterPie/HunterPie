@@ -11,11 +11,14 @@ namespace HunterPie.Integrations.Poogie;
 /// <summary>
 /// HTTP client provider for requesting to HunterPie's backend
 /// </summary>
-internal class PoogieHttpProvider
+internal class PoogieHttpProvider(
+    ICredentialVault credentialVault,
+    ILocalRegistry localRegistry,
+    IFeatureFlagRepository featureFlagRepository)
 {
-    private readonly ICredentialVault _credentialVault;
-    private readonly ILocalRegistry _localRegistry;
-    private readonly IFeatureFlagRepository _featureFlagRepository;
+    private readonly ICredentialVault _credentialVault = credentialVault;
+    private readonly ILocalRegistry _localRegistry = localRegistry;
+    private readonly IFeatureFlagRepository _featureFlagRepository = featureFlagRepository;
 
     /// <summary>
     /// The Id of this HunterPie installation, it is sent in every request so it's easier to debug exceptions
@@ -63,16 +66,6 @@ internal class PoogieHttpProvider
     private static readonly Guid SessionId = Guid.NewGuid();
 
     private static readonly string[] Hosts = { "https://api.hunterpie.com", "https://mirror.hunterpie.com/mirror" };
-
-    public PoogieHttpProvider(
-        ICredentialVault credentialVault,
-        ILocalRegistry localRegistry,
-        IFeatureFlagRepository featureFlagRepository)
-    {
-        _credentialVault = credentialVault;
-        _localRegistry = localRegistry;
-        _featureFlagRepository = featureFlagRepository;
-    }
 
     /// <summary>
     /// Builds the default HttpClient with default parameters for sending requests to HunterPie's backend

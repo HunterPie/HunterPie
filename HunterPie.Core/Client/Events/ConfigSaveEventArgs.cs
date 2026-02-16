@@ -2,15 +2,9 @@
 
 namespace HunterPie.Core.Client.Events;
 
-public class ConfigSaveEventArgs : EventArgs
+public class ConfigSaveEventArgs(string path) : EventArgs
 {
 
-    public DateTime SyncedAt { get; }
-    public string Path { get; }
-
-    public ConfigSaveEventArgs(string path)
-    {
-        Path = path;
-        SyncedAt = DateTime.Now;
-    }
+    public DateTime SyncedAt { get; } = DateTime.Now;
+    public string Path { get; } = path;
 }

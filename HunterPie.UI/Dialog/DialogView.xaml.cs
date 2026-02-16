@@ -12,19 +12,15 @@ namespace HunterPie.UI.Dialog;
 /// </summary>
 public partial class DialogView : Window, INativeDialog, INotifyPropertyChanged
 {
-    private NativeDialogButtons _buttons;
-
-    private string _description = "This is a default dialog text";
-    private string _dialogTitle;
     public new NativeDialogResult DialogResult { get; private set; }
     public NativeDialogButtons Buttons
     {
-        get => _buttons;
+        get;
         set
         {
-            if (value != _buttons)
+            if (value != field)
             {
-                _buttons = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }
@@ -32,12 +28,12 @@ public partial class DialogView : Window, INativeDialog, INotifyPropertyChanged
 
     public string DialogTitle
     {
-        get => _dialogTitle;
+        get;
         set
         {
-            if (value != _dialogTitle)
+            if (value != field)
             {
-                _dialogTitle = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }
@@ -45,16 +41,16 @@ public partial class DialogView : Window, INativeDialog, INotifyPropertyChanged
 
     public string Description
     {
-        get => _description;
+        get;
         set
         {
-            if (value != _description)
+            if (value != field)
             {
-                _description = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }
-    }
+    } = "This is a default dialog text";
 
     public DialogView()
     {

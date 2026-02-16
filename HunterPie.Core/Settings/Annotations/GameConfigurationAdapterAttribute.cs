@@ -4,12 +4,7 @@ using System;
 namespace HunterPie.Core.Settings.Annotations;
 
 [AttributeUsage(AttributeTargets.Property)]
-public class GameConfigurationAdapterAttribute : Attribute
+public class GameConfigurationAdapterAttribute(Type adapterType) : Attribute
 {
-    public ISettingAdapter Adapter { get; init; }
-
-    public GameConfigurationAdapterAttribute(Type adapterType)
-    {
-        Adapter = (ISettingAdapter)Activator.CreateInstance(adapterType);
-    }
+    public ISettingAdapter Adapter { get; init; } = (ISettingAdapter)Activator.CreateInstance(adapterType);
 }

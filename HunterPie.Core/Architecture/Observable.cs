@@ -6,13 +6,11 @@ namespace HunterPie.Core.Architecture;
 [JsonConverter(typeof(ObservableConverter))]
 public class Observable<T> : Bindable
 {
-    private T _value;
-
     [JsonProperty]
     public T Value
     {
-        get => _value;
-        set => SetValue(ref _value, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     [JsonConstructor]

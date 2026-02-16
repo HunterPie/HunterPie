@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
-internal class ConsoleSideBarViewModel : ViewModel, ISideBarViewModel
+internal class ConsoleSideBarViewModel(
+    IBodyNavigator bodyNavigator,
+    ConsoleViewModel consoleViewModel) : ViewModel, ISideBarViewModel
 {
-    private readonly IBodyNavigator _bodyNavigator;
-    private readonly ConsoleViewModel _consoleViewModel;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
+    private readonly ConsoleViewModel _consoleViewModel = consoleViewModel;
 
     public Type Type => typeof(ConsoleViewModel);
 
@@ -19,16 +21,7 @@ internal class ConsoleSideBarViewModel : ViewModel, ISideBarViewModel
 
     public bool IsAvailable => true;
 
-    private bool _isSelected;
-    public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
-
-    public ConsoleSideBarViewModel(
-        IBodyNavigator bodyNavigator,
-        ConsoleViewModel consoleViewModel)
-    {
-        _bodyNavigator = bodyNavigator;
-        _consoleViewModel = consoleViewModel;
-    }
+    public bool IsSelected { get; set => SetValue(ref field, value); }
 
     public Task ExecuteAsync()
     {

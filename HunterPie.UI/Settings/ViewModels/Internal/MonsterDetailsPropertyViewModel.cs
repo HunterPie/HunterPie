@@ -9,7 +9,9 @@ using HunterPie.UI.Navigation;
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class MonsterDetailsPropertyViewModel : ConfigurationPropertyViewModel
+public class MonsterDetailsPropertyViewModel(
+    IBodyNavigator bodyNavigator
+) : ConfigurationPropertyViewModel
 {
     public required ObservableHashSet<MonsterConfiguration> Configurations { get; init; }
     public required GameProcessType Game { get; init; }
@@ -31,9 +33,10 @@ public class MonsterDetailsPropertyViewModel : ConfigurationPropertyViewModel
         var vm = new MonsterConfigurationsViewModel(
             globalConfiguration: globalConfigurationViewModel,
             configuration: configuration.BossesWidget.Details,
-            elements: monsterViewModels
+            elements: monsterViewModels,
+            bodyNavigator: bodyNavigator
         );
 
-        Navigator.Body.Navigate(vm);
+        bodyNavigator.Navigate(vm);
     }
 }

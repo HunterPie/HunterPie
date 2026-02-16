@@ -5,9 +5,8 @@
                 xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel"
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                 xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View"
-                xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
-                xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
                 xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
                 mc:Ignorable="d"
                 d:DesignHeight="450" 
                 d:DesignWidth="800"
@@ -17,82 +16,56 @@
                 Style="{DynamicResource Widgets.AbnormalityTray}"
                 d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
     <UserControl.Resources>
-        <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
-        <converter:OrientationConverter x:Key="OrientationConverter"/>
-        <converter:SecondsToTimeString x:Key="SecondsToTimeString"/>
-        <converter:RatioConverter x:Key="RatioConverter"/>
+        <DataTemplate x:Key="CompactAbnormalityView">
+            <local:CompactAbnormalityView Width="35"
+                                          Margin="1"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DetailedAbnormalityView">
+            <local:DetailedAbnormalityView Height="35"
+                                           Margin="1"
+                                           MaxWidth="200"/>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel ItemHeight="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                               Orientation="{Binding Config.Orientation.Value, Mode=OneWay, Converter={StaticResource OrientationConverter}}">
-                        <WrapPanel.Style>
-                            <Style TargetType="WrapPanel">
+                    <UniformGrid>
+                        <UniformGrid.Style>
+                            <Style TargetType="UniformGrid">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Horizontal">
-                                        <Setter Property="MaxWidth" Value="{Binding Config.MaxSize.Current, Mode=OneWay}"/>
+                                    <DataTrigger Binding="{Binding Config.Orientation.Value, Mode=OneWay}"
+                                                 Value="{x:Static enums:Orientation.Vertical}">
+                                        <Setter Property="Rows" Value="{Binding Config.Rows.Current, Mode=OneWay}"/>
+                                        <Setter Property="Columns" Value="0"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Vertical">
-                                        <Setter Property="MaxHeight" Value="{Binding Config.MaxSize.Current, Mode=OneWay}"/>
+                                    <DataTrigger Binding="{Binding Config.Orientation.Value, Mode=OneWay}"
+                                                 Value="{x:Static enums:Orientation.Horizontal}">
+                                        <Setter Property="Rows" Value="0"/>
+                                        <Setter Property="Columns" Value="{Binding Config.Columns.Current, Mode=OneWay}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </WrapPanel.Style>
-                    </WrapPanel>
+                        </UniformGrid.Style>
+                    </UniformGrid>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:AbnormalityViewModel}">
-                    <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
-                        <controls:Abnormality Margin="5,2,5,2"
-                                             Width="30"
-                                             Height="30"/>
-                        <TextBlock Foreground="{DynamicResource White@100}"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Color="Black"
-                                                  BlurRadius="4" 
-                                                  ShadowDepth="0"/>
-                            </TextBlock.Effect>
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsBuildup, Mode=OneWay}" Value="False">
-                                            <DataTrigger.Setters>
-                                                <Setter Property="Text" 
-                                                        Value="{Binding Timer, Converter={StaticResource SecondsToTimeString}, Mode=OneWay}"/>
-                                            </DataTrigger.Setters>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsBuildup, Mode=OneWay}" Value="True">
-                                            <DataTrigger.Setters>
-                                                <Setter Property="Text">
-                                                    <Setter.Value>
-                                                        <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
-                                                            <Binding Path="Timer" 
-                                                                     Mode="OneWay"/>
-                                                            <Binding Path="MaxTimer" 
-                                                                     Mode="OneWay"/>
-                                                        </MultiBinding>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger.Setters>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsInfinite, Mode=OneWay}" Value="True">
-                                            <DataTrigger.Setters>
-                                                <Setter Property="Text" Value="∞"/>
-                                            </DataTrigger.Setters>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                    
+                <DataTemplate>
+                    <ContentControl Content="{Binding }">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DetailedAbnormalityView}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.Config.IsCompactModeEnabled.Value, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:AbnormalityBarView}}}"
+                                                 Value="True">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource CompactAbnormalityView}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

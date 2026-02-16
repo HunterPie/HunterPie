@@ -24,6 +24,9 @@ Address LOCAL_PLAYER_DATA_ADDRESS 0x0F6EEA18
 Address SERVANTS_DATA_ADDRESS 0x0F627E78
 Address QUEST_GUI_ADDRESS 0x0F6E9468
 Address STAGE_MANAGER_ADDRESS 0x0F6E4F38
+Address Game::PlayerManager 0x0F6EEA18
+Address Game::CameraManager 0x0F6FD040
+
 # Static Data
 Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0F6F46F8
 
@@ -49,6 +52,7 @@ Offset WEAPON_OFFSETS 0x0
 Offset SAVE_OFFSETS 0xC0,0x18
 Offset MONSTER_AILMENTS_OFFSETS 0x378,0x120
 Offset MONSTER_CROWN_OFFSETS 0x308
+Offset Monster::Position 0x350
 Offset MONSTER_ENRAGE_OFFSETS 0x318
 Offset MONSTER_STAMINA_OFFSETS 0x320
 Offset HH_ABNORMALITIES_OFFSETS 0xE0,0x208,0x0
@@ -95,6 +99,8 @@ Offset QUEST_AUTOMATIC_TARGET 0x28,0x28,0x60
 Offset WORLD_TIME_OFFSETS 0xA8,0x10
 # Session
 Offset SESSION_PLAYERS_ARRAY_OFFSETS 0x58,0x0
+Offset Player::Local 0xE0
+Offset Player::Status 0x120
 
 # Chat
 Offset CHAT_OFFSETS 0x60,0x10
@@ -104,6 +110,9 @@ Offset CHAT_UI_OFFSETS 0x2E8,0x68,0x138,0x20
 Offset BUDDY_NAME_OFFSETS 0x20,0x18
 Offset BUDDY_LEVEL_OFFSETS 0x20
 Offset MEOWMASTERS_OFFSETS 0x0
+
+# Camera data
+Offset Camera::Player::Position 0x130,0x340
 
 # CRC Credits to REFramework: https://github.com/praydog/REFramework/blob/master/src/mods/IntegrityCheckBypass.cpp
 Address CRC_FUNC_1 0x01BA7570

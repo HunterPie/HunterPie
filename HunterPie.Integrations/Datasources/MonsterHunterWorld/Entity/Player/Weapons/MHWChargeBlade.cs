@@ -13,65 +13,62 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
+public class MHWChargeBlade(
+    IGameProcess process,
+    ISkillService skillService,
+    IScanService scanService
+    ) : MHWMeleeWeapon(process, scanService, skillService, Weapon.ChargeBlade), IChargeBlade
 {
-    private readonly ISkillService _skillService;
-    private float _shieldBuff;
-    private float _swordBuff;
-    private float _axeBuff;
-    private float _chargeBuildUp;
-    private PhialChargeLevel _charge;
-    private int _phials;
-    private int _maxPhials;
+    private readonly ISkillService _skillService = skillService;
 
     public float ShieldBuff
     {
-        get => _shieldBuff;
+        get;
         private set
         {
-            if (value == _shieldBuff)
+            if (value == field)
                 return;
 
-            _shieldBuff = value;
+            field = value;
             this.Dispatch(_onShieldBuffTimerChange, new ChargeBladeBuffTimerChangeEventArgs(value));
         }
     }
 
     public float SwordBuff
     {
-        get => _swordBuff;
+        get;
         private set
         {
-            if (value == _swordBuff)
+            if (value == field)
                 return;
 
-            _swordBuff = value;
+            field = value;
             this.Dispatch(_onSwordBuffTimerChange, new ChargeBladeBuffTimerChangeEventArgs(value));
         }
     }
 
     public float AxeBuff
     {
-        get => _axeBuff;
+        get;
         private set
         {
-            if (value == _axeBuff)
+            if (value == field)
                 return;
 
-            _axeBuff = value;
+            field = value;
             this.Dispatch(_onAxeBuffTimerChange, new ChargeBladeBuffTimerChangeEventArgs(value));
         }
     }
 
     public float ChargeBuildUp
     {
-        get => _chargeBuildUp;
+        get;
         private set
         {
-            if (value == _chargeBuildUp)
+            if (value == field)
                 return;
 
-            _chargeBuildUp = value;
+            field = value;
             this.Dispatch(_onChargeBuildUpChange, new ChargeBladeBuildUpChangeEventArgs(value, MaxChargeBuildUp));
         }
     }
@@ -80,39 +77,39 @@ public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
 
     public PhialChargeLevel Charge
     {
-        get => _charge;
+        get;
         private set
         {
-            if (value == _charge)
+            if (value == field)
                 return;
 
-            _charge = value;
+            field = value;
             this.Dispatch(_onPhialsChange, new ChargeBladePhialChangeEventArgs(this));
         }
     }
 
     public int Phials
     {
-        get => _phials;
+        get;
         private set
         {
-            if (value == _phials)
+            if (value == field)
                 return;
 
-            _phials = value;
+            field = value;
             this.Dispatch(_onPhialsChange, new ChargeBladePhialChangeEventArgs(this));
         }
     }
 
     public int MaxPhials
     {
-        get => _maxPhials;
+        get;
         private set
         {
-            if (value == _maxPhials)
+            if (value == field)
                 return;
 
-            _maxPhials = value;
+            field = value;
             this.Dispatch(_onPhialsChange, new ChargeBladePhialChangeEventArgs(this));
         }
     }
@@ -150,15 +147,6 @@ public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
     {
         add => _onPhialsChange.Hook(value);
         remove => _onPhialsChange.Unhook(value);
-    }
-
-    public MHWChargeBlade(
-        IGameProcess process,
-        ISkillService skillService,
-        IScanService scanService
-    ) : base(process, scanService, skillService, Weapon.ChargeBlade)
-    {
-        _skillService = skillService;
     }
 
     [ScannableMethod]

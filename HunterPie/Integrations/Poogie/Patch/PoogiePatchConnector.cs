@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Patch;
 
-internal class PoogiePatchConnector
+internal class PoogiePatchConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string PATCH_ENDPOINT = "/v1/patch/notes";
-
-    public PoogiePatchConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<PatchResponse[]>> FindAll() =>
         await _client.GetAsync<PatchResponse[]>(PATCH_ENDPOINT);

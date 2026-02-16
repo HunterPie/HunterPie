@@ -10,17 +10,12 @@ using NativeCredential = HunterPie.Platforms.Windows.Api.Adv.AdvApi32.Credential
 
 namespace HunterPie.Platforms.Windows.Vault;
 
-internal class WindowsCredentialVault : ICredentialVault
+internal class WindowsCredentialVault(ICryptoService cryptoService) : ICredentialVault
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private const string OWNER_NAME = "HunterPie";
-    private readonly ICryptoService _cryptoService;
-
-    public WindowsCredentialVault(ICryptoService cryptoService)
-    {
-        _cryptoService = cryptoService;
-    }
+    private readonly ICryptoService _cryptoService = cryptoService;
 
     public void Create(string username, string password)
     {

@@ -69,6 +69,22 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> ShouldShowDamage { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_STATUS", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsStatusEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_AFFINITY", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsAffinityEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_RAW_DAMAGE", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsRawDamageEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_ELEMENTAL_DAMAGE", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsElementalDamageEnabled { get; set; } = true;
     #endregion
 
     #region Plotting
@@ -83,15 +99,15 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]
     public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
 
-    [ConfigurationProperty("DAMAGE_METER_SAMPLING_RATE", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SAMPLING_RATE", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     [ConfigurationConditional(name: nameof(DamagePlotStrategy), withValue: Enums.DamagePlotStrategy.MovingAverageDamagePerSecond)]
     public Range PlotSamplingInSeconds { get; set; } = new Range(10.0, 60.0, 1.0, 1.0);
 
-    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_DISCARD_OLD_PLOTS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_DISCARD_OLD_PLOTS", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]
     public Observable<bool> IsOldPlotDiscardingEnabled { get; set; } = false;
 
-    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_SECONDS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_SECONDS", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     [ConfigurationConditional(name: nameof(IsOldPlotDiscardingEnabled), withValue: true)]
     public Range PlotSlidingWindowInSeconds { get; set; } = new Range(10.0, 120, 5.0, 1.0);
 

@@ -10,53 +10,43 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountVerificationResendFlowViewModel : ViewModel
+internal class AccountVerificationResendFlowViewModel(
+    PoogieAccountConnector accountConnector,
+    ILocalizationRepository localizationRepository) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector;
-
-    private bool _isRequestingVerification;
-    private bool _canRequestVerification;
-    private bool _isFlowActive;
-    private string _email = string.Empty;
-
     public bool IsRequestingVerification
     {
-        get => _isRequestingVerification;
-        set => SetValue(ref _isRequestingVerification, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool CanRequestVerification
     {
-        get => _canRequestVerification;
-        set => SetValue(ref _canRequestVerification, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool IsFlowActive
     {
-        get => _isFlowActive;
-        set => SetValue(ref _isFlowActive, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public string Email
     {
-        get => _email;
+        get;
         set
         {
-            CanRequestVerification = _email.Length > 0;
-            SetValue(ref _email, value);
+            CanRequestVerification = field.Length > 0;
+            SetValue(ref field, value);
         }
-    }
-
-    public AccountVerificationResendFlowViewModel(PoogieAccountConnector accountConnector)
-    {
-        _accountConnector = accountConnector;
-    }
+    } = string.Empty;
 
     public async Task RequestAccountVerification()
     {
         IsRequestingVerification = true;
 
-        PoogieResult<RequestAccountVerificationResponse> response = await _accountConnector.RequestAccountVerificationAsync(
+        PoogieResult<RequestAccountVerificationResponse> response = await accountConnector.RequestAccountVerificationAsync(
             new RequestAccountVerifyRequest(Email: Email)
         );
 
@@ -67,7 +57,7 @@ internal class AccountVerificationResendFlowViewModel : ViewModel
             var options = new NotificationOptions(
                 Type: NotificationType.Error,
                 Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
+                Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
             await NotificationService.Show(options);
@@ -78,7 +68,7 @@ internal class AccountVerificationResendFlowViewModel : ViewModel
         var successOptions = new NotificationOptions(
             Type: NotificationType.Success,
             Title: "Success",
-            Description: Localization.QueryString(
+            Description: localizationRepository.FindStringBy(
                 "//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']"
             ).Replace("{Email}", Email),
             DisplayTime: TimeSpan.FromSeconds(10)

@@ -3,18 +3,10 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Header.ViewModels;
 
-internal class HeaderViewModel : ViewModel
+internal class HeaderViewModel(AccountMenuViewModel accountMenuViewModel) : ViewModel
 {
-    private string _version = $"v{ClientInfo.Version}";
-    public string Version { get => _version; set => SetValue(ref _version, value); }
+    public string Version { get; set => SetValue(ref field, value); } = $"v{ClientInfo.Version}";
+    public bool IsAdmin { get; set => SetValue(ref field, value); } = ClientInfo.IsAdmin;
 
-    private bool _isAdmin = ClientInfo.IsAdmin;
-    public bool IsAdmin { get => _isAdmin; set => SetValue(ref _isAdmin, value); }
-
-    public AccountMenuViewModel AccountMenuViewModel { get; }
-
-    public HeaderViewModel(AccountMenuViewModel accountMenuViewModel)
-    {
-        AccountMenuViewModel = accountMenuViewModel;
-    }
+    public AccountMenuViewModel AccountMenuViewModel { get; } = accountMenuViewModel;
 }

@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common;
 
-internal class PoogieConnector : IPoogieClientAsync
+internal class PoogieConnector(PoogieHttpProvider poogieHttpProvider) : IPoogieClientAsync
 {
-    private readonly PoogieHttpProvider _poogieHttpProvider;
-
-    public PoogieConnector(PoogieHttpProvider poogieHttpProvider)
-    {
-        _poogieHttpProvider = poogieHttpProvider;
-    }
+    private readonly PoogieHttpProvider _poogieHttpProvider = poogieHttpProvider;
 
     public async Task<PoogieResult<T>> GetAsync<T>(string path, Dictionary<string, object>? query = null)
     {

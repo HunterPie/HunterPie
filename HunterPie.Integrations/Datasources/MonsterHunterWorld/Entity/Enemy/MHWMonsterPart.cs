@@ -12,26 +12,29 @@ public sealed class MHWMonsterPart :
     IUpdatable<MHWMonsterPartStructure>,
     IUpdatable<MHWTenderizeInfoStructure>
 {
-    private float _flinch;
-    private float _sever;
-    private float _tenderize;
-    private int _count;
+    private MonsterPartDefinition _definition;
+
     private readonly HashSet<uint> _tenderizeIds;
 
     public override string Id { get; protected set; }
 
+    private float _health;
     public override float Health
     {
-        get => 0;
-        protected set => throw new NotSupportedException();
+        get => _health;
+        protected set
+        {
+            if (value == _health)
+                return;
+
+            _health = value;
+            this.Dispatch(_onHealthUpdate, this);
+        }
     }
 
-    public override float MaxHealth
-    {
-        get => 0;
-        protected set => throw new NotSupportedException();
-    }
+    public override float MaxHealth { get; protected set; }
 
+    private float _flinch;
     public override float Flinch
     {
         get => _flinch;
@@ -47,6 +50,7 @@ public sealed class MHWMonsterPart :
 
     public override float MaxFlinch { get; protected set; }
 
+    private float _sever;
     public override float Sever
     {
         get => _sever;
@@ -62,6 +66,7 @@ public sealed class MHWMonsterPart :
 
     public override float MaxSever { get; protected set; }
 
+    private float _tenderize;
     public override float Tenderize
     {
         get => _tenderize;
@@ -77,6 +82,7 @@ public sealed class MHWMonsterPart :
 
     public override float MaxTenderize { get; protected set; }
 
+    private int _count;
     public override int Count
     {
         get => _count;
@@ -95,9 +101,15 @@ public sealed class MHWMonsterPart :
         MonsterPartDefinition definition
     ) : base(definition)
     {
+        _definition = definition;
         Id = definition.String;
 
-        Type = definition.IsSeverable ? PartType.Severable : PartType.Flinch;
+        Type = definition switch
+        {
+            { IsSeverable: true } => PartType.Severable,
+            { BreakThresholds.Count: > 0 } => PartType.Breakable,
+            _ => PartType.Flinch
+        };
         _tenderizeIds = definition.TenderizeIds.ToHashSet();
     }
 
@@ -105,35 +117,63 @@ public sealed class MHWMonsterPart :
 
     public void Update(MHWMonsterPartStructure data)
     {
-        switch (Type)
-        {
-            case PartType.Severable:
-                {
-                    MaxSever = data.MaxHealth;
-                    Sever = data.Health;
-                }
-
-                break;
-            case PartType.Flinch:
-                {
-                    MaxFlinch = data.MaxHealth;
-                    Flinch = data.Health;
-                }
-
-                break;
-            case PartType.Invalid:
-            case PartType.Breakable:
-            case PartType.Qurio:
-            default:
-                break;
-        }
-
         Count = data.Counter;
+
+        Action<MHWMonsterPartStructure> executor = Type switch
+        {
+            PartType.Severable => UpdateSeverableData,
+            PartType.Flinch => UpdateFlinchData,
+            PartType.Breakable => UpdateBreakableData,
+            _ => static (_) => { }
+        };
+
+        executor(data);
     }
 
     public void Update(MHWTenderizeInfoStructure data)
     {
         Tenderize = data.Duration;
         MaxTenderize = data.MaxDuration;
+    }
+
+    private void UpdateSeverableData(MHWMonsterPartStructure data)
+    {
+        MaxSever = data.MaxHealth;
+        Sever = data.Health;
+    }
+
+    private void UpdateFlinchData(MHWMonsterPartStructure data)
+    {
+        MaxFlinch = data.MaxHealth;
+        Flinch = data.Health;
+    }
+
+    private void UpdateBreakableData(MHWMonsterPartStructure data)
+    {
+        int? nextThreshold = GetNextThreshold();
+
+        MaxFlinch = data.MaxHealth;
+        Flinch = data.Health;
+
+        if (nextThreshold is int threshold)
+        {
+            MaxHealth = threshold * data.MaxHealth;
+            Health = (Math.Max(0, threshold - Count - 1) * data.MaxHealth) + data.Health;
+            return;
+        }
+
+        MaxHealth = data.MaxHealth;
+        Health = data.MaxHealth;
+    }
+
+    private int? GetNextThreshold()
+    {
+        foreach (int threshold in _definition.BreakThresholds)
+        {
+            if (threshold > Count)
+                return threshold;
+        }
+
+        return null;
     }
 }

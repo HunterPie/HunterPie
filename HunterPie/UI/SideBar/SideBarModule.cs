@@ -19,7 +19,7 @@ internal class SideBarModule : IDependencyModule
             .WithSingle<QuestStatisticsSideBarViewModel>()
             .WithSingle<SettingsSideBarViewModel>()
             .WithSingle<ThemeSideBarViewModel>()
-            .WithSingle(() => SideBarProvider.Get(registry))
+            .WithSingle(static (r) => SideBarProvider.Get(r))
             .WithSingle<SideBarViewModel>();
     }
 }

@@ -23,43 +23,31 @@ using System.Windows.Threading;
 
 namespace HunterPie.Features.Game.Service;
 
-internal class GameContextController : IDisposable
+internal class GameContextController(
+    Dispatcher uiDispatcher,
+    IProcessWatcherService processWatcherService,
+    IGameContextService gameContextService,
+    IBackupService backupService,
+    IControllableScanService controllableScanService,
+    DiscordPresenceFactory discordPresenceFactory,
+    OverlayManager overlayManager,
+    WidgetInitializers widgetInitializers) : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private bool _isDisposed;
     private Context? _context;
-    private readonly Dispatcher _uiDispatcher;
-    private readonly IProcessWatcherService _processWatcherService;
-    private readonly IGameContextService _gameContextService;
-    private readonly IBackupService _backupService;
-    private readonly IControllableScanService _controllableScanService;
-    private readonly DiscordPresenceFactory _discordPresenceFactory;
-    private readonly OverlayManager _overlayManager;
-    private readonly WidgetInitializers _widgetInitializers;
+    private readonly Dispatcher _uiDispatcher = uiDispatcher;
+    private readonly IProcessWatcherService _processWatcherService = processWatcherService;
+    private readonly IGameContextService _gameContextService = gameContextService;
+    private readonly IBackupService _backupService = backupService;
+    private readonly IControllableScanService _controllableScanService = controllableScanService;
+    private readonly DiscordPresenceFactory _discordPresenceFactory = discordPresenceFactory;
+    private readonly OverlayManager _overlayManager = overlayManager;
+    private readonly WidgetInitializers _widgetInitializers = widgetInitializers;
 
     private CancellationTokenSource? _cancellationTokenSource;
     private DiscordPresenceService? _discordPresenceService;
-
-    public GameContextController(
-        Dispatcher uiDispatcher,
-        IProcessWatcherService processWatcherService,
-        IGameContextService gameContextService,
-        IBackupService backupService,
-        IControllableScanService controllableScanService,
-        DiscordPresenceFactory discordPresenceFactory,
-        OverlayManager overlayManager,
-        WidgetInitializers widgetInitializers)
-    {
-        _uiDispatcher = uiDispatcher;
-        _processWatcherService = processWatcherService;
-        _gameContextService = gameContextService;
-        _backupService = backupService;
-        _controllableScanService = controllableScanService;
-        _discordPresenceFactory = discordPresenceFactory;
-        _overlayManager = overlayManager;
-        _widgetInitializers = widgetInitializers;
-    }
 
     public void Subscribe()
     {

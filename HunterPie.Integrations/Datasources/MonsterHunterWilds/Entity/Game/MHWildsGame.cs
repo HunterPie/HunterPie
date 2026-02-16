@@ -88,17 +88,16 @@ public sealed class MHWildsGame : CommonGame
     private MHWildsQuest? _quest;
     public override IQuest? Quest => _quest;
 
-    private MoonPhase _moon;
     public MoonPhase Moon
     {
-        get => _moon;
+        get;
         private set
         {
-            if (value == _moon)
+            if (value == field)
                 return;
 
-            MoonPhase lastPhase = _moon;
-            _moon = value;
+            MoonPhase lastPhase = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _moonChanged,

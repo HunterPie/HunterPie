@@ -2,12 +2,7 @@
 
 namespace HunterPie.Core.Game.Events;
 
-public class ChargeBladeBuffTimerChangeEventArgs : EventArgs
+public class ChargeBladeBuffTimerChangeEventArgs(float timer) : EventArgs
 {
-    public float Timer { get; }
-
-    public ChargeBladeBuffTimerChangeEventArgs(float timer)
-    {
-        Timer = timer;
-    }
+    public float Timer { get; } = timer;
 }

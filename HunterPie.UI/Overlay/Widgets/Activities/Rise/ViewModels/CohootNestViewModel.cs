@@ -5,8 +5,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
 public class CohootNestViewModel : ViewModel
 {
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
+    public string Name { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<CohootItemViewModel> Items { get; } = new();
 

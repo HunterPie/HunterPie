@@ -8,19 +8,13 @@ using System.Windows.Interop;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class HotkeyInitializer : IInitializer, IDisposable
+internal class HotkeyInitializer(
+    MainView mainView,
+    HotkeyService hotkeyService) : IInitializer, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly MainView _mainView;
-    private readonly HotkeyService _hotkeyService;
-
-    public HotkeyInitializer(
-        MainView mainView,
-        HotkeyService hotkeyService)
-    {
-        _mainView = mainView;
-        _hotkeyService = hotkeyService;
-    }
+    private readonly MainView _mainView = mainView;
+    private readonly HotkeyService _hotkeyService = hotkeyService;
 
     public Task Init()
     {

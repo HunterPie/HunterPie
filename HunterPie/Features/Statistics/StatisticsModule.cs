@@ -12,7 +12,7 @@ internal class StatisticsModule : IDependencyModule
     {
         registry
             .WithSingle<QuestTrackerService>()
-            .WithService<QuestStatisticsSummariesViewModel>()
+            .WithFactory<QuestStatisticsSummariesViewModel>()
             .WithSingle<QuestDetailsViewModelBuilder>()
             .WithSingle<MonsterDetailsViewModelBuilder>();
     }

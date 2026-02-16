@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Enums;
 using System;
 
 namespace HunterPie.Core.Game.Entity.Party;
@@ -13,6 +14,7 @@ public interface IPartyMember
     public int Slot { get; }
     public bool IsMyself { get; }
     public MemberType Type { get; }
+    public IPlayerStatus? Status { get; }
 
     public event EventHandler<IPartyMember> OnDamageDealt;
     public event EventHandler<IPartyMember> OnWeaponChange;

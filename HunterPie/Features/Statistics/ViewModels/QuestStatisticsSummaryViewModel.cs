@@ -14,47 +14,31 @@ namespace HunterPie.Features.Statistics.ViewModels;
 public class QuestStatisticsSummaryViewModel : ViewModel
 {
     public string? UploadId { get; }
-
-    private string? _questName;
-    public string? QuestName { get => _questName; set => SetValue(ref _questName, value); }
-
-    private QuestLevel? _questLevel;
-    public QuestLevel? QuestLevel { get => _questLevel; set => SetValue(ref _questLevel, value); }
-
-    private int? _stars;
-    public int? Stars { get => _stars; set => SetValue(ref _stars, value); }
-
-    private string? _questType;
-    public string? QuestType { get => _questType; set => SetValue(ref _questType, value); }
-
-    private int _deaths;
-    public int Deaths { get => _deaths; set => SetValue(ref _deaths, value); }
-
-    private int _maxDeaths;
-    public int MaxDeaths { get => _maxDeaths; set => SetValue(ref _maxDeaths, value); }
-
-    private TimeSpan? _questTime;
-    public TimeSpan? QuestTime { get => _questTime; set => SetValue(ref _questTime, value); }
-
-    private GameType _gameType;
+    public string? QuestName { get; set => SetValue(ref field, value); }
+    public QuestLevel? QuestLevel { get; set => SetValue(ref field, value); }
+    public int? Stars { get; set => SetValue(ref field, value); }
+    public string? QuestType { get; set => SetValue(ref field, value); }
+    public int Deaths { get; set => SetValue(ref field, value); }
+    public int MaxDeaths { get; set => SetValue(ref field, value); }
+    public TimeSpan? QuestTime { get; set => SetValue(ref field, value); }
     public GameType GameType
     {
-        get => _gameType;
-        set => SetValue(ref _gameType, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private DateTime _uploadedAt;
     public DateTime UploadedAt
     {
-        get => _uploadedAt;
-        set => SetValue(ref _uploadedAt, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public ObservableCollectionRange<MonsterSummaryViewModel> Monsters { get; } = new();
 
     public QuestStatisticsSummaryViewModel() { }
 
-    internal QuestStatisticsSummaryViewModel(PoogieQuestSummaryModel model)
+    internal QuestStatisticsSummaryViewModel(
+        PoogieQuestSummaryModel model,
+        ILocalizationRepository localizationRepository)
     {
         UploadId = model.Id;
         GameType = model.GameType.ToEntity();
@@ -69,10 +53,10 @@ public class QuestStatisticsSummaryViewModel : ViewModel
         if (model.QuestDetails is not { } details)
             return;
 
-        QuestName = Localization.GetQuestNameBy(GameType, details.Id);
+        QuestName = localizationRepository.GetQuestNameBy(GameType, details.Id);
         Deaths = details.Deaths;
         MaxDeaths = details.MaxDeaths;
-        QuestType = Localization.GetEnumString(details.Type);
+        QuestType = localizationRepository.FindByEnum(details.Type).String;
         QuestLevel = details.Level;
         Stars = details.Stars;
     }

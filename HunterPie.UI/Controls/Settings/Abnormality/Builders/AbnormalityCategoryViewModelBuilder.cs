@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Extensions;
@@ -13,7 +14,9 @@ using System.Linq;
 namespace HunterPie.UI.Controls.Settings.Abnormality.Builders;
 
 #nullable enable
-public static class AbnormalityCategoryViewModelBuilder
+public class AbnormalityCategoryViewModelBuilder(
+    ILocalizationRepository localizationRepository
+)
 {
     private const string CATEGORY_PATH = "//Strings/Client/Settings/Setting[@Id='ABNORMALITY_{0}_STRING']";
     private const string ABNORMALITY_XPATH = "//Strings/Abnormalities/Abnormality[@Id='{0}']";
@@ -23,9 +26,9 @@ public static class AbnormalityCategoryViewModelBuilder
     private const string ICON_DEBUFFS = "ICON_VENOM";
     private const string ICON_SKILLS = "ICON_BUILD";
     private const string ICON_FOODS = "ICON_DANGO";
-    private static readonly ObservableCollection<AbnormalityCategoryViewModel> EmptyCached = new();
+    private readonly ObservableCollection<AbnormalityCategoryViewModel> EmptyCached = [];
 
-    public static ObservableCollection<AbnormalityCategoryViewModel> Build(GameProcessType game)
+    public ObservableCollection<AbnormalityCategoryViewModel> Build(GameProcessType game)
     {
         GameType? gameType = MapFactory.Map<GameProcessType, GameType?>(game);
 
@@ -37,13 +40,12 @@ public static class AbnormalityCategoryViewModelBuilder
         return abnormalities.Select(group =>
         {
             string groupKey = group.Key.ToUpperInvariant();
-            (string categoryName, string categoryDescription) =
-                Localization.Resolve(CATEGORY_PATH.Format(groupKey));
+            LocalizationData localizationData = localizationRepository.FindBy(CATEGORY_PATH.Format(groupKey));
 
             return new AbnormalityCategoryViewModel
             {
-                Name = categoryName,
-                Description = categoryDescription,
+                Name = localizationData.String,
+                Description = localizationData.Description,
                 Icon = groupKey switch
                 {
                     "SONGS" => ICON_SONGS,
@@ -58,8 +60,8 @@ public static class AbnormalityCategoryViewModelBuilder
                     new AbnormalityElementViewModel
                     {
                         Id = element.Id,
-                        Name = Localization.QueryString(ABNORMALITY_XPATH.Format(element.Name)),
-                        Category = categoryName,
+                        Name = localizationRepository.FindStringBy(ABNORMALITY_XPATH.Format(element.Name)),
+                        Category = localizationData.String,
                         Icon = element.Icon,
                         IsMatch = true
                     }

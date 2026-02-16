@@ -5,17 +5,10 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
 public class SubmarineViewModel : ViewModel
 {
-    private int _count;
-    public int Count { get => _count; set => SetValue(ref _count, value); }
-
-    private int _maxCount;
-    public int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
-
-    private int _daysLeft;
-    public int DaysLeft { get => _daysLeft; set => SetValue(ref _daysLeft, value); }
-
-    private bool _isActive;
-    public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
+    public int Count { get; set => SetValue(ref field, value); }
+    public int MaxCount { get; set => SetValue(ref field, value); }
+    public int DaysLeft { get; set => SetValue(ref field, value); }
+    public bool IsActive { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<SubmarineBoostViewModel> Boosts { get; } = new();
 

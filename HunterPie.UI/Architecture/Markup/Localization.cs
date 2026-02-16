@@ -9,20 +9,15 @@ using System.Windows.Markup;
 namespace HunterPie.UI.Architecture.Markup;
 
 [MarkupExtensionReturnType(typeof(string))]
-public class Localization : MarkupExtension
+public class Localization(string id) : MarkupExtension
 {
     private static readonly DependencyObject Dummy = new();
 
-    private ILocalizationRepository Repository => DependencyContainer.Get<ILocalizationRepository>();
+    private static ILocalizationRepository Repository => DependencyContainer.Get<ILocalizationRepository>();
 
-    private readonly string _id;
+    private readonly string _id = id;
 
     public bool Description { get; init; } = false;
-
-    public Localization(string id)
-    {
-        _id = id;
-    }
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {

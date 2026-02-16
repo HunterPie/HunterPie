@@ -70,15 +70,15 @@
         <Ailment Id="33"
                  String="unk33" />
         <Ailment Id="34"
-                 String="unk34" />
+                 String="AILMENT_FLAYER_PL1" />
         <Ailment Id="35"
-                 String="unk35" />
+                 String="AILMENT_FLAYER_PL2" />
         <Ailment Id="36"
-                 String="unk36" />
+                 String="AILMENT_FLAYER_PL3" />
         <Ailment Id="37"
-                 String="unk37" />
+                 String="AILMENT_FLAYER_PL4" />
         <Ailment Id="38"
-                 String="unk38" />
+                 String="AILMENT_CONVERT_ELEMENT" />
         <Ailment Id="39"
                  String="unk39" />
         <Ailment Id="40"
@@ -1482,7 +1482,8 @@
                       String="PART_MISC" />
             </Parts>
         </Monster>
-        <Monster Id="34">
+        <Monster Id="34"
+                 IsNotCapturable="True">
             <Crowns Gold="123"
                     Silver="115"
                     Mini="90" />

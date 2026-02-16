@@ -6,14 +6,9 @@ namespace HunterPie.UI.Overlay.ViewModels;
 
 public class WidgetViewModel : ViewModel
 {
-    private IWidgetSettings _settings;
-    public IWidgetSettings Settings { get => _settings; set => SetValue(ref _settings, value); }
-
-    private string _title = string.Empty;
-    public string Title { get => _title; set => SetValue(ref _title, value); }
-
-    private WidgetType _type;
-    public WidgetType Type { get => _type; set => SetValue(ref _type, value); }
+    public IWidgetSettings Settings { get; set => SetValue(ref field, value); }
+    public string Title { get; set => SetValue(ref field, value); } = string.Empty;
+    public WidgetType Type { get; set => SetValue(ref field, value); }
 
     public WidgetViewModel(
         IWidgetSettings settings,

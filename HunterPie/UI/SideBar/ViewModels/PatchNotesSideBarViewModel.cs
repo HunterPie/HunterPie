@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
-internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
+internal class PatchNotesSideBarViewModel(IBodyNavigator bodyNavigator) : ViewModel, ISideBarViewModel
 {
-    private readonly IBodyNavigator _bodyNavigator;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
     public Type Type => typeof(PatchesViewModel);
 
@@ -19,13 +19,7 @@ internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
 
     public bool IsAvailable => true;
 
-    private bool _isSelected;
-    public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
-
-    public PatchNotesSideBarViewModel(IBodyNavigator bodyNavigator)
-    {
-        _bodyNavigator = bodyNavigator;
-    }
+    public bool IsSelected { get; set => SetValue(ref field, value); }
 
     public Task ExecuteAsync()
     {

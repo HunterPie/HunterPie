@@ -1,16 +1,16 @@
 ﻿<UserControl x:Class="HunterPie.UI.Controls.Misc.Badge"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
-             x:Name="BadgeControl">
-    <Border BorderBrush="{Binding Foreground, ElementName=BadgeControl}"
-            Background="{Binding Background, ElementName=BadgeControl}"
-            BorderThickness="1"
-            CornerRadius="10"
-            Padding="5,2">
-        <TextBlock Text="{Binding Text, ElementName=BadgeControl}"
-                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
-    </Border>
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="BadgeControl"
+             mc:Ignorable="d">
+	<Border BorderBrush="{Binding Foreground, ElementName=BadgeControl}"
+	        BorderThickness="1"
+	        Padding="5,2"
+	        Background="{Binding Background, ElementName=BadgeControl}"
+	        CornerRadius="10">
+		<TextBlock Foreground="{Binding Foreground, ElementName=BadgeControl}"
+		           Text="{Binding Text, ElementName=BadgeControl}" />
+	</Border>
 </UserControl>

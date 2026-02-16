@@ -4,16 +4,9 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class ChargeBladePhialChangeEventArgs : EventArgs
+public class ChargeBladePhialChangeEventArgs(IChargeBlade chargeBlade) : EventArgs
 {
-    public PhialChargeLevel Charge { get; }
-    public int Phials { get; }
-    public int MaxPhials { get; }
-
-    public ChargeBladePhialChangeEventArgs(IChargeBlade chargeBlade)
-    {
-        Charge = chargeBlade.Charge;
-        Phials = chargeBlade.Phials;
-        MaxPhials = chargeBlade.MaxPhials;
-    }
+    public PhialChargeLevel Charge { get; } = chargeBlade.Charge;
+    public int Phials { get; } = chargeBlade.Phials;
+    public int MaxPhials { get; } = chargeBlade.MaxPhials;
 }

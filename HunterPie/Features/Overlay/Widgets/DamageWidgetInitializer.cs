@@ -1,26 +1,21 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.DI;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
 using HunterPie.UI.Overlay.ViewModels;
 using HunterPie.UI.Overlay.Views;
-using HunterPie.UI.Overlay.Widgets.Damage;
 using HunterPie.UI.Overlay.Widgets.Damage.Controllers;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class DamageWidgetInitializer : IWidgetInitializer
+internal class DamageWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
@@ -29,11 +24,6 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         GameProcessType.MonsterHunterRise
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
-
-    public DamageWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {
@@ -45,29 +35,16 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         if (!config.Initialize)
             return Task.CompletedTask;
 
-        MeterViewModel viewModel = context switch
-        {
-            MHWildsContext or MHWContext => new MeterViewModelV2(config),
-            _ => new MeterViewModel(config)
-        };
+        var viewModel = new MeterViewModelV2(config);
 
         _view = _overlay.Register(viewModel);
 
-        _handler = (context, viewModel) switch
-        {
-            (MHWildsContext or MHWContext, MeterViewModelV2 vm) => new DamageMeterControllerV2(
-                context: context,
-                viewModel: vm,
-                widgetContext: (WidgetContext)_view.DataContext,
-                config: config
-            ),
-            _ => new DamageMeterWidgetContextHandler(
-                context: context,
-                viewModel: viewModel,
-                localizationRepository: DependencyContainer.Get<ILocalizationRepository>(),
-                config: config
-            )
-        };
+        _handler = new DamageMeterControllerV2(
+            context: context,
+            viewModel: viewModel,
+            widgetContext: (WidgetContext)_view.DataContext,
+            config: config
+        );
 
         return Task.CompletedTask;
     }

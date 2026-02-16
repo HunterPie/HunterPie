@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.PetsViewV2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.Presentation"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
+             d:DataContext="{d:DesignInstance viewmodels:PetsViewModel}"
+             d:DesignWidth="250"
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
+	</UserControl.Resources>
+	<Border BorderBrush="{StaticResource Gray}"
+	        BorderThickness="1"
+	        Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+	        CornerRadius="5">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0"
+				            Orientation="Horizontal">
+					<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+					            Margin="5"
+					            Foreground="{StaticResource White@300}"
+					            Image="{StaticResource Icons.Otomo}" />
+					<TextBlock VerticalAlignment="Center"
+					           d:Text="Otomos"
+					           FontSize="13"
+					           Foreground="{StaticResource White@100}"
+					           Text="{markup:Localization '//Strings/Client/Overlay/String[@Id=&quot;DAMAGE_METER_OTOMOS_NAME_STRING&quot;]'}" />
+				</StackPanel>
+
+				<TextBlock Grid.Column="1"
+				           Margin="2,0"
+				           HorizontalAlignment="Right"
+				           VerticalAlignment="Center"
+				           FontSize="13"
+				           FontWeight="Medium"
+				           Foreground="{StaticResource White@50}">
+					<Run FontSize="10"
+					     FontWeight="SemiBold"
+					     Foreground="{StaticResource White@400}"
+					     Text="DMG" />
+					<Run d:Text="20,000"
+					     Text="{Binding TotalDamage, Mode=OneWay, StringFormat={}{0:N0}}" />
+				</TextBlock>
+			</Grid>
+
+			<ItemsControl Grid.Row="2"
+			              d:ItemsSource="{d:SampleData ItemCount=4}"
+			              ItemsSource="{Binding Members, Mode=OneWay}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type viewmodels:PetViewModel}">
+						<StackPanel Orientation="Vertical">
+							<TextBlock Margin="5,0"
+							           Foreground="{StaticResource White@100}"
+							           Text="{Binding Name, Mode=OneWay}" />
+							<progress:Gauge BorderBrush="{StaticResource Gray}"
+							                BorderThickness="1"
+							                Height="6"
+							                Margin="5,1"
+							                d:Current="50"
+							                d:Foreground="Red"
+							                Background="{StaticResource Gray@200}"
+							                CornerRadius="1.5"
+							                Current="{Binding DamageBar.Percentage, Mode=OneWay}"
+							                Foreground="{Binding DamageBar.Color.Value, Mode=OneWay}"
+							                Markers="4"
+							                Max="100" />
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Grid>
+	</Border>
+</UserControl>

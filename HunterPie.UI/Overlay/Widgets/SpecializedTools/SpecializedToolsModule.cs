@@ -9,6 +9,6 @@ internal class SpecializedToolsModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<SpecializedToolViewModelV2>();
+            .WithFactory<SpecializedToolViewModelV2>();
     }
 }

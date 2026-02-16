@@ -4,14 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
-internal class SideBarViewModel : ViewModel
+internal class SideBarViewModel(
+    ISideBarCollection collection
+    ) : ViewModel
 {
-    public ObservableCollection<ISideBarViewModel> Elements { get; }
-
-    public SideBarViewModel(
-        ISideBarCollection collection
-    )
-    {
-        Elements = collection.Elements;
-    }
+    public ObservableCollection<ISideBarViewModel> Elements { get; } = collection.Elements;
 }

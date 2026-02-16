@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Patches.ViewModels;
 
-internal class PatchesViewModel : ViewModel
+internal class PatchesViewModel(PoogiePatchConnector patchConnector) : ViewModel
 {
-    private readonly PoogiePatchConnector _patchConnector;
+    private readonly PoogiePatchConnector _patchConnector = patchConnector;
 
-    private bool _isFetching;
-    public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
+    public bool IsFetching { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<PatchViewModel> Patches { get; } = new();
-
-    public PatchesViewModel(PoogiePatchConnector patchConnector)
-    {
-        _patchConnector = patchConnector;
-    }
 
     public async Task FetchPatchesAsync()
     {

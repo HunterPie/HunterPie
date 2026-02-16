@@ -7,16 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environme
 
 public class MHWHarvestBox : IEventDispatcher, IUpdatable<MHWHarvestBoxData>, IDisposable
 {
-    private int _count;
-
     public int Count
     {
-        get => _count;
+        get;
         private set
         {
-            if (value != _count)
+            if (value != field)
             {
-                _count = value;
+                field = value;
                 this.Dispatch(_onItemsCountChange, this);
             }
         }

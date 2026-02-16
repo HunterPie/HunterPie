@@ -26,14 +26,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class OverlayWidgetsInitializer : IInitializer
+internal class OverlayWidgetsInitializer(IWidgetProvider widgetProvider) : IInitializer
 {
-    private readonly IWidgetProvider _widgetProvider;
-
-    public OverlayWidgetsInitializer(IWidgetProvider widgetProvider)
-    {
-        _widgetProvider = widgetProvider;
-    }
+    private readonly IWidgetProvider _widgetProvider = widgetProvider;
 
     public Task Init()
     {
@@ -42,7 +37,6 @@ internal class OverlayWidgetsInitializer : IInitializer
         _widgetProvider.Bind<ChatViewModel, ChatView>();
         _widgetProvider.Bind<ClassViewModel, ClassView>();
         _widgetProvider.Bind<ClockViewModel, ClockView>();
-        _widgetProvider.Bind<MeterViewModel, MeterView>();
         _widgetProvider.Bind<MeterViewModelV2, MeterViewV2>();
         _widgetProvider.Bind<TelemetricsViewModel, TelemetricsView>();
         _widgetProvider.Bind<MonstersViewModel, MonstersView>();

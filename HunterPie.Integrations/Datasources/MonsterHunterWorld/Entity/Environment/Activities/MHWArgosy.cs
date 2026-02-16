@@ -7,17 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environme
 
 public class MHWArgosy : IEventDispatcher, IDisposable, IUpdatable<MHWArgosyData>
 {
-
-    private int _daysLeft;
-
     public int DaysLeft
     {
-        get => _daysLeft;
+        get;
         private set
         {
-            if (value != _daysLeft)
+            if (value != field)
             {
-                _daysLeft = value;
+                field = value;
                 this.Dispatch(_onDaysLeftChange, this);
             }
         }

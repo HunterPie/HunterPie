@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.13.1.812</AssemblyVersion>
-    <FileVersion>2.13.1.812</FileVersion>
-    <LangVersion>11.0</LangVersion>
+    <AssemblyVersion>2.14.0.362</AssemblyVersion>
+    <FileVersion>2.14.0.362</FileVersion>
+    <LangVersion>14.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
  </PropertyGroup>
@@ -21,6 +21,11 @@
 
 	<ItemGroup>
     <None Remove="Architecture\Shaders\noise.ps" />
+    <None Remove="Assets\Fonts\WorkSans-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\WorkSans-Light.ttf" />
+    <None Remove="Assets\Fonts\WorkSans-Medium.ttf" />
+    <None Remove="Assets\Fonts\WorkSans-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\WorkSans.ttf" />
     <None Remove="Assets\Textures\alligator_noise_512x512.jpg" />
   </ItemGroup>
 
@@ -44,6 +49,21 @@
 
   <ItemGroup>
     <Resource Include="Architecture\Shaders\noise.ps" />
+    <Resource Include="Assets\Fonts\WorkSans-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\WorkSans-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\WorkSans-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\WorkSans-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\WorkSans.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Textures\alligator_noise_512x512.jpg" />
     <Resource Include="Resources\Abnormalities.xaml">
       <SubType>Designer</SubType>
@@ -64,21 +84,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Fonts\WorkSans-ExtraLight.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Fonts\WorkSans-Light.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Fonts\WorkSans-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Fonts\WorkSans-SemiBold.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Fonts\WorkSans.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Assets\Monsters\Icons\em001_01_ID.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -676,7 +681,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Architecture\Bindings\" />
     <Folder Include="Architecture\Converters\Localizations\" />
     <Folder Include="Controls\Notification\ViewModels\" />
     <Folder Include="Controls\Paginating\Events\" />

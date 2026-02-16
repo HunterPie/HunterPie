@@ -37,7 +37,6 @@ public class SquareProgress : Shape
     public static readonly DependencyProperty RadiusProperty =
         DependencyProperty.Register(nameof(Radius), typeof(double), typeof(SquareProgress), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
-
     protected override Geometry DefiningGeometry => GetGeometry();
 
     private StreamGeometry GetGeometry()
@@ -173,7 +172,10 @@ public class SquareProgress : Shape
             context.LineTo(middle, false, true);
         }
 
-        geom.Transform = new TranslateTransform(StrokeThickness / 2, StrokeThickness / 2);
+        geom.Transform = new TranslateTransform(
+            offsetX: StrokeThickness / 2,
+            offsetY: StrokeThickness / 2
+        );
 
         return geom;
     }

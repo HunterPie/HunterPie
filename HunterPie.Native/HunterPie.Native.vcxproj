@@ -77,11 +77,11 @@
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)HunterPie\bin\$(Configuration)\net8.0-windows7.0\libs\</OutDir>
+    <OutDir>$(SolutionDir)HunterPie\bin\$(Configuration)\net10.0-windows7.0\libs\</OutDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)HunterPie\bin\$(Configuration)\net8.0-windows7.0\libs\</OutDir>
+    <OutDir>$(SolutionDir)HunterPie\bin\$(Configuration)\net10.0-windows7.0\libs\</OutDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

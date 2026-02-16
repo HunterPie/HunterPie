@@ -1,142 +1,158 @@
 ﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.MeterViewV2"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
-                xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
-                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-                xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
-                xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
-                xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-                xmlns:system="clr-namespace:System;assembly=System.Runtime"
-                xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
                 xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
-                mc:Ignorable="d"
+                xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
+                xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
+                xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                 Width="300"
                 d:DataContext="{d:DesignInstance viewModels:MeterViewModelV2}"
-                Style="{DynamicResource Widgets.DamageMeterV2}">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
-        <converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter"/>
-        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
-        <arithmetics:MultiplyNumberConverter x:Key="MultiplyNumberConverter"
-                                             Factor="1.15"/>
+                Style="{DynamicResource Widgets.DamageMeterV2}"
+                mc:Ignorable="d">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converters:SecondsToTimeString x:Key="SecondsToTimeString" />
+		<converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter" />
+		<brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
+		<arithmetics:MultiplyNumberConverter x:Key="MultiplyNumberConverter"
+		                                     Factor="1.15" />
+		<visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter" />
+	</UserControl.Resources>
+	<Grid Visibility="{Binding InHuntingZone, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
 
-        <system:Double x:Key="Background.Transparency">0.9</system:Double>
-    </UserControl.Resources>
-    <Grid Visibility="{Binding InHuntingZone, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <!-- Header -->
-        <Border Grid.Row="0"
-                BorderBrush="{StaticResource Gray}"
-                BorderThickness="1,1,1,0"
-                CornerRadius="5,5,0,0"
-                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
-            <UniformGrid Rows="1">
-                <!-- Time Elapsed -->
-                <StackPanel Orientation="Horizontal">
-                    <image:Icon Image="{StaticResource ICON_STOPWATCH}"
-                                Foreground="{StaticResource White@400}"
-                                Height="18"
-                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Margin="5"/>
-                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='hh\\:mm\\:ss'}"
-                               d:Text="00:00:00"
-                               VerticalAlignment="Center"
-                               FontSize="13"
-                               Foreground="{StaticResource White@100}"/>
-                </StackPanel>
-                
-                <!-- Deaths -->
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="5,0"
-                            Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
-                    <image:Icon Image="{StaticResource ICON_SKULL}"
-                                Foreground="{StaticResource White@400}"
-                                Height="18"
-                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Margin="5"/>
-                    <TextBlock VerticalAlignment="Center"
-                               FontSize="13"
-                               Foreground="{StaticResource White@100}">
-                        <Run Text="{Binding Deaths, Mode=OneWay}"
-                             d:Text="0"/><!--
-                     --><Run Text="/"/><!--
-                     --><Run Text="{Binding MaxDeaths, Mode=OneWay}"
-                                d:Text="3"/>
-                    </TextBlock>
-                </StackPanel>
-            </UniformGrid>
-        </Border>
-        
-        <!-- Party Members -->
-        <Border Grid.Row="1"
-                BorderBrush="{StaticResource Gray}"
-                BorderThickness="1,0,1,1"
-                CornerRadius="0,0,5,5"
-                Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
-            <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"
-                                    IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:PlayerViewModel}">
-                        <local:PlayerViewV2 Height="40"
-                                            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
-        
-        <!-- Graph -->
-        <Border Grid.Row="2"
-                Margin="0,2"
-                Padding="2"
-                BorderBrush="{StaticResource Gray}"
-                BorderThickness="1"
-                CornerRadius="5"
-                Visibility="{Binding Config.ShouldShowPlots.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
-            <wpf:CartesianChart Height="120"
-                                Hoverable="False"
-                                DataTooltip="{x:Null}"
-                                DisableAnimations="True"
-                                Series="{Binding Series, Mode=OneTime}">
-                <wpf:CartesianChart.CacheMode>
-                    <BitmapCache EnableClearType="False"
-                                 RenderAtScale="1"
-                                 SnapsToDevicePixels="False"/>
-                </wpf:CartesianChart.CacheMode>
-                <wpf:CartesianChart.AxisY>
-                    <wpf:Axis MinValue="0"
-                              MaxValue="{Binding MaxPlotValue, Mode=OneWay, Converter={StaticResource MultiplyNumberConverter}}"
-                              LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
-                              FontFamily="{StaticResource Font.Default}">
-                        <wpf:Axis.Separator>
-                            <wpf:Separator StrokeDashArray="2"
-                                           StrokeThickness="1"
-                                           Stroke="{StaticResource Gray}"/>
-                        </wpf:Axis.Separator>
-                    </wpf:Axis>
-                </wpf:CartesianChart.AxisY>
-                <wpf:CartesianChart.AxisX>
-                    <wpf:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
-                              FontFamily="{StaticResource Font.Default}"
-                              ShowLabels="False"/>
-                </wpf:CartesianChart.AxisX>
-            </wpf:CartesianChart>
-        </Border>
-    </Grid>
+		<!--  Header  -->
+		<Border Grid.Row="0"
+		        BorderBrush="{StaticResource Gray}"
+		        BorderThickness="1,1,1,0"
+		        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+		        CornerRadius="5,5,0,0">
+			<UniformGrid Rows="1">
+				<!--  Time Elapsed  -->
+				<StackPanel Orientation="Horizontal">
+					<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+					            Height="18"
+					            Margin="5"
+					            Foreground="{StaticResource White@400}"
+					            Image="{StaticResource ICON_STOPWATCH}" />
+					<TextBlock VerticalAlignment="Center"
+					           d:Text="00:00:00"
+					           FontSize="13"
+					           Foreground="{StaticResource White@100}"
+					           Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='hh\\:mm\\:ss'}" />
+				</StackPanel>
+
+				<!--  Deaths  -->
+				<StackPanel Margin="5,0"
+				            HorizontalAlignment="Right"
+				            Orientation="Horizontal"
+				            Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
+					<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+					            Height="18"
+					            Margin="5"
+					            Foreground="{StaticResource White@400}"
+					            Image="{StaticResource ICON_SKULL}" />
+					<TextBlock VerticalAlignment="Center"
+					           d:Text="1/3"
+					           FontSize="13"
+					           Foreground="{StaticResource White@100}">
+						<TextBlock.Text>
+							<MultiBinding StringFormat="{}{0}/{1}">
+								<Binding Mode="OneWay"
+								         Path="Deaths" />
+								<Binding Mode="OneWay"
+								         Path="MaxDeaths" />
+							</MultiBinding>
+						</TextBlock.Text>
+					</TextBlock>
+				</StackPanel>
+			</UniformGrid>
+		</Border>
+
+		<!--  Party Members  -->
+		<Border Grid.Row="1"
+		        BorderBrush="{StaticResource Gray}"
+		        BorderThickness="1,0,1,1"
+		        Margin="0,0,0,1"
+		        Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+		        CornerRadius="0,0,5,5">
+			<ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel IsItemsHost="True"
+						            Orientation="Vertical" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type viewModels:PlayerViewModel}">
+						<local:PlayerViewV2 Height="40"
+						                    Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Border>
+
+		<!--  Pets  -->
+		<local:PetsViewV2 Grid.Row="2"
+		                  Margin="0,1"
+		                  DataContext="{Binding Pets, Mode=OneWay}">
+			<local:PetsViewV2.Visibility>
+				<MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+					<Binding Mode="OneWay"
+					         Path="Settings.ShouldShowOtomos.Value" />
+					<Binding Mode="OneWay"
+					         Path="DataContext.HasPetsToBeDisplayed"
+					         RelativeSource="{RelativeSource AncestorType={x:Type local:MeterViewV2}}" />
+				</MultiBinding>
+			</local:PetsViewV2.Visibility>
+		</local:PetsViewV2>
+
+		<!--  Graph  -->
+		<Border Grid.Row="3"
+		        BorderBrush="{StaticResource Gray}"
+		        BorderThickness="1"
+		        Margin="0,1"
+		        Padding="2"
+		        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+		        CornerRadius="5"
+		        Visibility="{Binding Config.ShouldShowPlots.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<wpf:CartesianChart Height="120"
+			                    DataTooltip="{x:Null}"
+			                    DisableAnimations="True"
+			                    Hoverable="False"
+			                    Series="{Binding Series, Mode=OneTime}">
+				<wpf:CartesianChart.AxisY>
+					<wpf:Axis FontFamily="{StaticResource Font.Default}"
+					          LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
+					          MaxValue="{Binding MaxPlotValue, Mode=OneWay, Converter={StaticResource MultiplyNumberConverter}}"
+					          MinValue="0">
+						<wpf:Axis.Separator>
+							<wpf:Separator Stroke="{StaticResource Gray}"
+							               StrokeDashArray="2"
+							               StrokeThickness="1" />
+						</wpf:Axis.Separator>
+					</wpf:Axis>
+				</wpf:CartesianChart.AxisY>
+				<wpf:CartesianChart.AxisX>
+					<wpf:Axis FontFamily="{StaticResource Font.Default}"
+					          LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
+					          ShowLabels="False" />
+				</wpf:CartesianChart.AxisX>
+			</wpf:CartesianChart>
+		</Border>
+	</Grid>
 </overlay:Widget>

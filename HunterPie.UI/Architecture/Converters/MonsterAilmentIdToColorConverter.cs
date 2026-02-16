@@ -17,7 +17,7 @@ public class MonsterAilmentIdToColorConverter : IValueConverter
         string? brushId = value is string str
             ? str switch
             {
-                "AILMENT_ENRAGE" => "Enrage",
+                "STATUS_ENRAGE" => "Enrage",
                 "AILMENT_EXHAUST" => "Exhaust",
                 "AILMENT_POISON" => "Poison",
                 "AILMENT_PARALYSIS" => "Paralysis",

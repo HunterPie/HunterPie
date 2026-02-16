@@ -13,6 +13,6 @@ internal class ThemeModule : IDependencyModule
         registry
             .WithSingle<LocalThemeRepository>()
             .WithSingle<ThemeLoaderService>()
-            .WithService<ThemeHomeController>();
+            .WithFactory<ThemeHomeController>();
     }
 }

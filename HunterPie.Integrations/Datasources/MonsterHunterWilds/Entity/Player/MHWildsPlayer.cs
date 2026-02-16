@@ -43,7 +43,12 @@ using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
-public sealed class MHWildsPlayer : CommonPlayer
+public sealed class MHWildsPlayer(
+    IGameProcess process,
+    IScanService scanService,
+    MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
+    MHWildsCryptoService cryptoService,
+    ILocalizationRepository localizationRepository) : CommonPlayer(process, scanService)
 {
     private const int MAX_DAMAGE_HISTORY_SIZE = 100;
     private static readonly Lazy<AbnormalityDefinition[]> ConsumableDefinitions = new(static () =>
@@ -78,9 +83,9 @@ public sealed class MHWildsPlayer : CommonPlayer
     );
     private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
 
-    private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
-    private readonly MHWildsCryptoService _cryptoService;
-    private readonly ILocalizationRepository _localizationRepository;
+    private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager = monsterTargetKeyManager;
+    private readonly MHWildsCryptoService _cryptoService = cryptoService;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     private nint _address;
     private nint _saveAddress;
@@ -167,7 +172,10 @@ public sealed class MHWildsPlayer : CommonPlayer
     public override IHealthComponent? Health { get; }
     public override IStaminaComponent? Stamina { get; }
 
-    private IWeapon _weapon;
+    private readonly MHWildsPlayerStatus _status = new();
+    public override IPlayerStatus Status => _status;
+
+    private IWeapon _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     public override IWeapon Weapon
     {
         get => _weapon;
@@ -180,8 +188,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             _weapon = value;
             this.Dispatch(
                 toDispatch: _onWeaponChange,
-                data: new WeaponChangeEventArgs(oldWeapon, value
-                )
+                data: new WeaponChangeEventArgs(oldWeapon, value)
             );
         }
     }
@@ -194,19 +201,6 @@ public sealed class MHWildsPlayer : CommonPlayer
 
     private readonly MHWildsSpecializedTool[] _tools = { new(), new() };
     public IReadOnlyCollection<ISpecializedTool> Tools => _tools;
-
-    public MHWildsPlayer(
-        IGameProcess process,
-        IScanService scanService,
-        MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
-        MHWildsCryptoService cryptoService,
-        ILocalizationRepository localizationRepository) : base(process, scanService)
-    {
-        _monsterTargetKeyManager = monsterTargetKeyManager;
-        _cryptoService = cryptoService;
-        _localizationRepository = localizationRepository;
-        _weapon = new MHWildsWeapon(WeaponType.Greatsword);
-    }
 
     [ScannableMethod]
     internal async Task GetBasicDataAsync()
@@ -228,6 +222,7 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         Name = await Memory.ReadStringSafeAsync(context.NamePointer, size: 64);
         HighRank = hunterRank;
+        Position = context.Position.ToVector3();
     }
 
     [ScannableMethod]
@@ -275,6 +270,14 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         if (Weapon.Id != context.WeaponId)
             Weapon = new MHWildsWeapon(context.WeaponId);
+    }
+
+    [ScannableMethod]
+    internal async Task GetStatusAsync()
+    {
+        UpdatePlayerStatus status = await GetPlayerStatusAsync(_address);
+
+        _status.Update(status);
     }
 
     [ScannableMethod]
@@ -367,7 +370,8 @@ public sealed class MHWildsPlayer : CommonPlayer
                     : await Memory.DerefAsync<int>(
                         address: networkPartyMemberArray + (realPartyIndex * sizeof(long)),
                         offsets: AddressMap.GetOffsets("Network::Party::Member::HunterRank")
-                    )
+                    ),
+                Status = await GetPlayerStatusAsync(playerBase.BasePointer),
             };
 
             membersData[i] = data;
@@ -385,6 +389,29 @@ public sealed class MHWildsPlayer : CommonPlayer
         });
 
         membersData.ForEach(_party.Update);
+    }
+
+    private async Task<UpdatePlayerStatus> GetPlayerStatusAsync(nint address)
+    {
+        MHWildsAffinityStatus affinityContext = await Memory.DerefPtrAsync<MHWildsAffinityStatus>(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::Status::Affinity")
+        );
+        MHWildsDamageStatus damageContext = await Memory.DerefPtrAsync<MHWildsDamageStatus>(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::Status::Damage")
+        );
+
+        MHWildsEncryptedFloat encryptedCritRate = await affinityContext.CurrentCriticalRate.Deref(Memory);
+        MHWildsEncryptedFloat encryptedRawDamage = await damageContext.CurrentRawAttack.Deref(Memory);
+        MHWildsEncryptedFloat encryptedElementalDamage = await damageContext.CurrentElementalAttack.Deref(Memory);
+
+        return new UpdatePlayerStatus
+        {
+            Affinity = await _cryptoService.DecryptFloatAsync(encryptedCritRate),
+            RawDamage = await _cryptoService.DecryptFloatAsync(encryptedRawDamage),
+            ElementalDamage = Math.Round(await _cryptoService.DecryptFloatAsync(encryptedElementalDamage) * 10),
+        };
     }
 
     private async Task<IEnumerable<UpdatePartyMember>> GetNpcPartyMembersAsync(int playerCount)
@@ -1005,5 +1032,6 @@ public sealed class MHWildsPlayer : CommonPlayer
         MaterialRetrieval.Dispose();
         SupportShip.Dispose();
         _tools.DisposeAll();
+        _status.Dispose();
     }
 }

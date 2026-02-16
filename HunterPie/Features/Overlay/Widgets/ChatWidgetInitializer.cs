@@ -12,19 +12,14 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class ChatWidgetInitializer : IWidgetInitializer
+internal class ChatWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
 
     public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
-
-    public ChatWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {

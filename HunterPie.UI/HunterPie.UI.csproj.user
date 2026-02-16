@@ -113,9 +113,6 @@
     <Compile Update="Overlay\Views\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Controls\Abnormality.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -123,6 +120,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Abnormality\View\CompactAbnormalityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Abnormality\View\DetailedAbnormalityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml.cs">
@@ -215,19 +218,10 @@
     <Compile Update="Overlay\Widgets\Clock\Views\MoonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\MeterView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\MeterViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\PetsDamageView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml.cs">
+    <Compile Update="Overlay\Widgets\Damage\View\PetsViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PlayerViewV2.xaml.cs">
@@ -439,9 +433,6 @@
     <Page Update="Overlay\Views\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Controls\Abnormality.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Overlay\Controls\Bar.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -536,18 +527,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Clock\Views\MoonView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\MeterView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\PetsDamageView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml">

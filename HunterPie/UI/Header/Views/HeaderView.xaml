@@ -1,56 +1,69 @@
 ﻿<UserControl x:Class="HunterPie.UI.Header.Views.HeaderView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Header.Views"
-             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.Header.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.UI.Header.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Header.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:HeaderViewModel}"
+             d:DesignHeight="30"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance viewModels:HeaderViewModel}">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </UserControl.Resources>
-    <Grid MouseLeftButtonDown="OnMouseLeftDown"
-          Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
-        <!-- Left panel -->
-        <StackPanel Orientation="Horizontal">
-            <image:Icon Image="{DynamicResource ICON_ADMINISTRATOR}"
-                        Foreground="{DynamicResource Brushes.HunterPie.Accent}"
-                        Width="15"
-                        Margin="5,0,0,0"
-                        Visibility="{Binding IsAdmin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <image:Icon Image="{DynamicResource ICON_HUNTERPIE}"
-                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                        Padding="5"/>
-            <TextBlock FontWeight="Light"
-                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                       VerticalAlignment="Center"
-                       FontSize="13">
-                <Run Text="Hunter"
-                     FontWeight="Medium"/><!--
-             --><Run Text="Pie"/>
-                <Run d:Text="v2.10.0.0"
-                     Text="{Binding Version, Mode=OneWay}"
-                     FontSize="10"/>
-            </TextBlock>
-        </StackPanel>
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</UserControl.Resources>
+	<Grid Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+	      MouseLeftButtonDown="OnMouseLeftDown">
+		<!--  Left panel  -->
+		<StackPanel Orientation="Horizontal">
+			<image:Icon Width="15"
+			            Margin="5,0,0,0"
+			            Foreground="{DynamicResource Brushes.HunterPie.Accent.Solid}"
+			            Image="{DynamicResource ICON_ADMINISTRATOR}"
+			            Visibility="{Binding IsAdmin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+			<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+			            Padding="8"
+			            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+			            Image="{DynamicResource ICON_HUNTERPIE}" />
+			<TextBlock VerticalAlignment="Center"
+			           FontSize="13"
+			           FontWeight="Light"
+			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}">
+				<Run FontWeight="Medium"
+				     Text="Hunter" /><Run Text="Pie" />
+				<Run d:Text="v2.10.0.0"
+				     FontSize="10"
+				     Text="{Binding Version, Mode=OneWay}" />
+			</TextBlock>
+		</StackPanel>
 
-        <!-- Right Panel -->
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <local:AccountMenuView Margin="0,0,10,0"
-                                   DataContext="{Binding AccountMenuViewModel, Mode=OneWay}"/>
+		<!--  Right Panel  -->
+		<StackPanel HorizontalAlignment="Right"
+		            Orientation="Horizontal">
+			<local:AccountMenuView Margin="0,0,10,0"
+			                       DataContext="{Binding AccountMenuViewModel, Mode=OneWay}" />
 
-            <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Click="OnMinimizeClick">_</buttons:Button>
-            <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Background="{DynamicResource Brushes.HunterPie.Accent}"
-                            Click="OnCloseClick">✕</buttons:Button>
-        </StackPanel>
-    </Grid>
+			<buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+			                Margin="2"
+			                Padding="0"
+			                BackgroundHover="{DynamicResource Brushes.HunterPie.Background.Primary}"
+			                Click="OnMinimizeClick"
+			                CornerRadius="5"
+			                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}">
+				_
+			</buttons:Button>
+			<buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+			                Margin="2"
+			                Padding="0"
+			                BackgroundHover="{DynamicResource Red@700}"
+			                Click="OnCloseClick"
+			                CornerRadius="5"
+			                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+			                ForegroundHover="{DynamicResource Red}">
+				✕
+			</buttons:Button>
+		</StackPanel>
+	</Grid>
 </UserControl>

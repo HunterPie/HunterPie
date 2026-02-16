@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.13.1.224</AssemblyVersion>
-    <FileVersion>2.13.1.224</FileVersion>
-    <LangVersion>11.0</LangVersion>
+    <AssemblyVersion>2.14.0.141</AssemblyVersion>
+    <FileVersion>2.14.0.141</FileVersion>
+    <LangVersion>14.0</LangVersion>
 	<Nullable>enable</Nullable>
 	<Version>2.12.0.0</Version>
   </PropertyGroup>
