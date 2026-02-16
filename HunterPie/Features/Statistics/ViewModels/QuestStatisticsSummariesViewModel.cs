@@ -18,75 +18,53 @@ using System.Linq;
 
 namespace HunterPie.Features.Statistics.ViewModels;
 
-internal class QuestStatisticsSummariesViewModel : ViewModel
+internal class QuestStatisticsSummariesViewModel(
+    PoogieStatisticsConnector connector,
+    IAccountUseCase accountUseCase,
+    IBodyNavigator bodyNavigator,
+    QuestDetailsViewModelBuilder questDetailsViewModelBuilder,
+    ILocalizationRepository localizationRepository) : ViewModel
 {
-    private readonly PoogieStatisticsConnector _connector;
-    private readonly IAccountUseCase _accountUseCase;
-    private readonly IBodyNavigator _bodyNavigator;
-    private readonly QuestDetailsViewModelBuilder _questDetailsViewModelBuilder;
+    private readonly PoogieStatisticsConnector _connector = connector;
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
+    private readonly QuestDetailsViewModelBuilder _questDetailsViewModelBuilder = questDetailsViewModelBuilder;
 
-    private bool _hasQuests;
     public bool HasQuests
     {
-        get => _hasQuests;
-        set => SetValue(ref _hasQuests, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _isFetchingQuests;
     public bool IsFetchingQuests
     {
-        get => _isFetchingQuests;
-        set => SetValue(ref _isFetchingQuests, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _hasFetchingFailed;
     public bool HasFetchingFailed
     {
-        get => _hasFetchingFailed;
-        set => SetValue(ref _hasFetchingFailed, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private int _currentPage;
     public int CurrentPage
     {
-        get => _currentPage;
-        set => SetValueThenExecute(ref _currentPage, value, FetchQuests);
+        get;
+        set => SetValueThenExecute(ref field, value, FetchQuests);
     }
-
-    private int _lastPage;
     public int LastPage
     {
-        get => _lastPage;
-        set => SetValue(ref _lastPage, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _isFetchingDetails;
     public bool IsFetchingDetails
     {
-        get => _isFetchingDetails;
-        set => SetValue(ref _isFetchingDetails, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public ObservableCollection<int> PageLimitSizes { get; } = new() { 10, 20, 30, 40, 50 };
+    public int LimitSize { get; set => SetValue(ref field, value); } = 10;
 
-    private int _limitSize = 10;
-    public int LimitSize { get => _limitSize; set => SetValue(ref _limitSize, value); }
-
-    private QuestSupporterTierMessageType _messageType;
-
-    public QuestStatisticsSummariesViewModel(
-        PoogieStatisticsConnector connector,
-        IAccountUseCase accountUseCase,
-        IBodyNavigator bodyNavigator,
-        QuestDetailsViewModelBuilder questDetailsViewModelBuilder)
-    {
-        _connector = connector;
-        _accountUseCase = accountUseCase;
-        _bodyNavigator = bodyNavigator;
-        _questDetailsViewModelBuilder = questDetailsViewModelBuilder;
-    }
-
-    public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
+    public QuestSupporterTierMessageType MessageType { get; set => SetValue(ref field, value); }
 
     public ObservableCollectionRange<QuestStatisticsSummaryViewModel> Summaries { get; } = new();
 
@@ -122,7 +100,10 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
         }
 
         Summaries.Replace(
-            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(it))
+            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(
+                model: it,
+                localizationRepository: localizationRepository
+            ))
         );
 
         LastPage = summaries.TotalPages;
@@ -134,7 +115,7 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
         var downloadingNotificationOptions = new NotificationOptions(
             Type: NotificationType.InProgress,
             Title: "Quest",
-            Description: Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
+            Description: localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
                 .Format(uploadId),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
@@ -148,7 +129,7 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
             NotificationOptions failedNotification = downloadingNotificationOptions with
             {
                 Type = NotificationType.Error,
-                Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
+                Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
             };
             NotificationService.Update(notificationId, failedNotification);
             IsFetchingDetails = false;
@@ -160,7 +141,7 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
         NotificationOptions successNotification = downloadingNotificationOptions with
         {
             Type = NotificationType.Success,
-            Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
+            Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
         };
         NotificationService.Update(notificationId, successNotification);
 

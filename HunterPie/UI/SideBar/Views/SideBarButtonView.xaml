@@ -1,88 +1,88 @@
 ﻿<UserControl x:Class="HunterPie.UI.SideBar.Views.SideBarButtonView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="40" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:ISideBarViewModel}"
+             d:DesignHeight="40"
              d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance viewModels:ISideBarViewModel}">
-    <UserControl.Resources>
-        <converters:IconResolver x:Key="IconResolver"/>
-        <converters:LocalizationResolver x:Key="LocalizationResolver"/>
-    </UserControl.Resources>
-    <buttons:Button HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
-                    Padding="0"
-                    IsEnabled="{Binding IsAvailable, Mode=OneWay}"
-                    Click="OnClick">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<converters:IconResolver x:Key="IconResolver" />
+		<converters:LocalizationResolver x:Key="LocalizationResolver" />
+	</UserControl.Resources>
+	<buttons:Button Padding="0"
+	                HorizontalContentAlignment="Stretch"
+	                VerticalContentAlignment="Stretch"
+	                Click="OnClick"
+	                IsEnabled="{Binding IsAvailable, Mode=OneWay}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="50" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-            <Rectangle Grid.Column="0"
-                       Fill="{DynamicResource Brushes.HunterPie.Accent}">
-                <Rectangle.Style>
-                    <Style TargetType="Rectangle">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected, Mode=OneWay}"
-                                         Value="True">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation To="3"
-                                                             From="0"
-                                                             Storyboard.TargetProperty="Width"
-                                                             Duration="0:0:0.25">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
+			<Rectangle Grid.Column="0"
+			           Fill="{DynamicResource Brushes.HunterPie.Accent}">
+				<Rectangle.Style>
+					<Style TargetType="Rectangle">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsSelected, Mode=OneWay}"
+							             Value="True">
+								<DataTrigger.EnterActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation Storyboard.TargetProperty="Width"
+											                 From="0"
+											                 To="3"
+											                 Duration="0:0:0.25">
+												<DoubleAnimation.EasingFunction>
+													<QuadraticEase EasingMode="EaseIn" />
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+										</Storyboard>
+									</BeginStoryboard>
+								</DataTrigger.EnterActions>
 
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation To="0"
-                                                             From="3"
-                                                             Storyboard.TargetProperty="Width"
-                                                             Duration="0:0:0.25">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
+								<DataTrigger.ExitActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation Storyboard.TargetProperty="Width"
+											                 From="3"
+											                 To="0"
+											                 Duration="0:0:0.25">
+												<DoubleAnimation.EasingFunction>
+													<QuadraticEase EasingMode="EaseIn" />
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+										</Storyboard>
+									</BeginStoryboard>
+								</DataTrigger.ExitActions>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Rectangle.Style>
+			</Rectangle>
 
-            <image:Icon Grid.Column="1"
-                        Padding="12"
-                        Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
-                        d:Image="{DynamicResource ICON_HUNTERPIE}"
-                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
+			<image:Icon Grid.Column="1"
+			            Padding="12"
+			            d:Image="{DynamicResource ICON_HUNTERPIE}"
+			            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+			            Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}" />
 
-            <TextBlock Grid.Column="2"
-                       VerticalAlignment="Center"
-                       d:Text="Button"
-                       Text="{Binding Label, Mode=OneWay, Converter={StaticResource LocalizationResolver}}"
-                       FontSize="18"
-                       FontWeight="Medium"
-                       Margin="10,0"
-                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
-        </Grid>
-    </buttons:Button>
+			<TextBlock Grid.Column="2"
+			           Margin="10,0"
+			           VerticalAlignment="Center"
+			           d:Text="Button"
+			           FontSize="18"
+			           FontWeight="Medium"
+			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+			           Text="{Binding Label, Mode=OneWay, Converter={StaticResource LocalizationResolver}}" />
+		</Grid>
+	</buttons:Button>
 </UserControl>

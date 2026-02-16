@@ -1,16 +1,26 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace HunterPie.UI.Controls.Progress;
 
 /// <summary>
 /// Interaction logic for Gauge.xaml
 /// </summary>
-public partial class Gauge : UserControl
+public partial class Gauge
 {
-    public ObservableCollection<bool> MarkerCollection { get; } = new();
+    private readonly DoubleAnimation _cachedAnimation = new()
+    {
+        EasingFunction = new QuadraticEase(),
+        Duration = new Duration(TimeSpan.FromMilliseconds(200))
+    };
+
+    private readonly ObservableCollection<bool> _markerCollection = new();
+    public IReadOnlyCollection<bool> MarkerCollection => _markerCollection;
 
     public double Current
     {
@@ -19,7 +29,15 @@ public partial class Gauge : UserControl
     }
 
     public static readonly DependencyProperty CurrentProperty =
-        DependencyProperty.Register(nameof(Current), typeof(double), typeof(Gauge), new PropertyMetadata(0.0));
+        DependencyProperty.Register(nameof(Current), typeof(double), typeof(Gauge), new PropertyMetadata(0.0, OnValueChange));
+
+    public double AnimatedCurrent
+    {
+        get => (double)GetValue(AnimatedCurrentProperty);
+        set => SetValue(AnimatedCurrentProperty, value);
+    }
+    public static readonly DependencyProperty AnimatedCurrentProperty =
+        DependencyProperty.Register(nameof(AnimatedCurrent), typeof(double), typeof(Gauge), new PropertyMetadata(0.0));
 
     public double Max
     {
@@ -28,7 +46,7 @@ public partial class Gauge : UserControl
     }
 
     public static readonly DependencyProperty MaxProperty =
-        DependencyProperty.Register(nameof(Max), typeof(double), typeof(Gauge), new PropertyMetadata(0.0));
+        DependencyProperty.Register(nameof(Max), typeof(double), typeof(Gauge), new PropertyMetadata(0.0, OnValueChange));
 
     public new Brush Foreground
     {
@@ -83,18 +101,26 @@ public partial class Gauge : UserControl
     public static readonly DependencyProperty MarkersProperty =
         DependencyProperty.Register(nameof(Markers), typeof(int), typeof(Gauge), new PropertyMetadata(OnMarkersChange));
 
+    public bool IsAnimationEnabled
+    {
+        get => (bool)GetValue(IsAnimationEnabledProperty);
+        set => SetValue(IsAnimationEnabledProperty, value);
+    }
+
+    public static readonly DependencyProperty IsAnimationEnabledProperty =
+        DependencyProperty.Register(nameof(IsAnimationEnabled), typeof(bool), typeof(Gauge), new PropertyMetadata(false));
+
     public Gauge()
     {
         InitializeComponent();
     }
-
 
     private static void OnMarkersChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not Gauge gauge || e.NewValue is not int markers)
             return;
 
-        gauge.MarkerCollection.Clear();
+        gauge._markerCollection.Clear();
 
         for (int i = 0; i < markers; i++)
         {
@@ -102,8 +128,42 @@ public partial class Gauge : UserControl
                 ? i > 0
                 : i < (markers - 1);
 
-            gauge.MarkerCollection.Add(isMarkerVisible);
+            gauge._markerCollection.Add(isMarkerVisible);
+        }
+    }
+
+    private static void OnValueChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not Gauge gauge)
+            return;
+
+        if (!gauge.IsAnimationEnabled)
+        {
+            gauge.AnimatedCurrent = gauge.Current;
+            return;
         }
 
+        if (gauge.Max == 0)
+            return;
+
+        DoubleAnimation animation = gauge._cachedAnimation;
+
+        double fromValue = gauge.AnimatedCurrent;
+        double toValue = gauge.Current;
+
+        // Validate animation values to prevent ArgumentException
+        if (double.IsNaN(fromValue) || double.IsInfinity(fromValue))
+            fromValue = 0;
+        if (double.IsNaN(toValue) || double.IsInfinity(toValue))
+            return;
+
+        animation.From = fromValue;
+        animation.To = toValue;
+
+        gauge.BeginAnimation(
+            dp: AnimatedCurrentProperty,
+            animation: animation,
+            handoffBehavior: HandoffBehavior.SnapshotAndReplace
+        );
     }
 }

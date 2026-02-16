@@ -12,19 +12,16 @@ namespace HunterPie.UI.Windows;
 /// </summary>
 public partial class WindowHeader : UserControl, INotifyPropertyChanged
 {
-    private Window _owner;
-    private bool _isMouseDown;
-
     public event PropertyChangedEventHandler PropertyChanged;
 
     public bool IsMouseDown
     {
-        get => _isMouseDown;
+        get;
         private set
         {
-            if (value != _isMouseDown)
+            if (value != field)
             {
-                _isMouseDown = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }
@@ -32,12 +29,12 @@ public partial class WindowHeader : UserControl, INotifyPropertyChanged
 
     public Window Owner
     {
-        get => _owner;
+        get;
         private set
         {
-            if (value != _owner)
+            if (value != field)
             {
-                _owner = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }

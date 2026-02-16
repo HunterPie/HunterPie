@@ -6,13 +6,8 @@ namespace HunterPie.Core.Domain;
 /// Indicates the method will be invoked by <see cref="ScanManager"/> repetitively.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
-public class ScannableMethod : Attribute
+public class ScannableMethod(Type? dtoType = null) : Attribute
 {
 
-    public readonly Type? DtoType;
-
-    public ScannableMethod(Type? dtoType = null)
-    {
-        DtoType = dtoType;
-    }
+    public readonly Type? DtoType = dtoType;
 }

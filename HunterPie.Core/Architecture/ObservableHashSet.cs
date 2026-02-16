@@ -18,8 +18,7 @@ public sealed class ObservableHashSet<T> : ISet<T>, INotifyPropertyChanged, INot
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private int _count;
-    public int Count { get => _count; set => SetValue(ref _count, value); }
+    public int Count { get; set => SetValue(ref field, value); }
 
     public bool IsReadOnly => false;
 

@@ -24,8 +24,9 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 
     public bool IsAvailable => true;
 
-    private bool _isSelected;
-    public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
+    public bool IsSelected { get; set => SetValue(ref field, value); }
+
+
 
     public SettingsSideBarViewModel(
         IBodyNavigator bodyNavigator,
@@ -57,11 +58,7 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 
     private async Task<SettingsViewModel> BuildViewModelAsync()
     {
-        if (_viewModel is { })
-            return _viewModel;
-
         _viewModel = await _settingsFactory.CreateFullAsync(currentGame: ClientConfig.Config.Client.LastConfiguredGame);
-
         return _viewModel;
     }
 }

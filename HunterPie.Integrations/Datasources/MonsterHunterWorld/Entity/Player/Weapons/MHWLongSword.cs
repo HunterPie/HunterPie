@@ -13,52 +13,52 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHWLongSword : MHWMeleeWeapon, ILongSword
+public sealed class MHWLongSword(
+    IGameProcess process,
+    ISkillService skillService,
+    IScanService scanService) : MHWMeleeWeapon(process, scanService, skillService, Weapon.Longsword), ILongSword
 {
-    private readonly ISkillService _skillService;
+    private readonly ISkillService _skillService = skillService;
     private readonly float[] _maxSpiritLevelTimers = { 0.0f, 200.0f, 140.0f, 70.0f };
 
-    private int _spiritLevel;
     public int SpiritLevel
     {
-        get => _spiritLevel;
+        get;
         private set
         {
-            if (_spiritLevel == value)
+            if (field == value)
                 return;
 
-            int temp = _spiritLevel;
-            _spiritLevel = value;
+            int temp = field;
+            field = value;
             this.Dispatch(_onSpiritLevelChange, new SimpleValueChangeEventArgs<int>(temp, value));
         }
     }
 
-    private float _spiritBuildUp;
     public float SpiritBuildUp
     {
-        get => _spiritBuildUp;
+        get;
         private set
         {
-            if (_spiritBuildUp.Equals(value))
+            if (field.Equals(value))
                 return;
 
-            _spiritBuildUp = value;
+            field = value;
             this.Dispatch(_onSpiritBuildUpChange, new BuildUpChangeEventArgs(value, MaxSpiritBuildUp));
         }
     }
 
     public float MaxSpiritBuildUp => 100.0f;
 
-    private float _spiritRegenerationTimer;
     public float SpiritRegenerationTimer
     {
-        get => _spiritRegenerationTimer;
+        get;
         private set
         {
-            if (_spiritRegenerationTimer.Equals(value))
+            if (field.Equals(value))
                 return;
 
-            _spiritRegenerationTimer = value;
+            field = value;
             this.Dispatch(_onSpiritRegenerationChange, new TimerChangeEventArgs(value, MaxSpiritRegenerationTimer));
         }
     }
@@ -67,16 +67,15 @@ public sealed class MHWLongSword : MHWMeleeWeapon, ILongSword
 
     private bool _isIaiSlashTimerActive;
 
-    private float _spiritLevelTimer;
     public float SpiritLevelTimer
     {
-        get => _spiritLevelTimer;
+        get;
         private set
         {
-            if (_spiritLevelTimer.Equals(value))
+            if (field.Equals(value))
                 return;
 
-            _spiritLevelTimer = value;
+            field = value;
             this.Dispatch(_onSpiritLevelTimerChange, new TimerChangeEventArgs(value, MaxSpiritLevelTimer));
         }
     }
@@ -111,15 +110,8 @@ public sealed class MHWLongSword : MHWMeleeWeapon, ILongSword
         add => _onSpiritLevelTimerChange.Hook(value);
         remove => _onSpiritLevelTimerChange.Unhook(value);
     }
-    #endregion
 
-    public MHWLongSword(
-        IGameProcess process,
-        ISkillService skillService,
-        IScanService scanService) : base(process, scanService, skillService, Weapon.Longsword)
-    {
-        _skillService = skillService;
-    }
+    #endregion
 
     [ScannableMethod]
     private async Task GetData()

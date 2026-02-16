@@ -2,219 +2,226 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <!-- Grays -->
-    <SolidColorBrush x:Key="Gray">#3a3e40</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@50">#24282b</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@100">#202427</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@200">#1d2022</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@300">#191c1e</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@400">#16181a</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@500">#121416</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@600">#0e1011</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@700">#0b0c0d</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@800">#070809</SolidColorBrush>
-    <SolidColorBrush x:Key="Gray@900">#040404</SolidColorBrush>
+	<!--  Grays  -->
+	<SolidColorBrush x:Key="Gray">#3a3e40</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@50">#24282b</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@100">#202427</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@200">#1d2022</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@300">#191c1e</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@400">#16181a</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@500">#121416</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@600">#0e1011</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@700">#0b0c0d</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@800">#070809</SolidColorBrush>
+	<SolidColorBrush x:Key="Gray@900">#040404</SolidColorBrush>
 
-    <!-- Whites -->
-    <SolidColorBrush x:Key="White">#ffffff</SolidColorBrush>
-    <SolidColorBrush x:Key="White@50">#e9eaea</SolidColorBrush>
-    <SolidColorBrush x:Key="White@100">#d3d4d5</SolidColorBrush>
-    <SolidColorBrush x:Key="White@200">#bdbfbf</SolidColorBrush>
-    <SolidColorBrush x:Key="White@300">#a7a9aa</SolidColorBrush>
-    <SolidColorBrush x:Key="White@400">#929495</SolidColorBrush>
-    <SolidColorBrush x:Key="White@500">#7c7e80</SolidColorBrush>
-    <SolidColorBrush x:Key="White@600">#66696b</SolidColorBrush>
-    <SolidColorBrush x:Key="White@700">#505355</SolidColorBrush>
+	<!--  Whites  -->
+	<SolidColorBrush x:Key="White">#ffffff</SolidColorBrush>
+	<SolidColorBrush x:Key="White@50">#e9eaea</SolidColorBrush>
+	<SolidColorBrush x:Key="White@100">#d3d4d5</SolidColorBrush>
+	<SolidColorBrush x:Key="White@200">#bdbfbf</SolidColorBrush>
+	<SolidColorBrush x:Key="White@300">#a7a9aa</SolidColorBrush>
+	<SolidColorBrush x:Key="White@400">#929495</SolidColorBrush>
+	<SolidColorBrush x:Key="White@500">#7c7e80</SolidColorBrush>
+	<SolidColorBrush x:Key="White@600">#66696b</SolidColorBrush>
+	<SolidColorBrush x:Key="White@700">#505355</SolidColorBrush>
 
-    <!-- Red -->
-    <SolidColorBrush x:Key="LightRed@700">#fcb8d0</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@600">#fba0c0</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@500">#fa88b1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@400">#f870a1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@300">#f75891</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@200">#f64181</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@100">#f52972</SolidColorBrush>
-    <SolidColorBrush x:Key="LightRed@50">#f51d6a</SolidColorBrush>
-    <SolidColorBrush x:Key="Red">#F41162</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@50">#E8105D</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@100">#DC0F58</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@200">#C30E4E</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@300">#AB0C45</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@400">#920A3B</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@500">#7A0931</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@600">#620727</SolidColorBrush>
-    <SolidColorBrush x:Key="Red@700">#49051D</SolidColorBrush>
+	<!--  Red  -->
+	<SolidColorBrush x:Key="LightRed@700">#fcb8d0</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@600">#fba0c0</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@500">#fa88b1</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@400">#f870a1</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@300">#f75891</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@200">#f64181</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@100">#f52972</SolidColorBrush>
+	<SolidColorBrush x:Key="LightRed@50">#f51d6a</SolidColorBrush>
+	<SolidColorBrush x:Key="Red">#F41162</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@50">#E8105D</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@100">#DC0F58</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@200">#C30E4E</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@300">#AB0C45</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@400">#920A3B</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@500">#7A0931</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@600">#620727</SolidColorBrush>
+	<SolidColorBrush x:Key="Red@700">#49051D</SolidColorBrush>
 
-    <!-- Green -->
-    <SolidColorBrush x:Key="LightGreen@700">#baefd1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@600">#a3eac1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@500">#8de5b2</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@400">#76dfa3</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@300">#5fda93</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@200">#48d584</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@100">#31cf74</SolidColorBrush>
-    <SolidColorBrush x:Key="LightGreen@50">#25cd6d</SolidColorBrush>
-    <SolidColorBrush x:Key="Green">#1ACA65</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@50">#19C060</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@100">#17B65B</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@200">#15A251</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@300">#128D47</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@400">#10793D</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@500">#0D6533</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@600">#0A5128</SolidColorBrush>
-    <SolidColorBrush x:Key="Green@700">#083D1E</SolidColorBrush>
+	<!--  Green  -->
+	<SolidColorBrush x:Key="LightGreen@700">#baefd1</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@600">#a3eac1</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@500">#8de5b2</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@400">#76dfa3</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@300">#5fda93</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@200">#48d584</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@100">#31cf74</SolidColorBrush>
+	<SolidColorBrush x:Key="LightGreen@50">#25cd6d</SolidColorBrush>
+	<SolidColorBrush x:Key="Green">#1ACA65</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@50">#19C060</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@100">#17B65B</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@200">#15A251</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@300">#128D47</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@400">#10793D</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@500">#0D6533</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@600">#0A5128</SolidColorBrush>
+	<SolidColorBrush x:Key="Green@700">#083D1E</SolidColorBrush>
 
-    <!-- Yellow -->
-    <SolidColorBrush x:Key="LightYellow@700">#fce4bd</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@600">#fbdba7</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@500">#fbd291</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@400">#fac97a</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@300">#f9c064</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@200">#f8b74e</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@100">#f7ae38</SolidColorBrush>
-    <SolidColorBrush x:Key="LightYellow@50">#f6aa2d</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow">#F6A522</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@50">#ea9d20</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@100">#dd951f</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@200">#c5841b</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@300">#ac7318</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@400">#946314</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@500">#7b5311</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@600">#62420e</SolidColorBrush>
-    <SolidColorBrush x:Key="Yellow@700">#4a320a</SolidColorBrush>
+	<!--  Yellow  -->
+	<SolidColorBrush x:Key="LightYellow@700">#fce4bd</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@600">#fbdba7</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@500">#fbd291</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@400">#fac97a</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@300">#f9c064</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@200">#f8b74e</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@100">#f7ae38</SolidColorBrush>
+	<SolidColorBrush x:Key="LightYellow@50">#f6aa2d</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow">#F6A522</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@50">#ea9d20</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@100">#dd951f</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@200">#c5841b</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@300">#ac7318</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@400">#946314</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@500">#7b5311</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@600">#62420e</SolidColorBrush>
+	<SolidColorBrush x:Key="Yellow@700">#4a320a</SolidColorBrush>
 
-    <!-- Orange -->
-    <SolidColorBrush x:Key="Orange">#EC5D1C</SolidColorBrush>
+	<!--  Orange  -->
+	<SolidColorBrush x:Key="Orange">#EC5D1C</SolidColorBrush>
 
-    <!-- Blue -->
-    <SolidColorBrush x:Key="LightBlue@700">#b3d4fa</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@600">#99c5f8</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@500">#80b7f7</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@400">#66a9f5</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@300">#4d9af3</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@200">#338cf1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@100">#197df0</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@50">#0d76ef</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue">#006fee</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@50">#0069e2</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@100">#0064d6</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@200">#0059be</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@300">#004ea7</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@400">#00438f</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@500">#003877</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@600">#002c5f</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@700">#002147</SolidColorBrush>
+	<!--  Blue  -->
+	<SolidColorBrush x:Key="LightBlue@700">#cfddfa</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@600">#bfd2f8</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@500">#afc7f6</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@400">#9ebbf4</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@300">#8eb0f2</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@200">#7ea5f1</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@100">#6e99ef</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue@50">#6694ee</SolidColorBrush>
+	<SolidColorBrush x:Key="LightBlue">#5E8EED</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue">#4B8EEE</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@50">#4787E2</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@100">#4480D6</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@200">#3C72BE</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@300">#3563A7</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@400">#2D558F</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@500">#264777</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@600">#1E395F</SolidColorBrush>
+	<SolidColorBrush x:Key="Blue@700">#172B47</SolidColorBrush>
 
-    <!-- Violet -->
-    <SolidColorBrush x:Key="Violet">#8E51FF</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@50">#874DF2</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@100">#8049e6</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@200">#7241cc</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@300">#6339b3</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@400">#553199</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@500">#472980</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@600">#392066</SolidColorBrush>
-    <SolidColorBrush x:Key="Violet@700">#2b184d</SolidColorBrush>
+	<!--  Violet  -->
+	<SolidColorBrush x:Key="LightViolet@600">#d2b9ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@500">#c7a8ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@400">#bb97ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@300">#b085ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@200">#a574ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@100">#9962ff</SolidColorBrush>
+	<SolidColorBrush x:Key="LightViolet@50">#945aff</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet">#8E51FF</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@50">#874DF2</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@100">#8049e6</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@200">#7241cc</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@300">#6339b3</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@400">#553199</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@500">#472980</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@600">#392066</SolidColorBrush>
+	<SolidColorBrush x:Key="Violet@700">#2b184d</SolidColorBrush>
+
+	<!--  Pink  -->
+	<SolidColorBrush x:Key="Pink">#FF4ECD</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@50">#f24ac3</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@100">#e646b9</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@200">#cc3ea4</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@300">#b33790</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@400">#992f7b</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@500">#802767</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@600">#661f52</SolidColorBrush>
+	<SolidColorBrush x:Key="Pink@700">#4d173e</SolidColorBrush>
 
 
-    <!-- HunterPie -->
-    <LinearGradientBrush x:Key="Brushes.HunterPie.Accent" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF4B8EEE"/>
-        <GradientStop Color="#FF10B9DE" Offset="1"/>
-    </LinearGradientBrush>
+	<!--  HunterPie  -->
+	<LinearGradientBrush x:Key="Brushes.HunterPie.Accent.Horizontal" StartPoint="0,1" EndPoint="1,1">
+		<GradientStop Offset="0.863" Color="#FF4B8EEE" />
+		<GradientStop Offset="1" Color="#FF10B9DE" />
+	</LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="Brushes.HunterPie.Accent.Horizontal"  
-                         EndPoint="1,1" 
-                         StartPoint="0,1">
-        <GradientStop Color="#FF4B8EEE" Offset="0.863"/>
-        <GradientStop Color="#FF10B9DE" Offset="1"/>
-    </LinearGradientBrush>
+	<LinearGradientBrush x:Key="Brushes.HunterPie.Accent.Transparent" StartPoint="0,1" EndPoint="1,1">
+		<GradientStop Color="#504B8EEE" />
+		<GradientStop Offset="1" Color="#5010B9DE" />
+	</LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="Brushes.HunterPie.Accent.Transparent" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#504B8EEE"/>
-        <GradientStop Color="#5010B9DE" Offset="1"/>
-    </LinearGradientBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent.Solid"
+	                 Color="#0d76ef" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent.Opacity"
+	                 Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid},
+	                                           Opacity=0.2}" />
 
-    <SolidColorBrush x:Key="Brushes.HunterPie.Accent.Solid"
-                     Color="#0d76ef"/>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent"
+	                 Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid}}" />
 
-    <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
-                     Color="{markup:BrushColor Brush={StaticResource White@100}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Secondary"
-                     Color="{markup:BrushColor Brush={StaticResource White@300}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Tertiary"
-                     Color="{markup:BrushColor Brush={StaticResource White@500}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Background.Primary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@100}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Background.Secondary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@200}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Background.Tertiary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@300}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Border"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@50}}"/>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
+	                 Color="{markup:BrushColor Brush={StaticResource White@100}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Secondary"
+	                 Color="{markup:BrushColor Brush={StaticResource White@300}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Tertiary"
+	                 Color="{markup:BrushColor Brush={StaticResource White@500}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Background.Primary"
+	                 Color="{markup:BrushColor Brush={StaticResource Gray@100}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Background.Secondary"
+	                 Color="{markup:BrushColor Brush={StaticResource Gray@200}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Background.Tertiary"
+	                 Color="{markup:BrushColor Brush={StaticResource Gray@300}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Border"
+	                 Color="{markup:BrushColor Brush={StaticResource Gray@50}}" />
 
-    <SolidColorBrush x:Key="Brushes.HunterPie.Error"
-                     Color="{markup:BrushColor Brush={StaticResource Red@50}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Success"
-                     Color="{markup:BrushColor Brush={StaticResource Green@50}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Success.Opacity"
-                     Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Success}, Opacity=0.2}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
-                     Color="{markup:BrushColor Brush={StaticResource Blue@100}}"/>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Warning"
-                     Color="{markup:BrushColor Brush={StaticResource Yellow@100}}"/>
-    
-    <LinearGradientBrush EndPoint="1,1" 
-                         StartPoint="0,.5"
-                         x:Key="Brushes.HunterPie.Tab.Highlight">
-        <GradientStop Color="#00000000"/>
-        <GradientStop Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid}, Opacity=0.1}" 
-                      Offset="1"/>
-    </LinearGradientBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Error"
+	                 Color="{markup:BrushColor Brush={StaticResource Red@50}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Success"
+	                 Color="{markup:BrushColor Brush={StaticResource Green@50}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Success.Opacity"
+	                 Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Success},
+	                                           Opacity=0.2}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
+	                 Color="{markup:BrushColor Brush={StaticResource Blue@100}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Warning"
+	                 Color="{markup:BrushColor Brush={StaticResource Yellow@100}}" />
 
-    <RadialGradientBrush x:Key="Brushes.HunterPie.Highlight">
-        <GradientStop Color="#45FFFFFF" Offset="0"/>
-        <GradientStop Color="#00000000" Offset="1"/>
-    </RadialGradientBrush>
+	<LinearGradientBrush x:Key="Brushes.HunterPie.Tab.Highlight" StartPoint="0,.5" EndPoint="1,1">
+		<GradientStop Color="#00000000" />
+		<GradientStop Offset="1" Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid}, Opacity=0.1}" />
+	</LinearGradientBrush>
 
-    <SolidColorBrush x:Key="Brushes.HunterPie.Ripple">#40F5F5F5</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Skeleton.Highlight">#40F5F5F5</SolidColorBrush>
+	<RadialGradientBrush x:Key="Brushes.HunterPie.Highlight">
+		<GradientStop Offset="0" Color="#45FFFFFF" />
+		<GradientStop Offset="1" Color="#00000000" />
+	</RadialGradientBrush>
 
-    <SolidColorBrush x:Key="Brushes.Quest.LowRank">#197df0</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.Quest.HighRank">#EC5D1C</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.Quest.MasterRank">#F6A522</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Ripple">#40F5F5F5</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Skeleton.Highlight">#40F5F5F5</SolidColorBrush>
 
-    <system:Double x:Key="HunterPie.SideBar.Width">300</system:Double>
+	<SolidColorBrush x:Key="Brushes.Quest.LowRank">#197df0</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.Quest.HighRank">#EC5D1C</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.Quest.MasterRank">#F6A522</SolidColorBrush>
 
-    <RadialGradientBrush x:Key="Brushes.Overlay.DesignMode.Background" 
-                         SpreadMethod="Pad"  
-                         RadiusY="1" 
-                         RadiusX="1" 
-                         Center="0.5,0.5">
-        <GradientStop Color="#10D9D9D9" Offset="0"/>
-        <GradientStop Color="#20D9D9D9" Offset="1"/>
-    </RadialGradientBrush>
+	<system:Double x:Key="HunterPie.SideBar.Width">300</system:Double>
 
-    <LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Border" 
-                         EndPoint="1,1" 
-                         StartPoint="0,1">
-        <GradientStop Color="#f89b29" Offset="1"/>
-        <GradientStop Color="#ff0f7b" Offset="0"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Background"
-                         EndPoint="1,1"
-                         StartPoint="0,1" 
-                         Opacity="0.3">
-        <GradientStop Color="#f89b29" Offset="1"/>
-        <GradientStop Color="#ff0f7b" Offset="0"/>
-    </LinearGradientBrush>
+	<RadialGradientBrush x:Key="Brushes.Overlay.DesignMode.Background" Center="0.5,0.5" RadiusX="1" RadiusY="1" SpreadMethod="Pad">
+		<GradientStop Offset="0" Color="#10D9D9D9" />
+		<GradientStop Offset="1" Color="#20D9D9D9" />
+	</RadialGradientBrush>
 
-    <!-- Logging -->
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Info">#5cb7f2</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Native">#e84ad3</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Debug">#35cc76</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Warn">#E6CF5E</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Error">#e65e5e</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Panic">#ab5ee6</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Benchmark">#1BC9B6</SolidColorBrush>
+	<LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Border" StartPoint="0,1" EndPoint="1,1">
+		<GradientStop Offset="1" Color="#f89b29" />
+		<GradientStop Offset="0" Color="#ff0f7b" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Background" Opacity="0.3" StartPoint="0,1" EndPoint="1,1">
+		<GradientStop Offset="1" Color="#f89b29" />
+		<GradientStop Offset="0" Color="#ff0f7b" />
+	</LinearGradientBrush>
+
+	<!--  Logging  -->
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Info">#5cb7f2</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Native">#e84ad3</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Debug">#35cc76</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Warn">#E6CF5E</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Error">#e65e5e</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Panic">#ab5ee6</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Benchmark">#1BC9B6</SolidColorBrush>
 </ResourceDictionary>

@@ -12,25 +12,31 @@ internal enum GameType
 
 internal static class GameTypeExtensions
 {
-    public static GameTypeEntity ToEntity(this GameType type)
+    extension(GameType type)
     {
-        return type switch
+        public GameTypeEntity ToEntity()
         {
-            GameType.MHR => GameTypeEntity.Rise,
-            GameType.MHW => GameTypeEntity.World,
-            GameType.MHWilds => GameTypeEntity.Wilds,
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-        };
+            return type switch
+            {
+                GameType.MHR => GameTypeEntity.Rise,
+                GameType.MHW => GameTypeEntity.World,
+                GameType.MHWilds => GameTypeEntity.Wilds,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+        }
     }
 
-    public static GameType ToApiModel(this GameTypeEntity type)
+    extension(GameTypeEntity type)
     {
-        return type switch
+        public GameType ToApiModel()
         {
-            GameTypeEntity.Rise => GameType.MHR,
-            GameTypeEntity.World => GameType.MHW,
-            GameTypeEntity.Wilds => GameType.MHWilds,
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-        };
+            return type switch
+            {
+                GameTypeEntity.Rise => GameType.MHR,
+                GameTypeEntity.World => GameType.MHW,
+                GameTypeEntity.Wilds => GameType.MHWilds,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+        }
     }
 }

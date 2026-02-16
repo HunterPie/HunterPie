@@ -4,39 +4,30 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class SharpnessEventArgs : EventArgs
+public class SharpnessEventArgs(IMeleeWeapon weapon) : EventArgs
 {
     /// <summary>
     /// Current sharpness level
     /// </summary>
-    public Sharpness Sharpness { get; }
+    public Sharpness Sharpness { get; } = weapon.Sharpness;
 
     /// <summary>
     /// Current sharpness value
     /// </summary>
-    public int CurrentSharpness { get; }
+    public int CurrentSharpness { get; } = weapon.CurrentSharpness;
 
     /// <summary>
     /// Current weapon sharpness thresholds
     /// </summary>
-    public int[] SharpnessThresholds { get; }
+    public int[] SharpnessThresholds { get; } = weapon.SharpnessThresholds;
 
     /// <summary>
     /// Thresholds for the current level
     /// </summary>
-    public int Threshold { get; }
+    public int Threshold { get; } = weapon.Threshold;
 
     /// <summary>
     /// Maximum sharpness for the current level
     /// </summary>
-    public int MaxSharpness { get; }
-
-    public SharpnessEventArgs(IMeleeWeapon weapon)
-    {
-        Sharpness = weapon.Sharpness;
-        CurrentSharpness = weapon.CurrentSharpness;
-        SharpnessThresholds = weapon.SharpnessThresholds;
-        Threshold = weapon.Threshold;
-        MaxSharpness = weapon.MaxSharpness;
-    }
+    public int MaxSharpness { get; } = weapon.MaxSharpness;
 }

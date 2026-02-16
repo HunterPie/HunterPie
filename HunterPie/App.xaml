@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Colors/Scheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Animations/Default.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/SpookyPie.xaml"/>-->
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons/General.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie;component/Resources/Styles/Client.xaml"/>

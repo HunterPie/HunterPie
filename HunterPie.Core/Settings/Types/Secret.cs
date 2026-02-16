@@ -11,14 +11,12 @@ public class Secret : Bindable
 {
     private ICryptoService CryptoService => DependencyContainer.Get<ICryptoService>();
 
-    private string _value = string.Empty;
-
     [JsonIgnore]
     public string Value
     {
-        get => _value;
-        set => SetValue(ref _value, value);
-    }
+        get;
+        set => SetValue(ref field, value);
+    } = string.Empty;
 
     public string EncryptedValue
     {

@@ -1,132 +1,132 @@
 ﻿<Window x:Class="HunterPie.UI.Main.Views.MainView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewModels="clr-namespace:HunterPie.UI.Main.ViewModels"
-             xmlns:views="clr-namespace:HunterPie.UI.Header.Views"
-             xmlns:presentation="clr-namespace:HunterPie.UI.Main.Presentation"
-             xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
-             xmlns:notification="clr-namespace:HunterPie.UI.Controls.Notification;assembly=HunterPie.UI"
-             mc:Ignorable="d" 
-             Icon="pack://application:,,,/Resources/Icon.ico"
-             BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
-             Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
-             Height="600" 
-             Width="1000"
-             MinWidth="600"
-             MinHeight="400" 
-             d:DesignHeight="600" 
-             d:DesignWidth="1000"
-             Title="HunterPie"
-             SnapsToDevicePixels="True"
-             UseLayoutRounding="True"
-             WindowStyle="None"
-             PreviewKeyDown="OnKeyDown"
-             d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
-    <Window.Resources>
-        <presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector"/>
-    </Window.Resources>
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0"
-                      CornerRadius="2"
-                      GlassFrameThickness="-1"
-                      ResizeBorderThickness="5"
-                      UseAeroCaptionButtons="False"
-                      NonClientFrameEdges="Bottom"/>
-    </WindowChrome.WindowChrome>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:notification="clr-namespace:HunterPie.UI.Controls.Notification;assembly=HunterPie.UI"
+        xmlns:presentation="clr-namespace:HunterPie.UI.Main.Presentation"
+        xmlns:viewModels="clr-namespace:HunterPie.UI.Main.ViewModels"
+        xmlns:views="clr-namespace:HunterPie.UI.Header.Views"
+        Title="HunterPie"
+        BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
+        Width="1000"
+        Height="600"
+        MinWidth="600"
+        MinHeight="400"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+        d:DesignHeight="600"
+        d:DesignWidth="1000"
+        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+        Icon="pack://application:,,,/Resources/Icon.ico"
+        PreviewKeyDown="OnKeyDown"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+        WindowStyle="None"
+        mc:Ignorable="d">
+	<Window.Resources>
+		<presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector" />
+	</Window.Resources>
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="0"
+		              CornerRadius="2"
+		              GlassFrameThickness="-1"
+		              NonClientFrameEdges="Bottom"
+		              ResizeBorderThickness="5"
+		              UseAeroCaptionButtons="False" />
+	</WindowChrome.WindowChrome>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="1"
-                        Grid.Column="0"
-                        ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}"
-                        Content="{Binding ContentViewModel, Mode=OneWay}"/>
+		<ContentControl Grid.Row="1"
+		                Grid.Column="0"
+		                Content="{Binding ContentViewModel, Mode=OneWay}"
+		                ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}" />
 
-        <!-- Header -->
-        <views:HeaderView Grid.Column="0" 
-                          Grid.Row="0"
-                          DataContext="{Binding HeaderViewModel, Mode=OneWay}"
-                          DragStart="OnDragStart"
-                          CloseClick="OnCloseClick"
-                          MinimizeClick="OnMinimizeClick"
-                          Height="30"/>
+		<!--  Header  -->
+		<views:HeaderView Grid.Row="0"
+		                  Grid.Column="0"
+		                  Height="35"
+		                  CloseClick="OnCloseClick"
+		                  DataContext="{Binding HeaderViewModel, Mode=OneWay}"
+		                  DragStart="OnDragStart"
+		                  MinimizeClick="OnMinimizeClick" />
 
-        <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}"
-                      Background="Transparent"
-                      HorizontalAlignment="Right"
-                      VerticalContentAlignment="Bottom"
-                      HorizontalContentAlignment="Right"
-                      VerticalAlignment="Bottom">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <notification:Toast Margin="10,5"
-                                        Cursor="Hand"
-                                        MouseUp="OnNotificationClick">
-                        <notification:Toast.RenderTransform>
-                            <TranslateTransform X="30"/>
-                        </notification:Toast.RenderTransform>
-                        <notification:Toast.Style>
-                            <Style TargetType="notification:Toast">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsVisible, Mode=OneWay}"
-                                                 Value="True">
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
-                                                                     From="30"
-                                                                     To="0"
-                                                                     Duration="0:0:0.2">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase />
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                     From="0"
-                                                                     To="1"
-                                                                     Duration="0:0:0.3">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase />
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
+		<ItemsControl Grid.Row="1"
+		              HorizontalAlignment="Right"
+		              VerticalAlignment="Bottom"
+		              HorizontalContentAlignment="Right"
+		              VerticalContentAlignment="Bottom"
+		              Background="Transparent"
+		              ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<notification:Toast Margin="10,5"
+					                    Cursor="Hand"
+					                    MouseUp="OnNotificationClick">
+						<notification:Toast.RenderTransform>
+							<TranslateTransform X="30" />
+						</notification:Toast.RenderTransform>
+						<notification:Toast.Style>
+							<Style TargetType="notification:Toast">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding IsVisible, Mode=OneWay}"
+									             Value="True">
+										<DataTrigger.EnterActions>
+											<BeginStoryboard>
+												<Storyboard>
+													<DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
+													                 From="30"
+													                 To="0"
+													                 Duration="0:0:0.2">
+														<DoubleAnimation.EasingFunction>
+															<QuadraticEase />
+														</DoubleAnimation.EasingFunction>
+													</DoubleAnimation>
+													<DoubleAnimation Storyboard.TargetProperty="Opacity"
+													                 From="0"
+													                 To="1"
+													                 Duration="0:0:0.3">
+														<DoubleAnimation.EasingFunction>
+															<QuadraticEase />
+														</DoubleAnimation.EasingFunction>
+													</DoubleAnimation>
+												</Storyboard>
+											</BeginStoryboard>
+										</DataTrigger.EnterActions>
 
-                                        <DataTrigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
-                                                                     From="0"
-                                                                     To="30"
-                                                                     Duration="0:0:0.2">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase />
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                     From="1"
-                                                                     To="0"
-                                                                     Duration="0:0:0.3">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase />
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.ExitActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </notification:Toast.Style>
-                    </notification:Toast>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+										<DataTrigger.ExitActions>
+											<BeginStoryboard>
+												<Storyboard>
+													<DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
+													                 From="0"
+													                 To="30"
+													                 Duration="0:0:0.2">
+														<DoubleAnimation.EasingFunction>
+															<QuadraticEase />
+														</DoubleAnimation.EasingFunction>
+													</DoubleAnimation>
+													<DoubleAnimation Storyboard.TargetProperty="Opacity"
+													                 From="1"
+													                 To="0"
+													                 Duration="0:0:0.3">
+														<DoubleAnimation.EasingFunction>
+															<QuadraticEase />
+														</DoubleAnimation.EasingFunction>
+													</DoubleAnimation>
+												</Storyboard>
+											</BeginStoryboard>
+										</DataTrigger.ExitActions>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</notification:Toast.Style>
+					</notification:Toast>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
 </Window>

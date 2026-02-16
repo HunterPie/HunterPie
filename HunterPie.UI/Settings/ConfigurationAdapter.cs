@@ -18,21 +18,15 @@ using ConfigurationPropertyAttribute = HunterPie.Core.Settings.Annotations.Confi
 namespace HunterPie.UI.Settings;
 
 #nullable enable
-public class ConfigurationAdapter
+public class ConfigurationAdapter(
+    IFeatureFlagRepository featureFlagRepository,
+    ILocalizationRepository localizationRepository)
 {
     private const string DEFAULT_SETTING_LOCALIZATION_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
     private const string DEFAULT_CONFIGURATION_GROUP_PATH = "//Strings/Client/ConfigurationGroups/Group[@Id='{0}']";
 
-    private readonly IFeatureFlagRepository _featureFlagRepository;
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public ConfigurationAdapter(
-        IFeatureFlagRepository featureFlagRepository,
-        ILocalizationRepository localizationRepository)
-    {
-        _featureFlagRepository = featureFlagRepository;
-        _localizationRepository = localizationRepository;
-    }
+    private readonly IFeatureFlagRepository _featureFlagRepository = featureFlagRepository;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public ObservableCollection<ConfigurationCategoryGroup> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None) where T : notnull
     {

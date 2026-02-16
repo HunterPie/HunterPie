@@ -4,14 +4,9 @@ namespace HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 
 public class AbnormalityCategoryViewModel : Architecture.ViewModel
 {
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
-    private string _description;
-    public string Description { get => _description; set => SetValue(ref _description, value); }
-
-    private string? _icon;
-    public string? Icon { get => _icon; set => SetValue(ref _icon, value); }
+    public string Name { get; set => SetValue(ref field, value); }
+    public string Description { get; set => SetValue(ref field, value); }
+    public string? Icon { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<AbnormalityElementViewModel> Elements { get; init; }
 }

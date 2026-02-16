@@ -7,17 +7,10 @@ namespace HunterPie.Features.Statistics.Details.ViewModels;
 
 public class StatusDetailsViewModel : ViewModel, ISectionControllable
 {
-    private string _name = string.Empty;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
-    private double _upTime;
-    public double UpTime { get => _upTime; set => SetValue(ref _upTime, value); }
-
-    private bool _isToggled;
-    public bool IsToggled { get => _isToggled; set => SetValue(ref _isToggled, value); }
+    public string Name { get; set => SetValue(ref field, value); } = string.Empty;
+    public double UpTime { get; set => SetValue(ref field, value); }
+    public bool IsToggled { get; set => SetValue(ref field, value); }
 
     public List<AxisSection> Activations { get; init; } = new();
-
-    private Brush _color = Brushes.Transparent;
-    public Brush Color { get => _color; set => SetValue(ref _color, value); }
+    public Brush Color { get; set => SetValue(ref field, value); } = Brushes.Transparent;
 }

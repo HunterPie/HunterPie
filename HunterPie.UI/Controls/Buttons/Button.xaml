@@ -1,74 +1,104 @@
-﻿<arch:ClickableControl x:Name="NativeButtonControl"
-                       x:Class="HunterPie.UI.Controls.Buttons.Button"
+﻿<arch:ClickableControl x:Class="HunterPie.UI.Controls.Buttons.Button"
                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-                       xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+                       xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects"
-                       mc:Ignorable="d" 
-                       d:DesignHeight="25" 
+                       xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       x:Name="NativeButtonControl"
+                       d:DesignHeight="25"
                        d:DesignWidth="60"
                        ClipToBounds="True"
-                       Cursor="Hand">
-    <arch:ClickableControl.Resources>
-        <Storyboard x:Key="PART_RippleAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="Width" 
-                             From="0" 
-                             Duration="0:0:0.3" />
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" 
-                                Duration="0:0:0.3" />
-            <DoubleAnimation Duration="0:0:0.8" 
-                             Storyboard.TargetProperty="Opacity"
-                             From="1"
-                             To="0">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetProperty="Width" 
-                             To="0" 
-                             BeginTime="0:0:1.25" 
-                             Duration="0:0:0" />
-            <DoubleAnimation BeginTime="0:0:1.25" 
-                             Duration="0:0:0" 
-                             Storyboard.TargetProperty="Opacity" 
-                             To="1">
-                <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-    </arch:ClickableControl.Resources>
-    <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
-            BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
-            BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
-            Background="{Binding Background, ElementName=NativeButtonControl}">
-        <Grid>
-            <Grid.OpacityMask>
-                <VisualBrush>
-                    <VisualBrush.Visual>
-                        <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
-                                BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
-                                BorderBrush="Black"
-                                Background="Black"
-                                Height="{Binding ActualHeight, ElementName=NativeButtonControl}"
-                                Width="{Binding ActualWidth, ElementName=NativeButtonControl}"/>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Grid.OpacityMask>
-            <effects:CursorHighLight>
-                <Label Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                       FontFamily="{StaticResource Font.Default}"
-                       Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                       HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                       VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"/>
-            </effects:CursorHighLight>
-            <Canvas ClipToBounds="True"
-                    x:Name="PART_RippleContainer"
-                    IsHitTestVisible="False"/>
-        </Grid>
-    </Border>
+                       Cursor="Hand"
+                       mc:Ignorable="d">
+	<arch:ClickableControl.Resources>
+		<conditionals:IsNullConverter x:Key="IsNullConverter" />
+
+		<Storyboard x:Key="PART_RippleAnimation">
+			<DoubleAnimation Storyboard.TargetProperty="Width"
+			                 From="0"
+			                 Duration="0:0:0.3" />
+			<ThicknessAnimation Storyboard.TargetProperty="Margin"
+			                    Duration="0:0:0.3" />
+			<DoubleAnimation Storyboard.TargetProperty="Opacity"
+			                 From="1"
+			                 To="0"
+			                 Duration="0:0:0.8">
+				<DoubleAnimation.EasingFunction>
+					<SineEase EasingMode="EaseOut" />
+				</DoubleAnimation.EasingFunction>
+			</DoubleAnimation>
+			<DoubleAnimation BeginTime="0:0:1.25"
+			                 Storyboard.TargetProperty="Width"
+			                 To="0"
+			                 Duration="0:0:0" />
+			<DoubleAnimation BeginTime="0:0:1.25"
+			                 Storyboard.TargetProperty="Opacity"
+			                 To="1"
+			                 Duration="0:0:0">
+				<DoubleAnimation.EasingFunction>
+					<SineEase EasingMode="EaseOut" />
+				</DoubleAnimation.EasingFunction>
+			</DoubleAnimation>
+		</Storyboard>
+	</arch:ClickableControl.Resources>
+	<Border BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
+	        BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
+	        CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}">
+		<Grid>
+			<Grid.OpacityMask>
+				<VisualBrush>
+					<VisualBrush.Visual>
+						<Border BorderBrush="Black"
+						        BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
+						        Width="{Binding ActualWidth, ElementName=NativeButtonControl}"
+						        Height="{Binding ActualHeight, ElementName=NativeButtonControl}"
+						        Background="Black"
+						        CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}" />
+					</VisualBrush.Visual>
+				</VisualBrush>
+			</Grid.OpacityMask>
+			<effects:CursorHighLight>
+				<Label Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+				       HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+				       VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+				       Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+				       FontFamily="{StaticResource Font.Default}">
+					<Label.Style>
+						<Style TargetType="Label">
+							<Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}" />
+							<Style.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}" Value="True" />
+										<Condition Binding="{Binding ForegroundHover, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}, Converter={StaticResource IsNullConverter}}" Value="False" />
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Foreground" Value="{Binding ForegroundHover, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}" />
+								</MultiDataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Label.Style>
+				</Label>
+			</effects:CursorHighLight>
+			<Canvas x:Name="PART_RippleContainer"
+			        ClipToBounds="True"
+			        IsHitTestVisible="False" />
+		</Grid>
+		<Border.Style>
+			<Style TargetType="Border">
+				<Setter Property="Background" Value="{Binding Background, ElementName=NativeButtonControl}" />
+				<Style.Triggers>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}" Value="True" />
+							<Condition Binding="{Binding BackgroundHover, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}, Converter={StaticResource IsNullConverter}}" Value="False" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="Background" Value="{Binding BackgroundHover, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}" />
+					</MultiDataTrigger>
+				</Style.Triggers>
+			</Style>
+		</Border.Style>
+	</Border>
 </arch:ClickableControl>

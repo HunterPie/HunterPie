@@ -8,18 +8,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>, IDisposable
 {
-    private int _rounds;
-    private int _boosts;
-    private int _buddiesCount;
-
     public int Rounds
     {
-        get => _rounds;
+        get;
         private set
         {
-            if (value != _rounds)
+            if (value != field)
             {
-                _rounds = value;
+                field = value;
                 this.Dispatch(_onRoundsLeftChange, this);
             }
         }
@@ -28,12 +24,12 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
 
     public int Boosts
     {
-        get => _boosts;
+        get;
         private set
         {
-            if (value != _boosts)
+            if (value != field)
             {
-                _boosts = value;
+                field = value;
                 this.Dispatch(_onBoostsLeftChange, this);
             }
         }
@@ -42,12 +38,12 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
 
     public int BuddiesCount
     {
-        get => _buddiesCount;
+        get;
         private set
         {
-            if (value != _buddiesCount)
+            if (value != field)
             {
-                _buddiesCount = value;
+                field = value;
                 this.Dispatch(_onBuddyCountChange, this);
             }
         }

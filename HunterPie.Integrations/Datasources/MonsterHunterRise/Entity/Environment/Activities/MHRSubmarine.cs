@@ -7,17 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDisposable
 {
-    private int _count;
-    private bool _isUnlocked;
-
     public int Count
     {
-        get => _count;
+        get;
         private set
         {
-            if (value != _count)
+            if (value != field)
             {
-                _count = value;
+                field = value;
                 this.Dispatch(_onItemCountChange, this);
             }
         }
@@ -25,30 +22,28 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
 
     public int MaxCount { get; private set; } = 20;
 
-    private int _daysLeft;
     public int DaysLeft
     {
-        get => _daysLeft;
+        get;
         private set
         {
-            if (value != _daysLeft)
+            if (value != field)
             {
-                _daysLeft = value;
+                field = value;
                 this.Dispatch(_onDaysLeftChange, this);
             }
         }
     }
 
-    private int _daysBoosted;
     public int DaysBoosted
     {
-        get => _daysBoosted;
+        get;
         private set
         {
-            if (value == _daysBoosted)
+            if (value == field)
                 return;
 
-            _daysBoosted = value;
+            field = value;
             this.Dispatch(
                 toDispatch: _onDaysLeftChange,
                 data: this
@@ -60,12 +55,12 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
 
     public bool IsUnlocked
     {
-        get => _isUnlocked;
+        get;
         private set
         {
-            if (value != _isUnlocked)
+            if (value != field)
             {
-                _isUnlocked = value;
+                field = value;
                 this.Dispatch(_onLockStateChange, this);
             }
         }

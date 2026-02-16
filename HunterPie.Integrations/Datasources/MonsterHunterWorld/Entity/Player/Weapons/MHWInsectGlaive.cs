@@ -13,105 +13,100 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
+public sealed class MHWInsectGlaive(
+    IGameProcess process,
+    ISkillService skillService,
+    IScanService scanService) : MHWMeleeWeapon(process, scanService, skillService, Weapon.InsectGlaive), IInsectGlaive
 {
     private static readonly KinsectBuff[] EmptyBuffs = { KinsectBuff.None, KinsectBuff.None };
-    private KinsectBuff _primaryExtract;
-    private KinsectBuff _secondaryExtract;
-    private float _attackTimer;
-    private float _speedTimer;
-    private float _defenseTimer;
-    private float _stamina;
-    private KinsectChargeType _chargeType;
-    private float _charge;
 
     public KinsectBuff PrimaryExtract
     {
-        get => _primaryExtract;
+        get;
         private set
         {
-            if (value == _primaryExtract)
+            if (value == field)
                 return;
 
-            _primaryExtract = value;
+            field = value;
             this.Dispatch(_onPrimaryExtractChange, new InsectGlaiveExtractChangeEventArgs(value));
         }
     }
 
     public KinsectBuff SecondaryExtract
     {
-        get => _secondaryExtract;
+        get;
         private set
         {
-            if (value == _secondaryExtract)
+            if (value == field)
                 return;
 
-            _secondaryExtract = value;
+            field = value;
             this.Dispatch(_onSecondaryExtractChange, new InsectGlaiveExtractChangeEventArgs(value));
         }
     }
 
     public KinsectChargeType ChargeType
     {
-        get => _chargeType;
+        get;
         private set
         {
-            if (value == _chargeType)
+            if (value == field)
                 return;
 
-            _chargeType = value;
+            field = value;
             this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
         }
     }
 
     public float AttackTimer
     {
-        get => _attackTimer;
+        get;
         private set
         {
-            if (value == _attackTimer)
+            if (value == field)
                 return;
 
-            _attackTimer = value;
+            field = value;
             this.Dispatch(_onAttackTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float SpeedTimer
     {
-        get => _speedTimer;
+        get;
         private set
         {
-            if (value == _speedTimer)
+            if (value == field)
                 return;
 
-            _speedTimer = value;
+            field = value;
             this.Dispatch(_onSpeedTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float DefenseTimer
     {
-        get => _defenseTimer;
+        get;
         private set
         {
-            if (value == _defenseTimer)
+            if (value == field)
                 return;
 
-            _defenseTimer = value;
+            field = value;
             this.Dispatch(_onDefenseTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float Stamina
     {
-        get => _stamina;
+        get;
         private set
         {
-            if (value == _stamina)
+            if (value == field)
                 return;
 
-            _stamina = value;
+            field = value;
             this.Dispatch(_onKinsectStaminaChange, new KinsectStaminaChangeEventArgs(this));
         }
     }
@@ -120,13 +115,13 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
 
     public float Charge
     {
-        get => _charge;
+        get;
         private set
         {
-            if (value == _charge)
+            if (value == field)
                 return;
 
-            _charge = value;
+            field = value;
             this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
         }
     }
@@ -179,11 +174,6 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         add => _onChargeChange.Hook(value);
         remove => _onChargeChange.Unhook(value);
     }
-
-    public MHWInsectGlaive(
-        IGameProcess process,
-        ISkillService skillService,
-        IScanService scanService) : base(process, scanService, skillService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private async Task GetWeaponData()

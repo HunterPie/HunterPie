@@ -65,7 +65,7 @@ public class ClientConfig : ISettings
 
     [ConfigurationProperty("RENDERING_FPS_STRING", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
     [ConfigurationConditional(nameof(IsFramePerSecondLimitEnabled), withValue: true)]
-    public Range RenderFramePerSecond { get; set; } = new Range(60, 165, 1, 1);
+    public Range RenderFramePerSecond { get; set; } = new Range(60, 1000, 1, 1);
     #endregion
 
     #region Scanning Settings

@@ -2,39 +2,31 @@
 using HunterPie.Core.Search;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 
-public class MonsterConfigurationsViewModel : ViewModel
+public class MonsterConfigurationsViewModel(
+    MonsterGlobalConfigurationViewModel globalConfiguration,
+    MonsterDetailsConfiguration configuration,
+    MonsterConfigurationViewModel[] elements,
+    IBodyNavigator bodyNavigator
+) : ViewModel
 {
-    private readonly MonsterDetailsConfiguration _configuration;
-    private readonly MonsterConfigurationViewModel[] _elements;
+    private readonly MonsterDetailsConfiguration _configuration = configuration;
+    private readonly MonsterConfigurationViewModel[] _elements = elements;
 
-    private bool _isSearching;
-    public bool IsSearching { get => _isSearching; set => SetValue(ref _isSearching, value); }
+    public bool IsSearching { get; set => SetValue(ref field, value); }
 
-    public ObservableCollection<MonsterConfigurationViewModel> Overrides { get; }
-
-    public ObservableCollection<MonsterConfigurationViewModel> SearchElements { get; }
-
-    public MonsterGlobalConfigurationViewModel GlobalConfiguration { get; }
-
-    public MonsterConfigurationsViewModel(
-        MonsterGlobalConfigurationViewModel globalConfiguration,
-        MonsterDetailsConfiguration configuration,
-        MonsterConfigurationViewModel[] elements
-    )
-    {
-        _configuration = configuration;
-        _elements = elements;
-        GlobalConfiguration = globalConfiguration;
-        Overrides = elements.Where(it => it.IsOverriding)
+    public ObservableCollection<MonsterConfigurationViewModel> Overrides { get; } = elements.Where(it => it.IsOverriding)
             .ToObservableCollection();
-        SearchElements = elements.Where(it => !it.IsOverriding)
+
+    public ObservableCollection<MonsterConfigurationViewModel> SearchElements { get; } = elements.Where(it => !it.IsOverriding)
             .ToObservableCollection();
-    }
+
+    public MonsterGlobalConfigurationViewModel GlobalConfiguration { get; } = globalConfiguration;
 
     public void FetchIcons()
     {
@@ -63,4 +55,6 @@ public class MonsterConfigurationsViewModel : ViewModel
         SearchElements.Add(viewModel);
         _configuration.Monsters.Remove(viewModel.Configuration);
     }
+
+    public void Return() => bodyNavigator.Return();
 }

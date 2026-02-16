@@ -12,15 +12,15 @@ namespace HunterPie.Internal;
 internal class InitializerManager
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
-    private static readonly HashSet<IInitializer> CoreInitializers = new() { new MapperFactoryInitializer() };
+    private static readonly HashSet<IInitializer> CoreInitializers = [
+        new MapperFactoryInitializer()
+    ];
 
     private static readonly Type[] Initializers =
-    {
+    [
         typeof(FileStreamLoggerInitializer),
-        typeof(CustomFontsInitializer),
         
         // Core
-        typeof(CredentialVaultInitializer),
         typeof(LocalConfigInitializer),
         
         // Feature Flags
@@ -45,10 +45,9 @@ internal class InitializerManager
         typeof(ClientConfigBindingsInitializer),
 
         // GUI
-        typeof(NavigationInitializer),
         typeof(NavigationTemplatesInitializer),
         typeof(AppNotificationsInitializer),
-    };
+    ];
 
     private static readonly Type[] UiInitializers =
     {

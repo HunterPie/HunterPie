@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Process.Entity;
@@ -25,6 +26,7 @@ public sealed class MHRMonster : CommonMonster
 
     private readonly MonsterDefinition _definition;
     private readonly nint _address;
+    private readonly ILocalizationRepository _localizationRepository;
 
     private bool _isLoaded;
     private float _health = -1;
@@ -36,14 +38,14 @@ public sealed class MHRMonster : CommonMonster
     private float _captureThreshold;
     private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly MHRMonsterPart? _qurioThreshold;
-    private readonly Dictionary<long, MHRMonsterPart> _parts = new();
+    private readonly ConcurrentDictionary<long, MHRMonsterPart> _parts = new();
     private readonly ConcurrentDictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
     private readonly List<string> _types = new();
 
     public override int Id { get; protected set; }
 
-    public override string Name => MHRContext.Strings.GetMonsterNameById(Id);
+    public override string Name => _localizationRepository.FindStringBy($"//Strings/Monsters/Rise/Monster[@Id='{Id}']");
 
     public override float Health
     {
@@ -176,10 +178,12 @@ public sealed class MHRMonster : CommonMonster
         IScanService scanService,
         nint address,
         int id,
-        MonsterType monsterType
+        MonsterType monsterType,
+        ILocalizationRepository localizationRepository
     ) : base(process, scanService)
     {
         _address = address;
+        _localizationRepository = localizationRepository;
 
         Id = id;
 
@@ -387,7 +391,7 @@ public sealed class MHRMonster : CommonMonster
                 MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
 
                 var dummy = new MHRMonsterPart(definition, partInfo);
-                _parts.Add(flinchPart, dummy);
+                _parts.TryAdd(flinchPart, dummy);
 
                 _logger.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                 this.Dispatch(_onNewPartFound, dummy);
@@ -463,6 +467,17 @@ public sealed class MHRMonster : CommonMonster
             (false, 0) => Target.None,
             (false, _) => Target.Another,
         };
+    }
+
+    [ScannableMethod]
+    internal async Task GetPositionAsync()
+    {
+        MHRiseMonsterMoveContext context = await Memory.DerefPtrAsync<MHRiseMonsterMoveContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::Position")
+        );
+
+        Position = context.Position.ToVector3();
     }
 
     [ScannableMethod]

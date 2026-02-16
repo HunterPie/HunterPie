@@ -6,27 +6,20 @@ using HunterPie.Core.Observability.Logging.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace HunterPie.Core.Observability.Logging;
 
-internal class TaggeableLogger : ILogger
+internal class TaggeableLogger(
+    Lock synchronizer,
+    List<LogMessage> messages,
+    List<ILogWriter> loggers,
+    string tag) : ILogger
 {
-    private readonly string _tag;
-    private readonly object _lock;
-    private readonly List<LogMessage> _messages;
-    private readonly List<ILogWriter> _loggers;
-
-    public TaggeableLogger(
-        object @lock,
-        List<LogMessage> messages,
-        List<ILogWriter> loggers,
-        string tag)
-    {
-        _lock = @lock;
-        _messages = messages;
-        _tag = tag;
-        _loggers = loggers;
-    }
+    private readonly string _tag = tag;
+    private readonly Lock _lock = synchronizer;
+    private readonly List<LogMessage> _messages = messages;
+    private readonly List<ILogWriter> _loggers = loggers;
 
     public void Debug(string message) =>
         Write(LogLevel.Debug, LogType.Debug, message);

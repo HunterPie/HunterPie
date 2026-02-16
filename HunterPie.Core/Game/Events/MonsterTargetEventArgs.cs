@@ -4,14 +4,8 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class MonsterTargetEventArgs : EventArgs
+public class MonsterTargetEventArgs(IMonster monster) : EventArgs
 {
-    public Target LockOnTarget { get; init; }
-    public Target ManualTarget { get; init; }
-
-    public MonsterTargetEventArgs(IMonster monster)
-    {
-        LockOnTarget = monster.Target;
-        ManualTarget = monster.ManualTarget;
-    }
+    public Target LockOnTarget { get; init; } = monster.Target;
+    public Target ManualTarget { get; init; } = monster.ManualTarget;
 }

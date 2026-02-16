@@ -2,21 +2,12 @@
 
 namespace HunterPie.Core.Game.Events;
 
-public class HealthChangeEventArgs
+public class HealthChangeEventArgs(IHealthComponent component)
 {
 
-    public double Health { get; }
-    public double MaxHealth { get; }
-    public double RecoverableHealth { get; }
-    public double MaxPossibleHealth { get; }
-    public double Heal { get; }
-
-    public HealthChangeEventArgs(IHealthComponent component)
-    {
-        Health = component.Current;
-        MaxHealth = component.Max;
-        RecoverableHealth = component.RecoverableHealth;
-        MaxPossibleHealth = component.MaxPossibleHealth;
-        Heal = component.Heal;
-    }
+    public double Health { get; } = component.Current;
+    public double MaxHealth { get; } = component.Max;
+    public double RecoverableHealth { get; } = component.RecoverableHealth;
+    public double MaxPossibleHealth { get; } = component.MaxPossibleHealth;
+    public double Heal { get; } = component.Heal;
 }

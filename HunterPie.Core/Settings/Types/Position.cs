@@ -4,18 +4,15 @@ namespace HunterPie.Core.Settings.Types;
 
 public class Position : Bindable
 {
-    private double _x;
-    private double _y;
-
     public double X
     {
-        get => _x;
-        set => SetValue(ref _x, value);
+        get;
+        set => SetValue(ref field, value);
     }
     public double Y
     {
-        get => _y;
-        set => SetValue(ref _y, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public Position(double x, double y)

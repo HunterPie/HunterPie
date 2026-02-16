@@ -1,10 +1,8 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Settings.ViewModels.Internal;
 using System.Windows;
 using System.Windows.Controls;
 using Button = HunterPie.UI.Controls.Buttons.Button;
-using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.UI.Settings.Views;
 /// <summary>
@@ -31,16 +29,6 @@ public partial class AbnormalityTrayConfigurationPropertyView : UserControl
             return;
 
         if (sender is not Button { Key: AbnormalityWidgetConfig tray })
-            return;
-
-        NativeDialogResult dialogResult = DialogManager.Warn(
-            Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
-            Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='DELETE_CONFIRMATION_DESCRIPTION_STRING']")
-                    .Replace("{Item}", $"{(string)tray.Name}"),
-            NativeDialogButtons.Accept | NativeDialogButtons.Cancel
-        );
-
-        if (dialogResult != NativeDialogResult.Accept)
             return;
 
         vm.DeleteTray(tray);

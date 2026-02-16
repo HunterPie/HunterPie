@@ -3,12 +3,7 @@ using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Weapons;
 
-public class MHWildsWeapon : IWeapon
+public class MHWildsWeapon(Weapon id) : IWeapon
 {
-    public Weapon Id { get; }
-
-    public MHWildsWeapon(Weapon id)
-    {
-        Id = id;
-    }
+    public Weapon Id { get; } = id;
 }

@@ -4,55 +4,40 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 
 public class AbnormalityViewModel : Bindable
 {
-    private string _icon;
     public string Icon
     {
-        get => _icon;
-        set => SetValue(ref _icon, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private string _id;
     public string Id
     {
-        get => _id;
-        set => SetValue(ref _id, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private string _name;
     public string Name
     {
-        get => _name;
-        set => SetValue(ref _name, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private double _timer;
     public double Timer
     {
-        get => _timer;
-        set => SetValue(ref _timer, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private double _maxTimer;
     public double MaxTimer
     {
-        get => _maxTimer;
-        set => SetValue(ref _maxTimer, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _isBuff;
     public bool IsBuff
     {
-        get => _isBuff;
-        set => SetValue(ref _isBuff, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    public bool _isBuildup;
     public bool IsBuildup
     {
-        get => _isBuildup;
-        set => SetValue(ref _isBuildup, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _isInfinite;
-    public bool IsInfinite { get => _isInfinite; set => SetValue(ref _isInfinite, value); }
+    public bool IsInfinite { get; set => SetValue(ref field, value); }
 }

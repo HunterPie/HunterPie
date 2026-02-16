@@ -4,17 +4,11 @@ using HunterPie.UI.Main.ViewModels;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountSignFlowViewModel : ViewModel
+internal class AccountSignFlowViewModel(MainNavigator mainNavigator) : ViewModel
 {
-    private readonly MainNavigator _mainNavigator;
+    private readonly MainNavigator _mainNavigator = mainNavigator;
 
-    private int _selectedIndex;
-    public int SelectedIndex { get => _selectedIndex; set => SetValue(ref _selectedIndex, value); }
-
-    public AccountSignFlowViewModel(MainNavigator mainNavigator)
-    {
-        _mainNavigator = mainNavigator;
-    }
+    public int SelectedIndex { get; set => SetValue(ref field, value); }
 
     public void NavigateBack()
     {

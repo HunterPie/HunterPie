@@ -11,12 +11,12 @@ internal class BackupModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<MHRBackupStrategy>()
-            .WithService<MHWBackupStrategy>()
+            .WithFactory<MHRBackupStrategy>()
+            .WithFactory<MHWBackupStrategy>()
             .WithSingle<GameSaveBackupService>()
-            .WithService<BackupElementFactory>();
+            .WithFactory<BackupElementFactory>();
 
         registry
-            .WithService<BackupsViewModel>();
+            .WithFactory<BackupsViewModel>();
     }
 }

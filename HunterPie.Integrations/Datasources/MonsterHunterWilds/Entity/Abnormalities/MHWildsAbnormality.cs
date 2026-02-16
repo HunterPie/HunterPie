@@ -7,14 +7,16 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
 
-public sealed class MHWildsAbnormality : CommonAbnormality, IUpdatable<UpdateAbnormalityData>
+public sealed class MHWildsAbnormality(
+    AbnormalityDefinition definition,
+    AbnormalityType type) : CommonAbnormality, IUpdatable<UpdateAbnormalityData>
 {
-    public override string Id { get; protected set; }
-    public override string Name { get; protected set; }
-    public override string Icon { get; protected set; }
-    public override bool IsBuildup { get; protected set; }
-    public override bool IsInfinite { get; protected set; }
-    public override AbnormalityType Type { get; protected set; }
+    public override string Id { get; protected set; } = definition.Id;
+    public override string Name { get; protected set; } = definition.Name;
+    public override string Icon { get; protected set; } = definition.Icon;
+    public override bool IsBuildup { get; protected set; } = definition.IsBuildup;
+    public override bool IsInfinite { get; protected set; } = definition.IsInfinite;
+    public override AbnormalityType Type { get; protected set; } = type;
 
     private float _timer;
     public override float Timer
@@ -36,18 +38,6 @@ public sealed class MHWildsAbnormality : CommonAbnormality, IUpdatable<UpdateAbn
     public override float MaxTimer { get; protected set; }
 
     public override int Level { get; protected set; }
-
-    public MHWildsAbnormality(
-        AbnormalityDefinition definition,
-        AbnormalityType type)
-    {
-        Type = type;
-        Id = definition.Id;
-        Name = definition.Name;
-        Icon = definition.Icon;
-        IsBuildup = definition.IsBuildup;
-        IsInfinite = definition.IsInfinite;
-    }
 
     public void Update(UpdateAbnormalityData data)
     {

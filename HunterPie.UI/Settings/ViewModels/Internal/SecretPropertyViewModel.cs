@@ -2,12 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-internal class SecretPropertyViewModel : ConfigurationPropertyViewModel
+internal class SecretPropertyViewModel(Secret secret) : ConfigurationPropertyViewModel
 {
-    public Secret Secret { get; }
-
-    public SecretPropertyViewModel(Secret secret)
-    {
-        Secret = secret;
-    }
+    public Secret Secret { get; } = secret;
 }

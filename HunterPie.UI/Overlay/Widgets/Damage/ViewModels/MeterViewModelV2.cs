@@ -2,12 +2,7 @@
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class MeterViewModelV2 : MeterViewModel
+public class MeterViewModelV2(DamageMeterWidgetConfig config) : MeterViewModel(config)
 {
-    private double _maxPlotValue = 5;
-    public double MaxPlotValue { get => _maxPlotValue; set => SetValue(ref _maxPlotValue, value); }
-
-    public MeterViewModelV2(DamageMeterWidgetConfig config) : base(config)
-    {
-    }
+    public double MaxPlotValue { get; set => SetValue(ref field, value); } = 5;
 }

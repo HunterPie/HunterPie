@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Core.Settings.Common;
 using HunterPie.UI.Settings.Converter.Model;
@@ -10,16 +11,18 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Settings;
 
-public static class FeatureFlagAdapter
+public class FeatureFlagAdapter(ILocalizationRepository localizationRepository)
 {
     private const string FEATURES_FLAG_XPATH = "//Strings/Client/Settings/Setting[@Id='FEATURE_FLAGS_STRING']";
     private const string GENERAL_GROUP_XPATH = $"//Strings/Client/ConfigurationGroups/Group[@Id='{CommonConfigurationGroups.GENERAL}']";
     private const string FEATURE_FLAG_GROUP_XPATH = $"//Strings/Client/ConfigurationGroups/Group[@Id='{CommonConfigurationGroups.FEATURE_FLAGS}']";
 
-    public static ObservableCollection<ConfigurationCategoryGroup> Adapt(Dictionary<string, IFeature> flags)
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
+
+    public ObservableCollection<ConfigurationCategoryGroup> Adapt(Dictionary<string, IFeature> flags)
     {
         ObservableCollection<IConfigurationProperty> properties = new();
-        string categoryName = Localization.QueryString(GENERAL_GROUP_XPATH);
+        string categoryName = _localizationRepository.FindStringBy(GENERAL_GROUP_XPATH);
 
         foreach ((string name, IFeature feature) in flags)
         {
@@ -30,8 +33,6 @@ public static class FeatureFlagAdapter
                 Group = categoryName,
                 RequiresRestart = true,
                 Conditions = Array.Empty<PropertyCondition>(),
-                IsMatch = false,
-
             };
 
             properties.Add(property);
@@ -42,13 +43,13 @@ public static class FeatureFlagAdapter
             Properties: properties
         );
 
-        (string groupName, string groupDescription) = Localization.Resolve(FEATURES_FLAG_XPATH);
+        LocalizationData localizationData = _localizationRepository.FindBy(FEATURES_FLAG_XPATH);
 
-        string categoryGroup = Localization.QueryString(FEATURE_FLAG_GROUP_XPATH);
+        string categoryGroup = _localizationRepository.FindStringBy(FEATURE_FLAG_GROUP_XPATH);
 
         var category = new ConfigurationCategory(
-            Name: groupName,
-            Description: groupDescription,
+            Name: localizationData.String,
+            Description: localizationData.Description,
             Icon: "ICON_FLAG",
             CategoryGroup: categoryGroup,
             Groups: new ObservableCollection<ConfigurationGroup> { group }

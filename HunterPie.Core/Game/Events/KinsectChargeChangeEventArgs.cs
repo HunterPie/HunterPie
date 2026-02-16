@@ -4,14 +4,8 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class KinsectChargeChangeEventArgs : EventArgs
+public class KinsectChargeChangeEventArgs(IInsectGlaive source) : EventArgs
 {
-    public KinsectChargeType Type { get; }
-    public float Timer { get; }
-
-    public KinsectChargeChangeEventArgs(IInsectGlaive source)
-    {
-        Type = source.ChargeType;
-        Timer = source.Charge;
-    }
+    public KinsectChargeType Type { get; } = source.ChargeType;
+    public float Timer { get; } = source.Charge;
 }

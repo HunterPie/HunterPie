@@ -10,41 +10,19 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.ViewModels;
 
-internal class BackupElementViewModel : ViewModel
+internal class BackupElementViewModel(PoogieBackupConnector backupConnector) : ViewModel
 {
-    private readonly PoogieBackupConnector _backupConnector;
+    private readonly PoogieBackupConnector _backupConnector = backupConnector;
 
-    private string _backupId = string.Empty;
-    public string BackupId { get => _backupId; set => SetValue(ref _backupId, value); }
-
-    private string _gameName = string.Empty;
-    public string GameName { get => _gameName; set => SetValue(ref _gameName, value); }
-
-    private string _gameIcon = string.Empty;
-    public string GameIcon { get => _gameIcon; set => SetValue(ref _gameIcon, value); }
-
-    private DateTime _uploadedAt;
-    public DateTime UploadedAt { get => _uploadedAt; set => SetValue(ref _uploadedAt, value); }
-
-    private long _byteSize;
-    public long ByteSize { get => _byteSize; set => SetValue(ref _byteSize, value); }
-
-    private bool _isDownloading;
-    public bool IsDownloading { get => _isDownloading; set => SetValue(ref _isDownloading, value); }
-
-    private double _bytesDownloaded;
-    public double BytesDownloaded { get => _bytesDownloaded; set => SetValue(ref _bytesDownloaded, value); }
-
-    private double _bytesToDownload;
-    public double BytesToDownload { get => _bytesToDownload; set => SetValue(ref _bytesToDownload, value); }
-
-    private bool _isDownloaded;
-    public bool IsDownloaded { get => _isDownloaded; set => SetValue(ref _isDownloaded, value); }
-
-    public BackupElementViewModel(PoogieBackupConnector backupConnector)
-    {
-        _backupConnector = backupConnector;
-    }
+    public string BackupId { get; set => SetValue(ref field, value); } = string.Empty;
+    public string GameName { get; set => SetValue(ref field, value); } = string.Empty;
+    public string GameIcon { get; set => SetValue(ref field, value); } = string.Empty;
+    public DateTime UploadedAt { get; set => SetValue(ref field, value); }
+    public long ByteSize { get; set => SetValue(ref field, value); }
+    public bool IsDownloading { get; set => SetValue(ref field, value); }
+    public double BytesDownloaded { get; set => SetValue(ref field, value); }
+    public double BytesToDownload { get; set => SetValue(ref field, value); }
+    public bool IsDownloaded { get; set => SetValue(ref field, value); }
 
     public async Task Download()
     {

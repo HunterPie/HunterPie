@@ -2,12 +2,7 @@
 
 namespace HunterPie.Core.Client.Localization;
 
-public class LocalizationAttribute : Attribute
+public class LocalizationAttribute(string xpath) : Attribute
 {
-    public string XPath { get; }
-
-    public LocalizationAttribute(string xpath)
-    {
-        XPath = xpath;
-    }
+    public string XPath { get; } = xpath;
 }

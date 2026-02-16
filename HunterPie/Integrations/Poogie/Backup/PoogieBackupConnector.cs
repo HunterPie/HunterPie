@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Backup;
 
-internal class PoogieBackupConnector
+internal class PoogieBackupConnector(IPoogieClientAsync client)
 {
     private const string BACKUP_ENDPOINT = "/v1/backup";
-    private readonly IPoogieClientAsync _client;
-
-    public PoogieBackupConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
+    private readonly IPoogieClientAsync _client = client;
 
     public async Task<PoogieResult<CanUploadBackupResponse>> CanUploadBackupAsync() =>
         await _client.GetAsync<CanUploadBackupResponse>($"{BACKUP_ENDPOINT}/upload");

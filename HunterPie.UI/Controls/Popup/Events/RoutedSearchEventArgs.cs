@@ -2,9 +2,7 @@
 
 namespace HunterPie.UI.Controls.Popup.Events;
 
-public class RoutedSearchEventArgs : RoutedEventArgs
+public class RoutedSearchEventArgs(RoutedEvent e, object sender) : RoutedEventArgs(e, sender)
 {
     public required string Query { get; init; }
-
-    public RoutedSearchEventArgs(RoutedEvent e, object sender) : base(e, sender) { }
 }

@@ -7,30 +7,27 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>, IDisposable
 {
-    private string _name = string.Empty;
-    private int _level;
-
     public string Name
     {
-        get => _name;
+        get;
         private set
         {
-            if (value != _name)
+            if (value != field)
             {
-                _name = value;
+                field = value;
                 this.Dispatch(_onNameChange, this);
             }
         }
-    }
+    } = string.Empty;
 
     public int Level
     {
-        get => _level;
+        get;
         private set
         {
-            if (value != _level)
+            if (value != field)
             {
-                _level = value;
+                field = value;
                 this.Dispatch(_onLevelChange, this);
             }
         }

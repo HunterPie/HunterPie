@@ -9,8 +9,6 @@ public class InitializersModule : IDependencyModule
     {
         registry
             .WithSingle<FileStreamLoggerInitializer>()
-            .WithSingle<CustomFontsInitializer>()
-            .WithSingle<CredentialVaultInitializer>()
             .WithSingle<LocalConfigInitializer>()
             .WithSingle<FeatureFlagsInitializer>()
             .WithSingle<NativeLoggerInitializer>()
@@ -26,7 +24,6 @@ public class InitializersModule : IDependencyModule
             .WithSingle<ClientLocalizationInitializer>()
             .WithSingle<SystemTrayInitializer>()
             .WithSingle<ClientConfigBindingsInitializer>()
-            .WithSingle<NavigationInitializer>()
             .WithSingle<NavigationTemplatesInitializer>()
             .WithSingle<AppNotificationsInitializer>()
             .WithSingle<HotkeyInitializer>()

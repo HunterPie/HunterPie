@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Search;
+using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
@@ -10,26 +11,17 @@ using System.Linq;
 namespace HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 
 #nullable enable
-public class AbnormalityWidgetSettingsViewModel : Architecture.ViewModel
+public class AbnormalityWidgetSettingsViewModel(
+    ConfigurationCategory configuration,
+    ObservableCollection<AbnormalityCategoryViewModel> categories,
+    ObservableHashSet<string> selectedAbnormalities,
+    IBodyNavigator bodyNavigator
+) : ViewModel
 {
-    public ObservableCollection<AbnormalityCategoryViewModel> Categories { get; }
-    public ObservableHashSet<string> SelectedAbnormalities { get; }
-    public ConfigurationCategory Configuration { get; }
-
-    private AbnormalityCategoryViewModel _selectedCategory;
-    public AbnormalityCategoryViewModel SelectedCategory { get => _selectedCategory; set => SetValue(ref _selectedCategory, value); }
-
-    public AbnormalityWidgetSettingsViewModel(
-        ConfigurationCategory configuration,
-        ObservableCollection<AbnormalityCategoryViewModel> categories,
-        ObservableHashSet<string> selectedAbnormalities
-    )
-    {
-        _selectedCategory = categories.First();
-        Configuration = configuration;
-        Categories = categories;
-        SelectedAbnormalities = selectedAbnormalities;
-    }
+    public ObservableCollection<AbnormalityCategoryViewModel> Categories { get; } = categories;
+    public ObservableHashSet<string> SelectedAbnormalities { get; } = selectedAbnormalities;
+    public ConfigurationCategory Configuration { get; } = configuration;
+    public AbnormalityCategoryViewModel SelectedCategory { get; set => SetValue(ref field, value); } = categories.First();
 
     public void SelectAllFromCurrentCategory()
     {
@@ -63,6 +55,6 @@ public class AbnormalityWidgetSettingsViewModel : Architecture.ViewModel
 
     public void ExitScreen()
     {
-        Navigator.Body.Return();
+        bodyNavigator.Return();
     }
 }

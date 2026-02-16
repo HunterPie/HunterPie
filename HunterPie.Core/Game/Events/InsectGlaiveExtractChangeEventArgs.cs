@@ -3,12 +3,7 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class InsectGlaiveExtractChangeEventArgs : EventArgs
+public class InsectGlaiveExtractChangeEventArgs(KinsectBuff extract) : EventArgs
 {
-    public KinsectBuff Extract { get; }
-
-    public InsectGlaiveExtractChangeEventArgs(KinsectBuff extract)
-    {
-        Extract = extract;
-    }
+    public KinsectBuff Extract { get; } = extract;
 }

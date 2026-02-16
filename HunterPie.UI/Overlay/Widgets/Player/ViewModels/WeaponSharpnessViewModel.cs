@@ -5,15 +5,8 @@ namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 
 public class WeaponSharpnessViewModel : ViewModel
 {
-    private Sharpness _sharpnessLevel;
-    public Sharpness SharpnessLevel { get => _sharpnessLevel; set => SetValue(ref _sharpnessLevel, value); }
-
-    private int _sharpness;
-    public int Sharpness { get => _sharpness; set => SetValue(ref _sharpness, value); }
-
-    private int _maxSharpness;
-    public int MaxSharpness { get => _maxSharpness; set => SetValue(ref _maxSharpness, value); }
-
-    private int _hitsLeft;
-    public int HitsLeft { get => _hitsLeft; set => SetValue(ref _hitsLeft, value); }
+    public Sharpness SharpnessLevel { get; set => SetValue(ref field, value); }
+    public int Sharpness { get; set => SetValue(ref field, value); }
+    public int MaxSharpness { get; set => SetValue(ref field, value); }
+    public int HitsLeft { get; set => SetValue(ref field, value); }
 }

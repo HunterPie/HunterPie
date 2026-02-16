@@ -8,18 +8,13 @@ using System.Xml;
 
 namespace HunterPie.Core.Domain.Mapper.Internal;
 
-internal class XmlNodeToAbnormalityDefinitionMapper : IMapper<XmlNode, AbnormalityDefinition>
+internal class XmlNodeToAbnormalityDefinitionMapper(params IAbnormalityFlagTypeParser[] flagParsers) : IMapper<XmlNode, AbnormalityDefinition>
 {
 
     private const string UNKNOWN_ABNORMALITY_NAME = "ABNORMALITY_UNKNOWN";
     private const string ICON_MISSING = "ICON_MISSING";
 
-    private readonly IAbnormalityFlagTypeParser[] _flagParsers;
-
-    public XmlNodeToAbnormalityDefinitionMapper(params IAbnormalityFlagTypeParser[] flagParsers)
-    {
-        _flagParsers = flagParsers;
-    }
+    private readonly IAbnormalityFlagTypeParser[] _flagParsers = flagParsers;
 
     public AbnormalityDefinition Map(XmlNode data)
     {

@@ -5,32 +5,16 @@ using System;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountPreferencesViewModel : ViewModel
+internal class AccountPreferencesViewModel(IAccountUseCase accountUseCase) : ViewModel
 {
-    private readonly IAccountUseCase _accountUseCase;
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
 
-    private string _username = string.Empty;
-    public string Username { get => _username; set => SetValue(ref _username, value); }
-
-    private string _email = string.Empty;
-    public string Email { get => _email; set => SetValue(ref _email, value); }
-
-    private string _avatarUrl = "https://cdn.hunterpie.com/avatars/default.png";
-    public string AvatarUrl { get => _avatarUrl; set => SetValue(ref _avatarUrl, value); }
-
-    private bool _isSupporter;
-    public bool IsSupporter { get => _isSupporter; set => SetValue(ref _isSupporter, value); }
-
-    private bool _isFetchingAccount;
-    public bool IsFetchingAccount { get => _isFetchingAccount; set => SetValue(ref _isFetchingAccount, value); }
-
-    private bool _isUploadingAvatar;
-    public bool IsUploadingAvatar { get => _isUploadingAvatar; set => SetValue(ref _isUploadingAvatar, value); }
-
-    public AccountPreferencesViewModel(IAccountUseCase accountUseCase)
-    {
-        _accountUseCase = accountUseCase;
-    }
+    public string Username { get; set => SetValue(ref field, value); } = string.Empty;
+    public string Email { get; set => SetValue(ref field, value); } = string.Empty;
+    public string AvatarUrl { get; set => SetValue(ref field, value); } = "https://cdn.hunterpie.com/avatars/default.png";
+    public bool IsSupporter { get; set => SetValue(ref field, value); }
+    public bool IsFetchingAccount { get; set => SetValue(ref field, value); }
+    public bool IsUploadingAvatar { get; set => SetValue(ref field, value); }
 
     public async void UploadAvatar()
     {

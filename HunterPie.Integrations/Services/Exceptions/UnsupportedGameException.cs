@@ -1,6 +1,5 @@
 ﻿namespace HunterPie.Integrations.Services.Exceptions;
 
-public class UnsupportedGameException : Exception
+public class UnsupportedGameException(string name) : Exception($"Unsupported game {name}")
 {
-    public UnsupportedGameException(string name) : base($"Unsupported game {name}") { }
 }

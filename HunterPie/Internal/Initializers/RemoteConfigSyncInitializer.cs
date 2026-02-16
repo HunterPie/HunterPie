@@ -9,19 +9,13 @@ namespace HunterPie.Internal.Initializers;
 /// Initializer responsible for fetching and downloading the user's
 /// remote config that's been uploaded in past sessions
 /// </summary>
-internal class RemoteConfigSyncInitializer : IInitializer
+internal class RemoteConfigSyncInitializer(
+    IRemoteAccountConfigUseCase remoteConfigService,
+    RemoteConfigSyncService configSyncService
+        ) : IInitializer
 {
-    private readonly IRemoteAccountConfigUseCase _remoteConfigService;
-    private readonly RemoteConfigSyncService _configSyncService;
-
-    public RemoteConfigSyncInitializer(
-        IRemoteAccountConfigUseCase remoteConfigService,
-        RemoteConfigSyncService configSyncService
-        )
-    {
-        _remoteConfigService = remoteConfigService;
-        _configSyncService = configSyncService;
-    }
+    private readonly IRemoteAccountConfigUseCase _remoteConfigService = remoteConfigService;
+    private readonly RemoteConfigSyncService _configSyncService = configSyncService;
 
     public async Task Init()
     {

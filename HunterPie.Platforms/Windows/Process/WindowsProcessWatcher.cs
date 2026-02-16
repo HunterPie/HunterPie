@@ -13,25 +13,24 @@ using SystemProcess = System.Diagnostics.Process;
 
 namespace HunterPie.Platforms.Windows.Process;
 
-internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispatcher, IDisposable
+internal class WindowsProcessWatcher(IProcessAttachStrategy[] strategies) : IControllableWatcherService, IEventDispatcher, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private int _isWatching;
     private Timer? _timer;
-    private readonly IProcessAttachStrategy[] _strategies;
+    private readonly IProcessAttachStrategy[] _strategies = strategies;
     private readonly HashSet<string> _failedProcesses = new();
 
-    private WindowsGameProcess? _currentProcess;
     public WindowsGameProcess? CurrentProcess
     {
-        get => _currentProcess;
+        get;
         private set
         {
-            if (value == _currentProcess)
+            if (value == field)
                 return;
 
-            _currentProcess = value;
+            field = value;
 
             if (value is { })
                 this.Dispatch(
@@ -49,12 +48,6 @@ internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispat
 
     public event EventHandler<ProcessEventArgs>? ProcessStart;
     public event EventHandler<EventArgs>? ProcessExit;
-
-    public WindowsProcessWatcher(IProcessAttachStrategy[] strategies)
-    {
-
-        _strategies = strategies;
-    }
 
     public void Start()
     {
@@ -143,7 +136,7 @@ internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispat
         }
         catch (Exception err)
         {
-            _logger.Info($"Error details: {err}");
+            _logger.Error($"Error details: {err}");
         }
 
         _failedProcesses.Add(strategy.Name);

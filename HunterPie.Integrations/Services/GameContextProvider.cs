@@ -12,31 +12,31 @@ using HunterPie.Integrations.Services.Exceptions;
 
 namespace HunterPie.Integrations.Services;
 
-internal class GameContextProvider : IGameContextService
+internal class GameContextProvider(
+    IScanService scanService,
+    ILocalizationRepository localizationRepository) : IGameContextService
 {
-    private readonly IScanService _scanService;
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public GameContextProvider(
-        IScanService scanService,
-        ILocalizationRepository localizationRepository)
-    {
-        _scanService = scanService;
-        _localizationRepository = localizationRepository;
-    }
 
     public Context Get(IGameProcess game)
     {
         return game.Type switch
         {
-            GameProcessType.MonsterHunterRise => new MHRContext(game, _scanService),
+            GameProcessType.MonsterHunterRise => new MHRContext(
+                process: game,
+                scanService: scanService,
+                localizationRepository: localizationRepository
+            ),
 
-            GameProcessType.MonsterHunterWorld => new MHWContext(game, _scanService),
+            GameProcessType.MonsterHunterWorld => new MHWContext(
+                process: game,
+                scanService: scanService,
+                localizationRepository: localizationRepository
+            ),
 
             GameProcessType.MonsterHunterWilds => new MHWildsContext(
                 process: game,
-                scanService: _scanService,
-                localizationRepository: _localizationRepository,
+                scanService: scanService,
+                localizationRepository: localizationRepository,
                 monsterTargetKeyManager: DependencyContainer.Get<MHWildsMonsterTargetKeyManager>()
             ),
 

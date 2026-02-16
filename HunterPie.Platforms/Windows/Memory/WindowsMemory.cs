@@ -9,16 +9,11 @@ using System.Text;
 
 namespace HunterPie.Platforms.Windows.Memory;
 
-internal class WindowsMemory : IMemoryAsync
+internal class WindowsMemory(IntPtr handle) : IMemoryAsync
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly IntPtr _handle;
+    private readonly IntPtr _handle = handle;
     private readonly ArrayPool<byte> _bufferPool = ArrayPool<byte>.Shared;
-
-    public WindowsMemory(IntPtr handle)
-    {
-        _handle = handle;
-    }
 
     public async Task<string> ReadAsync(IntPtr address, int length, Encoding? encoding = null)
     {
@@ -247,6 +242,4 @@ internal class WindowsMemory : IMemoryAsync
 
         return buffer;
     }
-
-    public Task<T> DerefLastAsync<T>(nint address, int[] offsets) where T : struct => throw new NotImplementedException();
 }

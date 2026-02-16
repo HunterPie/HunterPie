@@ -10,10 +10,10 @@ internal class UpdateModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<UpdateCleanUpService>()
-            .WithService<UpdateService>()
-            .WithService<LocalizationUpdateService>()
-            .WithService<ChecksumService>()
-            .WithService<UpdateGateway>();
+            .WithFactory<UpdateCleanUpService>()
+            .WithFactory<UpdateService>()
+            .WithFactory<LocalizationUpdateService>()
+            .WithFactory<ChecksumService>()
+            .WithFactory<UpdateGateway>();
     }
 }

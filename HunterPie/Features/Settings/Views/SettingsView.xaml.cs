@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Features.Settings.Bindings;
 using HunterPie.Features.Settings.ViewModels;
+using HunterPie.UI.Architecture.Bindings;
 using HunterPie.UI.Architecture.Tree;
 using HunterPie.UI.Controls.TextBox.Events;
 using HunterPie.UI.Settings.Converter.Model;
@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using AppResources = HunterPie.UI.Assets.Application.Resources;
 
 namespace HunterPie.Features.Settings.Views;
 /// <summary>
@@ -29,8 +30,8 @@ public partial class SettingsView : UserControl
     {
         InitializeComponent();
 
-        _disableSettingComponentAnimation = (Storyboard)FindResource("DisableSettingComponentAnimation");
-        _enableSettingComponentAnimation = (Storyboard)FindResource("EnableSettingComponentAnimation");
+        _disableSettingComponentAnimation = AppResources.Get<Storyboard>("Animations.Scale.Hide");
+        _enableSettingComponentAnimation = AppResources.Get<Storyboard>("Animations.Scale.Show");
     }
 
     private void OnSearchTextChanged(object? sender, SearchTextChangedEventArgs e)

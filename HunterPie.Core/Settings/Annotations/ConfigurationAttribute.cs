@@ -4,26 +4,17 @@ using System;
 namespace HunterPie.Core.Settings.Annotations;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class ConfigurationAttribute : Attribute
+public class ConfigurationAttribute(
+    string name,
+    string icon,
+    string group,
+    string? dependsOnFeature = null,
+    GameProcessType availableGames = GameProcessType.All
+    ) : Attribute
 {
-    public string Name { get; init; }
-    public string Icon { get; init; }
-    public string Group { get; init; }
-    public string? DependsOnFeature { get; init; }
-    public GameProcessType AvailableGames { get; init; }
-
-    public ConfigurationAttribute(
-        string name,
-        string icon,
-        string group,
-        string? dependsOnFeature = null,
-        GameProcessType availableGames = GameProcessType.All
-    )
-    {
-        Name = name;
-        Icon = icon;
-        Group = group;
-        DependsOnFeature = dependsOnFeature;
-        AvailableGames = availableGames;
-    }
+    public string Name { get; init; } = name;
+    public string Icon { get; init; } = icon;
+    public string Group { get; init; } = group;
+    public string? DependsOnFeature { get; init; } = dependsOnFeature;
+    public GameProcessType AvailableGames { get; init; } = availableGames;
 }

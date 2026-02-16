@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Notification;
 
-internal class PoogieNotificationConnector
+internal class PoogieNotificationConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string NOTIFICATION_ENDPOINT = "/v1/notifications";
-
-    public PoogieNotificationConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<NotificationResponse[]>> FindAll() =>
         await _client.GetAsync<NotificationResponse[]>(NOTIFICATION_ENDPOINT);

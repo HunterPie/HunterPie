@@ -4,15 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-internal class FileSelectorPropertyViewModel : ConfigurationPropertyViewModel
+internal class FileSelectorPropertyViewModel(IFileSelector fileSelector) : ConfigurationPropertyViewModel
 {
-    public IFileSelector FileSelector { get; }
+    public IFileSelector FileSelector { get; } = fileSelector;
 
-    public ObservableCollection<string> Elements { get; }
-
-    public FileSelectorPropertyViewModel(IFileSelector fileSelector)
-    {
-        FileSelector = fileSelector;
-        Elements = fileSelector.GetElements().ToObservableCollection();
-    }
+    public ObservableCollection<string> Elements { get; } = fileSelector.GetElements().ToObservableCollection();
 }

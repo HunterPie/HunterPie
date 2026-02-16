@@ -21,11 +21,11 @@ internal class AccountModule : IDependencyModule
             .WithSingle<AccountConfig>();
 
         registry
-            .WithService<AccountLoginFlowViewModel>()
-            .WithService<AccountPasswordResetFlowViewModel>()
-            .WithService<AccountPreferencesViewModel>()
-            .WithService<AccountRegisterFlowViewModel>()
-            .WithService<AccountSignFlowViewModel>()
-            .WithService<AccountVerificationResendFlowViewModel>();
+            .WithFactory<AccountLoginFlowViewModel>()
+            .WithFactory<AccountPasswordResetFlowViewModel>()
+            .WithFactory<AccountPreferencesViewModel>()
+            .WithFactory<AccountRegisterFlowViewModel>()
+            .WithFactory<AccountSignFlowViewModel>()
+            .WithFactory<AccountVerificationResendFlowViewModel>();
     }
 }

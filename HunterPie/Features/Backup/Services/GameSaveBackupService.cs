@@ -15,32 +15,23 @@ using GameType = HunterPie.Core.Client.Configuration.Enums.GameType;
 
 namespace HunterPie.Features.Backup.Services;
 
-internal class GameSaveBackupService : IBackupService
+internal class GameSaveBackupService(
+    IAccountUseCase accountUseCase,
+    AccountConfig accountConfig,
+    PoogieBackupConnector connector,
+    IBackupStrategy[] strategies,
+    ILocalRegistryAsync localRegistryAsync) : IBackupService
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly IAccountUseCase _accountUseCase;
-    private readonly AccountConfig _accountConfig;
-    private readonly PoogieBackupConnector _connector;
-    private readonly IBackupStrategy[] _strategies;
-    private readonly ILocalRegistryAsync _localRegistryAsync;
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
+    private readonly AccountConfig _accountConfig = accountConfig;
+    private readonly PoogieBackupConnector _connector = connector;
+    private readonly IBackupStrategy[] _strategies = strategies;
+    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
 
     private const string LAST_BACKUP_AT_KEY = "lastBackupAt:";
     private const string WAS_LAST_BACKUP_SUCCESS_KEY = "wasLastBackupSuccessful:";
-
-    public GameSaveBackupService(
-        IAccountUseCase accountUseCase,
-        AccountConfig accountConfig,
-        PoogieBackupConnector connector,
-        IBackupStrategy[] strategies,
-        ILocalRegistryAsync localRegistryAsync)
-    {
-        _accountUseCase = accountUseCase;
-        _accountConfig = accountConfig;
-        _connector = connector;
-        _strategies = strategies;
-        _localRegistryAsync = localRegistryAsync;
-    }
 
     public async Task ExecuteAsync(GameType gameType)
     {

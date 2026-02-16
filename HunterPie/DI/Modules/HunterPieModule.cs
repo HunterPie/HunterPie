@@ -14,12 +14,12 @@ internal class HunterPieModule : IDependencyModule
     {
         // Intrinsic
         registry
-            .WithSingle(() => Application.Current.Dispatcher)
-            .WithSingle(() => Application.Current)
-            .WithService<InMemoryAsyncCache>()
+            .WithSingle(_ => Application.Current.Dispatcher)
+            .WithSingle(_ => Application.Current)
             .WithSingle<CryptoService>()
-            .WithService<CompressorService>()
+            .WithFactory<InMemoryAsyncCache>()
+            .WithFactory<CompressorService>()
             .WithSingle<FileStreamLogWriter>()
-            .WithSingle(() => ClientConfig.Config);
+            .WithSingle(static _ => ClientConfig.Config);
     }
 }

@@ -90,7 +90,7 @@ public class HttpClient : IDisposable
                 }
                 catch (Exception err)
                 {
-                    _logger.Debug(err.ToString());
+                    _logger.Error(err.ToString());
                     _httpClient.Dispose();
                     _request.Dispose();
 

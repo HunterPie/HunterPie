@@ -6,29 +6,17 @@ using HunterPie.UI.Overlay.Service;
 namespace HunterPie.UI.Overlay.ViewModels;
 
 #nullable enable
-public sealed class WidgetContext : ViewModel
+public sealed class WidgetContext(
+    WidgetViewModel viewModel,
+    OverlayClientConfig overlaySettings,
+    DevelopmentConfig developmentSettings,
+    IOverlayState state) : ViewModel
 {
-    public OverlayClientConfig OverlaySettings { get; }
+    public OverlayClientConfig OverlaySettings { get; } = overlaySettings;
 
-    public DevelopmentConfig DevelopmentSettings { get; }
+    public DevelopmentConfig DevelopmentSettings { get; } = developmentSettings;
+    public WidgetViewModel ViewModel { get; set => SetValue(ref field, value); } = viewModel;
 
-    private WidgetViewModel _viewModel;
-    public WidgetViewModel ViewModel { get => _viewModel; set => SetValue(ref _viewModel, value); }
-
-    public IOverlayState State { get; }
-
-    private double _renderTime;
-    public double RenderTime { get => _renderTime; set => SetValue(ref _renderTime, value); }
-
-    public WidgetContext(
-        WidgetViewModel viewModel,
-        OverlayClientConfig overlaySettings,
-        DevelopmentConfig developmentSettings,
-        IOverlayState state)
-    {
-        _viewModel = viewModel;
-        OverlaySettings = overlaySettings;
-        DevelopmentSettings = developmentSettings;
-        State = state;
-    }
+    public IOverlayState State { get; } = state;
+    public double RenderTime { get; set => SetValue(ref field, value); }
 }

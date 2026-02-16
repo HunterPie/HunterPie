@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Localization;
 
-internal class PoogieLocalizationConnector
+internal class PoogieLocalizationConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string LOCALIZATION_ENDPOINT = "/v1/localization";
-
-    public PoogieLocalizationConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<LocalizationResponse>> GetChecksumsAsync() =>
         await _client.GetAsync<LocalizationResponse>($"{LOCALIZATION_ENDPOINT}/checksum");

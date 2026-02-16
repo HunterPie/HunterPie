@@ -12,20 +12,19 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 
-public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
+public sealed class MHRSwitchAxe(IGameProcess process, IScanService scanService) : MHRMeleeWeapon(process, scanService, Weapon.SwitchAxe), ISwitchAxe
 {
     private readonly int[] _maxChargeBuildUpOffsets = { 0x20, 0x10 };
 
-    private float _buildUp;
     public float BuildUp
     {
-        get => _buildUp;
+        get;
         private set
         {
-            if (value.Equals(_buildUp))
+            if (value.Equals(field))
                 return;
 
-            _buildUp = value;
+            field = value;
             this.Dispatch(_onBuildUpChange, new BuildUpChangeEventArgs(value, MaxBuildUp));
         }
     }
@@ -34,46 +33,43 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
 
     public float LowBuildUp => 37.0f;
 
-    private float _chargeTimer;
     public float ChargeTimer
     {
-        get => _chargeTimer;
+        get;
         private set
         {
-            if (value.Equals(_chargeTimer))
+            if (value.Equals(field))
                 return;
 
-            _chargeTimer = value;
+            field = value;
             this.Dispatch(_onChargeTimerChange, new TimerChangeEventArgs(value, MaxChargeTimer));
         }
     }
     public float MaxChargeTimer { get; private set; }
 
-    private float _chargeBuildUp;
     public float ChargeBuildUp
     {
-        get => _chargeBuildUp;
+        get;
         private set
         {
-            if (value.Equals(_chargeBuildUp))
+            if (value.Equals(field))
                 return;
 
-            _chargeBuildUp = value;
+            field = value;
             this.Dispatch(_onChargeBuildUpChange, new BuildUpChangeEventArgs(value, MaxChargeBuildUp));
         }
     }
     public float MaxChargeBuildUp { get; private set; }
 
-    private float _slamBuffTimer;
     public float SlamBuffTimer
     {
-        get => _slamBuffTimer;
+        get;
         private set
         {
-            if (value.Equals(_slamBuffTimer))
+            if (value.Equals(field))
                 return;
 
-            _slamBuffTimer = value;
+            field = value;
             this.Dispatch(_onSlamBuffTimerChange, new TimerChangeEventArgs(value, MaxSlamBuffTimer));
         }
     }
@@ -152,10 +148,6 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
         float maxBuildUp = maxChargeBuildUps.ElementAtOrDefault(buildUpIndex);
 
         MaxChargeBuildUp = maxBuildUp;
-    }
-
-    public MHRSwitchAxe(IGameProcess process, IScanService scanService) : base(process, scanService, Weapon.SwitchAxe)
-    {
     }
 
     public override void Dispose()

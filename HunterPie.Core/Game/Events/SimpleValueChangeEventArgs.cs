@@ -2,14 +2,8 @@
 
 namespace HunterPie.Core.Game.Events;
 
-public class SimpleValueChangeEventArgs<T> : EventArgs
+public class SimpleValueChangeEventArgs<T>(T oldValue, T newValue) : EventArgs
 {
-    public T OldValue { get; }
-    public T NewValue { get; }
-
-    public SimpleValueChangeEventArgs(T oldValue, T newValue)
-    {
-        OldValue = oldValue;
-        NewValue = newValue;
-    }
+    public T OldValue { get; } = oldValue;
+    public T NewValue { get; } = newValue;
 }

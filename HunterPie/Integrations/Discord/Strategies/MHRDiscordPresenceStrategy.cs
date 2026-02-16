@@ -5,27 +5,20 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Domain.Utils;
-using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using System;
 using System.Linq;
 
 namespace HunterPie.Integrations.Discord.Strategies;
 
-internal class MHRDiscordPresenceStrategy : IDiscordRichPresenceStrategy
+internal class MHRDiscordPresenceStrategy(
+    DiscordRichPresence configuration,
+    ILocalizationRepository localizationRepository,
+    IContext context) : IDiscordRichPresenceStrategy
 {
-    private readonly DiscordRichPresence _configuration;
-    private readonly IScopedLocalizationRepository _localizationRepository;
-    private readonly IContext _context;
-
-    public MHRDiscordPresenceStrategy(
-        DiscordRichPresence configuration,
-        ILocalizationRepository localizationRepository,
-        IContext context)
-    {
-        _configuration = configuration;
-        _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
-        _context = context;
-    }
+    private readonly DiscordRichPresence _configuration = configuration;
+    private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+    private readonly IScopedLocalizationRepository _stageLocalizationRepository = localizationRepository.WithScope("//Strings/Stages/Rise/Stage");
+    private readonly IContext _context = context;
 
     public string AppId => "932399108017242182";
 
@@ -33,7 +26,8 @@ internal class MHRDiscordPresenceStrategy : IDiscordRichPresenceStrategy
     {
         string description = BuildDescription();
         string state = BuildState();
-        string stageIdName = MHRContext.Strings.GetStageNameById(_context.Game.Player.StageId);
+        string stageId = _context.Game.Player.StageId.ToString();
+        string stageIdName = _stageLocalizationRepository.FindStringBy(stageId);
         bool isUnmappedStage = stageIdName.StartsWith("Unknown");
 
         presence

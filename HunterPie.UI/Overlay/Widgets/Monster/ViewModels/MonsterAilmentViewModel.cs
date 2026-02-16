@@ -3,49 +3,14 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
-public class MonsterAilmentViewModel : AutoVisibilityViewModel
+public class MonsterAilmentViewModel(MonsterWidgetConfig config) : AutoVisibilityViewModel(config.AutoHideAilmentsDelay)
 {
-
-    private bool _isEnabled = true;
-    public bool IsEnabled { get => _isEnabled; set => SetValue(ref _isEnabled, value); }
-
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
-    private double _timer;
-    public double Timer
-    {
-        get => _timer;
-        set
-        {
-            if (value != _timer)
-                RefreshTimer();
-
-            SetValue(ref _timer, value);
-        }
-    }
-
-    private double _maxTimer;
-    public double MaxTimer { get => _maxTimer; set => SetValue(ref _maxTimer, value); }
-
-    private double _buildup;
-    public double Buildup
-    {
-        get => _buildup;
-        set
-        {
-            if (value != _buildup)
-                RefreshTimer();
-
-            SetValue(ref _buildup, value);
-        }
-    }
-
-    private double _maxBuildup;
-    public double MaxBuildup { get => _maxBuildup; set => SetValue(ref _maxBuildup, value); }
-
-    private int _count;
-    public int Count { get => _count; set => SetValue(ref _count, value); }
-
-    public MonsterAilmentViewModel(MonsterWidgetConfig config) : base(config.AutoHideAilmentsDelay) { }
+    public bool IsEnabled { get; set => SetValue(ref field, value); } = true;
+    public string Name { get; set => SetValue(ref field, value); }
+    public double Timer { get; set => SetValueAndRefresh(ref field, value); }
+    public double MaxTimer { get; set => SetValue(ref field, value); }
+    public double Buildup { get; set => SetValueAndRefresh(ref field, value); }
+    public double MaxBuildup { get; set => SetValue(ref field, value); }
+    public bool IsTimerActive { get; set => SetValueAndRefresh(ref field, value); }
+    public int Count { get; set => SetValue(ref field, value); }
 }

@@ -3,11 +3,14 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Home.ViewModels;
 
-internal class HomeViewModel : ViewModel
+internal class HomeViewModel(
+    ObservableCollection<SupportedGameViewModel> supportedGames,
+    ObservableCollection<HomeCallToActionViewModel> quickActions
+    ) : ViewModel
 {
-    public ObservableCollection<SupportedGameViewModel> SupportedGames { get; }
+    public ObservableCollection<SupportedGameViewModel> SupportedGames { get; } = supportedGames;
 
-    public ObservableCollection<HomeCallToActionViewModel> QuickActions { get; }
+    public ObservableCollection<HomeCallToActionViewModel> QuickActions { get; } = quickActions;
 
     public ObservableCollection<HomeNewsItemViewModel> News { get; } = new()
     {
@@ -24,13 +27,4 @@ internal class HomeViewModel : ViewModel
             Title = "Patreon"
         }
     };
-
-    public HomeViewModel(
-        ObservableCollection<SupportedGameViewModel> supportedGames,
-        ObservableCollection<HomeCallToActionViewModel> quickActions
-    )
-    {
-        SupportedGames = supportedGames;
-        QuickActions = quickActions;
-    }
 }

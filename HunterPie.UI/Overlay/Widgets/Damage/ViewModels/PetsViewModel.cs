@@ -5,19 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class PetsViewModel : ViewModel
+public class PetsViewModel(DamageMeterWidgetConfig config) : ViewModel
 {
-    public DamageMeterWidgetConfig Settings { get; }
-    private string _name;
-    private int _totalDamage;
+    public DamageMeterWidgetConfig Settings { get; } = config;
+    public int TotalDamage { get; set => SetValue(ref field, value); }
 
-    public PetsViewModel(DamageMeterWidgetConfig config)
-    {
-        Settings = config;
-    }
+    public ObservableCollection<PetViewModel> Members { get; } = new();
 
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-    public int TotalDamage { get => _totalDamage; set => SetValue(ref _totalDamage, value); }
-    public ObservableCollection<DamageBarViewModel> Damages { get; } = new();
     public Observable<bool> ShouldHighlightMyself => Settings.ShouldHighlightMyself;
 }

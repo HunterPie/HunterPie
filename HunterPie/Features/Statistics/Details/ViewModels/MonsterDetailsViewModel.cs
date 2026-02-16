@@ -15,26 +15,13 @@ internal class MonsterDetailsViewModel : ViewModel
 {
     private bool _isInitialized;
 
-    private string _name = string.Empty;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
-    private string _icon = string.Empty;
-    public string Icon { get => _icon; set => SetValue(ref _icon, value); }
-
-    private TimeSpan? _huntElapsed;
-    public TimeSpan? HuntElapsed { get => _huntElapsed; set => SetValue(ref _huntElapsed, value); }
-
-    private TimeSpan _timeElapsed;
-    public TimeSpan TimeElapsed { get => _timeElapsed; set => SetValue(ref _timeElapsed, value); }
-
-    private Crown _crown;
-    public Crown Crown { get => _crown; set => SetValue(ref _crown, value); }
-
-    private double _maxHealth;
-    public double MaxHealth { get => _maxHealth; set => SetValue(ref _maxHealth, value); }
-
-    private PlotStrategy _plotStrategy;
-    public PlotStrategy PlotStrategy { get => _plotStrategy; set => SetValue(ref _plotStrategy, value); }
+    public string Name { get; set => SetValue(ref field, value); } = string.Empty;
+    public string Icon { get; set => SetValue(ref field, value); } = string.Empty;
+    public TimeSpan? HuntElapsed { get; set => SetValue(ref field, value); }
+    public TimeSpan TimeElapsed { get; set => SetValue(ref field, value); }
+    public Crown Crown { get; set => SetValue(ref field, value); }
+    public double MaxHealth { get; set => SetValue(ref field, value); }
+    public PlotStrategy PlotStrategy { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<PartyMemberDetailsViewModel> Players { get; init; } = new();
 

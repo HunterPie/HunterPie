@@ -10,17 +10,16 @@ public class MHWildsMaterialRetrievalCollector : IEventDispatcher, IUpdatable<Up
 {
     public required MaterialRetrievalCollector Collector { get; init; }
 
-    private int _count;
     public int Count
     {
-        get => _count;
+        get;
         private set
         {
-            if (value == _count)
+            if (value == field)
                 return;
 
-            int temp = _count;
-            _count = value;
+            int temp = field;
+            field = value;
             this.Dispatch(
                 toDispatch: _countChanged,
                 data: new SimpleValueChangeEventArgs<int>(

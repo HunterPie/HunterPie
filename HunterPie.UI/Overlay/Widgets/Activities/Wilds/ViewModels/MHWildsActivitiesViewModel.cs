@@ -5,13 +5,16 @@ using HunterPie.UI.Overlay.Widgets.Activities.Common;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels;
 
-public class MHWildsActivitiesViewModel : ViewModel, IActivitiesViewModel
+public class MHWildsActivitiesViewModel(
+    MaterialRetrievalViewModel materialRetrieval,
+    SupportShipViewModel supportShip,
+    IngredientsCenterViewModel ingredientsCenter) : ViewModel, IActivitiesViewModel
 {
-    public MaterialRetrievalViewModel MaterialRetrieval { get; set; }
+    public MaterialRetrievalViewModel MaterialRetrieval { get; set; } = materialRetrieval;
 
-    public SupportShipViewModel SupportShip { get; set; }
+    public SupportShipViewModel SupportShip { get; set; } = supportShip;
 
-    public IngredientsCenterViewModel IngredientsCenter { get; set; }
+    public IngredientsCenterViewModel IngredientsCenter { get; set; } = ingredientsCenter;
 
     public Observable<bool> IsMaterialRetrievalEnabled { get; } =
         ClientConfig.Config.Wilds.Overlay.ActivitiesWidget.IsMaterialRetrievalEnabled;
@@ -21,14 +24,4 @@ public class MHWildsActivitiesViewModel : ViewModel, IActivitiesViewModel
 
     public Observable<bool> IsIngredientsCenterEnabled { get; } =
         ClientConfig.Config.Wilds.Overlay.ActivitiesWidget.IsIngredientsCenterEnabled;
-
-    public MHWildsActivitiesViewModel(
-        MaterialRetrievalViewModel materialRetrieval,
-        SupportShipViewModel supportShip,
-        IngredientsCenterViewModel ingredientsCenter)
-    {
-        MaterialRetrieval = materialRetrieval;
-        SupportShip = supportShip;
-        IngredientsCenter = ingredientsCenter;
-    }
 }

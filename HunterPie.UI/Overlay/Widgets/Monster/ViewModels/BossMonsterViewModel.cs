@@ -13,121 +13,97 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
-public class BossMonsterViewModel : ViewModel
+public class BossMonsterViewModel(MonsterWidgetConfig config) : ViewModel
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private string name;
-    private string em;
-    private double health;
-    private double maxHealth;
-    private double healthPercentage;
-    private double stamina;
-    private double maxStamina;
-    private bool isTarget;
-    private Target _targetType = Target.None;
-    private bool isEnraged;
-    private Crown _crown;
-    private string _icon;
-    private bool _isLoadingIcon = true;
-    private bool _isAlive;
-    private double _captureThreshold;
-    private bool _isCapturable;
-    private bool _canBeCaptured;
-    private VariantType _variant;
-
-    public MonsterWidgetConfig Config { get; }
+    public MonsterWidgetConfig Config { get; } = config;
     private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
     private readonly ObservableCollection<MonsterAilmentViewModel> _ailments = new();
     private readonly ObservableCollection<Element> _weaknesses = new();
     private readonly ObservableCollection<string> _types = new();
 
-    public BossMonsterViewModel(MonsterWidgetConfig config)
-    {
-        Config = config;
-    }
-
     // Monster data
     public string Name
     {
-        get => name;
-        set => SetValue(ref name, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public string Em
     {
-        get => em;
-        set => SetValue(ref em, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public double Health
     {
-        get => health;
+        get;
         set
         {
-            SetValue(ref health, value);
+            SetValue(ref field, value);
             HealthPercentage = Health / MaxHealth * 100;
         }
     }
     public double MaxHealth
     {
-        get => maxHealth;
-        set => SetValue(ref maxHealth, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public double HealthPercentage
     {
-        get => healthPercentage;
-        private set => SetValue(ref healthPercentage, value);
+        get;
+        private set => SetValue(ref field, value);
     }
 
     public double Stamina
     {
-        get => stamina;
-        set => SetValue(ref stamina, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public double MaxStamina
     {
-        get => maxStamina;
-        set => SetValue(ref maxStamina, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public Crown Crown
     {
-        get => _crown;
-        set => SetValue(ref _crown, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public Target TargetType
     {
-        get => _targetType;
-        set => SetValue(ref _targetType, value);
-    }
+        get;
+        set => SetValue(ref field, value);
+    } = Target.None;
 
     public double CaptureThreshold
     {
-        get => _captureThreshold;
-        set => SetValue(ref _captureThreshold, value);
+        get;
+        set => SetValue(ref field, value);
     }
     public bool IsCapturable
     {
-        get => _isCapturable;
-        set => SetValue(ref _isCapturable, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool CanBeCaptured
     {
-        get => _canBeCaptured;
-        set => SetValue(ref _canBeCaptured, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool IsQurio { get; set; }
 
     public VariantType Variant
     {
-        get => _variant;
-        set => SetValue(ref _variant, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
@@ -138,29 +114,29 @@ public class BossMonsterViewModel : ViewModel
     // Monster states
     public bool IsEnraged
     {
-        get => isEnraged;
-        set => SetValue(ref isEnraged, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool IsTarget
     {
-        get => isTarget;
-        set => SetValue(ref isTarget, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool IsLoadingIcon
     {
-        get => _isLoadingIcon;
-        set => SetValue(ref _isLoadingIcon, value);
-    }
+        get;
+        set => SetValue(ref field, value);
+    } = true;
 
     public string Icon
     {
-        get => _icon;
-        set => SetValue(ref _icon, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
-    public bool IsAlive { get => _isAlive; set => SetValue(ref _isAlive, value); }
+    public bool IsAlive { get; set => SetValue(ref field, value); }
 
     public async void FetchMonsterIcon()
     {

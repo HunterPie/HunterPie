@@ -12,9 +12,15 @@ public class DoubleFlooringConverter : IValueConverter
     {
         if (value is null)
             throw new ArgumentNullException(nameof(value));
-
-        double val = Converter.ToDouble(value);
-        return Math.Floor(val);
+        try
+        {
+            double val = Converter.ToDouble(value);
+            return Math.Floor(val);
+        }
+        catch
+        {
+            return 0;
+        }
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

@@ -7,16 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environme
 
 public class MHWSteamworks : IEventDispatcher, IDisposable, IUpdatable<MHWSteamFuelData>
 {
-
-    private int _naturalFuel;
     public int NaturalFuel
     {
-        get => _naturalFuel;
+        get;
         private set
         {
-            if (value != _naturalFuel)
+            if (value != field)
             {
-                _naturalFuel = value;
+                field = value;
                 this.Dispatch(_onNaturalFuelChange, this);
             }
         }
@@ -24,15 +22,14 @@ public class MHWSteamworks : IEventDispatcher, IDisposable, IUpdatable<MHWSteamF
 
     public int MaxNaturalFuel => 700;
 
-    private int _storedFuel;
     public int StoredFuel
     {
-        get => _storedFuel;
+        get;
         private set
         {
-            if (value != _storedFuel)
+            if (value != field)
             {
-                _storedFuel = value;
+                field = value;
                 this.Dispatch(_onStoredFuelChange, this);
             }
         }

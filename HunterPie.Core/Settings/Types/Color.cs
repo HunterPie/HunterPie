@@ -4,9 +4,7 @@ namespace HunterPie.Core.Settings.Types;
 
 public class Color : Bindable
 {
-    private string _value;
-
-    public string Value { get => _value; set => SetValue(ref _value, value); }
+    public string Value { get; set => SetValue(ref field, value); }
 
     public Color(string value)
     {

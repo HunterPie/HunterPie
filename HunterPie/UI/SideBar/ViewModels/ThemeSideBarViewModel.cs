@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
-internal class ThemeSideBarViewModel : ViewModel, ISideBarViewModel
+internal class ThemeSideBarViewModel(
+    IBodyNavigator bodyNavigator,
+    ThemeHomeController themeHomeController) : ViewModel, ISideBarViewModel
 {
-    private readonly IBodyNavigator _bodyNavigator;
-    private readonly ThemeHomeController _themeHomeController;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
+    private readonly ThemeHomeController _themeHomeController = themeHomeController;
 
     public Type Type => typeof(ThemeHomeViewModel);
 
@@ -20,16 +22,7 @@ internal class ThemeSideBarViewModel : ViewModel, ISideBarViewModel
 
     public bool IsAvailable => true;
 
-    private bool _isSelected;
-    public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
-
-    public ThemeSideBarViewModel(
-        IBodyNavigator bodyNavigator,
-        ThemeHomeController themeHomeController)
-    {
-        _bodyNavigator = bodyNavigator;
-        _themeHomeController = themeHomeController;
-    }
+    public bool IsSelected { get; set => SetValue(ref field, value); }
 
     public async Task ExecuteAsync()
     {

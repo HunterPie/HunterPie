@@ -9,7 +9,7 @@ internal class HomeModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<HomeCallToActionsService>()
-            .WithService<HomeService>();
+            .WithFactory<HomeCallToActionsService>()
+            .WithFactory<HomeService>();
     }
 }

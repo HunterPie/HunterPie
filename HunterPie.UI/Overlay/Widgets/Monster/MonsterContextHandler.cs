@@ -3,6 +3,7 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Game.Services.Monster.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
@@ -18,15 +19,18 @@ namespace HunterPie.UI.Overlay.Widgets.Monster;
 public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDisposable
 {
     private readonly IGame _game;
+    private readonly ITargetDetectionService _targetDetectionService;
     public readonly IMonster Context;
 
     public MonsterContextHandler(
         IGame game,
         IMonster context,
+        ITargetDetectionService targetDetectionService,
         MonsterWidgetConfig config
     ) : base(config)
     {
         _game = game;
+        _targetDetectionService = targetDetectionService;
         Context = context;
         HookEvents();
 
@@ -36,7 +40,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
     public void HookEvents()
     {
-        _game.TargetDetectionService.OnTargetChanged += OnTargetDetectionChanged;
+        _targetDetectionService.OnTargetChanged += OnTargetDetectionChanged;
         Config.TargetMode.PropertyChanged += OnTargetModeChange;
         Config.IsTargetingEnabled.PropertyChanged += OnTargetModeChange;
         Context.OnHealthChange += OnHealthUpdate;
@@ -55,7 +59,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
     public void UnhookEvents()
     {
-        _game.TargetDetectionService.OnTargetChanged -= OnTargetDetectionChanged;
+        _targetDetectionService.OnTargetChanged -= OnTargetDetectionChanged;
         Config.TargetMode.PropertyChanged -= OnTargetModeChange;
         Config.IsTargetingEnabled.PropertyChanged -= OnTargetModeChange;
         Context.OnHealthChange -= OnHealthUpdate;
@@ -76,14 +80,14 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         HandleTargetUpdate(
             lockOnTarget: Context.Target,
             manualTarget: Context.ManualTarget,
-            inferredTarget: _game.TargetDetectionService.Infer(Context)
+            inferredTarget: _targetDetectionService.Infer(Context)
         );
 
     private void OnTargetModeChange(object sender, PropertyChangedEventArgs _) =>
         HandleTargetUpdate(
             lockOnTarget: Context.Target,
             manualTarget: Context.ManualTarget,
-            inferredTarget: _game.TargetDetectionService.Infer(Context)
+            inferredTarget: _targetDetectionService.Infer(Context)
         );
 
     private void OnSpawn(object sender, EventArgs e)
@@ -176,7 +180,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         HandleTargetUpdate(
             lockOnTarget: e.LockOnTarget,
             manualTarget: e.ManualTarget,
-            inferredTarget: _game.TargetDetectionService.Infer(Context)
+            inferredTarget: _targetDetectionService.Infer(Context)
         );
 
     private void OnHealthUpdate(object sender, EventArgs e)
@@ -205,7 +209,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         HandleTargetUpdate(
             lockOnTarget: Context.Target,
             manualTarget: Context.ManualTarget,
-            inferredTarget: _game.TargetDetectionService.Infer(Context)
+            inferredTarget: _targetDetectionService.Infer(Context)
         );
         MaxStamina = Context.MaxStamina;
         Stamina = Context.Stamina;

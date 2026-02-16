@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Version;
 
-internal class PoogieVersionConnector
+internal class PoogieVersionConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string VERSION_ENDPOINT = "/v1/version";
-
-    public PoogieVersionConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<VersionResponse>> Latest() =>
         await _client.GetAsync<VersionResponse>(VERSION_ENDPOINT);

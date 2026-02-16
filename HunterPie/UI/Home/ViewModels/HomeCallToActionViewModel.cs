@@ -4,18 +4,10 @@ using System.Windows.Media;
 
 namespace HunterPie.UI.Home.ViewModels;
 
-internal class HomeCallToActionViewModel : ViewModel
+internal class HomeCallToActionViewModel(ImageSource icon, string title, Action execute, string description) : ViewModel
 {
-    public ImageSource Icon { get; init; }
-    public string Title { get; init; }
-    public string Description { get; init; }
-    public Action Execute { get; init; }
-
-    public HomeCallToActionViewModel(ImageSource icon, string title, Action execute, string description)
-    {
-        Icon = icon;
-        Title = title;
-        Execute = execute;
-        Description = description;
-    }
+    public ImageSource Icon { get; init; } = icon;
+    public string Title { get; init; } = title;
+    public string Description { get; init; } = description;
+    public Action Execute { get; init; } = execute;
 }

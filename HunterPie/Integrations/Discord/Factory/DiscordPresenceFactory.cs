@@ -11,14 +11,9 @@ using HunterPie.Integrations.Services.Exceptions;
 
 namespace HunterPie.Integrations.Discord.Factory;
 
-internal class DiscordPresenceFactory
+internal class DiscordPresenceFactory(ILocalizationRepository localizationRepository)
 {
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public DiscordPresenceFactory(ILocalizationRepository localizationRepository)
-    {
-        _localizationRepository = localizationRepository;
-    }
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public DiscordPresenceService Create(IContext context)
     {

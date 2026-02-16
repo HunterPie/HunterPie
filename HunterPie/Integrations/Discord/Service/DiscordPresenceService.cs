@@ -10,7 +10,10 @@ using System.Timers;
 
 namespace HunterPie.Integrations.Discord.Service;
 
-internal class DiscordPresenceService : IDisposable
+internal class DiscordPresenceService(
+    IContext context,
+    DiscordRichPresence configuration,
+    IDiscordRichPresenceStrategy strategy) : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private const int UPDATE_INTERVAL_MS = 10_000;
@@ -18,24 +21,13 @@ internal class DiscordPresenceService : IDisposable
     private Timestamps _stageElapsedTime = Timestamps.Now;
 
     private readonly Timer _timer = new(UPDATE_INTERVAL_MS) { AutoReset = true };
-    private readonly IContext _context;
-    private readonly DiscordRpcClient _client;
-    private readonly DiscordRichPresence _configuration;
-    private readonly IDiscordRichPresenceStrategy _strategy;
-
-    public DiscordPresenceService(
-        IContext context,
-        DiscordRichPresence configuration,
-        IDiscordRichPresenceStrategy strategy)
-    {
-        _context = context;
-        _client = new DiscordRpcClient(
+    private readonly IContext _context = context;
+    private readonly DiscordRpcClient _client = new DiscordRpcClient(
             applicationID: strategy.AppId,
             autoEvents: true
         );
-        _configuration = configuration;
-        _strategy = strategy;
-    }
+    private readonly DiscordRichPresence _configuration = configuration;
+    private readonly IDiscordRichPresenceStrategy _strategy = strategy;
 
     public void Start()
     {

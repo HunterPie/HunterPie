@@ -93,7 +93,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
     private void HandlePartyMember(IPartyMember member)
     {
-        if (member.Type != MemberType.Player)
+        if (member is not { Type: MemberType.Player or MemberType.Companion })
             return;
 
         _partyMembersStatisticsServices.Add(new PartyMemberStatisticsService(_context, member));

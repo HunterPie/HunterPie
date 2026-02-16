@@ -6,23 +6,15 @@ namespace HunterPie.Core.Settings.Annotations;
 
 #nullable enable
 [AttributeUsage(AttributeTargets.Property)]
-public class ConfigurationPropertyAttribute : Attribute
+public class ConfigurationPropertyAttribute(
+    string name,
+    bool requiresRestart = false,
+    GameProcessType availableGames = GameProcessType.All,
+    string group = CommonConfigurationGroups.MISCELLANEOUS
+    ) : Attribute
 {
-    public string Name { get; init; }
-    public bool RequiresRestart { get; init; }
-    public GameProcessType AvailableGames { get; init; }
-    public string Group { get; init; }
-
-    public ConfigurationPropertyAttribute(
-        string name,
-        bool requiresRestart = false,
-        GameProcessType availableGames = GameProcessType.All,
-        string group = CommonConfigurationGroups.MISCELLANEOUS
-    )
-    {
-        Name = name;
-        RequiresRestart = requiresRestart;
-        AvailableGames = availableGames;
-        Group = group;
-    }
+    public string Name { get; init; } = name;
+    public bool RequiresRestart { get; init; } = requiresRestart;
+    public GameProcessType AvailableGames { get; init; } = availableGames;
+    public string Group { get; init; } = group;
 }

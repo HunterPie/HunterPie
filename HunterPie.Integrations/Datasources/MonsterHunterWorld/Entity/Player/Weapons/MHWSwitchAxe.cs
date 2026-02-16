@@ -13,20 +13,22 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
+public sealed class MHWSwitchAxe(
+    IGameProcess process,
+    ISkillService skillService,
+    IScanService scanService) : MHWMeleeWeapon(process, scanService, skillService, Weapon.SwitchAxe), ISwitchAxe
 {
-    private readonly ISkillService _skillService;
+    private readonly ISkillService _skillService = skillService;
 
-    private float _buildUp;
     public float BuildUp
     {
-        get => _buildUp;
+        get;
         private set
         {
-            if (value.Equals(_buildUp))
+            if (value.Equals(field))
                 return;
 
-            _buildUp = value;
+            field = value;
             this.Dispatch(_onBuildUpChange, new BuildUpChangeEventArgs(value, MaxBuildUp));
         }
     }
@@ -35,46 +37,43 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
 
     public float LowBuildUp => 30.0f;
 
-    private float _chargeTimer;
     public float ChargeTimer
     {
-        get => _chargeTimer;
+        get;
         private set
         {
-            if (value.Equals(_chargeTimer))
+            if (value.Equals(field))
                 return;
 
-            _chargeTimer = value;
+            field = value;
             this.Dispatch(_onChargeTimerChange, new TimerChangeEventArgs(value, MaxChargeTimer));
         }
     }
     public float MaxChargeTimer { get; private set; }
 
-    private float _chargeBuildUp;
     public float ChargeBuildUp
     {
-        get => _chargeBuildUp;
+        get;
         private set
         {
-            if (value.Equals(_chargeBuildUp))
+            if (value.Equals(field))
                 return;
 
-            _chargeBuildUp = value;
+            field = value;
             this.Dispatch(_onChargeBuildUpChange, new BuildUpChangeEventArgs(value, MaxChargeBuildUp));
         }
     }
     public float MaxChargeBuildUp => 100.0f;
 
-    private float _slamBuffTimer;
     public float SlamBuffTimer
     {
-        get => _slamBuffTimer;
+        get;
         private set
         {
-            if (value.Equals(_slamBuffTimer))
+            if (value.Equals(field))
                 return;
 
-            _slamBuffTimer = value;
+            field = value;
             this.Dispatch(_onSlamBuffTimerChange, new TimerChangeEventArgs(value, MaxSlamBuffTimer));
         }
     }
@@ -108,15 +107,8 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
         add => _onSlamBuffTimerChange.Hook(value);
         remove => _onChargeTimerChange.Unhook(value);
     }
-    #endregion
 
-    public MHWSwitchAxe(
-        IGameProcess process,
-        ISkillService skillService,
-        IScanService scanService) : base(process, scanService, skillService, Weapon.SwitchAxe)
-    {
-        _skillService = skillService;
-    }
+    #endregion
 
     [ScannableMethod]
     private async Task GetData()

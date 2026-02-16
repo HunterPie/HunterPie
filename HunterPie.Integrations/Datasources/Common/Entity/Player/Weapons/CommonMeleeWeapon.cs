@@ -9,7 +9,9 @@ using HunterPie.Core.Scan.Service;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
 
-public abstract class CommonMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher, IDisposable
+public abstract class CommonMeleeWeapon(
+    IGameProcess process,
+    IScanService scanService) : Scannable(process, scanService), IWeapon, IMeleeWeapon, IEventDispatcher, IDisposable
 {
     public abstract Weapon Id { get; }
     public abstract Sharpness Sharpness { get; protected set; }
@@ -31,10 +33,6 @@ public abstract class CommonMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEve
         add => _onSharpnessLevelChange.Hook(value);
         remove => _onSharpnessLevelChange.Unhook(value);
     }
-
-    protected CommonMeleeWeapon(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService) { }
 
     public override void Dispose()
     {

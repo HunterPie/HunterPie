@@ -9,7 +9,8 @@ internal class MHWildsGameModule : IDependencyModule
 {
     public void Register(IDependencyRegistry registry)
     {
-        registry.WithSingle<MHWildsProcessAttachStrategy>();
-        registry.WithService<MHWildsMonsterTargetKeyManager>();
+        registry
+            .WithSingle<MHWildsProcessAttachStrategy>()
+            .WithFactory<MHWildsMonsterTargetKeyManager>();
     }
 }

@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class ClassWidgetInitializer : IWidgetInitializer
+internal class ClassWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
@@ -22,11 +22,6 @@ internal class ClassWidgetInitializer : IWidgetInitializer
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterRise |
         GameProcessType.MonsterHunterWorld;
-
-    public ClassWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {

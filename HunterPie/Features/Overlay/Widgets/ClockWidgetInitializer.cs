@@ -12,17 +12,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-public class ClockWidgetInitializer : IWidgetInitializer
+public class ClockWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
-
-    public ClockWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterRise

@@ -15,20 +15,15 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
+internal class AbnormalitiesWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
     private readonly List<(IContextHandler, WidgetView)> _handlers = new();
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterRise
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
-
-    public AbnormalitiesWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {
