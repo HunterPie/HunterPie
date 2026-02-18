@@ -423,7 +423,7 @@ public sealed class MHWildsPlayer(
         );
         IAsyncEnumerable<MHWildsNpcPartyMember> npcPointers = Memory.ReadArrayOfPtrsSafeAsync<MHWildsNpcPartyMember>(
             address: await npcArrayPointer.Deref(Memory),
-            size: 6
+            size: 10
         );
 
         int index = 0;
@@ -438,6 +438,9 @@ public sealed class MHWildsPlayer(
             );
             Task<float> damageDefer = GetHistoricalPlayerDamage(damageHistoryPointer);
             MHWildsNpcCreation creationParams = await npc.CreationParams.Deref(Memory);
+
+            if (!creationParams.IsValid())
+                continue;
 
             members.Add(new UpdatePartyMember
             {

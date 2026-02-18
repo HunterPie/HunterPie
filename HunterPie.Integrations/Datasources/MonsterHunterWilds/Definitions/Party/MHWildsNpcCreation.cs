@@ -8,4 +8,9 @@ public struct MHWildsNpcCreation
 {
     [FieldOffset(0x24)] public Weapon Weapon;
     [FieldOffset(0x28)] public int Id;
+
+    public bool IsValid()
+    {
+        return Id > -1 && Weapon != Weapon.None;
+    }
 }

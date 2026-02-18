@@ -58,7 +58,7 @@ public class MHWildsDiscordPresenceStrategy(
             .WithParty(new Party
             {
                 ID = _context.Game.Player.Name,
-                Max = _context.Game.Player.Party.MaxSize,
+                Max = Math.Max(_context.Game.Player.Party.MaxSize, _context.Game.Player.Party.Size),
                 Size = _context.Game.Player.Party.Size,
                 Privacy = Party.PrivacySetting.Public
             });
