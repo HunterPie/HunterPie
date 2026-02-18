@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>14.0</LangVersion>
-	<AssemblyVersion>1.2.0.140</AssemblyVersion>
-	<FileVersion>1.2.0.140</FileVersion>
+	<AssemblyVersion>1.2.0.141</AssemblyVersion>
+	<FileVersion>1.2.0.141</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

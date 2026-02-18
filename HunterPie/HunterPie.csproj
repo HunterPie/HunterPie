@@ -16,6 +16,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>14.0</LangVersion>
     <DelaySign>False</DelaySign>
+    <CETCompat>False</CETCompat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
