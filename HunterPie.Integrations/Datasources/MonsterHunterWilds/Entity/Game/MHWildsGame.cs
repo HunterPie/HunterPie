@@ -276,19 +276,15 @@ public sealed class MHWildsGame : CommonGame
             Deaths = encryptedDeaths
         };
 
+        MHWildsTargetKey[] targetKeys = await Memory.ReadArraySafeAsync<MHWildsTargetKey>(
+            address: information.TargetKeysPointer,
+            count: 20
+        );
+
         if (_quest is null
             && hasStarted
             && isQuestValid)
         {
-            MHWildsTargetKey[] targetKeys = await Memory.ReadArraySafeAsync<MHWildsTargetKey>(
-                address: information.TargetKeysPointer,
-                count: 10
-            );
-
-            // Quest is not fully loaded yet if the target keys are not initialized
-            if (targetKeys.Any(it => it.Type != 1 || it.Key == -1))
-                return;
-
             MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
             {
                 false => await Memory.ReadAsync<MHWildsQuestDetails>(
@@ -300,11 +296,11 @@ public sealed class MHWildsGame : CommonGame
                 information: quest,
                 details: details
             );
-            _logger.Debug($"started quest with target keys ({string.Join(',', targetKeys.Select(it => it.Key))})");
+
             _quest.Update(data);
-            _monsterTargetKeyManager.SetQuestTargets(targetKeys);
 
             TimeElapsed = information.Timer / 1000;
+            _monsterTargetKeyManager.SetQuestTargets(targetKeys);
 
             _monsterTargetKeyManager.ClearMonsters();
             await _player.GetPartyAsync();
@@ -316,7 +312,11 @@ public sealed class MHWildsGame : CommonGame
             return;
         }
 
-        _quest?.Update(data);
+        if (_quest is not null)
+        {
+            _monsterTargetKeyManager.SetQuestTargets(targetKeys);
+            _quest.Update(data);
+        }
 
         TimeElapsed = _quest is null
             ? 0.0f

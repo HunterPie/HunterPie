@@ -29,6 +29,7 @@ internal class WeightedTargetDetectionService(
     private readonly IPlayer _player = context.Game.Player;
     private readonly DistanceFunc _distanceFunc = distanceFunc;
 
+    private bool _isCalculatingTarget = false;
     private readonly Lock _lock = new();
     private readonly ConcurrentDictionary<IMonster, TargetInferenceParams> _inferenceParams = new();
 
@@ -89,16 +90,12 @@ internal class WeightedTargetDetectionService(
 
     private void OnMonsterSpawn(object? sender, IMonster e)
     {
-        Target ??= e;
-
         e.OnHealthChange += OnMonsterHealthChange;
         e.PositionChange += OnMonsterPositionChange;
     }
 
     private void OnMonsterDespawn(object? sender, IMonster e)
     {
-        Target = _game.Monsters.SingleOrNull();
-
         e.OnHealthChange -= OnMonsterHealthChange;
         e.PositionChange -= OnMonsterPositionChange;
     }
@@ -164,10 +161,23 @@ internal class WeightedTargetDetectionService(
         );
     }
 
+
     private void InferNextTarget()
     {
+        bool isAlreadyCalculating = Interlocked.Exchange(ref _isCalculatingTarget, true);
+
+        if (isAlreadyCalculating)
+            return;
+
         IMonster? nearestMonster = _inferenceParams
-            .Where(it => it.Value.Distance <= MAXIMUM_DISTANCE_METERS || it.Value.HealthRatio <= LOW_HEALTH_RATIO)
+            .Where(it =>
+            {
+                bool isClose = it.Value.Distance <= MAXIMUM_DISTANCE_METERS;
+                bool isHealthBelowThreshold = it.Value.HealthRatio <= LOW_HEALTH_RATIO;
+                bool isAlive = it.Value.HealthRatio > 0;
+
+                return isAlive && (isClose || isHealthBelowThreshold);
+            })
             .OrderByDescending(it =>
             {
                 TargetInferenceParams inferenceParams = it.Value;
@@ -180,7 +190,7 @@ internal class WeightedTargetDetectionService(
                     (normalizedDamageTime * 0.40) +
                     (normalizedHealthRatio * 0.15);
 
-                if (inferenceParams.HealthRatio >= 0.99)
+                if (inferenceParams.HealthRatio >= 0.9999)
                     score *= 0.5;
 
                 return score;
@@ -189,6 +199,8 @@ internal class WeightedTargetDetectionService(
             .Key;
 
         Target = nearestMonster;
+
+        Interlocked.Exchange(ref _isCalculatingTarget, false);
     }
 
     public void Dispose()
