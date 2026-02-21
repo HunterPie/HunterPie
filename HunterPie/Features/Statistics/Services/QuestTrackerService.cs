@@ -95,7 +95,8 @@ internal class QuestTrackerService(
         {
             QuestType.Hunt
                 or QuestType.Slay
-                or QuestType.Capture => false,
+                or QuestType.Capture
+                or QuestType.Special => false,
             _ => true
         };
 

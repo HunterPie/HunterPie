@@ -263,6 +263,7 @@ public sealed class MHWildsGame : CommonGame
             _quest.Dispose();
             _quest = null;
             _monsterTargetKeyManager.ClearQuestTargets();
+            _logger.Debug("Quest finished");
             return;
         }
 
@@ -309,6 +310,8 @@ public sealed class MHWildsGame : CommonGame
                 toDispatch: _onQuestStart,
                 data: _quest
             );
+
+            _logger.Debug($"Quest started: {_quest.Id}");
             return;
         }
 
