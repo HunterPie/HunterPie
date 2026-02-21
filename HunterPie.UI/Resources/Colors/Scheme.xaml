@@ -224,4 +224,9 @@
 	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Error">#e65e5e</SolidColorBrush>
 	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Panic">#ab5ee6</SolidColorBrush>
 	<SolidColorBrush x:Key="Brushes.HunterPie.Log.Benchmark">#1BC9B6</SolidColorBrush>
+
+	<!--  Games  -->
+	<SolidColorBrush x:Key="Brushes.Game.MonsterHunterRise">#8e51ff</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.Game.MonsterHunterWilds">#ec5d1c</SolidColorBrush>
+	<SolidColorBrush x:Key="Brushes.Game.MonsterHunterWorld">#4b8eee</SolidColorBrush>
 </ResourceDictionary>

@@ -2,14 +2,16 @@
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+                               xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes;assembly=HunterPie.UI"
                                xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
                                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:enums="clr-namespace:HunterPie.Core.Game.Entity.Game.Quest;assembly=HunterPie.Core"
                                xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
                                xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+                               xmlns:label="clr-namespace:HunterPie.UI.Controls.Label;assembly=HunterPie.UI"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                               xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
+                               xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                                xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.ViewModels"
                                xmlns:views="clr-namespace:HunterPie.Features.Statistics.Views"
                                xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
@@ -20,8 +22,14 @@
                                mc:Ignorable="d">
 	<architecture:ClickableControl.Resources>
 		<converters:GameTypeToGameAliasConverter x:Key="GameTypeToGameAliasConverter" />
+		<brushes:GameTypeToBrushConverter x:Key="GameTypeToBrushConverter" />
 		<viewModels:MockQuestStatisticsSummaryViewModel x:Key="MockQuestStatisticsSummaryViewModel" />
 		<visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
+		<converters:ConverterPipeline x:Key="GameTypeToBackgroundConverter">
+			<brushes:GameTypeToBrushConverter />
+			<brushes:BrushOpacityConverter />
+		</converters:ConverterPipeline>
+		<sys:Double x:Key="Internal.Tag.Background.Opacity">0.2</sys:Double>
 	</architecture:ClickableControl.Resources>
 	<buttons:Button BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
 	                BorderThickness="1"
@@ -60,14 +68,14 @@
 						<RowDefinition Height="1*" />
 					</Grid.RowDefinitions>
 
-					<misc:Badge Grid.Row="0"
-					            Grid.RowSpan="2"
-					            Grid.Column="0"
-					            Margin="5,0"
-					            VerticalAlignment="Center"
-					            Background="{DynamicResource Brushes.HunterPie.Accent.Opacity}"
-					            Foreground="{DynamicResource Brushes.HunterPie.Accent.Opacity}"
-					            Text="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameAliasConverter}}" />
+					<label:Tag Grid.Row="0"
+					           Grid.RowSpan="2"
+					           Grid.Column="0"
+					           Margin="5,0"
+					           VerticalAlignment="Center"
+					           Background="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToBackgroundConverter}, ConverterParameter={StaticResource Internal.Tag.Background.Opacity}}"
+					           Foreground="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToBrushConverter}}"
+					           Label="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameAliasConverter}}" />
 
 					<StackPanel Grid.Row="0"
 					            Grid.Column="1"
