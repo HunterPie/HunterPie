@@ -7,7 +7,6 @@
 [![Badge PayPal]][PayPal]
 
 [![Badge License]][License]
-![Badge Lines]
 ![Badge Wakatime]
 
 [![Badge Version]][Nexus]
@@ -26,11 +25,11 @@
 
 ## About
 
-HunterPie v2 is a version of HunterPie completely rewritten from scratch, however, it follows the same principles of its predecessor: being a modern, powerful and easy to use overlay with support for plugins, modules and custom widgets for Monster Hunter: World and Monster Hunter: Rise.
+HunterPie v2 is a version of HunterPie completely rewritten from scratch, however, it follows the same principles of its predecessor: being a modern, powerful and easy to use overlay with support for plugins, modules and custom widgets for Monster Hunter games.
 
 ### Requirements
 
-- [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/thank-you/runtime-desktop-8.0.10-windows-x64-installer)
+- [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-10.0.3-windows-x64-installer)
 
 ### Installation
 
@@ -51,12 +50,17 @@ HunterPie's official documentation can be found [here](https://docs.hunterpie.co
 - [Chat Widget](https://docs.hunterpie.com/posts/chat-widget/)
 - [Damage Meter Widget](https://docs.hunterpie.com/posts/damage-meter-widget/)
 - [Specialized Tool Widget](https://docs.hunterpie.com/posts/specialized-tools-widget/)
+- [Player HUD Widget](https://docs.hunterpie.com/posts/player-hud-widget/)
 - Clock Widget
 - Discord Rich Presence
+- Automatic save backups
+- Export completed quests
 
 ## Suggestions & PRs
 
-Suggestions and pull requests are very appreciated, just keep in mind to follow the project architecture to keep it consistent.
+Suggestions and pull requests are welcome, just keep in mind to:
+1. Open an issue before opening a PR, so we can discuss the best strategy to implement a new feature
+2. Follow the project coding style to keep everything consistent
 
 <!------- { Summary } ------>
 [Installation]: https://github.com/Haato3o/HunterPie-v2#installation
@@ -78,5 +82,4 @@ Suggestions and pull requests are very appreciated, just keep in mind to follow 
 [Badge PayPal]: https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&logo=paypal&label=Support
 [Badge License]: https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067
 [Badge Wakatime]: https://wakatime.com/badge/github/Haato3o/HunterPie.svg
-[Badge Lines]: https://tokei.rs/b1/github/HunterPie/HunterPie
 [Badge Version]: https://img.shields.io/badge/dynamic/json?color=%2303a9fc&label=Version&prefix=v&query=latest_version&url=https%3A%2F%2Fapi.hunterpie.com%2Fv1%2Fversion
