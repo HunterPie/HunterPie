@@ -21,6 +21,7 @@
         <system:Double x:Key="Background.Transparency">0.9</system:Double>
         <game:MoonPhaseToStringConverter x:Key="MoonPhaseToStringConverter"/>
         <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
+        <converters:TimeOnlyFormatConverter x:Key="TimeOnlyFormatConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <Border Padding="2"
@@ -60,13 +61,20 @@
                                 Image="{StaticResource ICON_GLOBE}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Foreground="{StaticResource White@700}"/>
-                    <TextBlock Grid.Column="1" 
+                    <TextBlock Grid.Column="1"
                                d:Text="10:00 PM"
-                               Text="{Binding WorldTime, Mode=OneWay, StringFormat='h:mm tt'}"
                                Foreground="{StaticResource White@200}"
                                HorizontalAlignment="Right"
                                Margin="5,0,0,0"
-                               FontSize="13"/>
+                               FontSize="13"
+                               FontFamily="{StaticResource Font.Default}">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource TimeOnlyFormatConverter}" FallbackValue="--:--">
+                                <Binding Path="WorldTime" Mode="OneWay"/>
+                                <Binding Path="Use24HourFormat.Value" Mode="OneWay"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </Grid>
             </StackPanel>
         </Border>
