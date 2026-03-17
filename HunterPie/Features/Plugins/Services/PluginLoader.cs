@@ -3,6 +3,7 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.Entity;
 using HunterPie.DI;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Plugins.Services;
@@ -18,9 +19,9 @@ internal class PluginLoader(
 
     public async Task InitializeAsync(IContext context)
     {
-        Plugin[] plugins = await provider.GetAsync();
+        IReadOnlyList<Plugin> plugins = await provider.GetAsync();
 
-        _logger.Info($"Loading {plugins.Length} plugins...");
+        _logger.Info($"Loading {plugins.Count} plugins...");
 
         foreach (Plugin plugin in plugins)
         {

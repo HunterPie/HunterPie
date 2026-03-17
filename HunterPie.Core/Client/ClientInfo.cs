@@ -20,7 +20,7 @@ public static class ClientInfo
 
     public static string ClientPath => AppDomain.CurrentDomain.BaseDirectory;
 
-    public static string PluginsPath => Path.Combine(ClientPath, "Modules");
+    public static string PluginsPath => Path.Combine(ClientPath, "Plugins");
 
     public static string LanguagesPath => Path.Combine(ClientPath, "Languages");
 

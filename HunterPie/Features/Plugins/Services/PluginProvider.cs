@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Json;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Plugins.DI;
 using HunterPie.Core.Plugins.Entity;
+using HunterPie.DI;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
@@ -24,8 +27,12 @@ internal class PluginProvider
 
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    public async Task<Plugin[]> GetAsync()
+
+    public async Task LoadAsync(IDependencyRegistry registry)
     {
+        if (!Directory.Exists(ClientInfo.PluginsPath))
+            return;
+
         IEnumerable<string> plugins = Directory.EnumerateDirectories(ClientInfo.PluginsPath);
 
         foreach (string plugin in plugins)
@@ -57,14 +64,43 @@ internal class PluginProvider
                 }
             }
 
-            _contexts[plugin] = new PluginContext(
-                Plugin: new Plugin(manifest, typeof())
-            )
-        }
+            var modules = context.Assemblies.SelectMany(a => a.GetTypes())
+                .Where(t => typeof(IPluginModule).IsAssignableFrom(t) && !t.IsAbstract)
+                .ToImmutableArray();
 
-        return _contexts.Values
-            .Select(ctx => ctx.Plugin)
-            .ToArray();
+            foreach (Type moduleType in modules)
+            {
+                var module = Activator.CreateInstance(moduleType) as IPluginModule;
+
+                if (module is not { })
+                {
+                    _logger.Warning($"Failed to create instance of module '{moduleType.FullName}' for plugin '{manifest.Name}'");
+                    continue;
+                }
+
+                module.Register(registry);
+            }
+
+            Type? pluginType = context.Assemblies.SelectMany(it => it.GetTypes())
+                .FirstOrDefault(it => typeof(IPlugin).IsAssignableFrom(it) && !it.IsAbstract);
+
+            if (pluginType is null)
+            {
+                _logger.Warning($"No plugin type found for plugin '{manifest.Name}'");
+                continue;
+            }
+
+            _contexts[plugin] = new PluginContext(
+                Plugin: new Plugin(manifest, pluginType),
+                Context: context
+            );
+        }
+    }
+
+    public async Task<IReadOnlyList<Plugin>> GetAsync()
+    {
+        return _contexts.Values.Select(c => c.Plugin)
+            .ToImmutableArray();
     }
 
     private static async Task<PluginManifest?> TryLoadManifestAsync(string path)

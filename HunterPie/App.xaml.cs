@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Features.Debug.Mocks;
+using HunterPie.Features.Plugins.Services;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
 using HunterPie.Platforms;
@@ -14,6 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Markup;
@@ -52,7 +54,8 @@ public partial class App : Application
         SetupLanguage();
         SetupFrameRate();
         SetupRenderingMode();
-        InitializeMainView();
+        await InitializeMainViewAsync();
+        await SetupPluginsAsync();
 
         InitializerManager.InitializeGUI();
 
@@ -114,7 +117,13 @@ public partial class App : Application
             : RenderMode.SoftwareOnly;
     }
 
-    private async void InitializeMainView()
+    private async Task SetupPluginsAsync()
+    {
+        await DependencyContainer.Get<PluginProvider>()
+                    .LoadAsync(DependencyContainer.Get<IDependencyRegistry>());
+    }
+
+    private async Task InitializeMainViewAsync()
     {
         _logger.Info("Initializing HunterPie client UI");
 

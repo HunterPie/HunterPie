@@ -20,6 +20,7 @@ internal class HunterPieModule : IDependencyModule
             .WithFactory<InMemoryAsyncCache>()
             .WithFactory<CompressorService>()
             .WithSingle<FileStreamLogWriter>()
-            .WithSingle(static _ => ClientConfig.Config);
+            .WithSingle(static _ => ClientConfig.Config)
+            .WithSingle(it => registry);
     }
 }

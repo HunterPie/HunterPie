@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace HunterPie.Core.Plugins.Entity;
 
 public record PluginManifest(
-    string Name,
-    string Author,
-    Version Version,
-    string Description
+    [field: JsonProperty("name")] string Name,
+    [field: JsonProperty("author")] string Author,
+    [field: JsonProperty("version")] Version Version,
+    [field: JsonProperty("description")] string Description
 );

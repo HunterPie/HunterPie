@@ -8,6 +8,8 @@ internal class PluginModule : IDependencyModule
 {
     public void Register(IDependencyRegistry registry)
     {
-        registry.WithSingle<PluginLoader>();
+        registry
+            .WithSingle<PluginLoader>()
+            .WithSingle<PluginProvider>();
     }
 }
