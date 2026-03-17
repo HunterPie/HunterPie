@@ -9,8 +9,8 @@ public struct MHWildsMonsterContext
     [FieldOffset(0x30)] public MHWildsVector3 Position;
 
     // Nullable structure
-    [FieldOffset(0x3E8)][MarshalAs(UnmanagedType.I1)] public bool HasFixedSize;
-    [FieldOffset(0x3EA)] public short FixedSize;
+    [FieldOffset(0x3F0)][MarshalAs(UnmanagedType.I1)] public bool HasFixedSize;
+    [FieldOffset(0x3F2)] public short FixedSize;
 
     [FieldOffset(0x3EC)] public short Size;
 }
