@@ -16,9 +16,9 @@ internal class ThemeSideBarViewModel(
 
     public Type Type => typeof(ThemeHomeViewModel);
 
-    public string Label => "//Strings/Client/Tabs/Tab[@Id='THEMES_STRING']";
+    public string Label => "//Strings/Client/Tabs/Tab[@Id='EXTENSION_STRING']";
 
-    public string Icon => "Icons.Palette";
+    public string Icon => "Icons.Plugin";
 
     public bool IsAvailable => true;
 

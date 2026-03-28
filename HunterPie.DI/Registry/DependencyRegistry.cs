@@ -9,6 +9,8 @@ public class DependencyRegistry : IDependencyRegistry
 {
     private readonly ConcurrentDictionary<Type, List<IDependencyBean>> _beans = new();
 
+    private readonly ConcurrentDictionary<Type, List<IDependencyBean>> _scopedBeans = new();
+
     /// <inheritdoc />
     public T Get<T>() where T : class => (T)Get(typeof(T));
 

@@ -64,22 +64,24 @@ internal class PluginProvider
                 }
             }
 
-            var modules = context.Assemblies.SelectMany(a => a.GetTypes())
-                .Where(t => typeof(IPluginModule).IsAssignableFrom(t) && !t.IsAbstract)
-                .ToImmutableArray();
+            Type? moduleType = context.Assemblies.SelectMany(a => a.GetTypes())
+                .SingleOrDefault(t => typeof(IPluginModule).IsAssignableFrom(t) && !t.IsAbstract);
 
-            foreach (Type moduleType in modules)
+            if (moduleType is not { })
             {
-                var module = Activator.CreateInstance(moduleType) as IPluginModule;
-
-                if (module is not { })
-                {
-                    _logger.Warning($"Failed to create instance of module '{moduleType.FullName}' for plugin '{manifest.Name}'");
-                    continue;
-                }
-
-                module.Register(registry);
+                _logger.Warning($"No module found for plugin '{manifest.Name}'");
+                continue;
             }
+
+            var module = Activator.CreateInstance(moduleType) as IPluginModule;
+
+            if (module is not { })
+            {
+                _logger.Warning($"Failed to create instance of module '{moduleType.FullName}' for plugin '{manifest.Name}'");
+                continue;
+            }
+
+            module.Register(registry);
 
             Type? pluginType = context.Assemblies.SelectMany(it => it.GetTypes())
                 .FirstOrDefault(it => typeof(IPlugin).IsAssignableFrom(it) && !it.IsAbstract);
@@ -91,13 +93,17 @@ internal class PluginProvider
             }
 
             _contexts[plugin] = new PluginContext(
-                Plugin: new Plugin(manifest, pluginType),
+                Plugin: new Plugin(
+                    Manifest: manifest,
+                    Configuration: module.Configuration,
+                    Type: pluginType
+                ),
                 Context: context
             );
         }
     }
 
-    public async Task<IReadOnlyList<Plugin>> GetAsync()
+    public IReadOnlyList<Plugin> Get()
     {
         return _contexts.Values.Select(c => c.Plugin)
             .ToImmutableArray();

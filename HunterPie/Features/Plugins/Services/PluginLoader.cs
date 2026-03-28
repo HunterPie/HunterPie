@@ -2,6 +2,7 @@
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.Entity;
 using HunterPie.DI;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ internal class PluginLoader(
 
     public async Task InitializeAsync(IContext context)
     {
-        IReadOnlyList<Plugin> plugins = await provider.GetAsync();
+        IReadOnlyList<Plugin> plugins = provider.Get();
 
         _logger.Info($"Loading {plugins.Count} plugins...");
 
@@ -33,7 +34,14 @@ internal class PluginLoader(
             if (!_instances.TryAdd(plugin, instance))
                 _logger.Warning($"Failed to add plugin instance: {plugin.Manifest.Name}");
 
-            await instance.InitializeAsync(context);
+            try
+            {
+                await instance.InitializeAsync(context);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Failed to initialize plugin '{plugin.Manifest.Name}': {ex}");
+            }
         }
     }
 

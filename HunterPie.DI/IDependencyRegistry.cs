@@ -48,6 +48,4 @@ public interface IDependencyRegistry
     /// <param name="activator">Class activator</param>
     /// <returns>The dependency registry</returns>
     public IDependencyRegistry WithSingle<T>(Activator<T>? activator = null) where T : class;
-
-
 }
