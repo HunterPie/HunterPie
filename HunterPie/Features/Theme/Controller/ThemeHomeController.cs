@@ -33,7 +33,7 @@ internal class ThemeHomeController(
         )
         {
             Icon = "Icons.Palette",
-            Title = "Installed"
+            Title = "Themes"
         };
 
         await installedTab.RefreshAsync();
@@ -46,7 +46,7 @@ internal class ThemeHomeController(
         var installedPluginsTab = new InstalledPluginsHomeTabViewModel(pluginProvider)
         {
             Icon = "Icons.Plugin",
-            Title = "Installed Plugins"
+            Title = "Plugins"
         };
 
         await installedPluginsTab.RefreshAsync();

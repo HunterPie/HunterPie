@@ -31,9 +31,14 @@
             <local:InstalledThemeHomeTabView />
         </DataTemplate>
 
+        <DataTemplate x:Key="Internal.PluginsTabTemplate">
+            <local:InstalledPluginsHomeTabView />
+        </DataTemplate>
+
         <presentation:ThemeTabTemplateSelector x:Key="ThemeTabTemplateSelector" 
                                                ExploreDataTemplate="{StaticResource Internal.ExploreTabTemplate}"
-                                               InstalledDataTemplate="{StaticResource Internal.InstalledTabTemplate}"/>
+                                               InstalledDataTemplate="{StaticResource Internal.InstalledTabTemplate}"
+                                               PluginsDataTemplate="{StaticResource Internal.PluginsTabTemplate}"/>
     </UserControl.Resources>
     <Grid>
         <TabControl ItemsSource="{Binding Tabs, Mode=OneTime}"

@@ -11,7 +11,7 @@ internal class InstalledPluginsHomeTabViewModel(
 ) : ThemeHomeTabViewModel
 {
 
-    private ObservableCollection<InstalledPluginViewModel> Plugins { get; } = new();
+    public ObservableCollection<InstalledPluginViewModel> Plugins { get; } = new();
 
     public bool IsRefreshing { get; set => SetValue(ref field, value); }
 
