@@ -157,8 +157,7 @@ public partial class Carousel : UserControl
 
     private void ResumeAnimation()
     {
-        if (_animation is not null)
-            _animation.Completed -= OnAnimationComplete;
+        _animation?.Completed -= OnAnimationComplete;
 
         double totalMilliseconds = Duration.TimeSpan.TotalMilliseconds;
         double realDurationMillis = totalMilliseconds - (totalMilliseconds * ProgressPercentage);
@@ -180,8 +179,7 @@ public partial class Carousel : UserControl
 
     private void RestartAnimation()
     {
-        if (_animation is not null)
-            _animation.Completed -= OnAnimationComplete;
+        _animation?.Completed -= OnAnimationComplete;
 
         _animation = new DoubleAnimation(0, 1, Duration) { FillBehavior = FillBehavior.HoldEnd };
 

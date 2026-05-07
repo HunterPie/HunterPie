@@ -132,7 +132,11 @@ public class MonsterPartContextHandler : MonsterPartViewModel
     private void Update()
     {
         Name = Context.Id;
-        IsKnownPart = Context.Definition.String != "PART_UNKNOWN";
+
+        bool isUnknownPart = Context.Definition.String == "PART_UNKNOWN";
+        bool isUnmappedPart = Context.Definition.String.Contains("unk");
+
+        IsKnownPart = !isUnknownPart && !isUnmappedPart;
 
         MaxHealth = Context.MaxHealth;
         Health = Context.Health;
