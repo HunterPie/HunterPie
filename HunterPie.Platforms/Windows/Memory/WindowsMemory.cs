@@ -207,6 +207,9 @@ internal class WindowsMemory(IntPtr handle) : IMemoryAsync
 
     private async Task<T[]> ReadStructureAsync<T>(IntPtr address, int count) where T : struct
     {
+        if (count <= 0)
+            return [];
+
         int lpByteCount = Marshal.SizeOf<T>() * count;
         IntPtr bufferAddress = Marshal.AllocHGlobal(lpByteCount);
 
@@ -228,6 +231,9 @@ internal class WindowsMemory(IntPtr handle) : IMemoryAsync
 
     private async Task<T[]> ReadPrimitiveAsync<T>(IntPtr address, int count) where T : struct
     {
+        if (count <= 0)
+            return [];
+
         int lpByteCount = Marshal.SizeOf<T>() * count;
         var buffer = new T[count];
 
