@@ -27,7 +27,6 @@ internal class PluginProvider
 
     private readonly ILogger _logger = LoggerFactory.Create();
 
-
     public async Task LoadAsync(IDependencyRegistry registry)
     {
         if (!Directory.Exists(ClientInfo.PluginsPath))

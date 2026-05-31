@@ -1,47 +1,25 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Domain.Enums;
-using HunterPie.Core.Domain.Mapper;
+﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
-using HunterPie.Core.Utils;
-using HunterPie.Features.Backup.Services;
-using HunterPie.Features.Overlay.Services;
-using HunterPie.Features.Overlay.Widgets;
-using HunterPie.Features.Plugins.Services;
-using HunterPie.Features.Scan.Service;
-using HunterPie.Integrations.Discord.Factory;
-using HunterPie.Integrations.Discord.Service;
+using HunterPie.DI;
 using HunterPie.Integrations.Services;
-using HunterPie.Integrations.Services.Exceptions;
 using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
 namespace HunterPie.Features.Game.Service;
 
 internal class GameContextController(
+    IDependencyRegistry registry,
     Dispatcher uiDispatcher,
     IProcessWatcherService processWatcherService,
-    IGameContextService gameContextService,
-    IBackupService backupService,
-    IControllableScanService controllableScanService,
-    DiscordPresenceFactory discordPresenceFactory,
-    OverlayManager overlayManager,
-    WidgetInitializers widgetInitializers,
-    PluginLoader pluginLoader) : IDisposable
+    IGameContextFactory gameContextFactory
+) : IDisposable
 {
+    private IScopedDependencyRegistry? _scopedRegistry = null;
     private readonly ILogger _logger = LoggerFactory.Create();
-
-    private bool _isDisposed;
-    private Context? _context;
-
-    private CancellationTokenSource? _cancellationTokenSource;
-    private DiscordPresenceService? _discordPresenceService;
 
     public void Subscribe()
     {
@@ -51,59 +29,29 @@ internal class GameContextController(
 
     private async void OnProcessStart(object? sender, ProcessEventArgs e)
     {
-        _cancellationTokenSource = new CancellationTokenSource();
-        _context = gameContextService.Get(e.Game);
+        Context ctx = gameContextFactory.Create(e.Game);
+
+        _scopedRegistry = registry.NewScope();
+
+        _scopedRegistry
+            .WithSingle<IContext>((_) => ctx)
+            .WithSingle((_) => _scopedRegistry);
 
         _logger.Debug("Initialized game context");
 
-        await _logger.CatchAndLogAsync(async () =>
-        {
-            await uiDispatcher.InvokeAsync(() => overlayManager.Setup(_context));
+        DependencyProvider.LoadScopedModules(_scopedRegistry);
 
-            await ContextInitializers.InitializeAsync(_context);
+        GameIntegrationService integrationService = _scopedRegistry.Get<GameIntegrationService>();
 
-            await uiDispatcher.InvokeAsync(() => widgetInitializers.InitializeAsync(_context));
-
-            controllableScanService.Start(_cancellationTokenSource.Token);
-        });
-
-        _logger.CatchAndLog(() =>
-        {
-            _discordPresenceService = discordPresenceFactory.Create(_context);
-            _discordPresenceService.Start();
-        });
-
-        await _logger.CatchAndLogAsync(async () =>
-        {
-            await backupService.ExecuteAsync(
-                gameType: MapFactory.Map<GameProcessType, GameType?>(e.Game.Type)
-                          ?? throw new UnsupportedGameException(e.Game.Name)
-            );
-        });
-
-        await pluginLoader.InitializeAsync(_context);
+        await integrationService.StartAsync();
     }
 
     private async void OnProcessExit(object? sender, EventArgs e)
     {
-        if (_cancellationTokenSource is { })
-            await _cancellationTokenSource.CancelAsync();
-
-        _discordPresenceService?.Dispose();
-
-        _context?.Dispose();
-
-        _context = null;
-
-        await uiDispatcher.InvokeAsync(widgetInitializers.Unload);
-        await uiDispatcher.InvokeAsync(overlayManager.Dispose);
-
         _logger.Info("Process has closed");
 
-        SmartEventsTracker.DisposeEvents();
-        ContextInitializers.Dispose();
-
-        pluginLoader.Unload();
+        _scopedRegistry?.Dispose();
+        _scopedRegistry = null;
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
             uiDispatcher.Invoke(Application.Current.Shutdown);
@@ -111,12 +59,7 @@ internal class GameContextController(
 
     public void Dispose()
     {
-        if (_isDisposed)
-            return;
-
-        processWatcherService.ProcessStart += OnProcessStart;
-        processWatcherService.ProcessExit += OnProcessExit;
-        _cancellationTokenSource?.Dispose();
-        _isDisposed = true;
+        processWatcherService.ProcessStart -= OnProcessStart;
+        processWatcherService.ProcessExit -= OnProcessExit;
     }
 }

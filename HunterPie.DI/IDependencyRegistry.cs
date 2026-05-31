@@ -48,4 +48,11 @@ public interface IDependencyRegistry
     /// <param name="activator">Class activator</param>
     /// <returns>The dependency registry</returns>
     public IDependencyRegistry WithSingle<T>(Activator<T>? activator = null) where T : class;
+
+    /// <summary>
+    /// Creates a new scope for the dependency registry, dependencies registered in the new scope will not be visible from the parent scope, 
+    /// but dependencies registered in the parent scope will be visible from the new scope
+    /// </summary>
+    /// <returns>The new dependency registry scope</returns>
+    public IScopedDependencyRegistry NewScope();
 }

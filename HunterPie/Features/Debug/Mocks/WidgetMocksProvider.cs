@@ -41,7 +41,7 @@ internal class WidgetMocksProvider
         _configurationAdapter = configurationAdapter;
         _poogieVersionConnector = poogieVersionConnector;
         _bodyNavigator = bodyNavigator;
-        _overlay = new OverlayManager(dispatcher, new HotkeyServiceMock(), config)
+        _overlay = new OverlayManager(null, dispatcher, new HotkeyServiceMock(), config)
         {
             IsGameFocused = true
         };

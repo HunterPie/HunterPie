@@ -12,12 +12,13 @@ using HunterPie.Integrations.Services.Exceptions;
 
 namespace HunterPie.Integrations.Services;
 
-internal class GameContextProvider(
+internal class GameContextFactory(
     IScanService scanService,
-    ILocalizationRepository localizationRepository) : IGameContextService
+    ILocalizationRepository localizationRepository
+) : IGameContextFactory
 {
 
-    public Context Get(IGameProcess game)
+    public Context Create(IGameProcess game)
     {
         return game.Type switch
         {

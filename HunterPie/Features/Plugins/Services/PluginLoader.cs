@@ -10,15 +10,16 @@ using System.Threading.Tasks;
 namespace HunterPie.Features.Plugins.Services;
 
 internal class PluginLoader(
+    IContext context,
     PluginProvider provider,
-    IDependencyRegistry registry
+    IScopedDependencyRegistry registry
 )
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private readonly ConcurrentDictionary<Plugin, IPlugin> _instances = new();
 
 
-    public async Task InitializeAsync(IContext context)
+    public async Task LoadAsync()
     {
         IReadOnlyList<Plugin> plugins = provider.Get();
 

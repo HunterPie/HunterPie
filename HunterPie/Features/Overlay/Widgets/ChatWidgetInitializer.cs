@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
@@ -12,7 +11,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class ChatWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class ChatWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
@@ -21,10 +24,8 @@ internal class ChatWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 
     public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
-
         if (!config.ChatWidget.Initialize)
             return Task.CompletedTask;
 
@@ -39,7 +40,7 @@ internal class ChatWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();

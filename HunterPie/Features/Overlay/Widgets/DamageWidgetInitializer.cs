@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
@@ -13,7 +12,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class DamageWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class DamageWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    DamageMeterWidgetConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
@@ -25,13 +28,8 @@ internal class DamageWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        DamageMeterWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            game: context.Process.Type,
-            it => it.DamageMeterWidget
-        );
-
         if (!config.Initialize)
             return Task.CompletedTask;
 
@@ -49,7 +47,7 @@ internal class DamageWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();

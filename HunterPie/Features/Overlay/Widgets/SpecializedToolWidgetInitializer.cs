@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity;
@@ -18,7 +17,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class SpecializedToolWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    SpecializedToolWidgetConfig[] configs
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
@@ -28,20 +31,8 @@ internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetIniti
         GameProcessType.MonsterHunterWorld |
         GameProcessType.MonsterHunterWilds;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        SpecializedToolWidgetConfig[] configs =
-        {
-            ClientConfigHelper.DeferOverlayConfig(
-                game: context.Process.Type,
-                deferDelegate: cfg => cfg.PrimarySpecializedToolWidget
-            ),
-            ClientConfigHelper.DeferOverlayConfig(
-                game: context.Process.Type,
-                deferDelegate: cfg => cfg.SecondarySpecializedToolWidget
-            )
-        };
-
         for (int i = 0; i < configs.Length; i++)
         {
             SpecializedToolWidgetConfig config = configs[i];
@@ -73,7 +64,7 @@ internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetIniti
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         foreach ((IContextHandler handler, WidgetView view) in _handlers)
         {

@@ -1,4 +1,5 @@
 ﻿using HunterPie.DI.Module;
+using HunterPie.Features.Overlay.Widgets;
 using HunterPie.Internal.Initializers;
 
 namespace HunterPie.DI.Modules;

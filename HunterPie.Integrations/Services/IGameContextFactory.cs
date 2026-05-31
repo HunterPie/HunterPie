@@ -3,7 +3,7 @@ using HunterPie.Core.Game;
 
 namespace HunterPie.Integrations.Services;
 
-public interface IGameContextService
+public interface IGameContextFactory
 {
-    public Context Get(IGameProcess game);
+    public Context Create(IGameProcess game);
 }

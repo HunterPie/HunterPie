@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
@@ -16,9 +15,13 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class WirebugWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    WirebugWidgetConfig config
+) : IWidgetInitializer
 {
-    private static readonly ILogger Logger = LoggerFactory.Create();
+    private readonly ILogger _logger = LoggerFactory.Create();
 
     private readonly IOverlay _overlay = overlay;
 
@@ -27,13 +30,8 @@ internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
     private IContextHandler? _handler;
     private WidgetView? _view;
 
-    public async Task LoadAsync(IContext context)
+    public async Task LoadAsync()
     {
-        WirebugWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            game: context.Process.Type,
-            it => it.WirebugWidget
-        );
-
         if (!config.Initialize)
             return;
 
@@ -41,7 +39,7 @@ internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
             return;
 
         if (config.PatchInGameHud)
-            await PatchInGameHudAssemblyAsync(context);
+            await PatchInGameHudAssemblyAsync();
 
         var viewModel = new WirebugsViewModel(config);
 
@@ -52,7 +50,7 @@ internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         _view = _overlay.Register(viewModel);
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();
@@ -71,7 +69,7 @@ internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         * Patched instructions:
         * `or qword ptr[rax+50], 01`
     */
-    private static async Task PatchInGameHudAssemblyAsync(IContext context)
+    private async Task PatchInGameHudAssemblyAsync()
     {
         try
         {
@@ -84,11 +82,11 @@ internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 
             await context.Process.Memory.InjectAsmAsync(wirebugAimAddress, assembly);
 
-            Logger.Debug("Successfully patched Wirebug aim");
+            _logger.Debug("Successfully patched Wirebug aim");
         }
         catch (Exception ex)
         {
-            Logger.Error($"Found ntdll::NtProtectVirtualMemory address at {ex}");
+            _logger.Error($"Found ntdll::NtProtectVirtualMemory address at {ex}");
         }
     }
 }

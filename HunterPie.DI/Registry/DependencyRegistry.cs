@@ -5,11 +5,18 @@ using System.Collections.Concurrent;
 
 namespace HunterPie.DI.Registry;
 
-public class DependencyRegistry : IDependencyRegistry
+public sealed class DependencyRegistry : IScopedDependencyRegistry
 {
+
+    private readonly DependencyRegistry? _owner;
     private readonly ConcurrentDictionary<Type, List<IDependencyBean>> _beans = new();
 
-    private readonly ConcurrentDictionary<Type, List<IDependencyBean>> _scopedBeans = new();
+    public DependencyRegistry() { }
+
+    private DependencyRegistry(DependencyRegistry owner)
+    {
+        _owner = owner;
+    }
 
     /// <inheritdoc />
     public T Get<T>() where T : class => (T)Get(typeof(T));
@@ -45,10 +52,13 @@ public class DependencyRegistry : IDependencyRegistry
 
     private List<IDependencyBean> GetBeans(Type type)
     {
-        if (!_beans.TryGetValue(type, out List<IDependencyBean>? beans))
+        bool hasScopedBeans = _beans.TryGetValue(type, out List<IDependencyBean>? beans);
+        bool hasOwner = _owner is not null;
+
+        if (!hasScopedBeans && !hasOwner)
             throw new DependencyNotRegisteredException(type);
 
-        return beans;
+        return [.. beans ?? [], .. _owner?.GetBeans(type) ?? []];
     }
 
     /// <inheritdoc />
@@ -73,6 +83,13 @@ public class DependencyRegistry : IDependencyRegistry
         return this;
     }
 
+    /// <inheritdoc />
+    public IScopedDependencyRegistry NewScope()
+    {
+        return new DependencyRegistry(this);
+    }
+
+
     private void RegisterBean(Type type, IDependencyBean bean)
     {
         Type[] innerTypes = [.. type.GetInterfaces(), type];
@@ -87,5 +104,16 @@ public class DependencyRegistry : IDependencyRegistry
                     return dependencies;
                 }
             );
+    }
+
+    public void Dispose()
+    {
+        if (!_beans.TryGetValue(typeof(IDisposable), out List<IDependencyBean>? disposableBeans))
+            return;
+
+        foreach (IDisposable disposable in disposableBeans.Cast<IDisposable>())
+            disposable.Dispose();
+
+        _beans.Clear();
     }
 }

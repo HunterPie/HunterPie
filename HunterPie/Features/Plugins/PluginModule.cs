@@ -4,12 +4,17 @@ using HunterPie.Features.Plugins.Services;
 
 namespace HunterPie.Features.Plugins;
 
-internal class PluginModule : IDependencyModule
+internal class PluginModule : IDependencyModule, IScopedModule
 {
-    public void Register(IDependencyRegistry registry)
+    void IDependencyModule.Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<PluginLoader>()
             .WithSingle<PluginProvider>();
+    }
+
+    void IScopedModule.Register(IScopedDependencyRegistry registry)
+    {
+        registry
+            .WithSingle<PluginLoader>();
     }
 }

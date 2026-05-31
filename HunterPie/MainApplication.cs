@@ -78,6 +78,7 @@ internal class MainApplication(
 
     public void Dispose()
     {
+        gameContextController.Dispose();
         ConfigManager.SaveAll();
         AsyncHelper.RunSync(remoteAccountConfigUseCase.Upload);
     }

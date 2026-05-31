@@ -6,14 +6,20 @@ using HunterPie.Features.Statistics.ViewModels;
 
 namespace HunterPie.Features.Statistics;
 
-internal class StatisticsModule : IDependencyModule
+internal class StatisticsModule : IDependencyModule, IScopedModule
 {
-    public void Register(IDependencyRegistry registry)
+    void IDependencyModule.Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<QuestTrackerService>()
+
             .WithFactory<QuestStatisticsSummariesViewModel>()
             .WithSingle<QuestDetailsViewModelBuilder>()
             .WithSingle<MonsterDetailsViewModelBuilder>();
+    }
+
+    void IScopedModule.Register(IScopedDependencyRegistry registry)
+    {
+        registry
+            .WithSingle<QuestTrackerService>();
     }
 }

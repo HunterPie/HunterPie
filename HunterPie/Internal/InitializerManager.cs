@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Overlay.Widgets;
 using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
