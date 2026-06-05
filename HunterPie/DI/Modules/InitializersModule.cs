@@ -26,7 +26,6 @@ public class InitializersModule : IDependencyModule
             .WithSingle<SystemTrayInitializer>()
             .WithSingle<ClientConfigBindingsInitializer>()
             .WithSingle<NavigationTemplatesInitializer>()
-            .WithSingle<AppNotificationsInitializer>()
             .WithSingle<HotkeyInitializer>()
             .WithSingle<DebugWidgetInitializer>()
             .WithSingle<OverlayWidgetsInitializer>();

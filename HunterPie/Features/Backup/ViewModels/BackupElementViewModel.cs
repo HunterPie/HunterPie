@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.ViewModels;
 
-internal class BackupElementViewModel(PoogieBackupConnector backupConnector) : ViewModel
+internal class BackupElementViewModel(
+    PoogieBackupConnector backupConnector,
+    INotificationService notificationService
+) : ViewModel
 {
     private readonly PoogieBackupConnector _backupConnector = backupConnector;
 
@@ -56,7 +59,7 @@ internal class BackupElementViewModel(PoogieBackupConnector backupConnector) : V
             Description: "Successfully downloaded backup",
             DisplayTime: TimeSpan.FromSeconds(5)
         );
-        await NotificationService.Show(options);
+        await notificationService.Show(options);
     }
 
     public void OpenBackupFolder()

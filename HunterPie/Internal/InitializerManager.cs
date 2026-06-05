@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Features.Overlay.Widgets;
 using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
@@ -47,7 +46,6 @@ internal class InitializerManager
 
         // GUI
         typeof(NavigationTemplatesInitializer),
-        typeof(AppNotificationsInitializer),
     ];
 
     private static readonly Type[] UiInitializers =
@@ -56,10 +54,6 @@ internal class InitializerManager
 
         // Overlay
         typeof(OverlayWidgetsInitializer),
-
-        // Debugging
-        typeof(DebugWidgetInitializer),
-
     };
 
     public static async Task InitializeCore()

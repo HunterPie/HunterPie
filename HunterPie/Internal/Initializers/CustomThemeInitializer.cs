@@ -10,25 +10,23 @@ namespace HunterPie.Internal.Initializers;
 internal class CustomThemeInitializer(
     ThemeLoaderService themeLoaderService,
     V5Config config,
-    MainView mainView) : IInitializer
+    MainView mainView
+) : IInitializer
 {
-    private readonly ThemeLoaderService _themeLoaderService = themeLoaderService;
-    private readonly V5Config _config = config;
-    private readonly MainView _mainView = mainView;
 
     public async Task Init()
     {
-        await _themeLoaderService.LoadAsync();
+        await themeLoaderService.LoadAsync();
 
-        _config.Client.Themes.CollectionChanged += OnThemeCollectionChange;
+        config.Client.Themes.CollectionChanged += OnThemeCollectionChange;
     }
 
     private async void OnThemeCollectionChange(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        _themeLoaderService.UnloadAllThemes();
+        themeLoaderService.UnloadAllThemes();
 
-        await _themeLoaderService.LoadAllEnabledThemesAsync();
+        await themeLoaderService.LoadAllEnabledThemesAsync();
 
-        _mainView.Refresh();
+        mainView.Refresh();
     }
 }

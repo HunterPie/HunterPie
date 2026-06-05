@@ -8,7 +8,8 @@ namespace HunterPie.UI.Logging.Services;
 
 internal class HunterPieLogWriter(
     Dispatcher dispatcher,
-    ObservableCollection<LogString> logs) : ILogWriter
+    ObservableCollection<LogString> logs
+) : ILogWriter
 {
     private readonly Dispatcher _dispatcher = dispatcher;
     private readonly ObservableCollection<LogString> _logs = logs;

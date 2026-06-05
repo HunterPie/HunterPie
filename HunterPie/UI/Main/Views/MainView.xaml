@@ -61,7 +61,7 @@
 		              HorizontalContentAlignment="Right"
 		              VerticalContentAlignment="Bottom"
 		              Background="Transparent"
-		              ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}">
+		              ItemsSource="{Binding Notifications, Mode=OneWay}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<notification:Toast Margin="10,5"

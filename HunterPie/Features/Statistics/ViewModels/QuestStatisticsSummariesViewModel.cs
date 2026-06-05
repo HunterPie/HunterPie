@@ -23,13 +23,10 @@ internal class QuestStatisticsSummariesViewModel(
     IAccountUseCase accountUseCase,
     IBodyNavigator bodyNavigator,
     QuestDetailsViewModelBuilder questDetailsViewModelBuilder,
-    ILocalizationRepository localizationRepository) : ViewModel
+    ILocalizationRepository localizationRepository,
+    INotificationService notificationService
+) : ViewModel
 {
-    private readonly PoogieStatisticsConnector _connector = connector;
-    private readonly IAccountUseCase _accountUseCase = accountUseCase;
-    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
-    private readonly QuestDetailsViewModelBuilder _questDetailsViewModelBuilder = questDetailsViewModelBuilder;
-
     public bool HasQuests
     {
         get;
@@ -73,7 +70,7 @@ internal class QuestStatisticsSummariesViewModel(
         if (IsFetchingQuests)
             return;
 
-        UserAccount? account = await _accountUseCase.GetAsync();
+        UserAccount? account = await accountUseCase.GetAsync();
 
         if (account is not { })
             return;
@@ -83,7 +80,7 @@ internal class QuestStatisticsSummariesViewModel(
         IsFetchingQuests = true;
 
         PoogieResult<Paginated<PoogieQuestSummaryModel>> summariesResponse =
-            await _connector.GetUserQuestSummariesV2(CurrentPage, LimitSize);
+            await connector.GetUserQuestSummariesV2(CurrentPage, LimitSize);
 
         if (summariesResponse.Error is { } error && error.Code != PoogieErrorCode.NOT_ERROR)
         {
@@ -119,10 +116,10 @@ internal class QuestStatisticsSummariesViewModel(
                 .Format(uploadId),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        Guid notificationId = await NotificationService.Show(downloadingNotificationOptions);
+        Guid notificationId = await notificationService.Show(downloadingNotificationOptions);
         IsFetchingDetails = true;
 
-        PoogieResult<PoogieQuestStatisticsModel> questResponse = await _connector.GetAsync(uploadId);
+        PoogieResult<PoogieQuestStatisticsModel> questResponse = await connector.GetAsync(uploadId);
 
         if (questResponse.Response is not { } questDetails)
         {
@@ -131,7 +128,7 @@ internal class QuestStatisticsSummariesViewModel(
                 Type = NotificationType.Error,
                 Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
             };
-            NotificationService.Update(notificationId, failedNotification);
+            notificationService.Update(notificationId, failedNotification);
             IsFetchingDetails = false;
             return;
         }
@@ -143,10 +140,10 @@ internal class QuestStatisticsSummariesViewModel(
             Type = NotificationType.Success,
             Description = localizationRepository.FindStringBy("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
         };
-        NotificationService.Update(notificationId, successNotification);
+        notificationService.Update(notificationId, successNotification);
 
-        QuestDetailsViewModel viewModel = await _questDetailsViewModelBuilder.From(questDetails.ToEntity());
-        _bodyNavigator.Navigate(viewModel);
+        QuestDetailsViewModel viewModel = await questDetailsViewModelBuilder.From(questDetails.ToEntity());
+        bodyNavigator.Navigate(viewModel);
     }
 
     private static QuestSupporterTierMessageType ConvertTierToMessageType(AccountTier tier) =>

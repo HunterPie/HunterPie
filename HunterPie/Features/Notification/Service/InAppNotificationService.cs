@@ -6,14 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Threading;
 
-namespace HunterPie.Features.Notification;
+namespace HunterPie.Features.Notification.Service;
 
-internal class InAppNotificationService : INotificationService
+internal class InAppNotificationService(
+    Dispatcher dispatcher
+) : INotificationService
 {
-    private static readonly Dictionary<Guid, (DispatcherJob, ToastViewModel)> ViewModelsLookup = new();
-    public static ObservableCollection<ToastViewModel> Notifications { get; } = new();
+    public ObservableCollection<ToastViewModel> Notifications { get; } = new();
+
+    private readonly Dictionary<Guid, (DispatcherJob, ToastViewModel)> ViewModelsLookup = new();
 
     public async Task<Guid> Show(NotificationOptions options)
     {
@@ -30,7 +33,7 @@ internal class InAppNotificationService : INotificationService
             SecondaryHandler = options.SecondaryCallback?.Handler,
         };
 
-        await Application.Current.Dispatcher.InvokeAsync(() =>
+        await dispatcher.InvokeAsync(() =>
         {
             lock (Notifications)
             {
@@ -46,7 +49,7 @@ internal class InAppNotificationService : INotificationService
 
     public void Update(Guid id, NotificationOptions options)
     {
-        Application.Current.Dispatcher.Invoke(() =>
+        dispatcher.Invoke(() =>
         {
             lock (Notifications)
             {
@@ -64,7 +67,7 @@ internal class InAppNotificationService : INotificationService
         });
     }
 
-    private static void HandleVisibilityTimeout(Guid notificationId)
+    private void HandleVisibilityTimeout(Guid notificationId)
     {
         lock (Notifications)
         {
