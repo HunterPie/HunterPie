@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity;
@@ -20,7 +21,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 internal class SpecializedToolWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    SpecializedToolWidgetConfig[] configs
+    OverlayConfig config
 ) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
@@ -33,15 +34,17 @@ internal class SpecializedToolWidgetInitializer(
 
     public Task LoadAsync()
     {
+        SpecializedToolWidgetConfig[] configs = [config.PrimarySpecializedToolWidget, config.SecondarySpecializedToolWidget];
+
         for (int i = 0; i < configs.Length; i++)
         {
-            SpecializedToolWidgetConfig config = configs[i];
+            SpecializedToolWidgetConfig widgetConfig = configs[i];
 
-            if (!config.Initialize)
+            if (!widgetConfig.Initialize)
                 continue;
 
             var viewModel = new SpecializedToolViewModelV2(
-                settings: config
+                settings: widgetConfig
             );
             ISpecializedTool? tool = GetSpecializedToolByGame(context, i);
 
@@ -52,7 +55,7 @@ internal class SpecializedToolWidgetInitializer(
                 context: context,
                 tool: tool,
                 viewModel: viewModel,
-                config: config
+                config: widgetConfig
             );
 
             controller.HookEvents();

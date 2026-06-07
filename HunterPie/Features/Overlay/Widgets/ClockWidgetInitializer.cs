@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
@@ -13,7 +13,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 public class ClockWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    ClockWidgetConfig config
+    OverlayConfig config
 ) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
@@ -28,10 +28,10 @@ public class ClockWidgetInitializer(
 
     public Task LoadAsync()
     {
-        if (!config.Initialize)
+        if (!config.ClockWidget.Initialize)
             return Task.CompletedTask;
 
-        var viewModel = new ClockViewModel(config);
+        var viewModel = new ClockViewModel(config.ClockWidget);
 
         _handler = new ClockWidgetContextHandler(
             context: context,

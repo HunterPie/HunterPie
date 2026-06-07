@@ -24,7 +24,12 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
     /// <inheritdoc />
     public object Get(Type type)
     {
-        return GetBeans(type)
+        List<IDependencyBean> beans = GetBeans(type);
+
+        if (beans.Count <= 0)
+            throw new DependencyNotRegisteredException(type);
+
+        return beans
             .First()
             .Create(this);
     }
@@ -52,13 +57,11 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
 
     private List<IDependencyBean> GetBeans(Type type)
     {
-        bool hasScopedBeans = _beans.TryGetValue(type, out List<IDependencyBean>? beans);
-        bool hasOwner = _owner is not null;
+        _ = _beans.TryGetValue(type, out List<IDependencyBean>? beans);
 
-        if (!hasScopedBeans && !hasOwner)
-            throw new DependencyNotRegisteredException(type);
+        List<IDependencyBean> ownerBeans = _owner?.GetBeans(type) ?? [];
 
-        return [.. beans ?? [], .. _owner?.GetBeans(type) ?? []];
+        return [.. beans ?? [], .. ownerBeans];
     }
 
     /// <inheritdoc />
@@ -108,12 +111,6 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
 
     public void Dispose()
     {
-        if (!_beans.TryGetValue(typeof(IDisposable), out List<IDependencyBean>? disposableBeans))
-            return;
-
-        foreach (IDisposable disposable in disposableBeans.Cast<IDisposable>())
-            disposable.Dispose();
-
         _beans.Clear();
     }
 }

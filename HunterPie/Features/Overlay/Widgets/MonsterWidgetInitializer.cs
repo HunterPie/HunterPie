@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources.Common.Monster;
@@ -14,7 +14,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 internal class MonsterWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    MonsterWidgetConfig config,
+    OverlayConfig config,
     DistanceFunc distanceFunc
 ) : IWidgetInitializer
 {
@@ -31,11 +31,11 @@ internal class MonsterWidgetInitializer(
 
     public Task LoadAsync()
     {
-        if (!config.Initialize)
+        if (!config.BossesWidget.Initialize)
             return Task.CompletedTask;
 
         var viewModel = new MonstersViewModel(
-            settings: config
+            settings: config.BossesWidget
         );
 
         _targetDetectionService = new WeightedTargetDetectionService(
@@ -48,7 +48,7 @@ internal class MonsterWidgetInitializer(
             context: context,
             targetDetectionService: _targetDetectionService,
             viewModel: viewModel,
-            config: config
+            config: config.BossesWidget
         );
 
         _view = _overlay.Register(viewModel);

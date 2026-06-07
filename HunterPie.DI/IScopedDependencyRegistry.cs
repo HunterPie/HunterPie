@@ -1,5 +1,3 @@
 ﻿namespace HunterPie.DI;
 
-public interface IScopedDependencyRegistry : IDependencyRegistry, IDisposable
-{
-}
+public interface IScopedDependencyRegistry : IDependencyRegistry, IDisposable;

@@ -3,7 +3,7 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
-using HunterPie.Features.Native;
+using HunterPie.Features.Native.Service;
 using HunterPie.Game.Common;
 using HunterPie.Game.Rise.Patcher;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
@@ -15,7 +15,8 @@ namespace HunterPie.Game.Rise;
 internal class MHRContextInitializer(
     IContext context,
     ClientConfig config,
-    RiseIntegrityPatcher patcher
+    RiseIntegrityPatcher patcher,
+    NativeInterfaceService nativeInterfaceService
 ) : IGameContextInitializer
 {
 
@@ -38,8 +39,10 @@ internal class MHRContextInitializer(
         nint[] addresses = Addresses.Select(AddressMap.GetAbsolute)
             .ToArray();
 
-        await IPCInjectorInitializer.InjectNativeModuleAsync(context);
-        await NativeIPCInitializer.WaitForIPCInitialization();
+        bool isConnected = await nativeInterfaceService.ConnectAsync();
+
+        if (!isConnected)
+            return;
 
         await IPCInitializationMessageHandler.RequestIPCInitializationAsync(IPCInitializationHostType.MHRise, addresses);
     }

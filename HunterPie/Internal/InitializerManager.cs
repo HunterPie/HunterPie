@@ -19,7 +19,7 @@ internal class InitializerManager
     private static readonly Type[] Initializers =
     [
         typeof(FileStreamLoggerInitializer),
-        
+
         // Core
         typeof(LocalConfigInitializer),
         
@@ -27,7 +27,7 @@ internal class InitializerManager
         typeof(FeatureFlagsInitializer),
 
         typeof(NativeLoggerInitializer),
-        
+
         // Config
         typeof(RemoteConfigSyncInitializer),
         typeof(ClientConfigMigrationInitializer),

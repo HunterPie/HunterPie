@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
@@ -13,7 +13,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 internal class PlayerHudWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    PlayerHudWidgetConfig config
+    OverlayConfig config
 ) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
@@ -25,10 +25,10 @@ internal class PlayerHudWidgetInitializer(
 
     public Task LoadAsync()
     {
-        if (!config.Initialize)
+        if (!config.PlayerHudWidget.Initialize)
             return Task.CompletedTask;
 
-        var viewModel = new PlayerHudViewModel(config);
+        var viewModel = new PlayerHudViewModel(config.PlayerHudWidget);
 
         _handler = new PlayerHudWidgetContextHandler(
             context: context,

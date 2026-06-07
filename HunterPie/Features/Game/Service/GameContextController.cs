@@ -3,6 +3,7 @@ using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Utils;
 using HunterPie.DI;
 using HunterPie.Integrations.Services;
 using System;
@@ -34,23 +35,31 @@ internal class GameContextController(
         _scopedRegistry = registry.NewScope();
 
         _scopedRegistry
-            .WithSingle<IContext>((_) => ctx)
-            .WithSingle((_) => _scopedRegistry);
+            .WithSingle((_) => ctx);
 
         _logger.Debug("Initialized game context");
 
-        DependencyProvider.LoadScopedModules(_scopedRegistry);
-
-        GameIntegrationService integrationService = _scopedRegistry.Get<GameIntegrationService>();
-
-        await integrationService.StartAsync();
+        _logger.CatchAndLog(() => DependencyProvider.LoadScopedModules(_scopedRegistry));
+        _logger.CatchAndLog(async () =>
+        {
+            await _scopedRegistry.Get<GameIntegrationService>()
+                .StartAsync();
+        });
     }
 
     private async void OnProcessExit(object? sender, EventArgs e)
     {
         _logger.Info("Process has closed");
 
-        _scopedRegistry?.Dispose();
+        if (_scopedRegistry is not null)
+        {
+            _scopedRegistry.Get<GameIntegrationService>().Dispose();
+            _scopedRegistry.Get<Context>().Dispose();
+
+            _scopedRegistry.Dispose();
+
+        }
+
         _scopedRegistry = null;
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)

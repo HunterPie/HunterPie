@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
@@ -15,7 +15,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 internal class DamageWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    DamageMeterWidgetConfig config
+    OverlayConfig config
 ) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
@@ -30,10 +30,10 @@ internal class DamageWidgetInitializer(
 
     public Task LoadAsync()
     {
-        if (!config.Initialize)
+        if (!config.DamageMeterWidget.Initialize)
             return Task.CompletedTask;
 
-        var viewModel = new MeterViewModelV2(config);
+        var viewModel = new MeterViewModelV2(config.DamageMeterWidget);
 
         _view = _overlay.Register(viewModel);
 
@@ -41,7 +41,7 @@ internal class DamageWidgetInitializer(
             context: context,
             viewModel: viewModel,
             widgetContext: (WidgetContext)_view.DataContext,
-            config: config
+            config: config.DamageMeterWidget
         );
 
         return Task.CompletedTask;

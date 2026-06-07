@@ -1,11 +1,10 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
-using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
 using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
@@ -18,7 +17,7 @@ namespace HunterPie.Features.Overlay.Widgets;
 internal class WirebugWidgetInitializer(
     IContext context,
     IOverlay overlay,
-    WirebugWidgetConfig config
+    OverlayConfig config
 ) : IWidgetInitializer
 {
     private readonly ILogger _logger = LoggerFactory.Create();
@@ -27,21 +26,21 @@ internal class WirebugWidgetInitializer(
 
     public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
 
-    private IContextHandler? _handler;
+    private WirebugWidgetContextHandler? _handler;
     private WidgetView? _view;
 
     public async Task LoadAsync()
     {
-        if (!config.Initialize)
+        if (!config.WirebugWidget.Initialize)
             return;
 
         if (context is not MHRContext ctx)
             return;
 
-        if (config.PatchInGameHud)
+        if (config.WirebugWidget.PatchInGameHud)
             await PatchInGameHudAssemblyAsync();
 
-        var viewModel = new WirebugsViewModel(config);
+        var viewModel = new WirebugsViewModel(config.WirebugWidget);
 
         _handler = new WirebugWidgetContextHandler(
             context: ctx,
@@ -86,7 +85,7 @@ internal class WirebugWidgetInitializer(
         }
         catch (Exception ex)
         {
-            _logger.Error($"Found ntdll::NtProtectVirtualMemory address at {ex}");
+            _logger.Error($"Failed to patch MHRise wirebug aim: {ex}");
         }
     }
 }

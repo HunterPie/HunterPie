@@ -1,6 +1,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Dialog;
+using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Features.Debug.Mocks;
@@ -63,6 +64,9 @@ public partial class App : Application
             .MockEnabled();
 
         SetUiThreadPriority();
+
+        DependencyContainer.Get<IControllableWatcherService>()
+            .Start();
     }
 
     protected override void OnExit(ExitEventArgs e)
