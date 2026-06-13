@@ -41,10 +41,10 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<ContentControl Grid.Row="1"
-		                Grid.Column="0"
-		                Content="{Binding ContentViewModel, Mode=OneWay}"
-		                ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}" />
+		<ContentPresenter Grid.Row="1"
+		                  Grid.Column="0"
+		                  Content="{Binding ContentViewModel, Mode=OneWay}"
+		                  ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}" />
 
 		<!--  Header  -->
 		<views:HeaderView Grid.Row="0"

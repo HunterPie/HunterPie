@@ -6,7 +6,7 @@ namespace HunterPie.UI.Home.ViewModels;
 internal class HomeViewModel(
     ObservableCollection<SupportedGameViewModel> supportedGames,
     ObservableCollection<HomeCallToActionViewModel> quickActions
-    ) : ViewModel
+) : ViewModel
 {
     public ObservableCollection<SupportedGameViewModel> SupportedGames { get; } = supportedGames;
 

@@ -8,18 +8,20 @@ using System.Windows.Controls;
 namespace HunterPie.Features.Statistics.Views;
 
 /// <summary>
-/// Interaction logic for QuestStatisticsSummariesView.xaml
+/// Interaction logic for QuestStatisticsSummariesActivity.xaml
 /// </summary>
-internal partial class QuestStatisticsSummariesView : View<QuestStatisticsSummariesViewModel>
+internal partial class QuestStatisticsSummariesActivity : Activity
 {
     private const string PATREON_LINK = "https://www.patreon.com/HunterPie";
 
-    public QuestStatisticsSummariesView()
+    private QuestStatisticsSummariesViewModel ViewModel => (QuestStatisticsSummariesViewModel)(DataContext);
+
+    public QuestStatisticsSummariesActivity()
     {
         InitializeComponent();
     }
 
-    protected override void Initialize() => ViewModel.FetchQuests();
+    private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchQuests();
 
     private void OnSupporterPromptClick(object sender, RoutedEventArgs e) => BrowserService.OpenUrl(PATREON_LINK);
 

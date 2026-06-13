@@ -1,20 +1,19 @@
 ﻿using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.UI.Architecture;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
 namespace HunterPie.Features.Statistics.Details.Views;
 
 /// <summary>
-/// Interaction logic for QuestDetailsView.xaml
+/// Interaction logic for QuestDetailsActivity.xaml
 /// </summary>
-internal partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel>
+internal partial class QuestDetailsActivity : Activity
 {
     private readonly Storyboard _slideInAnimation;
-    public QuestDetailsViewModel ViewModel => (QuestDetailsViewModel)DataContext;
+    private QuestDetailsViewModel ViewModel => (QuestDetailsViewModel)DataContext;
 
-    public QuestDetailsView()
+    public QuestDetailsActivity()
     {
         InitializeComponent();
         _slideInAnimation = (Storyboard)FindResource("SlideInAnimation");

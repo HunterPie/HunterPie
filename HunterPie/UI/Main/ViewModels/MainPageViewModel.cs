@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Main.ViewModels;
 
-internal class MainBodyViewModel(
+internal class MainPageViewModel(
     SideBarViewModel sideBarViewModel,
-    ILocalRegistryAsync localRegistryAsync) : ViewModel
+    ILocalRegistryAsync localRegistryAsync
+) : ViewModel
 {
     private const string SUPPORTER_PROMPT_KEY = "supporter_prompt_closed";
-    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
 
     public SideBarViewModel SideBarViewModel { get; init; } = sideBarViewModel;
     public ViewModel? NavigationViewModel { get; set => SetValue(ref field, value); }
@@ -32,7 +32,7 @@ internal class MainBodyViewModel(
 
     public async Task InitializeSupporterPromptAsync(bool isSupporter)
     {
-        bool hasClosedPrompt = await _localRegistryAsync.ExistsAsync(SUPPORTER_PROMPT_KEY);
+        bool hasClosedPrompt = await localRegistryAsync.ExistsAsync(SUPPORTER_PROMPT_KEY);
 
         ShouldDisplaySupporterPrompt = !hasClosedPrompt && !isSupporter;
     }
@@ -40,6 +40,6 @@ internal class MainBodyViewModel(
     public async Task CloseSupporterPromptAsync()
     {
         ShouldDisplaySupporterPrompt = false;
-        await _localRegistryAsync.SetAsync(SUPPORTER_PROMPT_KEY, true);
+        await localRegistryAsync.SetAsync(SUPPORTER_PROMPT_KEY, true);
     }
 }

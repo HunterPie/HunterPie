@@ -1,15 +1,15 @@
 ﻿using HunterPie.Features.Account.ViewModels;
+using HunterPie.UI.Architecture;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace HunterPie.Features.Account.Views;
 
 /// <summary>
-/// Interaction logic for AccountPreferencesView.xaml
+/// Interaction logic for AccountPreferencesActivity.xaml
 /// </summary>
-public partial class AccountPreferencesView : UserControl
+public partial class AccountPreferencesActivity : Activity
 {
-    public AccountPreferencesView()
+    public AccountPreferencesActivity()
     {
         InitializeComponent();
     }

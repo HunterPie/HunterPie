@@ -1,16 +1,16 @@
-﻿using HunterPie.UI.Architecture.Events;
+﻿using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Events;
 using HunterPie.UI.Controls.Popup.Events;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace HunterPie.UI.Controls.Settings.Monsters.Views;
 /// <summary>
-/// Interaction logic for MonsterConfigurationsView.xaml
+/// Interaction logic for MonsterConfigurationsActivity.xaml
 /// </summary>
-public partial class MonsterConfigurationsView : UserControl
+public partial class MonsterConfigurationsActivity : Activity
 {
-    public MonsterConfigurationsView()
+    public MonsterConfigurationsActivity()
     {
         InitializeComponent();
     }

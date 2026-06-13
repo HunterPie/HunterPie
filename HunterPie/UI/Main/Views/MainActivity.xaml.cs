@@ -1,9 +1,9 @@
 ﻿using HunterPie.Core.System;
 using HunterPie.Domain.Common;
+using HunterPie.UI.Architecture;
 using HunterPie.UI.Main.ViewModels;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,9 +12,9 @@ using System.Windows.Media.Animation;
 namespace HunterPie.UI.Main.Views;
 
 /// <summary>
-/// Interaction logic for MainBodyView.xaml
+/// Interaction logic for MainPage.xaml
 /// </summary>
-public partial class MainBodyView : UserControl
+public partial class MainActivity : Activity
 {
     private static readonly DoubleAnimation ScaleDownAnimation =
         new(1.5, 1, TimeSpan.FromMilliseconds(200)) { EasingFunction = new QuarticEase() };
@@ -25,7 +25,7 @@ public partial class MainBodyView : UserControl
     };
 
 
-    public MainBodyView()
+    public MainActivity()
     {
         InitializeComponent();
     }
@@ -39,7 +39,7 @@ public partial class MainBodyView : UserControl
 
     private void OnLaunchButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MainBodyViewModel vm)
+        if (DataContext is not MainPageViewModel vm)
             return;
 
         vm.LaunchGame();
@@ -47,7 +47,7 @@ public partial class MainBodyView : UserControl
 
     private async void OnCloseSupporterFeedback(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MainBodyViewModel vm)
+        if (DataContext is not MainPageViewModel vm)
             return;
 
         await vm.CloseSupporterPromptAsync();

@@ -9,9 +9,9 @@ using System.Windows.Media.Animation;
 namespace HunterPie.Features.Account.Views;
 
 /// <summary>
-/// Interaction logic for AccountSignFlowView.xaml
+/// Interaction logic for AccountSignFlowActivity.xaml
 /// </summary>
-internal partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher
+internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 {
     private readonly ThicknessAnimation[] _animations = {
         new(new Thickness(12, 12, 0, 10), TimeSpan.FromMilliseconds(200), FillBehavior.HoldEnd),
@@ -19,7 +19,9 @@ internal partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEv
     };
     private Storyboard? _slideOutAnimation;
 
-    public AccountSignFlowView()
+    private AccountSignFlowViewModel ViewModel => (AccountSignFlowViewModel)DataContext;
+
+    public AccountSignFlowActivity()
     {
         InitializeComponent();
     }
@@ -33,7 +35,6 @@ internal partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEv
     private void CloseForm()
     {
         ViewModel.NavigateBack();
-        Dispose();
     }
 
     private void OnCloseClick(object sender, RoutedEventArgs e) => AnimateSlideOut();

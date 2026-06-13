@@ -96,13 +96,13 @@
     <Compile Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Statistics\Details\Views\QuestDetailsView.xaml.cs">
+    <Compile Update="Features\Statistics\Details\Views\QuestDetailsActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Statistics\Views\QuestStatisticsSummariesView.xaml.cs">
+    <Compile Update="Features\Statistics\Views\QuestStatisticsSummariesActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
@@ -341,7 +341,6 @@
     <Folder Include="Integrations\Poogie\Patch\Models\" />
     <Folder Include="Integrations\Poogie\Report\Models\" />
     <Folder Include="Integrations\Poogie\Supporter\Models\" />
-    <Folder Include="UI\Main\ViewModels\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

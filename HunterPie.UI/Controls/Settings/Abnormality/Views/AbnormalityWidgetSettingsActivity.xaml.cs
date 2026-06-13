@@ -1,7 +1,8 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Features.Settings.ViewModels;
+using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Bindings;
 using HunterPie.UI.Architecture.Tree;
+using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using HunterPie.UI.Controls.TextBox.Events;
 using HunterPie.UI.Settings.Converter.Model;
 using HunterPie.UI.Settings.ViewModels;
@@ -9,15 +10,14 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
 using AppResources = HunterPie.UI.Assets.Application.Resources;
 
-namespace HunterPie.Features.Settings.Views;
+namespace HunterPie.UI.Controls.Settings.Abnormality.Views;
 /// <summary>
-/// Interaction logic for SettingsView.xaml
+/// Interaction logic for AbnormalityWidgetSettingsActivity.xaml
 /// </summary>
-public partial class SettingsView : UserControl
+public partial class AbnormalityWidgetSettingsActivity : Activity
 {
     private readonly PropertyCondition _defaultCondition = new PropertyCondition(
         Property: new Observable<bool>(true),
@@ -26,7 +26,7 @@ public partial class SettingsView : UserControl
     private readonly Storyboard _disableSettingComponentAnimation;
     private readonly Storyboard _enableSettingComponentAnimation;
 
-    public SettingsView()
+    public AbnormalityWidgetSettingsActivity()
     {
         InitializeComponent();
 
@@ -34,49 +34,47 @@ public partial class SettingsView : UserControl
         _enableSettingComponentAnimation = AppResources.Get<Storyboard>("Animations.Scale.Show");
     }
 
-    private void OnSearchTextChanged(object? sender, SearchTextChangedEventArgs e)
+    private void OnBackButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
+            return;
+
+        vm.ExitScreen();
+    }
+
+    private void OnAbnormalityClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
+            return;
+
+        if (sender is not AbnormalityElementView { DataContext: AbnormalityElementViewModel element })
+            return;
+
+        vm.ToggleAbnormality(element.Id);
+    }
+
+    private void OnSelectAllClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
+            return;
+
+        vm.SelectAllFromCurrentCategory();
+    }
+
+    private void OnUnselectAllClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
+            return;
+
+        vm.UnselectAllFromCurrentCategory();
+    }
+
+    private void OnSearchTextChange(object sender, SearchTextChangedEventArgs e)
+    {
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
             return;
 
         vm.Search(e.Text);
-    }
-
-    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.ChangeSettingsGroup();
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.FetchVersion();
-    }
-
-    private void OnRetryVersionFetchClick(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.FetchVersion();
-    }
-
-    private void OnDownloadVersionClick(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.ExecuteUpdate();
-    }
-
-    private void OnTitleClick(object sender, MouseButtonEventArgs e)
-    {
-        e.Handled = true;
     }
 
     private void OnSettingPropertyLoaded(object sender, RoutedEventArgs e)
