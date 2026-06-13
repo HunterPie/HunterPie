@@ -11,14 +11,12 @@ internal class ThemeSideBarViewModel(
     IBodyNavigator bodyNavigator,
     ThemeHomeController themeHomeController) : ViewModel, ISideBarViewModel
 {
-    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
-    private readonly ThemeHomeController _themeHomeController = themeHomeController;
 
     public Type Type => typeof(ThemeHomeViewModel);
 
-    public string Label => "//Strings/Client/Tabs/Tab[@Id='EXTENSION_STRING']";
+    public string Label => "//Strings/Client/Tabs/Tab[@Id='THEMES_STRING']";
 
-    public string Icon => "Icons.Plugin";
+    public string Icon => "Icons.Palette";
 
     public bool IsAvailable => true;
 
@@ -26,8 +24,8 @@ internal class ThemeSideBarViewModel(
 
     public async Task ExecuteAsync()
     {
-        _bodyNavigator.Navigate(
-            viewModel: await _themeHomeController.GetViewModelAsync()
+        bodyNavigator.Navigate(
+            viewModel: await themeHomeController.GetViewModelAsync()
         );
     }
 }

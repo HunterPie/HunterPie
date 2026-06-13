@@ -3,8 +3,9 @@ using HunterPie.Core.Json;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.DI;
 using HunterPie.Core.Plugins.Entity;
-using HunterPie.DI;
+using HunterPie.Features.Plugins.Entity;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -12,22 +13,17 @@ using System.Linq;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Plugins.Services;
+namespace HunterPie.Features.Plugins.Repository;
 
-internal class PluginProvider
+internal class LocalPluginRepository : IPluginRepository
 {
     private const bool CanUnloadAssembly = true;
 
-    private record struct PluginContext(
-        Plugin Plugin,
-        AssemblyLoadContext Context
-    );
-
-    private readonly Dictionary<string, PluginContext> _contexts = new();
+    private readonly ConcurrentDictionary<string, PluginContext> _contexts = new();
 
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    public async Task LoadAsync(IDependencyRegistry registry)
+    public async Task InitializeAsync()
     {
         if (!Directory.Exists(ClientInfo.PluginsPath))
             return;
@@ -80,8 +76,6 @@ internal class PluginProvider
                 continue;
             }
 
-            module.Register(registry);
-
             Type? pluginType = context.Assemblies.SelectMany(it => it.GetTypes())
                 .FirstOrDefault(it => typeof(IPlugin).IsAssignableFrom(it) && !it.IsAbstract);
 
@@ -97,15 +91,15 @@ internal class PluginProvider
                     Configuration: module.Configuration,
                     Type: pluginType
                 ),
+                Module: module,
                 Context: context
             );
         }
     }
 
-    public IReadOnlyList<Plugin> Get()
+    public IReadOnlyList<PluginContext> FindAll()
     {
-        return _contexts.Values.Select(c => c.Plugin)
-            .ToImmutableArray();
+        return _contexts.Values.ToImmutableArray();
     }
 
     private static async Task<PluginManifest?> TryLoadManifestAsync(string path)

@@ -70,5 +70,8 @@ internal class GameContextController(
     {
         processWatcherService.ProcessStart -= OnProcessStart;
         processWatcherService.ProcessExit -= OnProcessExit;
+
+        _scopedRegistry?.Dispose();
+        _scopedRegistry = null;
     }
 }

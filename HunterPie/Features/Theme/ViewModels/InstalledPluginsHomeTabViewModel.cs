@@ -1,13 +1,14 @@
 ﻿using HunterPie.Core.Plugins.Entity;
-using HunterPie.Features.Plugins.Services;
+using HunterPie.Features.Plugins.Repository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Theme.ViewModels;
 
 internal class InstalledPluginsHomeTabViewModel(
-    PluginProvider pluginProvider
+    IPluginRepository pluginRepository
 ) : ThemeHomeTabViewModel
 {
 
@@ -19,7 +20,7 @@ internal class InstalledPluginsHomeTabViewModel(
     {
         IsRefreshing = true;
 
-        IReadOnlyList<Plugin> plugins = pluginProvider.Get();
+        IEnumerable<Plugin> plugins = pluginRepository.FindAll().Select(it => it.Plugin);
 
         Plugins.Clear();
 

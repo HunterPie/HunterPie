@@ -5,7 +5,7 @@ using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Features.Debug.Mocks;
-using HunterPie.Features.Plugins.Services;
+using HunterPie.Features.Plugins.Repository;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
 using HunterPie.Platforms;
@@ -123,8 +123,8 @@ public partial class App : Application
 
     private async Task SetupPluginsAsync()
     {
-        await DependencyContainer.Get<PluginProvider>()
-                    .LoadAsync(DependencyContainer.Get<IDependencyRegistry>());
+        await DependencyContainer.Get<LocalPluginRepository>()
+                    .InitializeAsync();
     }
 
     private async Task InitializeMainViewAsync()

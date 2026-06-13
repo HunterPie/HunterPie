@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.Game;
-using HunterPie.Core.Observability.Logging;
+﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.Entity;
 using HunterPie.DI;
+using HunterPie.Features.Plugins.Entity;
+using HunterPie.Features.Plugins.Repository;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,24 +11,27 @@ using System.Threading.Tasks;
 namespace HunterPie.Features.Plugins.Services;
 
 internal class PluginLoader(
-    IContext context,
-    PluginProvider provider,
-    IScopedDependencyRegistry registry
+    IPluginRepository repository,
+    IDependencyRegistry registry
 )
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private readonly ConcurrentDictionary<Plugin, IPlugin> _instances = new();
 
-
     public async Task LoadAsync()
     {
-        IReadOnlyList<Plugin> plugins = provider.Get();
+        IReadOnlyList<PluginContext> pluginsContexts = repository.FindAll();
 
-        _logger.Info($"Loading {plugins.Count} plugins...");
+        _logger.Info($"Loading {pluginsContexts.Count} plugins...");
 
-        foreach (Plugin plugin in plugins)
+        foreach (PluginContext context in pluginsContexts)
         {
-            var instance = registry.Get(plugin.Type) as IPlugin;
+            Plugin plugin = context.Plugin;
+
+            IScopedDependencyRegistry scope = registry.NewScope();
+            context.Module.Register(scope);
+
+            var instance = scope.Get(plugin.Type) as IPlugin;
 
             if (instance is not { })
                 continue;
@@ -37,7 +41,7 @@ internal class PluginLoader(
 
             try
             {
-                await instance.InitializeAsync(context);
+                await instance.InitializeAsync();
             }
             catch (Exception ex)
             {

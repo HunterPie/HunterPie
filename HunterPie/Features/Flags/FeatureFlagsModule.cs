@@ -11,7 +11,7 @@ internal class FeatureFlagsModule : IDependencyModule
         registry
             .WithSingle<DefaultFeatureFlags>()
             .WithSingle(static (r) => new LocalFeatureFlagRepository(
-                    source: r.Get<DefaultFeatureFlags>().ReadOnlyFlags
+                    flags: r.Get<DefaultFeatureFlags>().ReadOnlyFlags
                 )
             );
     }

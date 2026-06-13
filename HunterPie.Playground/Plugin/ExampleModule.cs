@@ -9,7 +9,7 @@ internal class ExampleModule : IPluginModule
 {
     public PluginConfiguration Configuration { get; } = new ExamplePluginConfigurationV1();
 
-    public void Register(IDependencyRegistry registry)
+    public void Register(IScopedDependencyRegistry registry)
     {
         registry.WithFactory<ExamplePlugin>();
     }

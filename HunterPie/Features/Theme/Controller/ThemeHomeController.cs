@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Versions;
-using HunterPie.Features.Plugins.Services;
+using HunterPie.Core.Domain.Features.Repository;
+using HunterPie.Features.Plugins.Repository;
 using HunterPie.Features.Theme.Repository;
 using HunterPie.Features.Theme.ViewModels;
 using System.Threading.Tasks;
@@ -8,9 +9,14 @@ namespace HunterPie.Features.Theme.Controller;
 
 internal class ThemeHomeController(
     LocalThemeRepository localThemeRepository,
-    PluginProvider pluginProvider,
-    V5Config config)
+    IPluginRepository pluginRepository,
+    IFeatureFlagRepository flagRepository,
+    V5Config config
+)
 {
+    private bool IsPluginViewEnabled => flagRepository.IsEnabled("is_plugins_view_enabled");
+
+
     public async Task<ThemeHomeViewModel> GetViewModelAsync()
     {
         var viewModel = new ThemeHomeViewModel();
@@ -18,9 +24,11 @@ internal class ThemeHomeController(
         viewModel.Tabs.Add(
             item: await GetInstalledTabViewModelAsync()
         );
-        viewModel.Tabs.Add(
-            item: await GetInstalledPluginsTabViewModelAsync()
-        );
+
+        if (IsPluginViewEnabled)
+            viewModel.Tabs.Add(
+                item: await GetInstalledPluginsTabViewModelAsync()
+            );
 
         return viewModel;
     }
@@ -43,7 +51,7 @@ internal class ThemeHomeController(
 
     private async Task<InstalledPluginsHomeTabViewModel> GetInstalledPluginsTabViewModelAsync()
     {
-        var installedPluginsTab = new InstalledPluginsHomeTabViewModel(pluginProvider)
+        var installedPluginsTab = new InstalledPluginsHomeTabViewModel(pluginRepository)
         {
             Icon = "Icons.Plugin",
             Title = "Plugins"
