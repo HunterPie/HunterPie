@@ -1,5 +1,6 @@
 ﻿using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Events;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Controls.Popup.Events;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using System.Windows;
@@ -8,6 +9,7 @@ namespace HunterPie.UI.Controls.Settings.Monsters.Views;
 /// <summary>
 /// Interaction logic for MonsterConfigurationsActivity.xaml
 /// </summary>
+[View<MonsterConfigurationsViewModel>]
 public partial class MonsterConfigurationsActivity : Activity
 {
     public MonsterConfigurationsActivity()
@@ -17,54 +19,36 @@ public partial class MonsterConfigurationsActivity : Activity
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
-        vm.FetchIcons();
+        ViewModel.FetchIcons();
     }
 
     private void OnOverrideMonsterClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
-        vm.IsSearching = !vm.IsSearching;
+        ViewModel.IsSearching = !ViewModel.IsSearching;
     }
 
     private void OnSelectMonsterClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
         if (sender is not FrameworkElement { DataContext: MonsterConfigurationViewModel configurationViewModel })
             return;
 
-        vm.CreateOverride(configurationViewModel);
+        ViewModel.CreateOverride(configurationViewModel);
     }
 
     private void OnMonsterDeleteClick(object sender, DataRoutedEventArgs<MonsterConfigurationViewModel> e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
         MonsterConfigurationViewModel configurationViewModel = e.Data;
 
-        vm.RemoveOverride(configurationViewModel);
+        ViewModel.RemoveOverride(configurationViewModel);
     }
 
     private void OnSearch(object sender, RoutedSearchEventArgs e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
-        vm.FilterQuery(e.Query);
+        ViewModel.FilterQuery(e.Query);
     }
 
     private void OnBackButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
-        vm.Return();
+        ViewModel.Return();
     }
 }

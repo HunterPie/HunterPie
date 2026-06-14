@@ -12,6 +12,6 @@ internal class AccountSignFlowViewModel(MainNavigator mainNavigator) : ViewModel
 
     public void NavigateBack()
     {
-        _mainNavigator.Navigate<MainPageViewModel>();
+        _mainNavigator.Navigate<MainActivityViewModel>();
     }
 }

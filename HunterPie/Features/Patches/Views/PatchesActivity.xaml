@@ -35,7 +35,7 @@
 						</Setter>
 					</Style.Setters>
 					<Style.Triggers>
-						<DataTrigger Binding="{Binding ViewModel.IsFetching, RelativeSource={RelativeSource AncestorType={x:Type local:PatchesActivity}}}"
+						<DataTrigger Binding="{Binding IsFetching, Mode=OneWay}"
 						             Value="False">
 							<DataTrigger.Setters>
 								<Setter Property="Content">

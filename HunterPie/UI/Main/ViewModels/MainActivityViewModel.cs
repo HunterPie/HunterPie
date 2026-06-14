@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Main.ViewModels;
 
-internal class MainPageViewModel(
+internal class MainActivityViewModel(
     SideBarViewModel sideBarViewModel,
     ILocalRegistryAsync localRegistryAsync
 ) : ViewModel

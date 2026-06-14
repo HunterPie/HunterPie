@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Patches.ViewModels;
 
-internal class PatchesViewModel(PoogiePatchConnector patchConnector) : ViewModel
+internal class PatchesViewModel(
+    PoogiePatchConnector patchConnector
+) : ViewModel
 {
     private readonly PoogiePatchConnector _patchConnector = patchConnector;
 

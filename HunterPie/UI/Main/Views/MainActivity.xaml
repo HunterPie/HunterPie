@@ -14,7 +14,7 @@
                        xmlns:presentation="clr-namespace:HunterPie.UI.Main.Presentation"
                        xmlns:viewModels="clr-namespace:HunterPie.UI.Main.ViewModels"
                        xmlns:views="clr-namespace:HunterPie.UI.SideBar.Views"
-                       d:DataContext="{d:DesignInstance viewModels:MainBodyViewModel}"
+                       d:DataContext="{d:DesignInstance viewModels:MainActivityViewModel}"
                        d:DesignHeight="450"
                        d:DesignWidth="800"
                        mc:Ignorable="d">

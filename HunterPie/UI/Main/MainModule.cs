@@ -14,7 +14,7 @@ internal class MainModule : IDependencyModule
     {
         registry
             .WithSingle<NavigationProvider>()
-            .WithSingle<MainPageViewModel>()
+            .WithSingle<MainActivityViewModel>()
             .WithSingle<MainBodyNavigator>()
             .WithSingle<MainViewModel>()
             .WithSingle<MainNavigator>()

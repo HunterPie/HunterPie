@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.System;
 using HunterPie.Domain.Common;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Main.ViewModels;
 using System;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace HunterPie.UI.Main.Views;
 /// <summary>
 /// Interaction logic for MainPage.xaml
 /// </summary>
+[View<MainActivityViewModel>]
 public partial class MainActivity : Activity
 {
     private static readonly DoubleAnimation ScaleDownAnimation =
@@ -39,18 +41,12 @@ public partial class MainActivity : Activity
 
     private void OnLaunchButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MainPageViewModel vm)
-            return;
-
-        vm.LaunchGame();
+        ViewModel.LaunchGame();
     }
 
     private async void OnCloseSupporterFeedback(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not MainPageViewModel vm)
-            return;
-
-        await vm.CloseSupporterPromptAsync();
+        await ViewModel.CloseSupporterPromptAsync();
     }
 
     private void OnBannerClick(object sender, MouseButtonEventArgs e)

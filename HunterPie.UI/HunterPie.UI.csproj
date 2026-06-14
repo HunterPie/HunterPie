@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.15.0.52</AssemblyVersion>
-    <FileVersion>2.15.0.52</FileVersion>
+    <AssemblyVersion>2.15.0.61</AssemblyVersion>
+    <FileVersion>2.15.0.61</FileVersion>
     <LangVersion>14.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
@@ -39,12 +39,15 @@
 
   <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
     <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
     <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
+    <ProjectReference Include="..\HunterPie.Generators\HunterPie.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

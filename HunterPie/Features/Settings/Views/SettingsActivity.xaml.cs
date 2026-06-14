@@ -3,6 +3,7 @@ using HunterPie.Features.Settings.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Bindings;
 using HunterPie.UI.Architecture.Tree;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Controls.TextBox.Events;
 using HunterPie.UI.Settings.Converter.Model;
 using HunterPie.UI.Settings.ViewModels;
@@ -18,6 +19,7 @@ namespace HunterPie.Features.Settings.Views;
 /// <summary>
 /// Interaction logic for SettingsActivity.xaml
 /// </summary>
+[View<SettingsViewModel>]
 public partial class SettingsActivity : Activity
 {
     private readonly PropertyCondition _defaultCondition = new PropertyCondition(
@@ -37,42 +39,30 @@ public partial class SettingsActivity : Activity
 
     private void OnSearchTextChanged(object? sender, SearchTextChangedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.Search(e.Text);
+        ViewModel.Search(e.Text);
     }
 
     private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
+        if (DataContext is null)
             return;
 
-        vm.ChangeSettingsGroup();
+        ViewModel.ChangeSettingsGroup();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.FetchVersion();
+        ViewModel.FetchVersion();
     }
 
     private void OnRetryVersionFetchClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.FetchVersion();
+        ViewModel.FetchVersion();
     }
 
     private void OnDownloadVersionClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not SettingsViewModel vm)
-            return;
-
-        vm.ExecuteUpdate();
+        ViewModel.ExecuteUpdate();
     }
 
     private void OnTitleClick(object sender, MouseButtonEventArgs e)

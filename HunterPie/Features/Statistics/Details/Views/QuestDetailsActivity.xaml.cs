@@ -1,5 +1,6 @@
 ﻿using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Views;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -8,10 +9,10 @@ namespace HunterPie.Features.Statistics.Details.Views;
 /// <summary>
 /// Interaction logic for QuestDetailsActivity.xaml
 /// </summary>
+[View<QuestDetailsViewModel>]
 internal partial class QuestDetailsActivity : Activity
 {
     private readonly Storyboard _slideInAnimation;
-    private QuestDetailsViewModel ViewModel => (QuestDetailsViewModel)DataContext;
 
     public QuestDetailsActivity()
     {

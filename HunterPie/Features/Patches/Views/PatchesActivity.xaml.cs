@@ -1,15 +1,15 @@
 ﻿using HunterPie.Features.Patches.ViewModels;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Views;
 using System.Windows;
 
 namespace HunterPie.Features.Patches.Views;
 /// <summary>
 /// Interaction logic for PatchesActivity.xaml
 /// </summary>
+[View<PatchesViewModel>]
 internal partial class PatchesActivity : Activity
 {
-    private PatchesViewModel ViewModel => (PatchesViewModel)DataContext;
-
     public PatchesActivity()
     {
         InitializeComponent();

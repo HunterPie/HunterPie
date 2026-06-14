@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Features.Account.ViewModels;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Views;
 using System;
 using System.Windows;
 using System.Windows.Data;
@@ -11,6 +12,7 @@ namespace HunterPie.Features.Account.Views;
 /// <summary>
 /// Interaction logic for AccountSignFlowActivity.xaml
 /// </summary>
+[View<AccountSignFlowViewModel>]
 internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 {
     private readonly ThicknessAnimation[] _animations = {
@@ -18,8 +20,6 @@ internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
         new(new Thickness(198, 12, 0, 10), TimeSpan.FromMilliseconds(200), FillBehavior.HoldEnd),
     };
     private Storyboard? _slideOutAnimation;
-
-    private AccountSignFlowViewModel ViewModel => (AccountSignFlowViewModel)DataContext;
 
     public AccountSignFlowActivity()
     {

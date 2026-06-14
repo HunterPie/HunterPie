@@ -33,7 +33,7 @@ internal class NavigationTemplatesInitializer(
     public Task Init()
     {
         registry
-            .Bind<MainActivity, MainPageViewModel>()
+            .Bind<MainActivity, MainActivityViewModel>()
             .Bind<HomeActivity, HomeViewModel>()
             .Bind<AccountSignFlowActivity, AccountSignFlowViewModel>();
 

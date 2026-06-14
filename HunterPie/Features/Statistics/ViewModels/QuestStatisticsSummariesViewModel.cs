@@ -15,6 +15,7 @@ using HunterPie.UI.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics.ViewModels;
 
@@ -45,7 +46,7 @@ internal class QuestStatisticsSummariesViewModel(
     public int CurrentPage
     {
         get;
-        set => SetValueThenExecute(ref field, value, FetchQuests);
+        set => SetValueThenExecute(ref field, value, async () => await FetchQuests());
     }
     public int LastPage
     {
@@ -65,7 +66,19 @@ internal class QuestStatisticsSummariesViewModel(
 
     public ObservableCollectionRange<QuestStatisticsSummaryViewModel> Summaries { get; } = new();
 
-    public async void FetchQuests()
+    public async Task FetchOrRefresh()
+    {
+        bool mustForceRefresh = CurrentPage == 0;
+
+        CurrentPage = 0;
+
+        if (!mustForceRefresh)
+            return;
+
+        await FetchQuests();
+    }
+
+    public async Task FetchQuests()
     {
         if (IsFetchingQuests)
             return;

@@ -20,7 +20,7 @@ internal class NavigatorController
     private readonly IBodyNavigator _bodyNavigator;
     private readonly IAccountUseCase _accountUseCase;
     private readonly MainViewModel _mainViewModel;
-    private readonly MainPageViewModel _mainBodyViewModel;
+    private readonly MainActivityViewModel _mainBodyViewModel;
 
     public NavigatorController(
         ISideBarCollection sideBar,
@@ -30,7 +30,7 @@ internal class NavigatorController
         IBodyNavigator bodyNavigator,
         IAccountUseCase accountUseCase,
         MainViewModel mainViewModel,
-        MainPageViewModel mainBodyViewModel)
+        MainActivityViewModel mainBodyViewModel)
     {
         _sideBar = sideBar;
         _mainNavigationDispatcher = mainNavigationDispatcher;

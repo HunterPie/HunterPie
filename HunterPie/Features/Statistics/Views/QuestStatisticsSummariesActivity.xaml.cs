@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.System;
 using HunterPie.Features.Statistics.ViewModels;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Controls.Paginating.Events;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,18 +11,18 @@ namespace HunterPie.Features.Statistics.Views;
 /// <summary>
 /// Interaction logic for QuestStatisticsSummariesActivity.xaml
 /// </summary>
+[View<QuestStatisticsSummariesViewModel>]
 internal partial class QuestStatisticsSummariesActivity : Activity
 {
     private const string PATREON_LINK = "https://www.patreon.com/HunterPie";
-
-    private QuestStatisticsSummariesViewModel ViewModel => (QuestStatisticsSummariesViewModel)(DataContext);
 
     public QuestStatisticsSummariesActivity()
     {
         InitializeComponent();
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchQuests();
+    private async void OnLoaded(object sender, RoutedEventArgs e)
+        => await ViewModel.FetchQuests();
 
     private void OnSupporterPromptClick(object sender, RoutedEventArgs e) => BrowserService.OpenUrl(PATREON_LINK);
 
@@ -36,15 +37,11 @@ internal partial class QuestStatisticsSummariesActivity : Activity
         ViewModel.CurrentPage = e.Page;
     }
 
-    private void OnLimitSelectionChange(object sender, SelectionChangedEventArgs e)
+    private async void OnLimitSelectionChange(object sender, SelectionChangedEventArgs e)
     {
-        bool mustForceFetch = ViewModel.CurrentPage == 0;
-
-        ViewModel.CurrentPage = 0;
-
-        if (!mustForceFetch)
+        if (DataContext is null)
             return;
 
-        ViewModel.FetchQuests();
+        await ViewModel.FetchOrRefresh();
     }
 }

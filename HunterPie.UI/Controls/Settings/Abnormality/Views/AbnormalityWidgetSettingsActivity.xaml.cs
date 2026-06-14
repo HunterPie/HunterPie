@@ -2,6 +2,7 @@
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Bindings;
 using HunterPie.UI.Architecture.Tree;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using HunterPie.UI.Controls.TextBox.Events;
 using HunterPie.UI.Settings.Converter.Model;
@@ -17,6 +18,7 @@ namespace HunterPie.UI.Controls.Settings.Abnormality.Views;
 /// <summary>
 /// Interaction logic for AbnormalityWidgetSettingsActivity.xaml
 /// </summary>
+[View<AbnormalityWidgetSettingsViewModel>]
 public partial class AbnormalityWidgetSettingsActivity : Activity
 {
     private readonly PropertyCondition _defaultCondition = new PropertyCondition(
@@ -36,45 +38,30 @@ public partial class AbnormalityWidgetSettingsActivity : Activity
 
     private void OnBackButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
-            return;
-
-        vm.ExitScreen();
+        ViewModel.ExitScreen();
     }
 
     private void OnAbnormalityClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
-            return;
-
         if (sender is not AbnormalityElementView { DataContext: AbnormalityElementViewModel element })
             return;
 
-        vm.ToggleAbnormality(element.Id);
+        ViewModel.ToggleAbnormality(element.Id);
     }
 
     private void OnSelectAllClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
-            return;
-
-        vm.SelectAllFromCurrentCategory();
+        ViewModel.SelectAllFromCurrentCategory();
     }
 
     private void OnUnselectAllClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
-            return;
-
-        vm.UnselectAllFromCurrentCategory();
+        ViewModel.UnselectAllFromCurrentCategory();
     }
 
     private void OnSearchTextChange(object sender, SearchTextChangedEventArgs e)
     {
-        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
-            return;
-
-        vm.Search(e.Text);
+        ViewModel.Search(e.Text);
     }
 
     private void OnSettingPropertyLoaded(object sender, RoutedEventArgs e)
