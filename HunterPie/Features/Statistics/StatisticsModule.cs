@@ -1,6 +1,7 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
 using HunterPie.Features.Statistics.Details.Builders;
+using HunterPie.Features.Statistics.Navigation;
 using HunterPie.Features.Statistics.Services;
 using HunterPie.Features.Statistics.ViewModels;
 
@@ -14,7 +15,8 @@ internal class StatisticsModule : IDependencyModule, IScopedModule
 
             .WithFactory<QuestStatisticsSummariesViewModel>()
             .WithSingle<QuestDetailsViewModelBuilder>()
-            .WithSingle<MonsterDetailsViewModelBuilder>();
+            .WithSingle<MonsterDetailsViewModelBuilder>()
+            .WithSingle<QuestStatisticsNavigationHandler>();
     }
 
     void IScopedModule.Register(IScopedDependencyRegistry registry)

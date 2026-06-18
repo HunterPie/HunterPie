@@ -28,6 +28,7 @@ public class InitializersModule : IDependencyModule
             .WithSingle<NavigationTemplatesInitializer>()
             .WithSingle<HotkeyInitializer>()
             .WithSingle<DebugWidgetInitializer>()
-            .WithSingle<OverlayWidgetsInitializer>();
+            .WithSingle<OverlayWidgetsInitializer>()
+            .WithSingle<SideBarInitializer>();
     }
 }

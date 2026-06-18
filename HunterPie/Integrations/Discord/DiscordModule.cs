@@ -2,12 +2,13 @@
 using HunterPie.Core.Game;
 using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.Integrations.Discord.Navigation;
 using HunterPie.Integrations.Discord.Service;
 using HunterPie.Integrations.Discord.Strategies;
 
 namespace HunterPie.Integrations.Discord;
 
-internal class DiscordModule : IScopedModule
+internal class DiscordModule : IScopedModule, IDependencyModule
 {
     public void Register(IScopedDependencyRegistry registry)
     {
@@ -23,5 +24,10 @@ internal class DiscordModule : IScopedModule
 
         registry
             .WithSingle<DiscordPresenceService>();
+    }
+
+    void IDependencyModule.Register(IDependencyRegistry registry)
+    {
+        registry.WithSingle<DiscordNavigationHandler>();
     }
 }

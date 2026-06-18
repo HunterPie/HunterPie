@@ -46,6 +46,7 @@ internal class InitializerManager
 
         // GUI
         typeof(NavigationTemplatesInitializer),
+        typeof(SideBarInitializer),
     ];
 
     private static readonly Type[] UiInitializers =

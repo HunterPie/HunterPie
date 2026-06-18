@@ -3,10 +3,10 @@ using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
+using HunterPie.Features.Settings.Navigation;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.Header.ViewModels;
@@ -15,12 +15,12 @@ internal class AccountMenuViewModel(
     IAccountUseCase accountUseCase,
     IAppNavigator appNavigator,
     IBodyNavigator bodyNavigator,
-    SettingsSideBarViewModel settingsSideBarViewModel) : ViewModel
+    SettingsNavigationHandler settingsSideBarViewModel) : ViewModel
 {
     private readonly IAccountUseCase _accountUseCase = accountUseCase;
     private readonly IAppNavigator _appNavigator = appNavigator;
     private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
-    private readonly SettingsSideBarViewModel _settingsSideBarViewModel = settingsSideBarViewModel;
+    private readonly SettingsNavigationHandler _settingsSideBarViewModel = settingsSideBarViewModel;
 
     public bool IsLoading { get; set => SetValue(ref field, value); }
     public string AvatarUrl { get; set => SetValue(ref field, value); } = string.Empty;

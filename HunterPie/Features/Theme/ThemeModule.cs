@@ -2,6 +2,7 @@
 using HunterPie.DI.Module;
 using HunterPie.Features.Theme.Controller;
 using HunterPie.Features.Theme.Loader;
+using HunterPie.Features.Theme.Navigation;
 using HunterPie.Features.Theme.Repository;
 
 namespace HunterPie.Features.Theme;
@@ -13,6 +14,7 @@ internal class ThemeModule : IDependencyModule
         registry
             .WithSingle<LocalThemeRepository>()
             .WithSingle<ThemeLoaderService>()
-            .WithFactory<ThemeHomeController>();
+            .WithFactory<ThemeHomeController>()
+            .WithSingle<ThemeNavigationHandler>();
     }
 }

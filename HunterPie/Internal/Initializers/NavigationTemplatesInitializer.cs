@@ -30,7 +30,7 @@ internal class NavigationTemplatesInitializer(
     INavigationRegistry registry
 ) : IInitializer
 {
-    public Task Init()
+    public async Task Init()
     {
         registry
             .Bind<MainActivity, MainActivityViewModel>()
@@ -48,6 +48,5 @@ internal class NavigationTemplatesInitializer(
             .Bind<MonsterConfigurationsActivity, MonsterConfigurationsViewModel>()
             .Bind<ThemeHomeActivity, ThemeHomeViewModel>();
 
-        return Task.CompletedTask;
     }
 }
