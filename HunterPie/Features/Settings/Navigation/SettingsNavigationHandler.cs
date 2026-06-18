@@ -15,7 +15,7 @@ internal class SettingsNavigationHandler(
     IBodyNavigator navigator,
     SettingsFactory settingsFactory,
     ILocalizationRepository localizationRepository
-) : NavigationHandler<SettingsViewModel>(
+) : NavigationHandler.View<SettingsViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']"),
     icon: Resources.Icon("ICON_SETTINGS")
 )

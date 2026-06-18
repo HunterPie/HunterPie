@@ -13,7 +13,7 @@ internal class PatchNotesNavigationHandler(
     IBodyNavigator bodyNavigator,
     ILocalizationRepository localizationRepository,
     IDependencyRegistry dependencies
-) : NavigationHandler<PatchesViewModel>(
+) : NavigationHandler.View<PatchesViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='PATCH_NOTES_STRING']"),
     icon: Resources.Icon("ICON_DOCUMENTATION")
 )

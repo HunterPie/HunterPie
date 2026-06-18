@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
+using HunterPie.UI.Client.Sidebar.Handler;
 using HunterPie.UI.Main.Navigators.Events;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
@@ -51,7 +52,11 @@ internal class NavigatorController(
 
         Type viewModelType = e.ViewModel.GetType();
 
-        sideBar.Handlers.ForEach(element => element.IsActive = viewModelType == element.ViewType);
+        sideBar.Handlers.ForEach(handler =>
+        {
+            if (handler is NavigationHandler.View view)
+                view.IsActive = view.ViewType == viewModelType;
+        });
     }
 
     private async void SetupViewModel(UserAccount? account)

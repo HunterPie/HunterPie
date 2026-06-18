@@ -16,7 +16,7 @@ internal class QuestStatisticsNavigationHandler(
     IBodyNavigator navigator,
     ILocalizationRepository localizationRepository,
     IDependencyRegistry dependencies
-) : NavigationHandler<QuestStatisticsSummariesViewModel>(
+) : NavigationHandler.View<QuestStatisticsSummariesViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='QUEST_STATISTICS_STRING']"),
     icon: Resources.Icon("ICON_TRAP")
 )

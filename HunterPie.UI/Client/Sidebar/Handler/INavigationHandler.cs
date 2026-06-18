@@ -1,5 +1,4 @@
 ﻿using HunterPie.UI.Client.Sidebar.Entity;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -7,8 +6,6 @@ namespace HunterPie.UI.Client.Sidebar.Handler;
 
 public interface INavigationHandler
 {
-    public Type ViewType { get; }
-
     public string Label { get; set; }
 
     public ImageSource Icon { get; set; }

@@ -15,7 +15,7 @@ internal class HomeNavigationHandler(
     HomeService service,
     HomeCallToActionsService ctaService,
     ILocalizationRepository localizationRepository
-) : NavigationHandler<HomeViewModel>(
+) : NavigationHandler.View<HomeViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='HOME_STRING']"),
     icon: Resources.Icon("ICON_HOME")
 )

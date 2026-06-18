@@ -12,7 +12,7 @@ internal class ConsoleNavigationHandler(
     IBodyNavigator bodyNavigator,
     ConsoleViewModel consoleViewModel,
     ILocalizationRepository localizationRepository
-) : NavigationHandler<ConsoleViewModel>(
+) : NavigationHandler.View<ConsoleViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='CONSOLE_STRING']"),
     icon: Resources.Icon("ICON_CONSOLE")
 )

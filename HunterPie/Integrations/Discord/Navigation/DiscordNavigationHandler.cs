@@ -10,7 +10,7 @@ namespace HunterPie.Integrations.Discord.Navigation;
 
 internal class DiscordNavigationHandler(
     ILocalizationRepository localizationRepository
-) : NavigationHandler(
+) : NavigationHandler.Action(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='DISCORD_STRING']"),
     icon: Resources.Icon("ICON_DISCORD")
 )

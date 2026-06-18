@@ -11,8 +11,6 @@ public abstract class NavigationHandler(
     ImageSource icon
 ) : ViewModel, INavigationHandler
 {
-    public virtual Type ViewType { get; protected set; } = typeof(void);
-
     public string Label { get; set => SetValue(ref field, value); } = label;
 
     public ImageSource Icon { get; set => SetValue(ref field, value); } = icon;
@@ -23,13 +21,24 @@ public abstract class NavigationHandler(
 
     public abstract Task InitializeAsync();
     public abstract Task ExecuteAsync();
-}
 
-public abstract class NavigationHandler<T>(
-    string label,
-    ImageSource icon
-) : NavigationHandler(label, icon)
-    where T : ViewModel
-{
-    public override Type ViewType { get; protected set; } = typeof(T);
+    public abstract class Action(
+        string label,
+        ImageSource icon
+    ) : NavigationHandler(label, icon);
+
+    public abstract class View(
+        string label,
+        ImageSource icon,
+        Type viewType
+    ) : NavigationHandler(label, icon)
+    {
+        public Type ViewType { get; } = viewType;
+    }
+
+    public abstract class View<T>(
+        string label,
+        ImageSource icon
+    ) : View(label, icon, typeof(T))
+        where T : ViewModel;
 }

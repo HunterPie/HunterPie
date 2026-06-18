@@ -10,7 +10,7 @@ namespace HunterPie.Integrations.Github.Navigation;
 
 internal class GitHubNavigationHandler(
     ILocalizationRepository localizationRepository
-) : NavigationHandler(
+) : NavigationHandler.Action(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='GITHUB_STRING']"),
     icon: Resources.Icon("ICON_GITHUB")
 )

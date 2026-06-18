@@ -13,7 +13,7 @@ internal class ThemeNavigationHandler(
     IBodyNavigator navigator,
     ILocalizationRepository localizationRepository,
     ThemeHomeController themeHomeController
-) : NavigationHandler<ThemeHomeViewModel>(
+) : NavigationHandler.View<ThemeHomeViewModel>(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='THEMES_STRING']"),
     icon: Resources.Icon("Icons.Palette")
 )

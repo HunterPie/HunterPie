@@ -10,7 +10,7 @@ namespace HunterPie.Integrations.Patreon.Navigation;
 
 internal class PatreonNavigationHandler(
     ILocalizationRepository localizationRepository
-) : NavigationHandler(
+) : NavigationHandler.Action(
     label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='PATREON_STRING']"),
     icon: Resources.Icon("ICON_PATREON")
 )

@@ -27,6 +27,6 @@ internal class SideBarService(
             Handlers.Add(handler);
         }
 
-        _logger.Debug($"Registered new navigation handler for view type: {handler.ViewType.Name}");
+        _logger.Debug($"Registered new navigation handler: {handler.GetType().Name}");
     });
 }
