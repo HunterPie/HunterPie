@@ -11,6 +11,8 @@ internal class ExampleModule : IPluginModule
 
     public void Register(IScopedDependencyRegistry registry)
     {
-        registry.WithFactory<ExamplePlugin>();
+        registry
+            .WithSingle(_ => Configuration)
+            .WithFactory<ExamplePlugin>();
     }
 }
