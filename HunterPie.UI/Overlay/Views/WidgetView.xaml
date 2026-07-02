@@ -8,12 +8,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.ViewModels"
         Title="{Binding ViewModel.Title, Mode=OneWay}"
+        Left="{Binding ViewModel.Settings.Position.X, Mode=TwoWay}"
+        Top="{Binding ViewModel.Settings.Position.Y, Mode=TwoWay}"
         Width="800"
         Height="450"
         d:DataContext="{d:DesignInstance viewModels:WidgetContext}"
         AllowsTransparency="True"
         Background="#01000000"
-        Left="{Binding ViewModel.Settings.Position.X, Mode=TwoWay}"
         Loaded="OnLoaded"
         MouseWheel="OnMouseWheel"
         Opacity="{Binding ViewModel.Settings.Opacity.Current, Mode=OneWay}"
@@ -21,7 +22,6 @@
         ShowInTaskbar="False"
         SizeToContent="WidthAndHeight"
         SnapsToDevicePixels="True"
-        Top="{Binding ViewModel.Settings.Position.Y, Mode=TwoWay}"
         Topmost="True"
         UseLayoutRounding="False"
         WindowStyle="None"
@@ -43,9 +43,9 @@
 			</Grid.RowDefinitions>
 
 			<Border Grid.Row="1"
-			        Background="{DynamicResource Brushes.Overlay.DesignMode.Background}"
 			        BorderBrush="{DynamicResource Brushes.Overlay.DesignMode.Border}"
 			        BorderThickness="1,0,1,1"
+			        Background="{DynamicResource Brushes.Overlay.DesignMode.Background}"
 			        CornerRadius="0,0,5,5" />
 
 			<local:WidgetHeader Grid.Row="0" />

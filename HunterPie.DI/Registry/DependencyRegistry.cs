@@ -92,6 +92,29 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
         return new DependencyRegistry(this);
     }
 
+    /// <inheritdoc />
+    public IDependencyRegistry WithFactory(Type type, Activator<object> activator)
+    {
+        RegisterBean(
+            type: type,
+            bean: new FactoryDependencyBean<object>(activator)
+        );
+
+        return this;
+    }
+
+
+    /// <inheritdoc />
+    public IDependencyRegistry WithSingle(Type type, Activator<object> activator)
+    {
+        RegisterBean(
+            type: type,
+            bean: new SingletonDependencyBean<object>(activator)
+        );
+
+        return this;
+    }
+
 
     private void RegisterBean(Type type, IDependencyBean bean)
     {

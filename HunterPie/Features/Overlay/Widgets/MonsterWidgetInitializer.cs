@@ -15,12 +15,11 @@ internal class MonsterWidgetInitializer(
     IContext context,
     IOverlay overlay,
     OverlayConfig config,
-    DistanceFunc distanceFunc
+    WeightedTargetDetectionService targetDetectionService
 ) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
-    private WeightedTargetDetectionService? _targetDetectionService;
     private MonsterWidgetContextHandler? _handler;
     private WidgetView? _view;
 
@@ -31,6 +30,8 @@ internal class MonsterWidgetInitializer(
 
     public Task LoadAsync()
     {
+        targetDetectionService.Initialize();
+
         if (!config.BossesWidget.Initialize)
             return Task.CompletedTask;
 
@@ -38,15 +39,9 @@ internal class MonsterWidgetInitializer(
             settings: config.BossesWidget
         );
 
-        _targetDetectionService = new WeightedTargetDetectionService(
-            context: context,
-            distanceFunc: distanceFunc
-        );
-        _targetDetectionService.Initialize();
-
         _handler = new MonsterWidgetContextHandler(
             context: context,
-            targetDetectionService: _targetDetectionService,
+            targetDetectionService: targetDetectionService,
             viewModel: viewModel,
             config: config.BossesWidget
         );
@@ -58,10 +53,10 @@ internal class MonsterWidgetInitializer(
 
     public void Dispose()
     {
-        _overlay.Unregister(_view);
+        if (_view is { })
+            _overlay.Unregister(_view);
         _handler?.UnhookEvents();
         _handler = null;
-        _targetDetectionService?.Dispose();
-        _targetDetectionService = null;
+        _view = null;
     }
 }

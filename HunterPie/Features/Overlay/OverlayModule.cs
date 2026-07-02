@@ -27,14 +27,17 @@ internal class OverlayModule : IDependencyModule, IScopedModule
             .WithSingle<ClassWidgetInitializer>()
             .WithSingle<ClockWidgetInitializer>()
             .WithSingle<DamageWidgetInitializer>()
+            .WithSingle<MonsterWidgetInitializer>()
+            .WithSingle<PlayerHudWidgetInitializer>()
+            .WithSingle<SpecializedToolWidgetInitializer>()
+            .WithSingle<WirebugWidgetInitializer>();
+
+        registry
             .WithSingle<DistanceFunc>(r => r.Get<IContext>() switch
             {
                 MHWContext => static (Vector3 playerPosition, Vector3 monsterPosition) => Vector3.Distance(playerPosition, monsterPosition) / 100.0f,
                 _ => Vector3.Distance
             })
-            .WithSingle<MonsterWidgetInitializer>()
-            .WithSingle<PlayerHudWidgetInitializer>()
-            .WithSingle<SpecializedToolWidgetInitializer>()
-            .WithSingle<WirebugWidgetInitializer>();
+            .WithSingle<WeightedTargetDetectionService>();
     }
 }

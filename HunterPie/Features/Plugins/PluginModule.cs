@@ -16,9 +16,9 @@ internal class PluginModule : IDependencyModule, IScopedModule
     void IScopedModule.Register(IScopedDependencyRegistry registry)
     {
         registry
-            .WithSingle(static r => new PluginLoader(
+            .WithSingle(r => new PluginLoader(
                 repository: r.Get<IPluginRepository>(),
-                registry: r
+                registry: registry
             ));
     }
 }

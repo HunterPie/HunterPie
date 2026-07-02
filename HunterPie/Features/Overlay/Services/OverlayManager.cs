@@ -9,7 +9,6 @@ using HunterPie.UI.Overlay.Views;
 using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
-using ClientConfig = HunterPie.Core.Client.ClientConfig;
 
 namespace HunterPie.Features.Overlay.Services;
 
@@ -58,17 +57,17 @@ internal class OverlayManager(
         _widgets.Clear();
     }
 
-    public WidgetView Register(WidgetViewModel viewModel)
+    public WidgetView Register(WidgetViewModel viewModel) => dispatcher.Invoke(() =>
     {
-        WidgetView widget = dispatcher.Invoke(() => new WidgetView
+        var widget = new WidgetView
         {
             DataContext = new WidgetContext(
                 viewModel: viewModel,
-                overlaySettings: ClientConfig.Config.Overlay,
-                developmentSettings: ClientConfig.Config.Development,
+                overlaySettings: config.Overlay,
+                developmentSettings: config.Development,
                 state: this
             )
-        }, DispatcherPriority.Send);
+        };
 
         _widgets.AddLast(widget);
 
@@ -77,9 +76,9 @@ internal class OverlayManager(
         widget.Show();
 
         return widget;
-    }
+    }, DispatcherPriority.Send);
 
-    public void Unregister(WidgetView? widget)
+    public void Unregister(WidgetView? widget) => dispatcher.Invoke(() =>
     {
         if (widget is null)
             return;
@@ -89,5 +88,6 @@ internal class OverlayManager(
         _widgets.Remove(widget);
 
         _logger.Debug($"Removed overlay widget {(widget.DataContext as WidgetContext)?.ViewModel.Title}");
-    }
+    }, DispatcherPriority.Send);
+
 }

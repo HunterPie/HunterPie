@@ -71,7 +71,9 @@ internal class GameIntegrationService(
             );
         });
 
-        await pluginLoader.LoadAsync();
+        await _logger.CatchAndLogAsync(async () =>
+            await dispatcher.InvokeAsync(pluginLoader.LoadAsync)
+        );
     }
 
     public void Dispose()

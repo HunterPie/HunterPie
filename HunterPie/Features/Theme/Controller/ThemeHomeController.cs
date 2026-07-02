@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Domain.Features.Repository;
 using HunterPie.Features.Plugins.Repository;
 using HunterPie.Features.Theme.Repository;
@@ -14,7 +15,7 @@ internal class ThemeHomeController(
     V5Config config
 )
 {
-    private bool IsPluginViewEnabled => flagRepository.IsEnabled("is_plugins_view_enabled");
+    private bool IsPluginViewEnabled => flagRepository.IsEnabled(FeatureFlags.FEATURE_IS_PLUGINS_VIEW_ENABLED);
 
 
     public async Task<ThemeHomeViewModel> GetViewModelAsync()

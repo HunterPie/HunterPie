@@ -12,7 +12,7 @@ namespace HunterPie.Features.Plugins.Services;
 
 internal class PluginLoader(
     IPluginRepository repository,
-    IDependencyRegistry registry
+    IScopedDependencyRegistry registry
 )
 {
     private readonly ILogger _logger = LoggerFactory.Create();
@@ -29,6 +29,9 @@ internal class PluginLoader(
             Plugin plugin = context.Plugin;
 
             IScopedDependencyRegistry scope = registry.NewScope();
+
+            scope.WithSingle(plugin.Configuration.GetType(), (_) => plugin.Configuration);
+
             context.Module.Register(scope);
 
             var instance = scope.Get(plugin.Type) as IPlugin;
