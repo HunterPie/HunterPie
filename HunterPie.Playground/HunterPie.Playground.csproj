@@ -36,16 +36,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Dogma\UI\Shaders\PlasmaShader.ps" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
     <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Dogma\UI\Shaders\PlasmaShader.ps" />
   </ItemGroup>
 
   <ItemGroup>

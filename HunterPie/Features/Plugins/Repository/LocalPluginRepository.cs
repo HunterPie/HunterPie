@@ -4,21 +4,19 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.DI;
 using HunterPie.Core.Plugins.Entity;
 using HunterPie.Features.Plugins.Entity;
+using HunterPie.Features.Plugins.Services;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using System.Runtime.Loader;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Plugins.Repository;
 
 internal class LocalPluginRepository : IPluginRepository
 {
-    private const bool CanUnloadAssembly = true;
-
     private readonly ConcurrentDictionary<string, PluginContext> _contexts = new();
 
     private readonly ILogger _logger = LoggerFactory.Create();
@@ -43,7 +41,7 @@ internal class LocalPluginRepository : IPluginRepository
             if (manifest is not { })
                 continue;
 
-            var context = new AssemblyLoadContext(plugin, CanUnloadAssembly);
+            var context = new PluginLoadContext(plugin);
 
             foreach (string assembly in assemblies)
             {

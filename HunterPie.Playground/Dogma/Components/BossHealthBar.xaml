@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:HunterPie.Playground.Dogma.Components"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:shaders="clr-namespace:HunterPie.Playground.Dogma.UI.Shaders"
              x:Name="BossHealthBarComponent"
              d:DesignHeight="8"
              d:DesignWidth="800"
@@ -14,47 +13,52 @@
 		<converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter" />
 	</UserControl.Resources>
 	<Grid>
-		<Rectangle Fill="Gray"
+		<Rectangle Fill="#9c9c9c"
 		           Opacity="0.5" />
 
-		<Rectangle HorizontalAlignment="Left"
+		<Rectangle Width="1"
+		           HorizontalAlignment="Left"
 		           d:Width="600"
-		           Fill="White">
-			<Rectangle.Width>
-				<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="CurrentBuffer" />
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="Max" />
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="ActualWidth" />
-				</MultiBinding>
-			</Rectangle.Width>
-			<Rectangle.Effect>
-				<shaders:PlasmaShaderEffect BaseColor="#ffc7f8"
-				                            CoreColor="White"
-				                            Time="{Binding RenderTime, Mode=OneWay, ElementName=BossHealthBarComponent}" />
-			</Rectangle.Effect>
+		           Fill="#ffebfc">
+			<Rectangle.RenderTransform>
+				<ScaleTransform>
+					<ScaleTransform.ScaleX>
+						<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="CurrentBuffer" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Max" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="ActualWidth" />
+						</MultiBinding>
+					</ScaleTransform.ScaleX>
+				</ScaleTransform>
+			</Rectangle.RenderTransform>
 		</Rectangle>
 
-		<Rectangle HorizontalAlignment="Left"
-		           d:Width="500"
-		           Fill="White">
-			<Rectangle.Width>
-				<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="Current" />
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="Max" />
-					<Binding ElementName="BossHealthBarComponent"
-					         Path="ActualWidth" />
-				</MultiBinding>
-			</Rectangle.Width>
-			<Rectangle.Effect>
-				<shaders:PlasmaShaderEffect BaseColor="#fc0384"
-				                            CoreColor="#ffc7f8"
-				                            Time="{Binding RenderTime, Mode=OneWay, ElementName=BossHealthBarComponent}" />
-			</Rectangle.Effect>
+		<Rectangle Width="1"
+		           HorizontalAlignment="Left">
+			<Rectangle.Fill>
+				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+					<GradientStop Offset="0" Color="#fc0384" />
+					<GradientStop Offset="0.5" Color="#FFFF55AD" />
+					<GradientStop Offset="1" Color="#fc0384" />
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+			<Rectangle.RenderTransform>
+				<ScaleTransform d:ScaleX="500">
+					<ScaleTransform.ScaleX>
+						<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Current" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Max" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="ActualWidth" />
+						</MultiBinding>
+					</ScaleTransform.ScaleX>
+				</ScaleTransform>
+			</Rectangle.RenderTransform>
 		</Rectangle>
 	</Grid>
 </UserControl>

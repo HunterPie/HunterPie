@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
@@ -9,19 +8,13 @@ namespace HunterPie.Playground.Dogma.Components;
 /// </summary>
 public partial class BossHealthBar
 {
-    private readonly DoubleAnimation _bufferAnimation = new DoubleAnimation
+    private readonly DoubleAnimation _bufferAnimation = new()
     {
         EasingFunction = new QuadraticEase(),
-        Duration = new Duration(TimeSpan.FromMilliseconds(200))
+        Duration = new Duration(TimeSpan.FromMilliseconds(300))
     };
 
     private readonly DispatcherTimer _timer;
-
-    public double RenderTime { get => (double)GetValue(RenderTimeProperty); set => SetValue(RenderTimeProperty, value); }
-
-    // Using a DependencyProperty as the backing store for RenderTime.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty RenderTimeProperty =
-        DependencyProperty.Register(nameof(RenderTime), typeof(double), typeof(BossHealthBar), new PropertyMetadata(0.0));
 
     public double Current { get => (double)GetValue(CurrentProperty); set => SetValue(CurrentProperty, value); }
 
@@ -45,19 +38,12 @@ public partial class BossHealthBar
     {
         InitializeComponent();
 
-        CompositionTarget.Rendering += OnRender;
         _timer = new DispatcherTimer(DispatcherPriority.Render)
         {
             Interval = TimeSpan.FromMilliseconds(500)
         };
 
         _timer.Tick += OnTimerTick;
-    }
-
-    private void OnRender(object? sender, EventArgs e)
-    {
-
-        RenderTime += 0.016;
     }
 
     private static void OnCurrentValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -70,6 +56,16 @@ public partial class BossHealthBar
 
         if (double.IsNaN(component.Current) || double.IsInfinity(component.Current))
             return;
+
+        if (component.Current > component.CurrentBuffer)
+        {
+            component.BeginAnimation(
+                dp: CurrentBufferProperty,
+                animation: new DoubleAnimation() { From = component.Current, To = component.Current },
+                handoffBehavior: HandoffBehavior.SnapshotAndReplace
+            );
+            return;
+        }
 
         component._bufferAnimation.From = component.CurrentBuffer;
         component._bufferAnimation.To = component.Current;

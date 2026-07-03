@@ -11,16 +11,21 @@
 	<Grid d:Width="800"
 	      RowDefinitions="Auto,7,Auto">
 		<TextBlock Grid.Row="0"
+		           Margin="0,0,0,2"
+		           HorizontalAlignment="Center"
 		           d:Text="Monster Name"
+		           FontFamily="Segoe UI"
 		           Foreground="White"
 		           Text="{Binding Name, Mode=OneWay}" />
 
 		<components:BossHealthBar Grid.Row="1"
+		                          d:Current="10"
+		                          d:Max="100"
 		                          Current="{Binding Health, Mode=OneWay}"
 		                          Max="{Binding MaxHealth, Mode=OneWay}" />
 
 		<ItemsControl Grid.Row="2"
-		              d:ItemsSource="{d:SampleData ItemCount=10}"
+		              d:ItemsSource="{d:SampleData ItemCount=50}"
 		              ItemsSource="{Binding Units, Mode=OneTime}">
 			<ItemsControl.Template>
 				<ControlTemplate>
@@ -33,7 +38,7 @@
 				<DataTemplate DataType="viewmodels:UnitViewModel">
 					<components:HealthBarUnit Width="12"
 					                          Height="12"
-					                          Margin="2,2"
+					                          Margin="3"
 					                          IsFull="{Binding Value, Mode=OneWay}" />
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
