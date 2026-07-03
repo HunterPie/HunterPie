@@ -12,7 +12,7 @@ namespace HunterPie.Features.Account.Views;
 /// <summary>
 /// Interaction logic for AccountSignFlowActivity.xaml
 /// </summary>
-[View<AccountSignFlowViewModel>]
+[View<AccountSignFlowViewModel>(isNullable: true)]
 internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 {
     private readonly ThicknessAnimation[] _animations = {
@@ -34,7 +34,7 @@ internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 
     private void CloseForm()
     {
-        if (DataContext is null)
+        if (ViewModel is null)
             return;
 
         ViewModel.NavigateBack();
@@ -53,7 +53,7 @@ internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 
     private void OnTabUpdate(object? sender, DataTransferEventArgs e)
     {
-        if (DataContext is null)
+        if (ViewModel is null)
             return;
 
         AnimateSlide(ViewModel.SelectedIndex);
