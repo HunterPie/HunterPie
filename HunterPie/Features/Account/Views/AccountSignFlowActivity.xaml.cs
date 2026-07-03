@@ -34,6 +34,9 @@ internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 
     private void CloseForm()
     {
+        if (DataContext is null)
+            return;
+
         ViewModel.NavigateBack();
     }
 
@@ -50,6 +53,9 @@ internal partial class AccountSignFlowActivity : Activity, IEventDispatcher
 
     private void OnTabUpdate(object? sender, DataTransferEventArgs e)
     {
+        if (DataContext is null)
+            return;
+
         AnimateSlide(ViewModel.SelectedIndex);
     }
 }
