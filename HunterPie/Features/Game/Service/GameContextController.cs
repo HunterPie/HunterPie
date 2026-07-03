@@ -47,7 +47,7 @@ internal class GameContextController(
         });
     }
 
-    private async void OnProcessExit(object? sender, EventArgs e)
+    private void OnProcessExit(object? sender, EventArgs e) => uiDispatcher.BeginInvoke(() =>
     {
         _logger.Info("Process has closed");
 
@@ -64,7 +64,7 @@ internal class GameContextController(
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
             uiDispatcher.Invoke(Application.Current.Shutdown);
-    }
+    });
 
     public void Dispose()
     {
