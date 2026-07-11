@@ -6,7 +6,7 @@ namespace HunterPie.Playground.Dogma.ViewModels;
 
 internal class DragonsDogmaMonstersViewModel(
     DragonsDogmaHealthPluginConfiguration config
-) : WidgetViewModel(config, "Dragons Dogma Monster Widget", WidgetType.ClickThrough)
+) : WidgetViewModel(config.MonsterWidget, "Dragons Dogma Monster Widget", WidgetType.ClickThrough)
 {
     public DragonsDogmaMonsterViewModel? Target { get; set => SetValue(ref field, value); }
 }

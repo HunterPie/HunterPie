@@ -1,4 +1,6 @@
-﻿using HunterPie.Core.Plugins.Entity;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Plugins.Entity;
+using HunterPie.Core.System;
 using HunterPie.DI;
 using HunterPie.Features.Plugins.Repository;
 using System.Collections.Generic;
@@ -34,5 +36,12 @@ internal class InstalledPluginsHomeTabViewModel(
         }
 
         IsRefreshing = false;
+    }
+
+    public void OpenFolder()
+    {
+        BrowserService.OpenFolder(
+            path: ClientInfo.PluginsPath
+        );
     }
 }

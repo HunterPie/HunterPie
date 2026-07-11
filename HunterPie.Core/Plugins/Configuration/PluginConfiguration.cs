@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Settings;
 
 namespace HunterPie.Core.Plugins.Configuration;
 
 /// <summary>
 /// PluginConfiguration is the base class for all plugin configurations.
 /// </summary>
-public abstract class PluginConfiguration : IVersionedConfig
+public abstract class PluginConfiguration : IVersionedConfig, ISettings
 {
     /// <summary>
     /// Version is used to control settings migrations. 

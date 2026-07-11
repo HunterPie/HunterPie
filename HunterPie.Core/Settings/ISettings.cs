@@ -1,3 +1,3 @@
 ﻿namespace HunterPie.Core.Settings;
 
-public interface ISettings { }
+public interface ISettings;

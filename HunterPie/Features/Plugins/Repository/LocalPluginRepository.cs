@@ -76,6 +76,10 @@ internal class LocalPluginRepository : IPluginRepository
 
             string configPath = Path.Join(plugin, "configuration.json");
 
+            ConfigManager.Register(
+                path: configPath,
+                @default: module.Configuration
+            );
             ConfigManager.BindConfiguration(
                 path: configPath,
                 data: module.Configuration
