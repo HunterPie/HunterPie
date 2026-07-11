@@ -19,9 +19,10 @@ internal class DragonsDogmaMonsterWidgetController(
     IContext context,
     ITargetDetectionService targetDetectionService,
     DragonsDogmaMonstersViewModel viewModel,
-    DragonsDogmaHealthPluginConfiguration config
+    DragonsDogmaHealthPluginConfiguration configuration
 ) : IDisposable
 {
+    private readonly MonsterWidgetConfiguration config = configuration.MonsterWidget;
     private readonly ConcurrentDictionary<IMonster, DragonsDogmaMonsterController> _monsters = new();
 
     public DragonsDogmaMonstersViewModel ViewModel => viewModel;

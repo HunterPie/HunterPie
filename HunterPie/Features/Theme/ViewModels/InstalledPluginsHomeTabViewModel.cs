@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Plugins.Entity;
+using HunterPie.DI;
 using HunterPie.Features.Plugins.Repository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,10 @@ internal class InstalledPluginsHomeTabViewModel(
 
         foreach (Plugin plugin in plugins)
         {
-            Plugins.Add(new InstalledPluginViewModel(plugin));
+            InstalledPluginViewModel pluginViewModel = DependencyContainer.Get<InstalledPluginViewModel>(@override:
+                local => local.WithSingle(_ => plugin)
+            );
+            Plugins.Add(pluginViewModel);
         }
 
         IsRefreshing = false;

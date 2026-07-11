@@ -5,12 +5,8 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Json;
 using HunterPie.Core.Observability.Logging;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.IO;
-using System.Reflection;
 
 namespace HunterPie.Core.Client;
 
@@ -157,69 +153,5 @@ public class ConfigManager
     public static void BindConfiguration(string path, object data)
     {
         ConfigurationBinder.Bind(data, () => Save(path));
-    }
-
-    [Obsolete]
-    public static void BindAndSaveOnChanges(string path, object data)
-    {
-        void HandleSaveConfig(object source, EventArgs args)
-        {
-            Save(path);
-        }
-
-        if (data is null)
-            return;
-
-        Type type = data.GetType();
-        foreach (PropertyInfo propertyInfo in type.GetProperties())
-            if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
-            {
-                var array = (IEnumerable)propertyInfo.GetValue(data);
-
-                foreach (object item in array)
-                    BindAndSaveOnChanges(path, item);
-
-                if (array is INotifyCollectionChanged collection)
-                    collection.CollectionChanged += (_, e) =>
-                    {
-                        if (e.OldItems is { })
-                            foreach (object item in e.OldItems)
-                                if (item is INotifyPropertyChanged observable)
-                                    observable.PropertyChanged -= HandleSaveConfig;
-
-                        if (e.NewItems is { })
-                            foreach (object item in e.NewItems)
-                                if (item is INotifyPropertyChanged observable)
-                                    observable.PropertyChanged += HandleSaveConfig;
-
-                        Save(path);
-                    };
-
-                if (array is INotifyPropertyChanged observableCollection)
-                    observableCollection.PropertyChanged += HandleSaveConfig;
-            }
-            else
-            {
-                if (propertyInfo.PropertyType.IsPrimitive)
-                    continue;
-
-                try
-                {
-                    object value = propertyInfo.GetValue(data);
-
-                    if (value is INotifyPropertyChanged bindable)
-                    {
-                        bindable.PropertyChanged += HandleSaveConfig;
-                        continue;
-                    }
-
-                    BindAndSaveOnChanges(path, value);
-
-                }
-                catch
-                {
-                    continue;
-                }
-            }
     }
 }

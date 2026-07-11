@@ -1,4 +1,6 @@
-﻿namespace HunterPie.DI;
+﻿using HunterPie.DI.Registry;
+
+namespace HunterPie.DI;
 
 public static class DependencyContainer
 {
@@ -12,14 +14,14 @@ public static class DependencyContainer
             _registry = registry;
     }
 
-    public static T Get<T>() where T : class => (T)Get(typeof(T));
+    public static T Get<T>(DependencyOverride? @override = null) where T : class => (T)Get(typeof(T), @override);
 
-    public static object Get(Type type)
+    public static object Get(Type type, DependencyOverride? @override = null)
     {
         if (_registry is { })
-            return _registry.Get(type);
+            return _registry.Get(type, @override);
 
         lock (Lock)
-            return _registry?.Get(type) ?? throw new NullReferenceException($"{nameof(DependencyContainer)} has not been initialized yet");
+            return _registry?.Get(type, @override) ?? throw new NullReferenceException($"{nameof(DependencyContainer)} has not been initialized yet");
     }
 }

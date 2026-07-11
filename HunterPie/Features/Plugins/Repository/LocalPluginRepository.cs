@@ -74,6 +74,13 @@ internal class LocalPluginRepository : IPluginRepository
                 continue;
             }
 
+            string configPath = Path.Join(plugin, "configuration.json");
+
+            ConfigManager.BindConfiguration(
+                path: configPath,
+                data: module.Configuration
+            );
+
             Type? pluginType = context.Assemblies.SelectMany(it => it.GetTypes())
                 .FirstOrDefault(it => typeof(IPlugin).IsAssignableFrom(it) && !it.IsAbstract);
 

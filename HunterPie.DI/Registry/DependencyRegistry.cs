@@ -19,34 +19,38 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
     }
 
     /// <inheritdoc />
-    public T Get<T>() where T : class => (T)Get(typeof(T));
+    public T Get<T>(DependencyOverride? @override = null) where T : class => (T)Get(typeof(T), @override);
 
     /// <inheritdoc />
-    public object Get(Type type)
+    public object Get(Type type, DependencyOverride? @override = null)
     {
-        List<IDependencyBean> beans = GetBeans(type);
+        using DependencyRegistry localRegistry = CreateLocalRegistry(@override);
+
+        List<IDependencyBean> beans = GetBeans(type, localRegistry);
 
         if (beans.Count <= 0)
             throw new DependencyNotRegisteredException(type);
 
         return beans
             .First()
-            .Create(this);
+            .Create(localRegistry);
     }
 
     /// <inheritdoc />
-    public T[] GetAll<T>() where T : class
+    public T[] GetAll<T>(DependencyOverride? @override = null) where T : class
     {
-        return GetAll(typeof(T))
+        return GetAll(typeof(T), @override)
             .Cast<T>()
             .ToArray();
     }
 
     /// <inheritdoc />
-    public Array GetAll(Type type)
+    public Array GetAll(Type type, DependencyOverride? @override = null)
     {
-        object[] beans = GetBeans(type)
-            .Select(it => it.Create(this))
+        using DependencyRegistry localRegistry = CreateLocalRegistry(@override);
+
+        object[] beans = GetBeans(type, localRegistry)
+            .Select(it => it.Create(localRegistry))
             .ToArray();
 
         var array = Array.CreateInstance(type, beans.Length);
@@ -55,11 +59,14 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
         return array;
     }
 
-    private List<IDependencyBean> GetBeans(Type type)
+    private List<IDependencyBean> GetBeans(Type type, DependencyRegistry? localRegistry)
     {
+        if (localRegistry?.GetBeans(type, null) is { Count: > 0 } localBeans)
+            return localBeans;
+
         _ = _beans.TryGetValue(type, out List<IDependencyBean>? beans);
 
-        List<IDependencyBean> ownerBeans = _owner?.GetBeans(type) ?? [];
+        List<IDependencyBean> ownerBeans = _owner?.GetBeans(type, localRegistry) ?? [];
 
         return [.. beans ?? [], .. ownerBeans];
     }
@@ -130,6 +137,16 @@ public sealed class DependencyRegistry : IScopedDependencyRegistry
                     return dependencies;
                 }
             );
+    }
+
+    private DependencyRegistry CreateLocalRegistry(DependencyOverride? @override = null)
+    {
+        DependencyRegistry registry = new(this);
+
+        if (@override is { } registerLocalDependencies)
+            registerLocalDependencies(registry);
+
+        return registry;
     }
 
     public void Dispose()

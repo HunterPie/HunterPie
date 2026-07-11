@@ -17,7 +17,6 @@ using ConfigurationPropertyAttribute = HunterPie.Core.Settings.Annotations.Confi
 
 namespace HunterPie.UI.Settings;
 
-#nullable enable
 public class ConfigurationAdapter(
     IFeatureFlagRepository featureFlagRepository,
     ILocalizationRepository localizationRepository)

@@ -78,6 +78,7 @@
 				                HorizontalContentAlignment="Stretch"
 				                VerticalContentAlignment="Stretch"
 				                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+				                Click="OnSettingsButtonClick"
 				                CornerRadius="5">
 					<image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
 					            Image="{DynamicResource ICON_SETTINGS}" />

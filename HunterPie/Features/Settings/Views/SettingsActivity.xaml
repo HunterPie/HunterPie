@@ -17,6 +17,7 @@
                        xmlns:textBox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
                        xmlns:viewModels="clr-namespace:HunterPie.Features.Settings.ViewModels"
                        xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+                       xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
                        d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
                        d:DesignHeight="450"
                        d:DesignWidth="800"
@@ -28,6 +29,7 @@
 		<converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter" />
 		<presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector" />
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<visibilities:IsEmptyToVisibilityConverter x:Key="IsEmptyToVisibilityConverter" />
 
 		<DataTemplate x:Key="CategoryHeaderTemplate"
 		              DataType="{x:Type viewModels:ConfigurationCategoryTab}">
@@ -254,7 +256,8 @@
 				          Margin="5"
 				          ItemsSource="{Binding ConfigurableGames, Mode=OneTime}"
 				          SelectedItem="{Binding SelectedGameConfiguration.Value, Mode=TwoWay}"
-				          SelectionChanged="OnSelectionChanged">
+				          SelectionChanged="OnSelectionChanged"
+				          Visibility="{Binding ConfigurableGames, Mode=OneTime, Converter={StaticResource IsEmptyToVisibilityConverter}}">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}" />
