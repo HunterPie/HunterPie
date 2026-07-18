@@ -8,9 +8,10 @@ using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.Playground.Dogma.Configuration;
 
-[Configuration(name: "MONSTER_WIDGET_STRING",
+[Configuration(name: "DRAGONS_DOGMA_WIDGET",
     icon: "ICON_SKULL",
-    group: CommonConfigurationGroups.OVERLAY)]
+    group: CommonConfigurationGroups.OVERLAY
+)]
 internal class MonsterWidgetConfiguration : IWidgetSettings, ISettings
 {
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]

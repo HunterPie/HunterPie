@@ -34,13 +34,15 @@ internal class InitializerManager
         typeof(ClientConfigInitializer),
         typeof(ConfigManagerInitializer),
 
+        // Localization
+        typeof(ClientLocalizationInitializer),
+
         typeof(HunterPieLoggerInitializer),
         typeof(CustomThemeInitializer),
 
         typeof(ExceptionCatcherInitializer),
         typeof(DialogManagerInitializer),
         typeof(UITracerInitializer),
-        typeof(ClientLocalizationInitializer),
         typeof(SystemTrayInitializer),
         typeof(ClientConfigBindingsInitializer),
 

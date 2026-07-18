@@ -41,6 +41,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Languages\en-us.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="plugin.manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
