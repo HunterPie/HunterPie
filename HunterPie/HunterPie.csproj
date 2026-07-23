@@ -19,7 +19,13 @@
     <CETCompat>False</CETCompat>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ItemGroup>
+      <!-- Required so IDE0130 can evaluate folder paths against namespaces -->
+      <CompilerVisibleProperty Include="RootNamespace" />
+      <CompilerVisibleProperty Include="ProjectDir" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;DEPLOY;</DefineConstants>
     <Optimize>True</Optimize>
     <ShouldCreateLogs>True</ShouldCreateLogs>

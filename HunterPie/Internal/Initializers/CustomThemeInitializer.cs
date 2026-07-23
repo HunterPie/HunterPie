@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.Client.Configuration.Versions;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Features.Theme.Loader;
+using HunterPie.Features.Extensions.Loader;
 using HunterPie.UI.Main.Views;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ namespace HunterPie.Internal.Initializers;
 
 internal class CustomThemeInitializer(
     ThemeLoaderService themeLoaderService,
-    V5Config config,
+    IConfiguration config,
     MainView mainView
 ) : IInitializer
 {

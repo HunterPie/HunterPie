@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.Input;
 using HunterPie.Core.Observability.Logging;
@@ -16,7 +16,7 @@ internal class OverlayManager(
     IContext context,
     Dispatcher dispatcher,
     IHotkeyService hotkeyService,
-    V5Config config
+    IConfiguration config
 ) : Bindable, IOverlay, IOverlayState, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();

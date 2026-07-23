@@ -1,9 +1,9 @@
 ﻿using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Extensions.Navigation;
 using HunterPie.Features.Patches.Navigation;
 using HunterPie.Features.Settings.Navigation;
 using HunterPie.Features.Statistics.Navigation;
-using HunterPie.Features.Theme.Navigation;
 using HunterPie.Integrations.Discord.Navigation;
 using HunterPie.Integrations.Github.Navigation;
 using HunterPie.Integrations.Patreon.Navigation;

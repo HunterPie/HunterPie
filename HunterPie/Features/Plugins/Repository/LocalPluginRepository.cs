@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Json;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Plugins.DI;
@@ -19,7 +19,7 @@ namespace HunterPie.Features.Plugins.Repository;
 
 internal class LocalPluginRepository(
     ILocalizationRegistry localizationRegistry,
-    V5Config configuration
+    IConfiguration configuration
 ) : IPluginRepository
 {
     private readonly ConcurrentDictionary<string, PluginContext> _contexts = new();

@@ -18,22 +18,22 @@
     <Compile Update="Features\Settings\Views\SettingsActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeHomeTabView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeHomeTabView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeViewSkeleton.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeViewSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ThemeCardView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ThemeCardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ExploreThemeHomeTabView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ExploreThemeHomeTabView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ThemeHomeActivity.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ThemeHomeActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">

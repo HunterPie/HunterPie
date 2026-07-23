@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Observability.Logging;
@@ -13,7 +13,7 @@ using System.Xml;
 namespace HunterPie.Features.Languages.Repository;
 
 internal class LocalizationRepository(
-    V5Config config
+    IConfiguration config
 ) : ILocalizationRepository, ILocalizationRegistry
 {
     private readonly ILogger _logger = LoggerFactory.Create();
