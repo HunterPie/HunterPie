@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>11.0</LangVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <AssemblyVersion>1.0.0.95</AssemblyVersion>
-    <FileVersion>1.0.0.95</FileVersion>
+    <AssemblyVersion>1.0.0.96</AssemblyVersion>
+    <FileVersion>1.0.0.96</FileVersion>
     <NoWarn>$(NoWarn);RS2008</NoWarn>
   </PropertyGroup>
 
