@@ -20,14 +20,9 @@ internal class SettingsFactory(
     LocalAccountConfig localAccountConfig,
     DefaultFeatureFlags defaultFeatureFlags,
     ConfigurationAdapter configurationAdapter,
-    FeatureFlagAdapter featureFlagAdapter)
+    FeatureFlagAdapter featureFlagAdapter
+)
 {
-    private readonly PoogieVersionConnector _versionConnector = versionConnector;
-    private readonly LocalAccountConfig _localAccountConfig = localAccountConfig;
-    private readonly DefaultFeatureFlags _defaultFeatureFlags = defaultFeatureFlags;
-    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
-    private readonly FeatureFlagAdapter _featureFlagAdapter = featureFlagAdapter;
-
     public async Task<SettingsViewModel> CreateFullAsync(Observable<GameProcessType> currentGame)
     {
         ConfigurationCategoryGroup[] commonConfigurations = await BuildCommonConfigurationAsync();
@@ -39,18 +34,18 @@ internal class SettingsFactory(
             { GameProcessType.MonsterHunterWilds, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.Wilds, GameProcessType.MonsterHunterWilds ) }
         };
         var supportedConfigurations =
-            new ObservableCollection<GameProcessType>(new List<GameProcessType>
-            {
+            new ObservableCollection<GameProcessType>(
+            [
                 GameProcessType.MonsterHunterRise,
                 GameProcessType.MonsterHunterWorld,
                 GameProcessType.MonsterHunterWilds
-            });
+            ]);
 
         return new SettingsViewModel(
             configurations: configurations,
             configurableGames: supportedConfigurations,
             currentConfiguredGame: currentGame,
-            connector: _versionConnector
+            connector: versionConnector
         );
     }
 
@@ -69,7 +64,7 @@ internal class SettingsFactory(
             configurations: configurations,
             configurableGames: supportedConfigurations,
             currentConfiguredGame: game,
-            connector: _versionConnector
+            connector: versionConnector
         );
     }
 
@@ -79,7 +74,7 @@ internal class SettingsFactory(
         GameProcessType gameProcessType
     )
     {
-        ObservableCollection<ConfigurationCategoryGroup> configCategory = _configurationAdapter.Adapt(configuration, gameProcessType);
+        ObservableCollection<ConfigurationCategoryGroup> configCategory = configurationAdapter.Adapt(configuration, gameProcessType);
 
         return commonConfiguration
             .Concat(configCategory)
@@ -96,11 +91,11 @@ internal class SettingsFactory(
 
     private async Task<ConfigurationCategoryGroup[]> BuildCommonConfigurationAsync()
     {
-        ObservableCollection<ConfigurationCategoryGroup> generalConfig = _configurationAdapter.Adapt(ClientConfig.Config);
-        ObservableCollection<ConfigurationCategoryGroup> accountConfig = await _localAccountConfig.BuildAccountConfigAsync();
+        ObservableCollection<ConfigurationCategoryGroup> generalConfig = configurationAdapter.Adapt(ClientConfig.Config);
+        ObservableCollection<ConfigurationCategoryGroup> accountConfig = await localAccountConfig.BuildAccountConfigAsync();
         ObservableCollection<ConfigurationCategoryGroup> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
         {
-            true => _featureFlagAdapter.Adapt(_defaultFeatureFlags.Flags),
+            true => featureFlagAdapter.Adapt(defaultFeatureFlags.Flags),
             _ => new ObservableCollection<ConfigurationCategoryGroup>()
         };
 

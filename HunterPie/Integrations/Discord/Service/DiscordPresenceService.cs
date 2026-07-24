@@ -13,7 +13,8 @@ namespace HunterPie.Integrations.Discord.Service;
 internal class DiscordPresenceService(
     IContext context,
     DiscordRichPresence configuration,
-    IDiscordRichPresenceStrategy strategy) : IDisposable
+    IDiscordRichPresenceStrategy strategy
+) : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private const int UPDATE_INTERVAL_MS = 10_000;

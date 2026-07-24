@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32319.34
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11903.348
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie.Core", "HunterPie.Core\HunterPie.Core.csproj", "{B3812FA7-1E9B-4000-873D-705ED13F88E6}"
 EndProject
@@ -25,6 +25,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie.Platforms", "HunterPie.Platforms\HunterPie.Platforms.csproj", "{0CB6E5A0-7E59-4395-B7B2-153CD8AD8F56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie.Playground", "HunterPie.Playground\HunterPie.Playground.csproj", "{4C33717E-803B-457D-B7DE-2C73DD62EBE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie.Generators", "HunterPie.Generators\HunterPie.Generators.csproj", "{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +203,24 @@ Global
 		{4C33717E-803B-457D-B7DE-2C73DD62EBE1}.Release|x64.Build.0 = Release|Any CPU
 		{4C33717E-803B-457D-B7DE-2C73DD62EBE1}.Release|x86.ActiveCfg = Release|Any CPU
 		{4C33717E-803B-457D-B7DE-2C73DD62EBE1}.Release|x86.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|x64.Build.0 = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|Any CPU.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|x64.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|x64.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|x86.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Deploy|x86.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|x64.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|x64.Build.0 = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6C9A5F7-C9DB-48AB-BAAD-358FBAC50627}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

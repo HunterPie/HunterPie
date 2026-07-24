@@ -1,7 +1,8 @@
-﻿using HunterPie.UI.Architecture.Utils;
+﻿using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Utils;
+using HunterPie.UI.Architecture.Views;
 using HunterPie.UI.Header.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -10,7 +11,8 @@ namespace HunterPie.UI.Header.Views;
 /// <summary>
 /// Interaction logic for AccountMenuView.xaml
 /// </summary>
-public partial class AccountMenuView : UserControl
+[View<AccountMenuViewModel>]
+public partial class AccountMenuView
 {
     public AccountMenuView()
     {
@@ -19,18 +21,12 @@ public partial class AccountMenuView : UserControl
 
     private void OnClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        vm.IsOpen = !vm.IsOpen;
+        ViewModel.IsOpen = !ViewModel.IsOpen;
     }
 
     private void OnDropDownChanged(object? sender, DataTransferEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        if (vm.IsOpen)
+        if (ViewModel.IsOpen)
             Mouse.Capture(this, CaptureMode.SubTree);
         else
             Mouse.Capture(null);
@@ -38,22 +34,16 @@ public partial class AccountMenuView : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
         var parentWindow = Window.GetWindow(this);
 
         if (parentWindow is null)
             return;
 
-        parentWindow.Deactivated += (_, __) => vm.IsOpen = false;
+        parentWindow.Deactivated += (_, __) => ViewModel.IsOpen = false;
     }
 
     private void OnMouseButtonUp(object sender, MouseButtonEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
         if (Mouse.Captured is null)
             return;
 
@@ -63,38 +53,26 @@ public partial class AccountMenuView : UserControl
         if (isWithinBounds)
             return;
 
-        vm.IsOpen = false;
+        ViewModel.IsOpen = false;
     }
 
     private void OnSignInButtonClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        vm.OpenSignInScreen();
+        ViewModel.OpenSignInScreen();
     }
 
     private void OnSignOutClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        vm.SignOut();
+        ViewModel.SignOut();
     }
 
     private void OnAccountDetailsClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        vm.OpenAccountDetails();
+        ViewModel.OpenAccountDetails();
     }
 
     private async void OnAccountSettingsClick(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not AccountMenuViewModel vm)
-            return;
-
-        await vm.OpenAccountSettingsAsync();
+        await ViewModel.OpenAccountSettingsAsync();
     }
 }

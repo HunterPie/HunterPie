@@ -1,17 +1,24 @@
-﻿using HunterPie.DI;
+﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Game;
+using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.Game.Common;
 using HunterPie.Game.Rise;
 using HunterPie.Game.World;
 
 namespace HunterPie.Game;
 
-internal class GamesModule : IDependencyModule
+internal class GamesModule : IScopedModule
 {
-    // TODO: Move this to their respective modules in HunterPie.Integrations.dll
-    public void Register(IDependencyRegistry registry)
+    public void Register(IScopedDependencyRegistry registry)
     {
-        registry
-            .WithSingle<MHWContextInitializer>()
-            .WithSingle<MHRContextInitializer>();
+        IContext ctx = registry.Get<IContext>();
+
+        _ = ctx.Process.Type switch
+        {
+            GameProcessType.MonsterHunterWorld => registry.WithSingle<MHWContextInitializer>(),
+            GameProcessType.MonsterHunterRise => registry.WithSingle<MHRContextInitializer>(),
+            _ => registry.WithSingle<DisabledGameContextInitializer>()
+        };
     }
 }

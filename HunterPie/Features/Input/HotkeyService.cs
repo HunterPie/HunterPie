@@ -6,10 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
 namespace HunterPie.Features.Input;
 
-internal class HotkeyService : IHotkeyService, IDisposable
+internal class HotkeyService(
+    Dispatcher dispatcher
+) : IHotkeyService, IDisposable
 {
     private const int WM_HOTKEY = 0x0312;
     private readonly ILogger _logger = LoggerFactory.Create();
@@ -25,32 +28,35 @@ internal class HotkeyService : IHotkeyService, IDisposable
 
     public int Register(string hotkey, Action callback)
     {
-        int id = _random.Next();
-
-        if (ParseHotkeyFrom(hotkey) is not { } combination)
+        return dispatcher.Invoke(() =>
         {
-            _logger.Error($"{hotkey} is not a valid hotkey");
+            int id = _random.Next();
+
+            if (ParseHotkeyFrom(hotkey) is not { } combination)
+            {
+                _logger.Error($"{hotkey} is not a valid hotkey");
+                return -1;
+            }
+
+            if (combination is (0, 0))
+                return 0;
+
+            bool success = User32.RegisterHotKey(
+                hWnd: _source!.Handle,
+                id: id,
+                fsModifiers: combination.Item1,
+                vlc: combination.Item2
+            );
+
+            if (success)
+            {
+                _hotkeys[id] = callback;
+                return id;
+            }
+
+            _logger.Error($"Failed to register hotkey: {Marshal.GetLastWin32Error()}");
             return -1;
-        }
-
-        if (combination is (0, 0))
-            return 0;
-
-        bool success = User32.RegisterHotKey(
-            hWnd: _source!.Handle,
-            id: id,
-            fsModifiers: combination.Item1,
-            vlc: combination.Item2
-        );
-
-        if (success)
-        {
-            _hotkeys[id] = callback;
-            return id;
-        }
-
-        _logger.Error($"Failed to register hotkey: {Marshal.GetLastWin32Error()}");
-        return -1;
+        });
     }
 
     public void Unregister(int id)

@@ -12,7 +12,9 @@ namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountVerificationResendFlowViewModel(
     PoogieAccountConnector accountConnector,
-    ILocalizationRepository localizationRepository) : ViewModel
+    ILocalizationRepository localizationRepository,
+    INotificationService notificationService
+) : ViewModel
 {
     public bool IsRequestingVerification
     {
@@ -60,7 +62,7 @@ internal class AccountVerificationResendFlowViewModel(
                 Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
-            await NotificationService.Show(options);
+            await notificationService.Show(options);
 
             return;
         }
@@ -73,7 +75,7 @@ internal class AccountVerificationResendFlowViewModel(
             ).Replace("{Email}", Email),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        await NotificationService.Show(successOptions);
+        await notificationService.Show(successOptions);
 
         IsFlowActive = false;
         Email = string.Empty;

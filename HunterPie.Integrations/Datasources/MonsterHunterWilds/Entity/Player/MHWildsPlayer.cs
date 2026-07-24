@@ -7,7 +7,6 @@ using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
-using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;

@@ -1,5 +1,6 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.UI.Home.Navigation;
 using HunterPie.UI.Home.Services;
 
 namespace HunterPie.UI.Home;
@@ -10,6 +11,7 @@ internal class HomeModule : IDependencyModule
     {
         registry
             .WithFactory<HomeCallToActionsService>()
-            .WithFactory<HomeService>();
+            .WithFactory<HomeService>()
+            .WithFactory<HomeNavigationHandler>();
     }
 }

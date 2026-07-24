@@ -6,8 +6,9 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
-#nullable enable
-public class MonstersViewModel(MonsterWidgetConfig settings) : WidgetViewModel(settings, "Monster Widget", WidgetType.ClickThrough)
+public class MonstersViewModel(
+    MonsterWidgetConfig settings
+) : WidgetViewModel(settings, "Monster Widget", WidgetType.ClickThrough)
 {
     private const int MINIMUM_MONSTER_COUNT = 3;
 

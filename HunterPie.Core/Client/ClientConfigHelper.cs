@@ -5,6 +5,7 @@ using System;
 
 namespace HunterPie.Core.Client;
 
+[Obsolete("ClientConfigHelper will be removed in a later release, use dependency injection instead")]
 public static class ClientConfigHelper
 {
     public delegate T OverlayConfigDeferDelegate<T>(OverlayConfig config);

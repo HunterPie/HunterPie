@@ -5,34 +5,52 @@ using System.Collections.Concurrent;
 
 namespace HunterPie.DI.Registry;
 
-public class DependencyRegistry : IDependencyRegistry
+public sealed class DependencyRegistry : IScopedDependencyRegistry
 {
+
+    private readonly DependencyRegistry? _owner;
     private readonly ConcurrentDictionary<Type, List<IDependencyBean>> _beans = new();
 
-    /// <inheritdoc />
-    public T Get<T>() where T : class => (T)Get(typeof(T));
+    public DependencyRegistry() { }
 
-    /// <inheritdoc />
-    public object Get(Type type)
+    private DependencyRegistry(DependencyRegistry owner)
     {
-        return GetBeans(type)
-            .First()
-            .Create(this);
+        _owner = owner;
     }
 
     /// <inheritdoc />
-    public T[] GetAll<T>() where T : class
+    public T Get<T>(DependencyOverride? @override = null) where T : class => (T)Get(typeof(T), @override);
+
+    /// <inheritdoc />
+    public object Get(Type type, DependencyOverride? @override = null)
     {
-        return GetAll(typeof(T))
+        using DependencyRegistry localRegistry = CreateLocalRegistry(@override);
+
+        List<IDependencyBean> beans = GetBeans(type, localRegistry);
+
+        if (beans.Count <= 0)
+            throw new DependencyNotRegisteredException(type);
+
+        return beans
+            .First()
+            .Create(localRegistry);
+    }
+
+    /// <inheritdoc />
+    public T[] GetAll<T>(DependencyOverride? @override = null) where T : class
+    {
+        return GetAll(typeof(T), @override)
             .Cast<T>()
             .ToArray();
     }
 
     /// <inheritdoc />
-    public Array GetAll(Type type)
+    public Array GetAll(Type type, DependencyOverride? @override = null)
     {
-        object[] beans = GetBeans(type)
-            .Select(it => it.Create(this))
+        using DependencyRegistry localRegistry = CreateLocalRegistry(@override);
+
+        object[] beans = GetBeans(type, localRegistry)
+            .Select(it => it.Create(localRegistry))
             .ToArray();
 
         var array = Array.CreateInstance(type, beans.Length);
@@ -41,12 +59,16 @@ public class DependencyRegistry : IDependencyRegistry
         return array;
     }
 
-    private List<IDependencyBean> GetBeans(Type type)
+    private List<IDependencyBean> GetBeans(Type type, DependencyRegistry? localRegistry)
     {
-        if (!_beans.TryGetValue(type, out List<IDependencyBean>? beans))
-            throw new DependencyNotRegisteredException(type);
+        if (localRegistry?.GetBeans(type, null) is { Count: > 0 } localBeans)
+            return localBeans;
 
-        return beans;
+        _ = _beans.TryGetValue(type, out List<IDependencyBean>? beans);
+
+        List<IDependencyBean> ownerBeans = _owner?.GetBeans(type, localRegistry) ?? [];
+
+        return [.. beans ?? [], .. ownerBeans];
     }
 
     /// <inheritdoc />
@@ -71,6 +93,36 @@ public class DependencyRegistry : IDependencyRegistry
         return this;
     }
 
+    /// <inheritdoc />
+    public IScopedDependencyRegistry NewScope()
+    {
+        return new DependencyRegistry(this);
+    }
+
+    /// <inheritdoc />
+    public IDependencyRegistry WithFactory(Type type, Activator<object> activator)
+    {
+        RegisterBean(
+            type: type,
+            bean: new FactoryDependencyBean<object>(activator)
+        );
+
+        return this;
+    }
+
+
+    /// <inheritdoc />
+    public IDependencyRegistry WithSingle(Type type, Activator<object> activator)
+    {
+        RegisterBean(
+            type: type,
+            bean: new SingletonDependencyBean<object>(activator)
+        );
+
+        return this;
+    }
+
+
     private void RegisterBean(Type type, IDependencyBean bean)
     {
         Type[] innerTypes = [.. type.GetInterfaces(), type];
@@ -85,5 +137,20 @@ public class DependencyRegistry : IDependencyRegistry
                     return dependencies;
                 }
             );
+    }
+
+    private DependencyRegistry CreateLocalRegistry(DependencyOverride? @override = null)
+    {
+        DependencyRegistry registry = new(this);
+
+        if (@override is { } registerLocalDependencies)
+            registerLocalDependencies(registry);
+
+        return registry;
+    }
+
+    public void Dispose()
+    {
+        _beans.Clear();
     }
 }

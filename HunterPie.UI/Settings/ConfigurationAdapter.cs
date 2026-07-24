@@ -17,16 +17,13 @@ using ConfigurationPropertyAttribute = HunterPie.Core.Settings.Annotations.Confi
 
 namespace HunterPie.UI.Settings;
 
-#nullable enable
 public class ConfigurationAdapter(
     IFeatureFlagRepository featureFlagRepository,
-    ILocalizationRepository localizationRepository)
+    ILocalizationRepository localizationRepository
+)
 {
     private const string DEFAULT_SETTING_LOCALIZATION_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
     private const string DEFAULT_CONFIGURATION_GROUP_PATH = "//Strings/Client/ConfigurationGroups/Group[@Id='{0}']";
-
-    private readonly IFeatureFlagRepository _featureFlagRepository = featureFlagRepository;
-    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public ObservableCollection<ConfigurationCategoryGroup> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None) where T : notnull
     {
@@ -77,13 +74,13 @@ public class ConfigurationAdapter(
             return BuildCategoryParent(categoryType, category, game);
 
         if (configurationAttribute.DependsOnFeature is { } featureFlag
-            && !_featureFlagRepository.IsEnabled(featureFlag))
+            && !featureFlagRepository.IsEnabled(featureFlag))
             return Array.Empty<ConfigurationCategory>();
 
         if (!configurationAttribute.AvailableGames.HasFlag(game))
             return Array.Empty<ConfigurationCategory>();
 
-        LocalizationData localization = _localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(configurationAttribute.Name));
+        LocalizationData localization = localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(configurationAttribute.Name));
 
         List<ConfigurationCategory> categories = new();
         List<IConfigurationProperty> configurationProperties = new();
@@ -126,8 +123,8 @@ public class ConfigurationAdapter(
 
             availableProperties.Add(property.Name, (propertyValue, allConditions));
 
-            LocalizationData propertyLocalization = _localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
-            string groupLocalization = _localizationRepository.FindStringBy(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
+            LocalizationData propertyLocalization = localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
+            string groupLocalization = localizationRepository.FindStringBy(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
 
             GameConfigurationAdapterAttribute? adapterAttribute =
                 property.GetCustomAttribute<GameConfigurationAdapterAttribute>();
@@ -152,7 +149,7 @@ public class ConfigurationAdapter(
             new(GroupProperties(configurationProperties));
 
         string categoryGroupName =
-            _localizationRepository.FindStringBy(
+            localizationRepository.FindStringBy(
                 path: DEFAULT_CONFIGURATION_GROUP_PATH.Format(configurationAttribute.Group)
             );
 

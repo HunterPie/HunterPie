@@ -4,22 +4,24 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:handler="clr-namespace:HunterPie.UI.Client.Sidebar.Handler;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
-             d:DataContext="{d:DesignInstance viewModels:ISideBarViewModel}"
+             xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
+             d:DataContext="{d:DesignInstance handler:NavigationHandler}"
              d:DesignHeight="40"
              d:DesignWidth="300"
              mc:Ignorable="d">
 	<UserControl.Resources>
 		<converters:IconResolver x:Key="IconResolver" />
 		<converters:LocalizationResolver x:Key="LocalizationResolver" />
+		<presentation:SideBarButtonStateToBooleanConverter x:Key="SideBarButtonStateToBooleanConverter" />
 	</UserControl.Resources>
 	<buttons:Button Padding="0"
 	                HorizontalContentAlignment="Stretch"
 	                VerticalContentAlignment="Stretch"
 	                Click="OnClick"
-	                IsEnabled="{Binding IsAvailable, Mode=OneWay}">
+	                IsEnabled="{Binding State, Mode=OneWay, Converter={StaticResource SideBarButtonStateToBooleanConverter}}">
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -32,7 +34,7 @@
 				<Rectangle.Style>
 					<Style TargetType="Rectangle">
 						<Style.Triggers>
-							<DataTrigger Binding="{Binding IsSelected, Mode=OneWay}"
+							<DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
 							             Value="True">
 								<DataTrigger.EnterActions>
 									<BeginStoryboard>
@@ -73,7 +75,7 @@
 			            Padding="12"
 			            d:Image="{DynamicResource ICON_HUNTERPIE}"
 			            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-			            Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}" />
+			            Image="{Binding Icon, Mode=OneWay}" />
 
 			<TextBlock Grid.Column="2"
 			           Margin="10,0"
@@ -82,7 +84,7 @@
 			           FontSize="18"
 			           FontWeight="Medium"
 			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-			           Text="{Binding Label, Mode=OneWay, Converter={StaticResource LocalizationResolver}}" />
+			           Text="{Binding Label, Mode=OneWay}" />
 		</Grid>
 	</buttons:Button>
 </UserControl>

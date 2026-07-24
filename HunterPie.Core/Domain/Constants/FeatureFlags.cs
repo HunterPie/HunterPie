@@ -10,4 +10,6 @@ public static class FeatureFlags
 
     public const string FEATURE_RISE_DAMAGE_METER = "feature_enable_rise_dps";
     public const string FEATURE_IN_APP_NOTIFICATIONS = "feature_enable_in_app_notifications";
+
+    public const string FEATURE_IS_PLUGINS_VIEW_ENABLED = "is_plugins_view_enabled";
 }

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace HunterPie.Features.Flags.Repository;
 
-internal class LocalFeatureFlagRepository(IReadOnlyDictionary<string, IFeature> source) : IFeatureFlagRepository
+internal class LocalFeatureFlagRepository(
+    IReadOnlyDictionary<string, IFeature> flags
+) : IFeatureFlagRepository
 {
-    private readonly IReadOnlyDictionary<string, IFeature> _features = source;
+    public IFeature? GetFeature(string feature) => !flags.ContainsKey(feature) ? null : flags[feature];
 
-    public IFeature? GetFeature(string feature) => !_features.ContainsKey(feature) ? null : _features[feature];
-
-    public bool IsEnabled(string feature) => _features.ContainsKey(feature) && (bool)_features[feature].IsEnabled;
+    public bool IsEnabled(string feature) => flags.ContainsKey(feature) && (bool)flags[feature].IsEnabled;
 }

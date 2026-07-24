@@ -10,15 +10,14 @@ namespace HunterPie.Internal.Initializers;
 
 internal class HotkeyInitializer(
     MainView mainView,
-    HotkeyService hotkeyService) : IInitializer, IDisposable
+    HotkeyService hotkeyService
+) : IInitializer, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly MainView _mainView = mainView;
-    private readonly HotkeyService _hotkeyService = hotkeyService;
 
     public Task Init()
     {
-        nint hWnd = new WindowInteropHelper(_mainView)
+        nint hWnd = new WindowInteropHelper(mainView)
             .EnsureHandle();
 
         if (HwndSource.FromHwnd(hWnd) is not { } source)
@@ -27,13 +26,13 @@ internal class HotkeyInitializer(
             return Task.CompletedTask;
         }
 
-        _hotkeyService.Setup(source);
+        hotkeyService.Setup(source);
 
         return Task.CompletedTask;
     }
 
     public void Dispose()
     {
-        _hotkeyService.Dispose();
+        hotkeyService.Dispose();
     }
 }

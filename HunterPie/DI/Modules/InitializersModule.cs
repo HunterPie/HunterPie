@@ -1,4 +1,5 @@
 ﻿using HunterPie.DI.Module;
+using HunterPie.Features.Overlay.Widgets;
 using HunterPie.Internal.Initializers;
 
 namespace HunterPie.DI.Modules;
@@ -25,9 +26,9 @@ public class InitializersModule : IDependencyModule
             .WithSingle<SystemTrayInitializer>()
             .WithSingle<ClientConfigBindingsInitializer>()
             .WithSingle<NavigationTemplatesInitializer>()
-            .WithSingle<AppNotificationsInitializer>()
             .WithSingle<HotkeyInitializer>()
             .WithSingle<DebugWidgetInitializer>()
-            .WithSingle<OverlayWidgetsInitializer>();
+            .WithSingle<OverlayWidgetsInitializer>()
+            .WithSingle<SideBarInitializer>();
     }
 }

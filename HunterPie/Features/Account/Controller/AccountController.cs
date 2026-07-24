@@ -3,7 +3,6 @@ using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
-using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Header.ViewModels;
 using HunterPie.UI.Main.Navigators;
 using System;
@@ -19,7 +18,7 @@ internal class AccountController(
 {
     public async Task SetupAsync()
     {
-        menuViewModel.Apply(it => it.IsLoading = true);
+        menuViewModel.IsLoading = true;
         accountUseCase.SignIn += OnSignIn;
         accountUseCase.SessionStart += OnSessionStart;
         accountUseCase.SignOut += OnSignOut;
@@ -29,6 +28,8 @@ internal class AccountController(
 
         if (account is { })
             UpdateViewModels(account);
+
+        menuViewModel.IsLoading = false;
     }
 
     private async void OnAvatarChange(object? sender, AccountAvatarEventArgs e)

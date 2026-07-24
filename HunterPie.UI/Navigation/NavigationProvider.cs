@@ -1,4 +1,5 @@
 ﻿using HunterPie.UI.Architecture;
+using HunterPie.UI.Navigation.Service;
 using HunterPie.UI.Settings;
 using System;
 using System.Collections.Generic;
@@ -7,24 +8,26 @@ using System.Windows;
 namespace HunterPie.UI.Navigation;
 
 #nullable enable
-public static class NavigationProvider
+internal class NavigationProvider : INavigationProvider, INavigationRegistry
 {
-    private static readonly Dictionary<Type, DataTemplate> Templates = new();
+    private readonly Dictionary<Type, DataTemplate> Templates = new();
 
     /// <summary>
     /// Binds a view model to an specific view type
     /// </summary>
-    /// <typeparam name="TView">Type of the view</typeparam>
+    /// <typeparam name="TActivity">Type of the view</typeparam>
     /// <typeparam name="TViewModel">Type of the view's view model</typeparam>
-    public static void Bind<TView, TViewModel>()
-        where TView : FrameworkElement
+    public INavigationRegistry Bind<TActivity, TViewModel>()
+        where TActivity : Activity
         where TViewModel : ViewModel
     {
-        DataTemplate dataTemplate = DataTemplateFactory.Create<TView>();
+        DataTemplate dataTemplate = DataTemplateFactory.Create<TActivity>();
         Templates.Add(typeof(TViewModel), dataTemplate);
+
+        return this;
     }
 
-    public static DataTemplate? FindBy(Type viewModelType)
+    public DataTemplate? FindBy(Type viewModelType)
     {
         return Templates.GetValueOrDefault(viewModelType);
     }

@@ -9,6 +9,7 @@ internal class GameModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<GameContextController>();
+            .WithSingle<GameContextController>()
+            .WithSingle<GameIntegrationService>();
     }
 }

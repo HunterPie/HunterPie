@@ -12,21 +12,19 @@ namespace HunterPie.Integrations.Discord.Strategies;
 public class MHWildsDiscordPresenceStrategy(
     DiscordRichPresence configuration,
     ILocalizationRepository localizationRepository,
-    IContext context) : IDiscordRichPresenceStrategy
+    IContext context
+) : IDiscordRichPresenceStrategy
 {
     public string AppId => "1346929958949224518";
 
-    private readonly DiscordRichPresence _configuration = configuration;
-    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
     private readonly IScopedLocalizationRepository _discordLocalizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
-    private readonly IContext _context = context;
 
     public void Update(RichPresence presence)
     {
         string description = BuildDescription();
         string state = BuildState();
-        string stageName = _localizationRepository.FindStringBy(
-            path: $"//Strings/Stages/Wilds/Stage[@Id='{_context.Game.Player.StageId}']"
+        string stageName = localizationRepository.FindStringBy(
+            path: $"//Strings/Stages/Wilds/Stage[@Id='{context.Game.Player.StageId}']"
         );
         bool isUnmappedStage = stageName.StartsWith("//Strings");
 
@@ -38,28 +36,28 @@ public class MHWildsDiscordPresenceStrategy(
                 LargeImageKey = isUnmappedStage switch
                 {
                     true => "unknown",
-                    _ => $"wilds-stage-{_context.Game.Player.StageId}"
+                    _ => $"wilds-stage-{context.Game.Player.StageId}"
                 },
                 LargeImageText = stageName,
-                SmallImageKey = _context.Game.Player.Weapon.Id switch
+                SmallImageKey = context.Game.Player.Weapon.Id switch
                 {
                     Weapon.None => null,
                     var id => Enum.GetName(typeof(Weapon), id)?.ToLowerInvariant()
                 },
-                SmallImageText = _configuration.ShowCharacterInfo.Value switch
+                SmallImageText = configuration.ShowCharacterInfo.Value switch
                 {
                     true => _discordLocalizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
-                        .Replace("{Character}", _context.Game.Player.Name)
-                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
+                        .Replace("{Character}", context.Game.Player.Name)
+                        .Replace("{HighRank}", context.Game.Player.HighRank.ToString())
                         .Replace("{MasterRank}", "-"),
                     _ => null
                 }
             })
             .WithParty(new Party
             {
-                ID = _context.Game.Player.Name,
-                Max = Math.Max(_context.Game.Player.Party.MaxSize, _context.Game.Player.Party.Size),
-                Size = _context.Game.Player.Party.Size,
+                ID = context.Game.Player.Name,
+                Max = Math.Max(context.Game.Player.Party.MaxSize, context.Game.Player.Party.Size),
+                Size = context.Game.Player.Party.Size,
                 Privacy = Party.PrivacySetting.Public
             });
     }
@@ -67,8 +65,8 @@ public class MHWildsDiscordPresenceStrategy(
     private string BuildDescription()
     {
         string localizationStateId = (
-                _context.Game.Player.StageId,
-                _context.Game.Player.InHuntingZone) switch
+                context.Game.Player.StageId,
+                context.Game.Player.InHuntingZone) switch
         {
             (-1, _) => "DRPC_STATE_MAIN_MENU",
             (15, _) => "DRPC_RISE_STATE_PRACTICE",
@@ -76,12 +74,12 @@ public class MHWildsDiscordPresenceStrategy(
             _ => "DRPC_STATE_EXPLORING"
         };
 
-        IMonster? targetMonster = _context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
+        IMonster? targetMonster = context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
 
         if (targetMonster is null)
             return _discordLocalizationRepository.FindStringBy(localizationStateId);
 
-        string descriptionString = _configuration.ShowMonsterHealth
+        string descriptionString = configuration.ShowMonsterHealth
             ? "DRPC_STATE_HUNTING"
             : "DRPC_STATE_HUNTING_NO_HEALTH";
 
@@ -92,7 +90,7 @@ public class MHWildsDiscordPresenceStrategy(
 
     private string BuildState()
     {
-        string localizationId = _context.Game.Player.Party.Size <= 1
+        string localizationId = context.Game.Player.Party.Size <= 1
             ? "DRPC_PARTY_STATE_SOLO_STRING"
             : "DRPC_PARTY_STATE_GROUP_STRING";
 

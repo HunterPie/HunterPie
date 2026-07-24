@@ -15,25 +15,25 @@
     <Compile Update="Features\Debug\Views\DebugOverlayManagerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Settings\Views\SettingsView.xaml.cs">
+    <Compile Update="Features\Settings\Views\SettingsActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeHomeTabView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeHomeTabView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\InstalledThemeViewSkeleton.xaml.cs">
+    <Compile Update="Features\Extensions\Views\InstalledThemeViewSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ThemeCardView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ThemeCardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ExploreThemeHomeTabView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ExploreThemeHomeTabView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ThemeHomeView.xaml.cs">
+    <Compile Update="Features\Extensions\Views\ThemeHomeActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
@@ -48,13 +48,13 @@
     <Compile Update="Features\Account\Views\AccountPreferencesSkeletonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Account\Views\AccountPreferencesView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountPreferencesActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Account\Views\AccountRegisterFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Account\Views\AccountSignFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountSignFlowActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Account\Views\Components\AccountDetailsView.xaml.cs">
@@ -66,7 +66,7 @@
     <Compile Update="Features\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\SideBar\ViewModels\HomeSideBarViewModel.cs">
+    <Compile Update="UI\Home\Navigation\HomeNavigationHandler.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Home\ViewModels\HomeCallToActionViewModel.cs">
@@ -75,13 +75,13 @@
     <Compile Update="UI\Home\Views\HomeCallToActionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Home\Views\HomeView.xaml.cs">
+    <Compile Update="UI\Home\Views\HomeActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Home\Views\SupportedGameView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Logging\Views\ConsoleView.xaml.cs">
+    <Compile Update="UI\Logging\Views\ConsoleActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Logging\Views\LogView.xaml.cs">
@@ -96,7 +96,7 @@
     <Compile Update="Features\Notifications\Views\NotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Patches\Views\PatchesView.xaml.cs">
+    <Compile Update="Features\Patches\Views\PatchesActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Header\Views\AccountMenuView.xaml.cs">
@@ -105,7 +105,7 @@
     <Compile Update="UI\Header\Views\HeaderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Main\Views\MainBodyView.xaml.cs">
+    <Compile Update="UI\Main\Views\MainActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Main\Views\MainView.xaml.cs">
@@ -128,13 +128,13 @@
     <Page Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Statistics\Details\Views\QuestDetailsView.xaml">
+    <Page Update="Features\Statistics\Details\Views\QuestDetailsActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Statistics\Views\MonsterSummaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Statistics\Views\QuestStatisticsSummariesView.xaml">
+    <Page Update="Features\Statistics\Views\QuestStatisticsSummariesActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml">
@@ -143,7 +143,7 @@
     <Page Update="Features\Statistics\Views\QuestStatisticsSummaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Settings\Views\SettingsView.xaml">
+    <Page Update="Features\Settings\Views\SettingsActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
@@ -158,13 +158,13 @@
     <Page Update="Features\Account\Views\AccountPreferencesSkeletonView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Account\Views\AccountPreferencesView.xaml">
+    <Page Update="Features\Account\Views\AccountPreferencesActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Account\Views\AccountRegisterFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Account\Views\AccountSignFlowView.xaml">
+    <Page Update="Features\Account\Views\AccountSignFlowActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Account\Views\Components\AccountDetailsView.xaml">
@@ -179,13 +179,13 @@
     <Page Update="UI\Home\Views\HomeCallToActionView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\Home\Views\HomeView.xaml">
+    <Page Update="UI\Home\Views\HomeActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Home\Views\SupportedGameView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\Logging\Views\ConsoleView.xaml">
+    <Page Update="UI\Logging\Views\ConsoleActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Logging\Views\LogView.xaml">
@@ -200,7 +200,7 @@
     <Page Update="Features\Notifications\Views\NotificationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Patches\Views\PatchesView.xaml">
+    <Page Update="Features\Patches\Views\PatchesActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <None Update="Themes\Default\Template.xaml">
@@ -218,7 +218,7 @@
     <Page Update="UI\Header\Views\HeaderView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\Main\Views\MainBodyView.xaml">
+    <Page Update="UI\Main\Views\MainActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Main\Views\MainView.xaml">
