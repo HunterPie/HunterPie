@@ -42,7 +42,7 @@
 					           Text="{Binding Name, Mode=OneWay}" />
 					<label:Tag d:Label="v1.0.0"
 					           Background="{DynamicResource Blue@700}"
-					           FontSize="10"
+					           FontSize="11"
 					           Foreground="{DynamicResource Blue}"
 					           Label="{Binding Version, Mode=OneWay}" />
 				</StackPanel>

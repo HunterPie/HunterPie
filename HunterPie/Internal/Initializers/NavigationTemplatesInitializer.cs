@@ -2,6 +2,7 @@
 using HunterPie.Features.Account.ViewModels;
 using HunterPie.Features.Account.Views;
 using HunterPie.Features.Extensions.ViewModels;
+using HunterPie.Features.Extensions.Views;
 using HunterPie.Features.Patches.ViewModels;
 using HunterPie.Features.Patches.Views;
 using HunterPie.Features.Settings.ViewModels;
@@ -10,7 +11,6 @@ using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Details.Views;
 using HunterPie.Features.Statistics.ViewModels;
 using HunterPie.Features.Statistics.Views;
-using HunterPie.Features.Extensions.Views;
 using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using HunterPie.UI.Controls.Settings.Abnormality.Views;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
