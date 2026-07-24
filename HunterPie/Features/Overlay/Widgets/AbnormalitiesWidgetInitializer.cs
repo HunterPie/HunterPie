@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
@@ -15,7 +14,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class AbnormalitiesWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class AbnormalitiesWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
     private readonly List<(IContextHandler, WidgetView)> _handlers = new();
@@ -25,11 +28,8 @@ internal class AbnormalitiesWidgetInitializer(IOverlay overlay) : IWidgetInitial
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
-
         AbnormalityWidgetConfig[] configs = config.AbnormalityTray.Trays.Trays.ToArray();
         for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
         {
@@ -56,7 +56,7 @@ internal class AbnormalitiesWidgetInitializer(IOverlay overlay) : IWidgetInitial
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         foreach ((IContextHandler handler, WidgetView view) in _handlers)
         {

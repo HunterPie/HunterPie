@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.DI;
@@ -23,7 +22,11 @@ using System.Windows.Threading;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class ActivitiesWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class ActivitiesWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
@@ -35,10 +38,8 @@ internal class ActivitiesWidgetInitializer(IOverlay overlay) : IWidgetInitialize
         GameProcessType.MonsterHunterRise |
         GameProcessType.MonsterHunterWorld;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
-
         if (!config.ActivitiesWidget.Initialize)
             return Task.CompletedTask;
 
@@ -70,7 +71,7 @@ internal class ActivitiesWidgetInitializer(IOverlay overlay) : IWidgetInitialize
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _handler?.UnhookEvents();
         _overlay.Unregister(_view);

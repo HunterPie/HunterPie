@@ -1,9 +1,9 @@
-﻿using HunterPie.Core.Observability.Logging;
-using HunterPie.UI.Overlay.Enums;
+﻿using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.ViewModels;
 using HunterPie.UI.Platform.Windows.Native;
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -16,9 +16,8 @@ namespace HunterPie.UI.Overlay.Views;
 /// </summary>
 public partial class WidgetView
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
     private nint? _hWnd;
-    private readonly object _sync = new();
+    private readonly Lock _sync = new();
     private bool _isClosed;
     private DateTime _lastTopMostForce;
     private DateTime _lastRender;

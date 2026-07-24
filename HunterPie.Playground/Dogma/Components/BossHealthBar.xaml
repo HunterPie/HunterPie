@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="HunterPie.Playground.Dogma.Components.BossHealthBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HunterPie.Playground.Dogma.Components"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="BossHealthBarComponent"
+             d:DesignHeight="8"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter" />
+	</UserControl.Resources>
+	<Grid>
+		<Rectangle Fill="#9c9c9c"
+		           Opacity="0.5" />
+
+		<Rectangle Width="1"
+		           HorizontalAlignment="Left"
+		           d:Width="600"
+		           Fill="#ffebfc">
+			<Rectangle.RenderTransform>
+				<ScaleTransform>
+					<ScaleTransform.ScaleX>
+						<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="CurrentBuffer" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Max" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="ActualWidth" />
+						</MultiBinding>
+					</ScaleTransform.ScaleX>
+				</ScaleTransform>
+			</Rectangle.RenderTransform>
+		</Rectangle>
+
+		<Rectangle Width="1"
+		           HorizontalAlignment="Left">
+			<Rectangle.Fill>
+				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+					<GradientStop Offset="0" Color="#fc0384" />
+					<GradientStop Offset="0.5" Color="#FFFF55AD" />
+					<GradientStop Offset="1" Color="#fc0384" />
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+			<Rectangle.RenderTransform>
+				<ScaleTransform d:ScaleX="500">
+					<ScaleTransform.ScaleX>
+						<MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Current" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="Max" />
+							<Binding ElementName="BossHealthBarComponent"
+							         Path="ActualWidth" />
+						</MultiBinding>
+					</ScaleTransform.ScaleX>
+				</ScaleTransform>
+			</Rectangle.RenderTransform>
+		</Rectangle>
+	</Grid>
+</UserControl>

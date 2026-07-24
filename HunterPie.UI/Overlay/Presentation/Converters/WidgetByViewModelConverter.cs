@@ -8,7 +8,6 @@ using System.Windows.Data;
 
 namespace HunterPie.UI.Overlay.Presentation.Converters;
 
-#nullable enable
 [ValueConversion(typeof(ViewModel), typeof(DataTemplate))]
 public class WidgetByViewModelConverter : IValueConverter
 {

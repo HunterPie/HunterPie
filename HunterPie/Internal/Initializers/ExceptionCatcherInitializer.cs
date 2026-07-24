@@ -8,22 +8,23 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class ExceptionCatcherInitializer(IAnalyticsService analyticsService) : IInitializer
+internal class ExceptionCatcherInitializer(
+    AppDomain app,
+    IAnalyticsService analyticsService
+) : IInitializer
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly IAnalyticsService _analyticsService = analyticsService;
-
     public Task Init()
     {
-        AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+        app.UnhandledException += (_, args) =>
         {
             if (args.ExceptionObject is not Exception exception)
                 return;
 
             AsyncHelper.RunSync(async () =>
             {
-                await _analyticsService.SendAsync(
+                await analyticsService.SendAsync(
                     analyticsEvent: AnalyticsEvent.FromException(exception, isUiError: false)
                 );
             });

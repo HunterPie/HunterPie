@@ -1,0 +1,166 @@
+﻿<architecture:Activity x:Class="HunterPie.UI.Controls.Settings.Monsters.Views.MonsterConfigurationsActivity"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
+                       xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+                       xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
+                       xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:popup="clr-namespace:HunterPie.UI.Controls.Popup"
+                       xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
+                       xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
+                       d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationsViewModel}"
+                       d:DesignHeight="450"
+                       d:DesignWidth="800"
+                       Loaded="OnLoaded"
+                       mc:Ignorable="d">
+	<architecture:Activity.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</architecture:Activity.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="50" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<buttons:Button Grid.Row="0"
+		                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+		                BorderThickness="1"
+		                Margin="5"
+		                Padding="5"
+		                HorizontalAlignment="Left"
+		                VerticalAlignment="Top"
+		                Click="OnBackButtonClick"
+		                CornerRadius="5">
+			<StackPanel Orientation="Horizontal">
+				<image:Icon Width="15"
+				            Height="15"
+				            Margin="0,0,5,0"
+				            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+				            Image="{DynamicResource ICON_LEFT_ARROW}" />
+				<TextBlock VerticalAlignment="Center"
+				           d:Text="Back"
+				           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+				           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}" />
+			</StackPanel>
+		</buttons:Button>
+
+		<buttons:Button Grid.Row="1"
+		                BorderThickness="1"
+		                Margin="5"
+		                Padding="0"
+		                HorizontalAlignment="Left"
+		                HorizontalContentAlignment="Stretch"
+		                VerticalContentAlignment="Stretch"
+		                Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+		                Click="OnOverrideMonsterClick"
+		                CornerRadius="5">
+			<buttons:Button.BorderBrush>
+				<DrawingBrush TileMode="Tile"
+				              Viewport="0,0,15,15"
+				              ViewportUnits="Absolute">
+					<DrawingBrush.Drawing>
+						<DrawingGroup>
+							<GeometryDrawing Brush="{DynamicResource Brushes.HunterPie.Border}">
+								<GeometryDrawing.Geometry>
+									<GeometryGroup>
+										<RectangleGeometry Rect="0,0,1,1" />
+										<RectangleGeometry Rect="1,1,1,1" />
+									</GeometryGroup>
+								</GeometryDrawing.Geometry>
+							</GeometryDrawing>
+						</DrawingGroup>
+					</DrawingBrush.Drawing>
+				</DrawingBrush>
+			</buttons:Button.BorderBrush>
+			<Grid>
+				<StackPanel Height="30"
+				            Margin="5,0"
+				            HorizontalAlignment="Center"
+				            Orientation="Horizontal">
+					<image:Icon Width="15"
+					            Height="15"
+					            VerticalAlignment="Center"
+					            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+					            Image="{DynamicResource ICON_ADD_OUTLINE}" />
+					<TextBlock Margin="5,0,0,0"
+					           VerticalAlignment="Center"
+					           d:Text="Override monster"
+					           FontSize="14"
+					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+					           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_OVERRIDE_STRING&quot;]'}" />
+				</StackPanel>
+
+
+			</Grid>
+		</buttons:Button>
+
+		<popup:SearchPopup Grid.Row="0"
+		                   Margin="5,0"
+		                   d:IsOpen="False"
+		                   d:ItemsSource="{d:SampleData ItemCount=5}"
+		                   IsOpen="{Binding IsSearching, Mode=TwoWay}"
+		                   ItemsSource="{Binding SearchElements, Mode=OneTime}"
+		                   MaxResultsHeight="300"
+		                   Search="OnSearch">
+			<popup:SearchPopup.ItemTemplate>
+				<DataTemplate DataType="{x:Type viewModels:MonsterConfigurationViewModel}">
+					<buttons:Button Padding="0"
+					                HorizontalContentAlignment="Stretch"
+					                VerticalContentAlignment="Stretch"
+					                Click="OnSelectMonsterClick"
+					                Visibility="{Binding IsMatch, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="30" />
+							</Grid.ColumnDefinitions>
+
+							<Image Grid.Column="0"
+							       Height="30"
+							       RenderOptions.BitmapScalingMode="Fant"
+							       Source="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_SKULL}}" />
+
+							<TextBlock Grid.Column="1"
+							           VerticalAlignment="Center"
+							           Text="{Binding Name, Mode=OneWay}" />
+
+							<image:Icon Grid.Column="2"
+							            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+							            Margin="5"
+							            Foreground="{DynamicResource Brushes.HunterPie.Background.Primary}"
+							            Image="{DynamicResource ICON_CHEVRON_RIGHT}" />
+						</Grid>
+					</buttons:Button>
+				</DataTemplate>
+			</popup:SearchPopup.ItemTemplate>
+		</popup:SearchPopup>
+
+		<viewer:SmoothScrollViewer Grid.Row="2"
+		                           Margin="2,0"
+		                           HorizontalScrollBarVisibility="Disabled">
+			<StackPanel Orientation="Vertical">
+				<local:MonsterGlobalConfigurationView DataContext="{Binding GlobalConfiguration, Mode=OneTime}" />
+
+				<ItemsControl BorderThickness="0"
+				              d:ItemsSource="{d:SampleData ItemCount=5}"
+				              Background="Transparent"
+				              ItemsSource="{Binding Overrides, Mode=OneTime}"
+				              VirtualizingPanel.CacheLength="20"
+				              VirtualizingPanel.CacheLengthUnit="Item"
+				              VirtualizingPanel.ScrollUnit="Pixel"
+				              VirtualizingPanel.VirtualizationMode="Standard">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<local:MonsterConfigurationView DeleteClick="OnMonsterDeleteClick" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>
+		</viewer:SmoothScrollViewer>
+	</Grid>
+</architecture:Activity>

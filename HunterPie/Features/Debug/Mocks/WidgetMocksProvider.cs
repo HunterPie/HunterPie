@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Settings;
 using HunterPie.Features.Debug.Services;
 using HunterPie.Features.Debug.ViewModels;
@@ -16,42 +16,22 @@ using System.Windows.Threading;
 
 namespace HunterPie.Features.Debug.Mocks;
 
-internal class WidgetMocksProvider
+internal class WidgetMocksProvider(
+    Dispatcher dispatcher,
+    IWidgetMocker[] mockers,
+    IConfiguration config,
+    ConfigurationAdapter configurationAdapter,
+    PoogieVersionConnector poogieVersionConnector,
+    IBodyNavigator bodyNavigator
+)
 {
-    private readonly Dispatcher _dispatcher;
-    private readonly OverlayManager _overlay;
-    private readonly V5Config _config;
-    private readonly IWidgetMocker[] _mockers;
-    private readonly ConfigurationAdapter _configurationAdapter;
-    private readonly PoogieVersionConnector _poogieVersionConnector;
-    private readonly IBodyNavigator _bodyNavigator;
+    private readonly OverlayManager _overlay = new OverlayManager(null, dispatcher, new HotkeyServiceMock(), config);
     private readonly Dictionary<IWidgetMocker, WidgetView> _views = new();
     private readonly ObservableCollection<IWidgetSettings> _settings = new();
 
-    public WidgetMocksProvider(
-        Dispatcher dispatcher,
-        IWidgetMocker[] mockers,
-        V5Config config,
-        ConfigurationAdapter configurationAdapter,
-        PoogieVersionConnector poogieVersionConnector,
-        IBodyNavigator bodyNavigator)
-    {
-        _dispatcher = dispatcher;
-        _config = config;
-        _configurationAdapter = configurationAdapter;
-        _poogieVersionConnector = poogieVersionConnector;
-        _bodyNavigator = bodyNavigator;
-        _overlay = new OverlayManager(dispatcher, new HotkeyServiceMock(), config)
-        {
-            IsGameFocused = true
-        };
-
-        _mockers = mockers;
-    }
-
     public void MockEnabled()
     {
-        foreach (IWidgetMocker mocker in _mockers)
+        foreach (IWidgetMocker mocker in mockers)
             AttachAndRun(mocker.Setting, (_) =>
             {
                 if (!_views.ContainsKey(mocker))
@@ -68,9 +48,9 @@ internal class WidgetMocksProvider
                 _settings.Remove(view.Context.ViewModel.Settings);
             });
 
-        AttachAndRun(_config.Development.IsOverlayManagerDebugEnabled, (enabled) =>
+        AttachAndRun(config.Development.IsOverlayManagerDebugEnabled, (enabled) =>
         {
-            _dispatcher.Invoke(() =>
+            dispatcher.Invoke(() =>
             {
                 if (!enabled)
                     return;
@@ -79,13 +59,13 @@ internal class WidgetMocksProvider
                 {
                     DataContext = new DebugOverlayManagerViewModel(
                         manager: _overlay,
-                        configurationAdapter: _configurationAdapter,
-                        poogieVersionConnector: _poogieVersionConnector,
-                        bodyNavigator: _bodyNavigator,
+                        configurationAdapter: configurationAdapter,
+                        poogieVersionConnector: poogieVersionConnector,
+                        bodyNavigator: bodyNavigator,
                         settings: _settings
                     )
                 };
-                view.Closed += (_, __) => _config.Development.IsOverlayManagerDebugEnabled.Value = false;
+                view.Closed += (_, __) => config.Development.IsOverlayManagerDebugEnabled.Value = false;
                 view.Show();
             });
         });

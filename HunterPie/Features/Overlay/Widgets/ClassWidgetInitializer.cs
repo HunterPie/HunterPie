@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture.Overlay;
-using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
 using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Classes;
@@ -12,22 +10,24 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class ClassWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class ClassWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
-    private IContextHandler? _handler;
+    private ClassWidgetContextHandler? _handler;
     private WidgetView? _view;
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterRise |
         GameProcessType.MonsterHunterWorld;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        IWidgetSettings config = ClientConfigHelper.DeferOverlayConfig(context.Process.Type, it => it.LongSwordWidget);
-
-        var viewModel = new ClassViewModel(config);
+        var viewModel = new ClassViewModel(config.LongSwordWidget);
         _handler = new ClassWidgetContextHandler(
             context: context,
             viewModel: viewModel
@@ -38,7 +38,7 @@ internal class ClassWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();

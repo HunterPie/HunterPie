@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
-using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
 using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Clock;
@@ -12,11 +10,15 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-public class ClockWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+public class ClockWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
-    private IContextHandler? _handler;
+    private ClockWidgetContextHandler? _handler;
     private WidgetView? _view;
 
     public GameProcessType SupportedGames =>
@@ -24,17 +26,12 @@ public class ClockWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        ClockWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            game: context.Process.Type,
-            (cfg) => cfg.ClockWidget
-        );
-
-        if (!config.Initialize)
+        if (!config.ClockWidget.Initialize)
             return Task.CompletedTask;
 
-        var viewModel = new ClockViewModel(config);
+        var viewModel = new ClockViewModel(config.ClockWidget);
 
         _handler = new ClockWidgetContextHandler(
             context: context,
@@ -46,7 +43,7 @@ public class ClockWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();

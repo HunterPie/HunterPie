@@ -12,15 +12,13 @@ namespace HunterPie.Internal.Initializers;
 internal class RemoteConfigSyncInitializer(
     IRemoteAccountConfigUseCase remoteConfigService,
     RemoteConfigSyncService configSyncService
-        ) : IInitializer
+) : IInitializer
 {
-    private readonly IRemoteAccountConfigUseCase _remoteConfigService = remoteConfigService;
-    private readonly RemoteConfigSyncService _configSyncService = configSyncService;
 
     public async Task Init()
     {
-        await _remoteConfigService.Download();
+        await remoteConfigService.Download();
 
-        _configSyncService.Start();
+        configSyncService.Start();
     }
 }

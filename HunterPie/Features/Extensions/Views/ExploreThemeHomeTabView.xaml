@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="HunterPie.Features.Extensions.Views.ExploreThemeHomeTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HunterPie.Features.Extensions.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Extensions.ViewModels"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             d:DataContext="{d:DesignInstance viewModels:ExploreThemeHomeTabViewModel}"
+             d:DesignHeight="450"
+             d:DesignWidth="917"
+             mc:Ignorable="d">
+	<Grid Margin="5">
+		<ItemsControl d:ItemsSource="{d:SampleData ItemCount=10}"
+		              ItemsSource="{Binding Themes, Mode=OneTime}">
+			<ItemsControl.Template>
+				<ControlTemplate>
+					<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
+						<viewer:AutoWrapPanel IsItemsHost="True"
+						                      ItemHeight="250"
+						                      MinItemWidth="300" />
+					</viewer:SmoothScrollViewer>
+				</ControlTemplate>
+			</ItemsControl.Template>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<local:ThemeCardView Margin="2" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
+</UserControl>

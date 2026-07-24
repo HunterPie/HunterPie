@@ -12,7 +12,9 @@ namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountPasswordResetFlowViewModel(
     PoogieAccountConnector accountConnector,
-    ILocalizationRepository localizationRepository) : ViewModel
+    ILocalizationRepository localizationRepository,
+    INotificationService notificationService
+) : ViewModel
 {
 
     public bool IsRequestingCode { get; set => SetValue(ref field, value); }
@@ -41,7 +43,7 @@ internal class AccountPasswordResetFlowViewModel(
                 Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
-            await NotificationService.Show(options);
+            await notificationService.Show(options);
             return;
         }
 
@@ -53,7 +55,7 @@ internal class AccountPasswordResetFlowViewModel(
             ).Replace("{Email}", Email),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        await NotificationService.Show(successOptions);
+        await notificationService.Show(successOptions);
         HasCodeBeenSent = true;
     }
 
@@ -79,7 +81,7 @@ internal class AccountPasswordResetFlowViewModel(
                 Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
-            await NotificationService.Show(errorOptions);
+            await notificationService.Show(errorOptions);
 
             return;
         }
@@ -90,7 +92,7 @@ internal class AccountPasswordResetFlowViewModel(
             Description: localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_SUCCESS_STRING']"),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        await NotificationService.Show(successOptions);
+        await notificationService.Show(successOptions);
 
         NavigateToLoginFlow();
     }

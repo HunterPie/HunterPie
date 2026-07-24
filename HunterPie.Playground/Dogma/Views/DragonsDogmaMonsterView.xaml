@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="HunterPie.Playground.Dogma.Views.DragonsDogmaMonsterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:components="clr-namespace:HunterPie.Playground.Dogma.Components"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HunterPie.Playground.Dogma.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:HunterPie.Playground.Dogma.ViewModels"
+             d:DataContext="{d:DesignInstance viewmodels:DragonsDogmaMonsterViewModel}"
+             mc:Ignorable="d">
+	<Grid d:Width="800"
+	      RowDefinitions="Auto,7,Auto">
+		<TextBlock Grid.Row="0"
+		           Margin="0,0,0,2"
+		           HorizontalAlignment="Center"
+		           d:Text="Monster Name"
+		           FontFamily="Segoe UI"
+		           Foreground="White"
+		           Text="{Binding Name, Mode=OneWay}" />
+
+		<components:BossHealthBar Grid.Row="1"
+		                          d:Current="10"
+		                          d:Max="100"
+		                          Current="{Binding Health, Mode=OneWay}"
+		                          Max="{Binding MaxHealth, Mode=OneWay}" />
+
+		<ItemsControl Grid.Row="2"
+		              d:ItemsSource="{d:SampleData ItemCount=50}"
+		              ItemsSource="{Binding Units, Mode=OneTime}">
+			<ItemsControl.Template>
+				<ControlTemplate>
+					<WrapPanel IsItemsHost="True"
+					           Orientation="Horizontal" />
+				</ControlTemplate>
+			</ItemsControl.Template>
+
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="viewmodels:UnitViewModel">
+					<components:HealthBarUnit Width="12"
+					                          Height="12"
+					                          Margin="3"
+					                          IsFull="{Binding Value, Mode=OneWay}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
+</UserControl>

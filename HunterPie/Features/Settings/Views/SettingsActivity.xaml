@@ -1,0 +1,313 @@
+﻿<architecture:Activity x:Class="HunterPie.Features.Settings.Views.SettingsActivity"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+                       xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+                       xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:gl="clr-namespace:System.Globalization;assembly=System.Runtime"
+                       xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+                       xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
+                       xmlns:localPresentation="clr-namespace:HunterPie.Features.Settings.Presentation"
+                       xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:models="clr-namespace:HunterPie.UI.Settings.Models;assembly=HunterPie.UI"
+                       xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation;assembly=HunterPie.UI"
+                       xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels;assembly=HunterPie.UI"
+                       xmlns:textBox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+                       xmlns:viewModels="clr-namespace:HunterPie.Features.Settings.ViewModels"
+                       xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+                       xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
+                       d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
+                       d:DesignHeight="450"
+                       d:DesignWidth="800"
+                       Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+                       Loaded="OnLoaded"
+                       mc:Ignorable="d">
+	<architecture:Activity.Resources>
+		<converters:IconResolver x:Key="IconResolver" />
+		<converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter" />
+		<presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector" />
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<visibilities:IsEmptyToVisibilityConverter x:Key="IsEmptyToVisibilityConverter" />
+
+		<DataTemplate x:Key="CategoryHeaderTemplate"
+		              DataType="{x:Type viewModels:ConfigurationCategoryTab}">
+			<buttons:TabItem Title="{Binding Category.Name, Mode=OneTime}"
+			                 Margin="5,2.5"
+			                 Description="{Binding Category.Description, Mode=OneTime}"
+			                 FontSize="13"
+			                 Icon="{Binding Category.Icon, Mode=OneTime, Converter={StaticResource IconResolver}}" />
+		</DataTemplate>
+		<DataTemplate x:Key="TitleHeaderTemplate"
+		              DataType="{x:Type viewModels:ConfigurationCategoryTitle}">
+			<TextBlock Margin="5"
+			           FontSize="13"
+			           FontWeight="Medium"
+			           PreviewMouseDown="OnTitleClick"
+			           Text="{Binding Title, Mode=OneWay}" />
+		</DataTemplate>
+
+		<localPresentation:ConfigurationCategoryTemplateSelector x:Key="ConfigurationCategoryTemplateSelector"
+		                                                         TabTemplate="{StaticResource CategoryHeaderTemplate}"
+		                                                         TitleTemplate="{StaticResource TitleHeaderTemplate}" />
+
+		<!--  Version fetch templates  -->
+		<DataTemplate x:Key="LoadingTemplate">
+			<StackPanel Orientation="Horizontal">
+				<loading:CircleLoading Width="15"
+				                       Height="15"
+				                       HorizontalAlignment="Left" />
+				<TextBlock Margin="5,0,0,0"
+				           VerticalAlignment="Center"
+				           FontSize="13"
+				           FontWeight="Medium"
+				           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+				           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_IN_PROGRESS_VERSION&quot;]'}" />
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate x:Key="LatestVersionTemplate">
+			<StackPanel Orientation="Horizontal">
+				<image:Icon Width="20"
+				            Height="20"
+				            Foreground="{DynamicResource Brushes.HunterPie.Success}"
+				            Image="{DynamicResource ICON_CHECKMARK_GREEN}" />
+				<TextBlock Margin="5,0,0,0"
+				           VerticalAlignment="Center"
+				           FontSize="13"
+				           FontWeight="Medium"
+				           Foreground="{DynamicResource Brushes.HunterPie.Success}"
+				           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}" />
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ErrorVersionTemplate">
+			<buttons:Button Padding="2"
+			                HorizontalAlignment="Left"
+			                VerticalAlignment="Center"
+			                Click="OnRetryVersionFetchClick"
+			                CornerRadius="5">
+				<StackPanel Margin="0,0,10,0"
+				            Orientation="Horizontal">
+					<image:Icon Width="20"
+					            Height="20"
+					            Foreground="{DynamicResource Brushes.HunterPie.Error}"
+					            Image="{DynamicResource ICON_ERROR_MASK}" />
+					<TextBlock Margin="5,0,0,0"
+					           VerticalAlignment="Center"
+					           FontSize="13"
+					           FontWeight="Medium"
+					           Foreground="{DynamicResource Brushes.HunterPie.Error}"
+					           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_FAILED_VERSION&quot;]'}" />
+				</StackPanel>
+			</buttons:Button>
+		</DataTemplate>
+
+		<DataTemplate x:Key="NeedsUpdateVersionTemplate">
+			<buttons:Button Padding="10,5"
+			                HorizontalAlignment="Left"
+			                VerticalAlignment="Center"
+			                Click="OnDownloadVersionClick"
+			                CornerRadius="5">
+				<StackPanel Orientation="Horizontal">
+					<image:Icon Width="20"
+					            Height="20"
+					            Foreground="{DynamicResource Brushes.HunterPie.Warning}"
+					            Image="{DynamicResource ICON_DOWNLOAD_YELLOW}" />
+					<TextBlock Margin="5,0,0,0"
+					           VerticalAlignment="Center"
+					           FontSize="13"
+					           FontWeight="Medium"
+					           Foreground="{DynamicResource Brushes.HunterPie.Warning}"
+					           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}" />
+				</StackPanel>
+			</buttons:Button>
+		</DataTemplate>
+
+		<localPresentation:UpdateStatusTemplateSelector x:Key="UpdateStatusTemplateSelector"
+		                                                ErrorTemplate="{StaticResource ErrorVersionTemplate}"
+		                                                LatestTemplate="{StaticResource LatestVersionTemplate}"
+		                                                LoadingTemplate="{StaticResource LoadingTemplate}"
+		                                                NeedsUpdateTemplate="{StaticResource NeedsUpdateVersionTemplate}" />
+
+		<DataTemplate x:Key="PanelTemplate"
+		              DataType="{x:Type viewModels:ConfigurationCategoryTab}">
+			<ItemsControl ItemsSource="{Binding Category.Groups, Mode=OneWay}">
+				<ItemsControl.Template>
+					<ControlTemplate>
+						<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
+							<!--  TODO: Add hooks for animations  -->
+							<VirtualizingStackPanel CanVerticallyScroll="True"
+							                        IsItemsHost="True"
+							                        VirtualizationMode="Recycling" />
+						</viewer:SmoothScrollViewer>
+					</ControlTemplate>
+				</ItemsControl.Template>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type models:ConfigurationGroup}">
+						<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+						        BorderThickness="1"
+						        Margin="5,5"
+						        Padding="5"
+						        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+						        CornerRadius="5">
+							<StackPanel Orientation="Vertical">
+								<Grid Margin="0,0,10,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<TextBlock Grid.Column="0"
+									           Margin="5"
+									           FontSize="15"
+									           FontWeight="Medium"
+									           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+									           Text="{Binding Name, Mode=OneTime}" />
+									<Separator Grid.Column="1"
+									           Background="{DynamicResource Brushes.HunterPie.Border}" />
+								</Grid>
+
+								<ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
+									<ItemsControl.Template>
+										<ControlTemplate>
+											<VirtualizingStackPanel CanVerticallyScroll="False"
+											                        IsItemsHost="True"
+											                        SizeChanged="OnSizeChanged" />
+										</ControlTemplate>
+									</ItemsControl.Template>
+
+									<ItemsControl.ItemTemplate>
+										<DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
+											<ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
+											                  Loaded="OnSettingPropertyLoaded"
+											                  Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+												<ContentPresenter.LayoutTransform>
+													<ScaleTransform ScaleY="0" />
+												</ContentPresenter.LayoutTransform>
+											</ContentPresenter>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</DataTemplate>
+	</architecture:Activity.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="80" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Border Grid.Row="0"
+		        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+		        BorderThickness="1,1,1,1"
+		        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+		        CornerRadius="5,5,0,0">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="1.3*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="1.2*" />
+				</Grid.RowDefinitions>
+
+				<!--  Top section  -->
+				<ContentPresenter Grid.Row="0"
+				                  Grid.Column="0"
+				                  Grid.ColumnSpan="2"
+				                  Margin="8,0,0,0"
+				                  Content="{Binding UpdateStatus, Mode=OneWay}"
+				                  ContentTemplateSelector="{StaticResource UpdateStatusTemplateSelector}" />
+
+				<!--  Synchronization  -->
+				<StackPanel Grid.Row="0"
+				            Grid.Column="2"
+				            Margin="5,0"
+				            HorizontalAlignment="Right"
+				            Orientation="Horizontal">
+					<image:Icon Width="15"
+					            Height="{Binding Width, RelativeSource={RelativeSource Self}, Mode=OneWay}"
+					            Margin="5"
+					            VerticalAlignment="Center"
+					            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+					            Image="{DynamicResource Icons.Refresh}" />
+					<TextBlock HorizontalAlignment="Right"
+					           VerticalAlignment="Center"
+					           FontSize="13"
+					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}">
+						<Run Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;CONFIGURATION_SYNC_AT_STRING&quot;]'}" />
+						<Run d:Text="00/00/0000 00:00"
+						     Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+						     Text="{Binding SynchronizedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}" />
+					</TextBlock>
+				</StackPanel>
+
+				<!--  Game configuration  -->
+				<ComboBox Grid.Row="1"
+				          Grid.Column="0"
+				          Grid.ColumnSpan="2"
+				          Margin="5"
+				          ItemsSource="{Binding ConfigurableGames, Mode=OneTime}"
+				          SelectedItem="{Binding SelectedGameConfiguration.Value, Mode=TwoWay}"
+				          SelectionChanged="OnSelectionChanged"
+				          Visibility="{Binding ConfigurableGames, Mode=OneTime, Converter={StaticResource IsEmptyToVisibilityConverter}}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<!--  Search  -->
+				<textBox:SearchTextBox Grid.Row="1"
+				                       Grid.Column="2"
+				                       Margin="5"
+				                       OnSearchTextChanged="OnSearchTextChanged" />
+			</Grid>
+		</Border>
+
+		<TabControl Grid.Row="1"
+		            d:ItemsSource="{d:SampleData ItemCount=5}"
+		            ContentTemplate="{StaticResource PanelTemplate}"
+		            ItemTemplateSelector="{StaticResource ConfigurationCategoryTemplateSelector}"
+		            ItemsSource="{Binding Categories, Mode=OneWay}"
+		            SelectedIndex="{Binding CurrentTabIndex, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+		            TabStripPlacement="Left">
+			<TabControl.Template>
+				<ControlTemplate TargetType="TabControl">
+					<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+					        BorderThickness="1,0,1,1"
+					        ClipToBounds="True"
+					        CornerRadius="0,0,5,5">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="1*" />
+							</Grid.ColumnDefinitions>
+
+							<viewer:SmoothScrollViewer Grid.Column="0"
+							                           Margin="0,0,0,5"
+							                           Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+							                           VerticalScrollBarVisibility="Auto">
+								<TabPanel x:Name="HeaderPanel"
+								          IsItemsHost="True" />
+							</viewer:SmoothScrollViewer>
+							<ContentPresenter x:Name="PART_SelectedContentHost"
+							                  Grid.Column="1"
+							                  Margin="{TemplateBinding Padding}"
+							                  ContentSource="SelectedContent"
+							                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</TabControl.Template>
+		</TabControl>
+	</Grid>
+</architecture:Activity>

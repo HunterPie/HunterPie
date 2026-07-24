@@ -1,8 +1,8 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Entity;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Architecture.Overlay;
@@ -18,7 +18,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetInitializer
+internal class SpecializedToolWidgetInitializer(
+    IContext context,
+    IOverlay overlay,
+    OverlayConfig config
+) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
@@ -28,29 +32,19 @@ internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetIniti
         GameProcessType.MonsterHunterWorld |
         GameProcessType.MonsterHunterWilds;
 
-    public Task LoadAsync(IContext context)
+    public Task LoadAsync()
     {
-        SpecializedToolWidgetConfig[] configs =
-        {
-            ClientConfigHelper.DeferOverlayConfig(
-                game: context.Process.Type,
-                deferDelegate: cfg => cfg.PrimarySpecializedToolWidget
-            ),
-            ClientConfigHelper.DeferOverlayConfig(
-                game: context.Process.Type,
-                deferDelegate: cfg => cfg.SecondarySpecializedToolWidget
-            )
-        };
+        SpecializedToolWidgetConfig[] configs = [config.PrimarySpecializedToolWidget, config.SecondarySpecializedToolWidget];
 
         for (int i = 0; i < configs.Length; i++)
         {
-            SpecializedToolWidgetConfig config = configs[i];
+            SpecializedToolWidgetConfig widgetConfig = configs[i];
 
-            if (!config.Initialize)
+            if (!widgetConfig.Initialize)
                 continue;
 
             var viewModel = new SpecializedToolViewModelV2(
-                settings: config
+                settings: widgetConfig
             );
             ISpecializedTool? tool = GetSpecializedToolByGame(context, i);
 
@@ -61,7 +55,7 @@ internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetIniti
                 context: context,
                 tool: tool,
                 viewModel: viewModel,
-                config: config
+                config: widgetConfig
             );
 
             controller.HookEvents();
@@ -73,7 +67,7 @@ internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetIniti
         return Task.CompletedTask;
     }
 
-    public void Unload()
+    public void Dispose()
     {
         foreach ((IContextHandler handler, WidgetView view) in _handlers)
         {

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Versions;
+﻿using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Versions;
 using HunterPie.Core.Observability.Logging;
 using System;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Threading;
 namespace HunterPie.Core.Client;
 
 #nullable enable
+[Obsolete("ClientConfig will be removed in a later release, use dependency injection instead with IConfiguration")]
 public static class ClientConfig
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
@@ -15,7 +17,7 @@ public static class ClientConfig
 
     private static readonly Lazy<V5Config> LazyConfig = new(() => new V5Config(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static V5Config Config => LazyConfig.Value;
+    public static IConfiguration Config => LazyConfig.Value;
 
     internal static void Initialize()
     {

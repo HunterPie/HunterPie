@@ -11,7 +11,8 @@ namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountRegisterFlowViewModel(
     PoogieAccountConnector accountConnector,
-    ILocalizationRepository localizationRepository
+    ILocalizationRepository localizationRepository,
+    INotificationService notificationService
 ) : ViewModel
 {
     public string Username
@@ -73,7 +74,7 @@ internal class AccountRegisterFlowViewModel(
                 Description: localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime: TimeSpan.FromSeconds(10)
             );
-            await NotificationService.Show(options);
+            await notificationService.Show(options);
 
             return;
         }
@@ -85,7 +86,7 @@ internal class AccountRegisterFlowViewModel(
                 .Replace("{Email}", register.Response!.Email),
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        await NotificationService.Show(successOptions);
+        await notificationService.Show(successOptions);
     }
 
     private void VerifyIfCanRegister() => CanRegister = Username.Length > 0 && Email.Length > 0 && Password.Length > 0;

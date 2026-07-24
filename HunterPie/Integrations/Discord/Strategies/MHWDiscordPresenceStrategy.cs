@@ -12,18 +12,17 @@ namespace HunterPie.Integrations.Discord.Strategies;
 internal class MHWDiscordPresenceStrategy(
     DiscordRichPresence configuration,
     ILocalizationRepository localizationRepository,
-    IContext context) : IDiscordRichPresenceStrategy
+    IContext context
+) : IDiscordRichPresenceStrategy
 {
-    private readonly DiscordRichPresence _configuration = configuration;
     private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
     private readonly IScopedLocalizationRepository _stageLocalizationRepository = localizationRepository.WithScope("//Strings/Stages/World/Stage");
-    private readonly IContext _context = context;
 
     public string AppId => "567152028070051859";
 
     public void Update(RichPresence presence)
     {
-        if (_context.Game.Player is not MHWPlayer player)
+        if (context.Game.Player is not MHWPlayer player)
             return;
 
         string description = BuildDescription();
@@ -43,27 +42,27 @@ internal class MHWDiscordPresenceStrategy(
                 SmallImageKey = player.Weapon.Id != Weapon.None
                     ? $"weap{(int)player.Weapon.Id}"
                     : "hunter-rank",
-                SmallImageText = _configuration.ShowCharacterInfo.Value switch
+                SmallImageText = configuration.ShowCharacterInfo.Value switch
                 {
                     true => _localizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
-                        .Replace("{Character}", _context.Game.Player.Name)
-                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
-                        .Replace("{MasterRank}", _context.Game.Player.MasterRank.ToString()),
+                        .Replace("{Character}", context.Game.Player.Name)
+                        .Replace("{HighRank}", context.Game.Player.HighRank.ToString())
+                        .Replace("{MasterRank}", context.Game.Player.MasterRank.ToString()),
                     _ => null
                 }
             })
             .WithParty(new Party
             {
-                ID = _context.Game.Player.Name,
-                Max = _context.Game.Player.Party.MaxSize,
-                Size = _context.Game.Player.Party.Size,
+                ID = context.Game.Player.Name,
+                Max = context.Game.Player.Party.MaxSize,
+                Size = context.Game.Player.Party.Size,
                 Privacy = Party.PrivacySetting.Public
             });
     }
 
     private string BuildDescription()
     {
-        string localizationStateId = (Stage)_context.Game.Player.StageId switch
+        string localizationStateId = (Stage)context.Game.Player.StageId switch
         {
             Stage.MainMenu => "DRPC_STATE_MAIN_MENU",
 
@@ -82,12 +81,12 @@ internal class MHWDiscordPresenceStrategy(
             _ => "DRPC_STATE_EXPLORING"
         };
 
-        IMonster? targetMonster = _context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
+        IMonster? targetMonster = context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
 
         if (targetMonster is not { })
             return _localizationRepository.FindStringBy(localizationStateId);
 
-        string descriptionString = _configuration.ShowMonsterHealth
+        string descriptionString = configuration.ShowMonsterHealth
             ? "DRPC_STATE_HUNTING"
             : "DRPC_STATE_HUNTING_NO_HEALTH";
 
@@ -98,7 +97,7 @@ internal class MHWDiscordPresenceStrategy(
 
     private string BuildState()
     {
-        string localizationId = _context.Game.Player.Party.Size <= 1
+        string localizationId = context.Game.Player.Party.Size <= 1
             ? "DRPC_PARTY_STATE_SOLO_STRING"
             : "DRPC_PARTY_STATE_GROUP_STRING";
 

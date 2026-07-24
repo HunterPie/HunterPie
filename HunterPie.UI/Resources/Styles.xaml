@@ -734,7 +734,7 @@
 					        Background="{TemplateBinding Background}"
 					        CornerRadius="5">
 						<TextBlock FontFamily="{DynamicResource Font.Default}"
-						           FontSize="13"
+						           FontSize="{TemplateBinding FontSize}"
 						           Foreground="{TemplateBinding Foreground}"
 						           Text="{TemplateBinding Label}" />
 					</Border>

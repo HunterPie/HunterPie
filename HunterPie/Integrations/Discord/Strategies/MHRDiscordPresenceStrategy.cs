@@ -13,12 +13,11 @@ namespace HunterPie.Integrations.Discord.Strategies;
 internal class MHRDiscordPresenceStrategy(
     DiscordRichPresence configuration,
     ILocalizationRepository localizationRepository,
-    IContext context) : IDiscordRichPresenceStrategy
+    IContext context
+) : IDiscordRichPresenceStrategy
 {
-    private readonly DiscordRichPresence _configuration = configuration;
     private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
     private readonly IScopedLocalizationRepository _stageLocalizationRepository = localizationRepository.WithScope("//Strings/Stages/Rise/Stage");
-    private readonly IContext _context = context;
 
     public string AppId => "932399108017242182";
 
@@ -26,7 +25,7 @@ internal class MHRDiscordPresenceStrategy(
     {
         string description = BuildDescription();
         string state = BuildState();
-        string stageId = _context.Game.Player.StageId.ToString();
+        string stageId = context.Game.Player.StageId.ToString();
         string stageIdName = _stageLocalizationRepository.FindStringBy(stageId);
         bool isUnmappedStage = stageIdName.StartsWith("Unknown");
 
@@ -38,35 +37,35 @@ internal class MHRDiscordPresenceStrategy(
                 LargeImageKey = isUnmappedStage switch
                 {
                     true => "unknown",
-                    _ => _context.Game.Player.StageId.ToImageKey()
+                    _ => context.Game.Player.StageId.ToImageKey()
                 },
                 LargeImageText = stageIdName,
-                SmallImageKey = _context.Game.Player.Weapon.Id switch
+                SmallImageKey = context.Game.Player.Weapon.Id switch
                 {
                     Weapon.None => null,
-                    _ => Enum.GetName(typeof(Weapon), _context.Game.Player.Weapon.Id)?.ToLower() ?? "unknown"
+                    _ => Enum.GetName(typeof(Weapon), context.Game.Player.Weapon.Id)?.ToLower() ?? "unknown"
                 },
-                SmallImageText = _configuration.ShowCharacterInfo.Value switch
+                SmallImageText = configuration.ShowCharacterInfo.Value switch
                 {
                     true => _localizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
-                        .Replace("{Character}", _context.Game.Player.Name)
-                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
-                        .Replace("{MasterRank}", _context.Game.Player.MasterRank.ToString()),
+                        .Replace("{Character}", context.Game.Player.Name)
+                        .Replace("{HighRank}", context.Game.Player.HighRank.ToString())
+                        .Replace("{MasterRank}", context.Game.Player.MasterRank.ToString()),
                     _ => null
                 }
             })
             .WithParty(new Party
             {
-                ID = _context.Game.Player.Name,
-                Max = _context.Game.Player.Party.MaxSize,
-                Size = _context.Game.Player.Party.Size,
+                ID = context.Game.Player.Name,
+                Max = context.Game.Player.Party.MaxSize,
+                Size = context.Game.Player.Party.Size,
                 Privacy = Party.PrivacySetting.Public
             });
     }
 
     private string BuildDescription()
     {
-        string localizationStateId = _context.Game.Player.StageId switch
+        string localizationStateId = context.Game.Player.StageId switch
         {
             -2 => "DRPC_STATE_LOADING",
             -1 => "DRPC_STATE_MAIN_MENU",
@@ -77,12 +76,12 @@ internal class MHRDiscordPresenceStrategy(
             _ => "DRPC_STATE_EXPLORING"
         };
 
-        IMonster? targetMonster = _context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
+        IMonster? targetMonster = context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
 
         if (targetMonster is not { })
             return _localizationRepository.FindStringBy(localizationStateId);
 
-        string descriptionString = _configuration.ShowMonsterHealth
+        string descriptionString = configuration.ShowMonsterHealth
             ? "DRPC_STATE_HUNTING"
             : "DRPC_STATE_HUNTING_NO_HEALTH";
 
@@ -93,7 +92,7 @@ internal class MHRDiscordPresenceStrategy(
 
     private string BuildState()
     {
-        string localizationId = _context.Game.Player.Party.Size <= 1
+        string localizationId = context.Game.Player.Party.Size <= 1
             ? "DRPC_PARTY_STATE_SOLO_STRING"
             : "DRPC_PARTY_STATE_GROUP_STRING";
 

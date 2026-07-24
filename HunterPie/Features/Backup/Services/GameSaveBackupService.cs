@@ -20,30 +20,25 @@ internal class GameSaveBackupService(
     AccountConfig accountConfig,
     PoogieBackupConnector connector,
     IBackupStrategy[] strategies,
-    ILocalRegistryAsync localRegistryAsync) : IBackupService
+    ILocalRegistryAsync localRegistryAsync
+) : IBackupService
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-
-    private readonly IAccountUseCase _accountUseCase = accountUseCase;
-    private readonly AccountConfig _accountConfig = accountConfig;
-    private readonly PoogieBackupConnector _connector = connector;
-    private readonly IBackupStrategy[] _strategies = strategies;
-    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
 
     private const string LAST_BACKUP_AT_KEY = "lastBackupAt:";
     private const string WAS_LAST_BACKUP_SUCCESS_KEY = "wasLastBackupSuccessful:";
 
     public async Task ExecuteAsync(GameType gameType)
     {
-        bool isLoggedIn = await _accountUseCase.IsValidSessionAsync();
+        bool isLoggedIn = await accountUseCase.IsValidSessionAsync();
 
         if (!isLoggedIn)
             return;
 
-        if (!_accountConfig.IsBackupEnabled)
+        if (!accountConfig.IsBackupEnabled)
             return;
 
-        PoogieResult<CanUploadBackupResponse> canUploadResult = await _connector.CanUploadBackupAsync();
+        PoogieResult<CanUploadBackupResponse> canUploadResult = await connector.CanUploadBackupAsync();
 
         if (canUploadResult.Response is not { CanUpload: true })
             return;
@@ -54,7 +49,7 @@ internal class GameSaveBackupService(
         if (!await CanBackupFilesAsync(gameType))
             return;
 
-        IBackupStrategy? strategy = _strategies.FirstOrDefault(strategy => strategy.Type == gameType.ToApiModel());
+        IBackupStrategy? strategy = strategies.FirstOrDefault(strategy => strategy.Type == gameType.ToApiModel());
 
         if (strategy is not { })
             throw new Exception($"{gameType} is not supported for backups");
@@ -65,7 +60,7 @@ internal class GameSaveBackupService(
 
         string backupFile = await strategy.PackFilesAsync(steamPath);
 
-        PoogieResult<BackupResponse> result = await _connector.UploadAsync(strategy.Type, backupFile);
+        PoogieResult<BackupResponse> result = await connector.UploadAsync(strategy.Type, backupFile);
 
         if (File.Exists(backupFile))
             try
@@ -82,18 +77,18 @@ internal class GameSaveBackupService(
 
         _logger.Debug($"Successfully uploaded save file {result.Response!.Id}");
 
-        await _localRegistryAsync.SetAsync(registryKey, DateTime.UtcNow.Ticks);
-        await _localRegistryAsync.SetAsync(successRegistryKey, true);
+        await localRegistryAsync.SetAsync(registryKey, DateTime.UtcNow.Ticks);
+        await localRegistryAsync.SetAsync(successRegistryKey, true);
     }
 
     private async Task<bool> CanBackupFilesAsync(GameType gameType)
     {
         string registryKey = $"{LAST_BACKUP_AT_KEY}{gameType}";
 
-        if (!await _localRegistryAsync.ExistsAsync(registryKey))
+        if (!await localRegistryAsync.ExistsAsync(registryKey))
             return true;
 
-        long lastBackupTicks = await _localRegistryAsync.GetAsync<long>(registryKey);
+        long lastBackupTicks = await localRegistryAsync.GetAsync<long>(registryKey);
 
         double timeSinceLastBackup = (DateTime.UtcNow - new DateTime(lastBackupTicks)).TotalHours;
 

@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.SideBar.ViewModels;
+﻿using HunterPie.UI.Architecture.Views;
+using HunterPie.UI.Client.Sidebar.Handler;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,6 +8,7 @@ namespace HunterPie.UI.SideBar.Views;
 /// <summary>
 /// Interaction logic for SideBarButtonView.xaml
 /// </summary>
+[View<NavigationHandler>]
 public partial class SideBarButtonView : UserControl
 {
     public SideBarButtonView()
@@ -15,10 +17,5 @@ public partial class SideBarButtonView : UserControl
     }
 
     private async void OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not ISideBarViewModel vm)
-            return;
-
-        await vm.ExecuteAsync();
-    }
+        => await ViewModel.ExecuteAsync();
 }
