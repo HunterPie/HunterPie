@@ -152,7 +152,7 @@ public sealed class MHRInsectGlaive(
     }
 
     [ScannableMethod]
-    private async Task GetKinsectData()
+    internal async Task GetKinsectData()
     {
         MHRInsectGlaiveDataStructure structure = await Memory.DerefAsync<MHRInsectGlaiveDataStructure>(
             address: AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
@@ -176,7 +176,7 @@ public sealed class MHRInsectGlaive(
     }
 
     [ScannableMethod]
-    private async Task GetKinsectStamina()
+    internal async Task GetKinsectStamina()
     {
         MHRKinsectStaminaStructure structure = await Memory.DerefAsync<MHRKinsectStaminaStructure>(
             address: AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
