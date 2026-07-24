@@ -2,7 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Entity;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Architecture.Overlay;

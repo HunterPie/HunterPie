@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace HunterPie.UI.Architecture;
+namespace HunterPie.UI.Architecture.Colors;
 
 public struct HslColor
 {

@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Extensions;
-using HunterPie.Playground.Dogma.Views;
 using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 

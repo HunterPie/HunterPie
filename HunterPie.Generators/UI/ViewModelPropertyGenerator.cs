@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace HunterPie.UI.Architecture.Views.Generators;
+namespace HunterPie.Generators.UI;
 
 #nullable enable
 [Generator]
