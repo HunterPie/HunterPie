@@ -5,77 +5,43 @@
              xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
-             Width="{DynamicResource HunterPie.SideBar.Width}"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             Width="72"
              d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
              d:DesignHeight="450"
              mc:Ignorable="d">
-	<UserControl.Effect>
-		<DropShadowEffect BlurRadius="10"
-		                  Direction="0"
-		                  Opacity="0.03"
-		                  RenderingBias="Quality" />
-	</UserControl.Effect>
-	<Grid>
-		<Rectangle x:Name="PART_HitTest"
-		           Width="50"
-		           HorizontalAlignment="Left"
-		           VerticalAlignment="Stretch"
-		           Fill="White"
-		           MouseEnter="OnMouseEnter">
-			<Rectangle.RenderTransform>
-				<ScaleTransform ScaleX="1" />
-			</Rectangle.RenderTransform>
-			<Rectangle.Style>
-				<Style TargetType="Rectangle">
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsMouseInside.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SideBarView}}}"
-						             Value="True">
-							<DataTrigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)">
-										<DoubleAnimation BeginTime="0:0:0.3"
-										                 To="6"
-										                 Duration="0:0:0.4">
-											<DoubleAnimation.EasingFunction>
-												<CubicEase />
-											</DoubleAnimation.EasingFunction>
-										</DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</DataTrigger.EnterActions>
-							<DataTrigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)">
-										<DoubleAnimation To="1"
-										                 Duration="0:0:0.3">
-											<DoubleAnimation.EasingFunction>
-												<CubicEase />
-											</DoubleAnimation.EasingFunction>
-										</DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</DataTrigger.ExitActions>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Rectangle.Style>
-		</Rectangle>
-		<Grid x:Name="PART_SideBar"
-		      Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
-		      IsHitTestVisible="False"
-		      MouseLeave="OnMouseLeave">
-			<Grid.OpacityMask>
-				<VisualBrush AlignmentX="Left"
-				             Stretch="None"
-				             Visual="{Binding ElementName=PART_HitTest}" />
-			</Grid.OpacityMask>
-			<ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<local:SideBarButtonView Height="40" />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</Grid>
+	<Grid Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
+		<ItemsControl d:ItemsSource="{d:SampleData ItemCount=5}"
+		              ItemsSource="{Binding Elements, Mode=OneTime}">
+			<ItemsControl.Template>
+				<ControlTemplate>
+					<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
+						<viewer:SmoothScrollViewer.OpacityMask>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Offset="0.0" Color="Transparent" />
+								<GradientStop Offset="0.05" Color="White" />
+								<GradientStop Offset="0.95" Color="White" />
+								<GradientStop Offset="1.0" Color="Transparent" />
+							</LinearGradientBrush>
+						</viewer:SmoothScrollViewer.OpacityMask>
+						<StackPanel Margin="0,15"
+						            Grid.IsSharedSizeScope="True"
+						            IsItemsHost="True"
+						            Orientation="Vertical" />
+					</viewer:SmoothScrollViewer>
+				</ControlTemplate>
+			</ItemsControl.Template>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition SharedSizeGroup="SharedGroup" />
+						</Grid.RowDefinitions>
+
+						<local:SideBarButtonView Margin="5,2.5" />
+					</Grid>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 	</Grid>
 </UserControl>
