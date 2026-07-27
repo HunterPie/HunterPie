@@ -6,24 +6,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
-             Width="72"
              d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
              d:DesignHeight="450"
              mc:Ignorable="d">
 	<Grid Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
+		<Grid.OpacityMask>
+			<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+				<GradientStop Offset="0.0" Color="Transparent" />
+				<GradientStop Offset="0.05" Color="White" />
+				<GradientStop Offset="0.95" Color="White" />
+				<GradientStop Offset="1.0" Color="Transparent" />
+			</LinearGradientBrush>
+		</Grid.OpacityMask>
 		<ItemsControl d:ItemsSource="{d:SampleData ItemCount=5}"
 		              ItemsSource="{Binding Elements, Mode=OneTime}">
 			<ItemsControl.Template>
 				<ControlTemplate>
 					<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
-						<viewer:SmoothScrollViewer.OpacityMask>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Offset="0.0" Color="Transparent" />
-								<GradientStop Offset="0.05" Color="White" />
-								<GradientStop Offset="0.95" Color="White" />
-								<GradientStop Offset="1.0" Color="Transparent" />
-							</LinearGradientBrush>
-						</viewer:SmoothScrollViewer.OpacityMask>
 						<StackPanel Margin="0,15"
 						            Grid.IsSharedSizeScope="True"
 						            IsItemsHost="True"
@@ -38,7 +37,9 @@
 							<RowDefinition SharedSizeGroup="SharedGroup" />
 						</Grid.RowDefinitions>
 
-						<local:SideBarButtonView Margin="5,2.5" />
+						<local:SideBarButtonView Width="40"
+						                         Height="40"
+						                         Margin="5,2.5" />
 					</Grid>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>

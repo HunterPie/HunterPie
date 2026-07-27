@@ -28,12 +28,23 @@
 		</Style.Resources>
 		<Setter Property="FontFamily" Value="{DynamicResource Font.Default}" />
 		<Setter Property="FontSize" Value="14" />
-		<Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}" />
 		<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}" />
-		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="OverridesDefaultStyle" Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToolTip">
+					<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+					        BorderThickness="1"
+					        Padding="10,5"
+					        Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+					        CornerRadius="5">
+						<ContentPresenter />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="MaxWidth" Value="350" />
-		<Setter Property="ToolTipService.InitialShowDelay" Value="1000" />
+		<Setter Property="ToolTipService.InitialShowDelay" Value="500" />
 		<Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
 		<Style.Triggers>
 			<Trigger Property="IsVisible" Value="True">

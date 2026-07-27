@@ -27,7 +27,8 @@
 	                VerticalContentAlignment="Stretch"
 	                Click="OnClick"
 	                CornerRadius="5"
-	                IsEnabled="{Binding State, Mode=OneWay, Converter={StaticResource SideBarButtonStateToBooleanConverter}}">
+	                IsEnabled="{Binding State, Mode=OneWay, Converter={StaticResource SideBarButtonStateToBooleanConverter}}"
+	                ToolTip="{Binding Label, Mode=OneWay}">
 		<buttons:Button.Style>
 			<Style TargetType="buttons:Button">
 				<Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}" />
@@ -39,35 +40,20 @@
 				</Style.Triggers>
 			</Style>
 		</buttons:Button.Style>
-		<Grid RowDefinitions="30,*">
-			<image:Icon Grid.Row="0"
-			            Margin="0,5"
+		<Grid>
+			<image:Icon Margin="10"
 			            d:Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
 			            d:Image="{DynamicResource ICON_HUNTERPIE}"
 			            Foreground="{Binding IsActive, Mode=OneWay, Converter={StaticResource ActiveColorResolver}}"
 			            Image="{Binding Icon, Mode=OneWay}" />
 
-			<TextBlock Grid.Row="1"
-			           Margin="2,0,2,5"
-			           HorizontalAlignment="Center"
-			           VerticalAlignment="Top"
-			           d:Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-			           d:Text="Button"
-			           FontSize="10"
-			           Foreground="{Binding IsActive, Mode=OneWay, Converter={StaticResource ActiveColorResolver}}"
-			           Text="{Binding Label, Mode=OneWay}"
-			           TextAlignment="Center"
-			           TextWrapping="Wrap" />
-
-			<Rectangle Grid.Row="0"
-			           Grid.RowSpan="2"
-			           Width="4"
-			           Margin="-2,10,0,10"
+			<Rectangle Width="8"
+			           Margin="-4,10,0,10"
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Stretch"
 			           Fill="{DynamicResource Blue@100}"
-			           RadiusX="2"
-			           RadiusY="2"
+			           RadiusX="4"
+			           RadiusY="4"
 			           Visibility="{Binding IsActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
 		</Grid>
 	</buttons:Button>
