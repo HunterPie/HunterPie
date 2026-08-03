@@ -352,6 +352,15 @@
 		</DrawingImage.Drawing>
 	</DrawingImage>
 
+	<DrawingImage x:Key="Icons.Link">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+				<GeometryDrawing Brush="White"
+				                 Geometry="F0 M24,24z M0,0z M19.902,4.098A3.75,3.75,0,0,0,14.598,4.098L10.098,8.598A3.75,3.75,0,0,0,11.133,14.635A0.75,0.75,0,0,1,10.487,15.988A5.25,5.25,0,0,1,9.038,7.538L13.538,3.038A5.25,5.25,0,1,1,20.962,10.462L19.205,12.219A0.75,0.75,0,1,1,18.145,11.159L19.902,9.402A3.75,3.75,0,0,0,19.902,4.098z M12.513,8.365A0.75,0.75,0,0,1,13.513,8.012A5.25,5.25,0,0,1,14.962,16.462L10.462,20.962A5.25,5.25,0,1,1,3.038,13.538L4.795,11.781A0.75,0.75,0,1,1,5.855,12.841L4.098,14.598A3.75,3.75,0,1,0,9.402,19.902L13.902,15.402A3.75,3.75,0,0,0,12.867,9.365A0.75,0.75,0,0,1,12.513,8.365z" />
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
+
 	<DrawingImage x:Key="Icons.Otomo">
 		<DrawingImage.Drawing>
 			<DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">

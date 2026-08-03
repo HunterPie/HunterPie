@@ -1,7 +1,7 @@
 ﻿using HunterPie.UI.Architecture;
 using HunterPie.UI.Client.Sidebar.Handler;
 using HunterPie.UI.SideBar.Services;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
@@ -9,5 +9,7 @@ internal class SideBarViewModel(
     ISideBarCollection collection
 ) : ViewModel
 {
-    public ObservableCollection<INavigationHandler> Elements { get; } = collection.Handlers;
+    public IReadOnlyCollection<NavigationHandler> Elements { get; } = collection.Handlers;
+
+    public IReadOnlyCollection<NavigationHandler> FixedElements { get; } = collection.FixedHandlers;
 }
