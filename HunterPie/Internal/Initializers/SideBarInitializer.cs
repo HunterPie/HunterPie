@@ -43,6 +43,12 @@ internal class SideBarInitializer(
                 [
                     dependencies.Get<DiscordNavigationHandler>(),
                     dependencies.Get<PatreonNavigationHandler>(),
+                    dependencies.Get<GitHubNavigationHandler>(),
+                    dependencies.Get<DiscordNavigationHandler>(),
+                    dependencies.Get<PatreonNavigationHandler>(),
+                    dependencies.Get<GitHubNavigationHandler>(),
+                    dependencies.Get<DiscordNavigationHandler>(),
+                    dependencies.Get<PatreonNavigationHandler>(),
                     dependencies.Get<GitHubNavigationHandler>()
                 ]
             ),

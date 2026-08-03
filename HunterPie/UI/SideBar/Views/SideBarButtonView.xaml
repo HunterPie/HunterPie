@@ -6,23 +6,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:handler="clr-namespace:HunterPie.UI.Client.Sidebar.Handler;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
              xmlns:resolvers="clr-namespace:HunterPie.UI.Architecture.Resolvers;assembly=HunterPie.UI"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
              d:DataContext="{d:DesignInstance handler:NavigationHandler}"
-             d:DesignHeight="50"
-             d:DesignWidth="50"
+             d:DesignHeight="40"
+             d:DesignWidth="40"
              MouseEnter="OnMouseEnter"
              MouseLeave="OnMouseLeave"
              mc:Ignorable="d">
 	<UserControl.Resources>
+		<CornerRadius x:Key="FixedButtonBorder">20</CornerRadius>
+		<CornerRadius x:Key="DefaultButtonBorder">5</CornerRadius>
+
 		<converters:IconResolver x:Key="IconResolver" />
 		<converters:LocalizationResolver x:Key="LocalizationResolver" />
 		<presentation:SideBarButtonStateToBooleanConverter x:Key="SideBarButtonStateToBooleanConverter" />
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter" />
+		<converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
 		<resolvers:BooleanResolver x:Key="ActiveColorResolver"
 		                           Falsy="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
 		                           Truthy="{StaticResource Blue@100}" />
+		<resolvers:BooleanResolver x:Key="FixedButtonBorderResolver"
+		                           Falsy="{StaticResource DefaultButtonBorder}"
+		                           Truthy="{StaticResource FixedButtonBorder}" />
 	</UserControl.Resources>
 	<Grid>
 		<Popup x:Name="PART_Popup"
@@ -93,7 +103,7 @@
 		                HorizontalContentAlignment="Stretch"
 		                VerticalContentAlignment="Stretch"
 		                Click="OnClick"
-		                CornerRadius="5"
+		                CornerRadius="{Binding IsFixed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SideBarButtonView}}, Converter={StaticResource FixedButtonBorderResolver}}"
 		                IsEnabled="{Binding State, Mode=OneWay, Converter={StaticResource SideBarButtonStateToBooleanConverter}}">
 			<buttons:Button.Style>
 				<Style TargetType="buttons:Button">
@@ -119,8 +129,19 @@
 				           VerticalAlignment="Stretch"
 				           Fill="{DynamicResource Blue@100}"
 				           RadiusX="4"
-				           RadiusY="4"
-				           Visibility="{Binding IsActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+				           RadiusY="4">
+					<Rectangle.Visibility>
+						<MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+							<Binding FallbackValue="False"
+							         Mode="OneWay"
+							         Path="IsActive" />
+							<Binding Converter="{StaticResource InvertBooleanConverter}"
+							         Mode="OneWay"
+							         Path="IsFixed"
+							         RelativeSource="{RelativeSource AncestorType={x:Type local:SideBarButtonView}}" />
+						</MultiBinding>
+					</Rectangle.Visibility>
+				</Rectangle>
 			</Grid>
 		</buttons:Button>
 	</Grid>

@@ -361,6 +361,23 @@
 		</DrawingImage.Drawing>
 	</DrawingImage>
 
+	<DrawingImage x:Key="Icons.Chevron.Right">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+				<GeometryDrawing Geometry="F1 M24,24z M0,0z M8.25,4.5L15.75,12 8.25,19.5">
+					<GeometryDrawing.Pen>
+						<Pen Brush="White"
+						     EndLineCap="Round"
+						     LineJoin="Round"
+						     MiterLimit="1"
+						     StartLineCap="Round"
+						     Thickness="1.5" />
+					</GeometryDrawing.Pen>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
+
 	<DrawingImage x:Key="Icons.Otomo">
 		<DrawingImage.Drawing>
 			<DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">

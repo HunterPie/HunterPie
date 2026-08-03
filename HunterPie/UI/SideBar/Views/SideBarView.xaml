@@ -4,11 +4,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
              xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
              d:DesignHeight="450"
              mc:Ignorable="d">
+	<UserControl.Resources>
+		<DataTemplate x:Key="DefaultSideBarButtonDataTemplate">
+			<local:SideBarButtonView Width="40"
+			                         Height="40"
+			                         Margin="0,0,0,2" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="ExpandableDataTemplate">
+			<local:SideBarExpandableButtonView Width="40"
+			                                   Height="40"
+			                                   Margin="0,0,0,2" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="FixedSideBarButtonDataTemplate">
+			<local:SideBarButtonView Width="40"
+			                         Height="40"
+			                         Margin="0,2,0,0"
+			                         IsFixed="True" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="FixedExpandableDataTemplate">
+			<local:SideBarExpandableButtonView Width="40"
+			                                   Height="40"
+			                                   Margin="0,2,0,0"
+			                                   IsFixed="True" />
+		</DataTemplate>
+
+		<presentation:NavigationHandlerDataTemplateSelector x:Key="NavigationHandlerDataTemplateSelector"
+		                                                    DefaultDataTemplate="{StaticResource DefaultSideBarButtonDataTemplate}"
+		                                                    GroupDataTemplate="{StaticResource ExpandableDataTemplate}" />
+
+		<presentation:NavigationHandlerDataTemplateSelector x:Key="FixedNavigationHandlerDataTemplateSelector"
+		                                                    DefaultDataTemplate="{StaticResource FixedSideBarButtonDataTemplate}"
+		                                                    GroupDataTemplate="{StaticResource FixedExpandableDataTemplate}" />
+	</UserControl.Resources>
 	<Grid Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
 	      RowDefinitions="*,Auto">
 		<Grid Grid.Row="0"
@@ -22,30 +58,17 @@
 				</LinearGradientBrush>
 			</Grid.OpacityMask>
 			<ItemsControl d:ItemsSource="{d:SampleData ItemCount=5}"
+			              ItemTemplateSelector="{StaticResource NavigationHandlerDataTemplateSelector}"
 			              ItemsSource="{Binding Elements, Mode=OneTime}">
 				<ItemsControl.Template>
 					<ControlTemplate>
 						<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
-							<StackPanel Margin="0,15"
-							            Grid.IsSharedSizeScope="True"
+							<StackPanel Margin="5,15"
 							            IsItemsHost="True"
 							            Orientation="Vertical" />
 						</viewer:SmoothScrollViewer>
 					</ControlTemplate>
 				</ItemsControl.Template>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition SharedSizeGroup="SharedGroup" />
-							</Grid.RowDefinitions>
-
-							<local:SideBarButtonView Width="40"
-							                         Height="40"
-							                         Margin="5,2.5" />
-						</Grid>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</Grid>
 
@@ -53,27 +76,14 @@
 		<ItemsControl Grid.Row="1"
 		              Margin="0,5"
 		              d:ItemsSource="{d:SampleData ItemCount=2}"
+		              ItemTemplateSelector="{StaticResource FixedNavigationHandlerDataTemplateSelector}"
 		              ItemsSource="{Binding FixedElements, Mode=OneTime}">
 			<ItemsControl.Template>
 				<ControlTemplate>
-					<StackPanel Grid.IsSharedSizeScope="True"
-					            IsItemsHost="True"
+					<StackPanel IsItemsHost="True"
 					            Orientation="Vertical" />
 				</ControlTemplate>
 			</ItemsControl.Template>
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition SharedSizeGroup="SharedGroup" />
-						</Grid.RowDefinitions>
-
-						<local:FixedSideBarButtonView Width="40"
-						                              Height="40"
-						                              Margin="5,2.5" />
-					</Grid>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
 		</ItemsControl>
 	</Grid>
 </UserControl>

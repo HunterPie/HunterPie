@@ -11,13 +11,22 @@ namespace HunterPie.UI.SideBar.Views;
 [View<NavigationHandler>]
 public partial class SideBarButtonView
 {
+    public bool IsFixed { get => (bool)GetValue(IsFixedProperty); set => SetValue(IsFixedProperty, value); }
+
+    // Using a DependencyProperty as the backing store for IsFixed.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IsFixedProperty =
+        DependencyProperty.Register(nameof(IsFixed), typeof(bool), typeof(SideBarButtonView), new PropertyMetadata(false));
+
     public SideBarButtonView()
     {
         InitializeComponent();
     }
 
     private async void OnClick(object sender, RoutedEventArgs e)
-        => await ViewModel.ExecuteAsync();
+    {
+        if (ViewModel is NavigationHandler.Action action)
+            await action.ExecuteAsync();
+    }
 
     private void OnMouseEnter(object sender, MouseEventArgs e)
     {

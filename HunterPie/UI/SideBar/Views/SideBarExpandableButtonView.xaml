@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="HunterPie.UI.SideBar.Views.SideBarExpandableButtonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation;assembly=HunterPie.UI"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:handler="clr-namespace:HunterPie.UI.Client.Sidebar.Handler;assembly=HunterPie.UI"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
+             xmlns:resolvers="clr-namespace:HunterPie.UI.Architecture.Resolvers;assembly=HunterPie.UI"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
+             d:DataContext="{d:DesignInstance handler:NavigationHandler+Group}"
+             d:DesignHeight="40"
+             d:DesignWidth="40"
+             MouseEnter="OnMouseEnter"
+             MouseLeave="OnMouseLeave"
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<CornerRadius x:Key="FixedButtonBorder">20</CornerRadius>
+		<CornerRadius x:Key="DefaultButtonBorder">5</CornerRadius>
+
+		<converters:IconResolver x:Key="IconResolver" />
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter" />
+		<converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+		<resolvers:BooleanResolver x:Key="FixedButtonBorderResolver"
+		                           Falsy="{StaticResource DefaultButtonBorder}"
+		                           Truthy="{StaticResource FixedButtonBorder}" />
+	</UserControl.Resources>
+	<Grid>
+		<Popup x:Name="PART_Popup"
+		       AllowsTransparency="True"
+		       MouseLeave="OnMouseLeave"
+		       Placement="Custom"
+		       PlacementTarget="{Binding ElementName=PART_Button}">
+			<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+			        BorderThickness="1"
+			        Width="200"
+			        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+			        CornerRadius="5"
+			        RenderTransformOrigin="0.5,0.5">
+				<Border.RenderTransform>
+					<ScaleTransform ScaleX="1" ScaleY="1" />
+				</Border.RenderTransform>
+				<Grid RowDefinitions="Auto,Auto">
+					<TextBlock Grid.Row="0"
+					           Margin="10,5"
+					           VerticalAlignment="Center"
+					           FontSize="14"
+					           FontWeight="Medium"
+					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+					           Text="{Binding Label, Mode=OneWay}" />
+
+					<Grid Grid.Row="1"
+					      Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
+						<Grid.OpacityMask>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Offset="0.0" Color="Transparent" />
+								<GradientStop Offset="0.05" Color="White" />
+								<GradientStop Offset="0.95" Color="White" />
+								<GradientStop Offset="1.0" Color="Transparent" />
+							</LinearGradientBrush>
+						</Grid.OpacityMask>
+						<ItemsControl MaxHeight="250"
+						              Margin="0,10"
+						              ItemsSource="{Binding Handlers, Mode=OneTime}">
+							<ItemsControl.Template>
+								<ControlTemplate>
+									<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
+										<StackPanel IsItemsHost="True"
+										            Orientation="Vertical" />
+									</viewer:SmoothScrollViewer>
+								</ControlTemplate>
+							</ItemsControl.Template>
+
+							<ItemsControl.ItemTemplate>
+								<DataTemplate DataType="{x:Type handler:NavigationHandler}">
+									<buttons:Button Height="40"
+									                Padding="0"
+									                HorizontalContentAlignment="Stretch"
+									                VerticalContentAlignment="Stretch"
+									                Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
+										<Grid Margin="5,0"
+										      ColumnDefinitions="40,*">
+											<image:Icon Grid.Column="0"
+											            Margin="10"
+											            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+											            Image="{Binding Icon, Mode=OneWay}" />
+
+											<TextBlock Grid.Column="1"
+											           VerticalAlignment="Center"
+											           FontSize="14"
+											           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+											           Text="{Binding Label, Mode=OneWay}" />
+										</Grid>
+									</buttons:Button>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</Grid>
+
+				</Grid>
+
+				<Border.Style>
+					<Style TargetType="Border">
+						<Style.Triggers>
+							<Trigger Property="IsVisible" Value="True">
+								<Trigger.EnterActions>
+									<BeginStoryboard>
+										<Storyboard>
+											<DoubleAnimation Storyboard.TargetProperty="Opacity"
+											                 From="0"
+											                 To="1"
+											                 Duration="0:0:0.25">
+												<DoubleAnimation.EasingFunction>
+													<QuadraticEase />
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+											<DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+											                 From="0.8"
+											                 To="1"
+											                 Duration="0:0:0.2">
+												<DoubleAnimation.EasingFunction>
+													<QuadraticEase />
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+											<DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+											                 From="0.8"
+											                 To="1"
+											                 Duration="0:0:0.2">
+												<DoubleAnimation.EasingFunction>
+													<QuadraticEase />
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+										</Storyboard>
+									</BeginStoryboard>
+								</Trigger.EnterActions>
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</Border.Style>
+			</Border>
+		</Popup>
+		<buttons:Button x:Name="PART_Button"
+		                Padding="0"
+		                HorizontalContentAlignment="Stretch"
+		                VerticalContentAlignment="Stretch"
+		                d:CornerRadius="{StaticResource FixedButtonBorder}"
+		                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+		                CornerRadius="{Binding IsFixed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SideBarExpandableButtonView}}, Converter={StaticResource FixedButtonBorderResolver}}"
+		                Cursor="Arrow"
+		                Loaded="OnButtonLoaded">
+			<Grid ColumnDefinitions="4*,2*">
+				<image:Icon Grid.Column="0"
+				            Margin="8,0,0,0"
+				            d:Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+				            d:Image="{DynamicResource Icons.Link}"
+				            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+				            Image="{Binding Icon, Mode=OneWay}" />
+
+				<image:Icon Grid.Column="1"
+				            Width="8"
+				            Height="8"
+				            Margin="2,0"
+				            HorizontalAlignment="Right"
+				            VerticalAlignment="Center"
+				            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+				            Image="{DynamicResource Icons.Chevron.Right}" />
+			</Grid>
+		</buttons:Button>
+	</Grid>
+</UserControl>

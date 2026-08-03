@@ -42,7 +42,7 @@ public abstract class NavigationHandler(
         string label,
         ImageSource icon,
         Type viewType
-    ) : NavigationHandler.Action(label, icon)
+    ) : Action(label, icon)
     {
         public Type ViewType { get; } = viewType;
 

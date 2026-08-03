@@ -111,10 +111,10 @@
     <Compile Update="UI\Main\Views\MainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\SideBar\Views\FixedSideBarButtonView.xaml.cs">
+    <Compile Update="UI\SideBar\Views\SideBarButtonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\SideBar\Views\SideBarButtonView.xaml.cs">
+    <Compile Update="UI\SideBar\Views\SideBarExpandableButtonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\SideBar\Views\SideBarView.xaml.cs">
