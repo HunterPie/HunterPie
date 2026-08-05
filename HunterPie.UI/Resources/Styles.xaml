@@ -262,7 +262,7 @@
 			      HorizontalAlignment="Center"
 			      VerticalAlignment="Center"
 			      Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
-			      Fill="{DynamicResource Brushes.HunterPie.Accent}" />
+			      Fill="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 		</Grid>
 		<ControlTemplate.Triggers>
 			<Trigger Property="ToggleButton.IsChecked" Value="True">
@@ -283,7 +283,7 @@
 			</Trigger>
 			<Trigger Property="IsSelected" Value="True">
 				<Setter Property="Background" Value="{DynamicResource Gray@400}" />
-				<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+				<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
@@ -312,7 +312,7 @@
 					<Setter Property="BorderThickness" Value="0" />
 					<Style.Triggers>
 						<Trigger Property="IsSelected" Value="True">
-							<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+							<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 						</Trigger>
 					</Style.Triggers>
 				</Style>
@@ -397,7 +397,7 @@
 	<!--  TextBox  -->
 	<Style x:Key="{x:Type TextBox}"
 	       TargetType="{x:Type TextBox}">
-		<Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+		<Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 		<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}" />
 		<Setter Property="FontFamily" Value="{DynamicResource Font.Default}" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
@@ -439,7 +439,7 @@
 	<!--  PasswordBox  -->
 	<Style x:Key="{x:Type PasswordBox}"
 	       TargetType="{x:Type PasswordBox}">
-		<Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+		<Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 		<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}" />
 		<Setter Property="FontFamily" Value="{DynamicResource Font.Default}" />
 		<Setter Property="FontSize" Value="14" />
@@ -511,7 +511,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="RepeatButton">
-					<Border BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
+					<Border BorderBrush="{DynamicResource Brushes.HunterPie.Accent.Primary}"
 					        BorderThickness="1"
 					        Height="2"
 					        CornerRadius="1" />
@@ -583,7 +583,7 @@
 		<Setter Property="Background" Value="{DynamicResource Gray@300}" />
 		<Setter Property="Foreground" Value="{DynamicResource White@50}" />
 		<Setter Property="FontFamily" Value="{DynamicResource Font.Default}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 		<Setter Property="BulletSize" Value="4" />
 		<Setter Property="BorderThickness" Value="1" />
 	</Style>
@@ -602,7 +602,7 @@
 						<Trigger Property="IsSelected" Value="True">
 							<Setter Property="Opacity" Value="1" />
 							<Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
-							<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}" />
+							<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent.Primary}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
