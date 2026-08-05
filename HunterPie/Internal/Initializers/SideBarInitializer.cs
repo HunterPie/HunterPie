@@ -33,7 +33,6 @@ internal class SideBarInitializer(
             dependencies.Get<ThemeNavigationHandler>(),
             dependencies.Get<PatchNotesNavigationHandler>(),
             dependencies.Get<QuestStatisticsNavigationHandler>(),
-
         ];
 
         NavigationHandler[] fixedHandlers = [
@@ -44,12 +43,6 @@ internal class SideBarInitializer(
                     dependencies.Get<DiscordNavigationHandler>(),
                     dependencies.Get<PatreonNavigationHandler>(),
                     dependencies.Get<GitHubNavigationHandler>(),
-                    dependencies.Get<DiscordNavigationHandler>(),
-                    dependencies.Get<PatreonNavigationHandler>(),
-                    dependencies.Get<GitHubNavigationHandler>(),
-                    dependencies.Get<DiscordNavigationHandler>(),
-                    dependencies.Get<PatreonNavigationHandler>(),
-                    dependencies.Get<GitHubNavigationHandler>()
                 ]
             ),
             dependencies.Get<SettingsNavigationHandler>(),

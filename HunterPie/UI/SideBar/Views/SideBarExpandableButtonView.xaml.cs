@@ -73,23 +73,20 @@ public partial class SideBarExpandableButtonView
             );
             return;
         }
-
-
     }
 
     private CustomPopupPlacement[] GetSmartPopupPlacement(Size popupSize, Size targetSize, Point offset)
     {
-        double targetHeight = targetSize.Height - 8;
         double x = targetSize.Width;
 
-        var bottomAlignedPoint = new Point(x, (popupSize.Height - (targetHeight / 2)) * -1);
+        var bottomAlignedPoint = new Point(x, (popupSize.Height - targetSize.Height + 8) * -1);
 
         var topAlignedPoint = new Point(x, 0);
 
         return
         [
-            new CustomPopupPlacement(topAlignedPoint, PopupPrimaryAxis.Vertical),
-            new CustomPopupPlacement(bottomAlignedPoint, PopupPrimaryAxis.Vertical)
+            new CustomPopupPlacement(bottomAlignedPoint, PopupPrimaryAxis.Vertical),
+            new CustomPopupPlacement(topAlignedPoint, PopupPrimaryAxis.Vertical)
         ];
     }
 

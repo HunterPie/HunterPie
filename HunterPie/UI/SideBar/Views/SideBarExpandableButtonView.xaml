@@ -65,12 +65,11 @@
 								<GradientStop Offset="1.0" Color="Transparent" />
 							</LinearGradientBrush>
 						</Grid.OpacityMask>
-						<ItemsControl MaxHeight="250"
-						              Margin="0,10"
+						<ItemsControl MaxHeight="260"
 						              ItemsSource="{Binding Handlers, Mode=OneTime}">
 							<ItemsControl.Template>
 								<ControlTemplate>
-									<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
+									<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
 										<StackPanel IsItemsHost="True"
 										            Orientation="Vertical" />
 									</viewer:SmoothScrollViewer>

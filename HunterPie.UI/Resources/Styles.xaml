@@ -28,14 +28,14 @@
 		</Style.Resources>
 		<Setter Property="FontFamily" Value="{DynamicResource Font.Default}" />
 		<Setter Property="FontSize" Value="14" />
-		<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}" />
+		<Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Secondary}" />
 		<Setter Property="OverridesDefaultStyle" Value="True" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ToolTip">
 					<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
 					        BorderThickness="1"
-					        Padding="10,5"
+					        Padding="10"
 					        Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
 					        CornerRadius="5">
 						<ContentPresenter />
@@ -44,7 +44,7 @@
 			</Setter.Value>
 		</Setter>
 		<Setter Property="MaxWidth" Value="350" />
-		<Setter Property="ToolTipService.InitialShowDelay" Value="500" />
+		<Setter Property="ToolTipService.InitialShowDelay" Value="200" />
 		<Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
 		<Style.Triggers>
 			<Trigger Property="IsVisible" Value="True">
@@ -54,10 +54,7 @@
 							<DoubleAnimation Storyboard.TargetProperty="Opacity"
 							                 From="0"
 							                 To="1"
-							                 Duration="0:0:0.25" />
-							<DoubleAnimation Storyboard.TargetProperty="VerticalOffset"
-							                 From="-35"
-							                 Duration="0:0:0.25">
+							                 Duration="0:0:0.250">
 								<DoubleAnimation.EasingFunction>
 									<QuadraticEase />
 								</DoubleAnimation.EasingFunction>

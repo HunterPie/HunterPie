@@ -29,7 +29,7 @@
 		<converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
 		<resolvers:BooleanResolver x:Key="ActiveColorResolver"
 		                           Falsy="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-		                           Truthy="{StaticResource Blue@100}" />
+		                           Truthy="{StaticResource Brushes.HunterPie.Accent.Primary}" />
 		<resolvers:BooleanResolver x:Key="FixedButtonBorderResolver"
 		                           Falsy="{StaticResource DefaultButtonBorder}"
 		                           Truthy="{StaticResource FixedButtonBorder}" />
@@ -111,7 +111,7 @@
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
 						             Value="True">
-							<Setter Property="Background" Value="{DynamicResource Blue@700}" />
+							<Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Accent.Tertiary}" />
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
@@ -127,7 +127,7 @@
 				           Margin="-4,10,0,10"
 				           HorizontalAlignment="Left"
 				           VerticalAlignment="Stretch"
-				           Fill="{DynamicResource Blue@100}"
+				           Fill="{DynamicResource Brushes.HunterPie.Accent.Primary}"
 				           RadiusX="4"
 				           RadiusY="4">
 					<Rectangle.Visibility>
