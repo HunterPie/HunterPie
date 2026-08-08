@@ -43,7 +43,8 @@ jobs:
       - id: get-package-version
         name: get-package-version
         run: |
-          python ./Scripts/release/get_version.py ./HunterPie/bin/Release/net10.0-windows7.0 >> "$" | % { "version=$_" } >> "$GITHUB_OUTPUT"
+          $version = $(python ./Scripts/release/get_version.py ./HunterPie/bin/Release/net10.0-windows7.0)
+          echo "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: print-version-test
         run: |
