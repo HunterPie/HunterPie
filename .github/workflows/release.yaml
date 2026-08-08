@@ -41,3 +41,12 @@ jobs:
         run: |
           python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0
           
+      - name: Deploy
+        uses: BetaHuhn/do-spaces-action@v2.0.105
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          space_name: ${{ vars.BUCKET_NAME }} 
+          space_region: ${{ vars.BUCKET_REGION }}
+          source: bin/deploy
+          out_dir: qa/releases
