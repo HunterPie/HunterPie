@@ -23,11 +23,21 @@ jobs:
         with:
           vs-version: 18.8.2
 
+      - name: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: restore-dependencies
         run: |
-          ls
           msbuild -m /t:Restore
+          pip install -r ./Scripts/release/requirements.txt
 
       - name: build-project
         run: |
-          msbuild /p:Configuration=Release /p:Platform=x64
+          msbuild /p:Configuration=Release /p:Platform=x64 /v:q /nologo
+      
+      - name: package-release
+        run: |
+          python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0
+          
