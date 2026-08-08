@@ -8,6 +8,8 @@ import logging
 
 log = logging.getLogger("packager")
 
+log.setLevel("INFO")
+
 IGNORE_FILES = [
     Path("config.json"),
     Path("libs/HunterPie.Native.pdb"),
@@ -67,7 +69,9 @@ def create_package(base_path: Path):
 
     with zipfile.ZipFile(package_path, "w", zipfile.ZIP_DEFLATED) as package:
         for file in files:
-            package.write(file)
+            relative_path = file.relative_to(base_path)
+            log.info(f"compacting file: {relative_path}")
+            package.write(file, relative_path)
 
     print(f"created package at {package_path}")
 
