@@ -1,17 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>11.0</LangVersion>
-    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <AssemblyVersion>1.0.0.98</AssemblyVersion>
-    <FileVersion>1.0.0.98</FileVersion>
-    <NoWarn>$(NoWarn);RS2008</NoWarn>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
-  </ItemGroup>
-
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Authors>Haato</Authors>
+        <Company>HunterPie</Company>
+        <PackageId>HunterPie.Generators</PackageId>
+        <Description>Compile time code generators to make development of HunterPie easier.</Description>
+        <PackageTags>hunterpie;utils</PackageTags>
+        <RepositoryUrl>https://github.com/HunterPie/HunterPie</RepositoryUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <LangVersion>11.0</LangVersion>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <AssemblyVersion>1.0.0.98</AssemblyVersion>
+        <FileVersion>1.0.0.98</FileVersion>
+        <Version>1.0.0.98</Version>
+        <NoWarn>$(NoWarn);RS2008</NoWarn>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Common"
+                          Version="5.3.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp"
+                          Version="5.3.0" />
+    </ItemGroup>
 </Project>
