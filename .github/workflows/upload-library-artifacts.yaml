@@ -28,7 +28,7 @@ jobs:
         run: dotnet nuget add source --username HunterPie --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/HunterPie/index.json"
 
       - name: pack-artifacts
-        run: ./Scripts/release/pack-artifacts.ps1
+        run: ./Scripts/package/pack-artifacts.ps1
 
       - name: upload-artifacts
         run: |
