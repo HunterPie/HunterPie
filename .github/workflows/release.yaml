@@ -26,8 +26,8 @@ jobs:
       - name: restore-dependencies
         run: |
           ls
-          msbuild.exe -m /t:Restore
+          msbuild.exe HunterPie.sln -m /t:Restore
 
       - name: build-project
         run: |
-          msbuild.exe /p:Configuration=Release /p:Platform=x64
+          msbuild.exe HunterPie.sln /p:Configuration=Release /p:Platform=x64
