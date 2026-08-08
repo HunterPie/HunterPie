@@ -10,7 +10,7 @@ defaults:
     shell: pwsh
 
 jobs:
-  build:
+  build-win-x64:
     runs-on: windows-latest
     outputs:
       release_version: ${{ steps.get-package-version.outputs.version }}
@@ -46,10 +46,42 @@ jobs:
           $version = $(python ./Scripts/release/get_version.py ./HunterPie/bin/Release/net10.0-windows7.0)
           echo "version=$version" >> $env:GITHUB_OUTPUT
 
-      - name: print-version-test
+      - name: package-release
         run: |
-          echo ${{ steps.get-package-version.outputs.version }}
+          python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0
+      
+      - name: upload-artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.get-package-version.outputs.version }}.zip
+          path: ./bin/deploy/${{ steps.get-package-version.outputs.version }}.zip
 
-      # - name: package-release
-      #   run: |
-      #     python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0
+  upload-release:
+    runs-on: ubuntu-latest
+    needs: build-win-x64
+    steps:
+      - name: download-artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: ${{ needs.build-win-x64.outputs.release_version  }}.zip
+          path: bin/deploy
+      
+      - run: ls -l
+
+      - name: upload-package-to-production
+        uses: BetaHuhn/do-spaces-action@v2.0.105
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          space_name: ${{ vars.BUCKET_NAME }} 
+          space_region: ${{ vars.BUCKET_REGION }}
+          source: bin/deploy
+          out_dir: qa/releases
+      
+      - name: create-github-release-tag
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ needs.build-win-x64.outputs.release_version }}
+          target_commitish: ${{ github.sha }}
+          generate_release_notes: true
+          files: bin/deploy/${{ needs.build-win-x64.outputs.release_version }}.zip
