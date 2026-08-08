@@ -2,8 +2,8 @@ name: cd/release-client
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 
 defaults:
   run:
@@ -65,8 +65,6 @@ jobs:
         with:
           name: ${{ needs.build-win-x64.outputs.release_version  }}.zip
           path: bin/deploy
-      
-      - run: ls -l
 
       - name: upload-package-to-production
         uses: BetaHuhn/do-spaces-action@v2.0.105
