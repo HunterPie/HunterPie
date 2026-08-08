@@ -1,4 +1,4 @@
-name: cd/release
+name: cd/release-client
 
 on:
   push:
@@ -12,9 +12,11 @@ defaults:
 jobs:
   build:
     runs-on: windows-latest
+    outputs:
+      release_version: ${{ steps.get-package-version.outputs.version }}
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: true
           fetch-depth: 0
@@ -38,16 +40,15 @@ jobs:
         run: |
           msbuild /p:Configuration=Release /p:Platform=x64 /v:q /nologo
       
-      - name: package-release
+      - id: get-package-version
+        name: get-package-version
         run: |
-          python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0
-          
-      - name: Deploy
-        uses: BetaHuhn/do-spaces-action@v2.0.105
-        with:
-          access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          space_name: ${{ vars.BUCKET_NAME }} 
-          space_region: ${{ vars.BUCKET_REGION }}
-          source: bin/deploy
-          out_dir: qa/releases
+          python ./Scripts/release/get_version.py >> "$" | % { "version=$_" } >> "$GITHUB_OUTPUT"
+
+      - name: print-version-test
+        run: |
+          echo ${{ steps.get-package-version.outputs.version }}
+
+      # - name: package-release
+      #   run: |
+      #     python ./Scripts/release/package.py ./HunterPie/bin/Release/net10.0-windows7.0

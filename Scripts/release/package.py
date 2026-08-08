@@ -1,10 +1,10 @@
 import os
 from typing import List
 from pathlib import Path
-import pefile
 import zipfile
 import sys
 import logging
+from get_version import get_hunterpie_version
 
 log = logging.getLogger("packager")
 
@@ -20,19 +20,6 @@ IGNORE_FILES = [
     Path('package.py'),
     Path('deploy')
 ]
-
-def get_hunterpie_version(base_path: Path) -> str:
-    file_pe = pefile.PE(base_path / 'HunterPie.exe')
-
-    ms = file_pe.VS_FIXEDFILEINFO[0].ProductVersionMS
-    ls = file_pe.VS_FIXEDFILEINFO[0].ProductVersionLS
-
-    major = (ms >> 16) & 0xFFFF
-    minor = ms & 0xFFFF
-    build = (ls >> 16) & 0xFFFF
-    private = ls & 0xFFFF
-
-    return f"{major}.{minor}.{build}.{private}"
 
 def list_files(root: Path, ignore_list: List[Path]) -> List[Path]:
     paths: List[Path] = []
