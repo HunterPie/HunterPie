@@ -25,6 +25,7 @@ jobs:
 
       - name: restore-dependencies
         run: |
+          ls
           msbuild.exe -m /t:Restore
 
       - name: build-project
