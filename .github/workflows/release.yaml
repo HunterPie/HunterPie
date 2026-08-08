@@ -1,0 +1,37 @@
+name: cd/release
+
+on:
+  push:
+    # branches:
+    #   - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup-dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 10.0
+
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v3
+        with:
+          vs-version: 18.8.2
+
+      - name: restore-dependencies
+        run: |
+          dotnet restore
+
+      - name: build-project
+        run: |
+          msbuild /p:Configuration=Release /p:Platform=x64
