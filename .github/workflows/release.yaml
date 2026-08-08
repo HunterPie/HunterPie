@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 jobs:
   build:
@@ -26,8 +26,8 @@ jobs:
       - name: restore-dependencies
         run: |
           ls
-          msbuild.exe HunterPie.sln -m /t:Restore
+          msbuild -m /t:Restore
 
       - name: build-project
         run: |
-          msbuild.exe HunterPie.sln /p:Configuration=Release /p:Platform=x64
+          msbuild /p:Configuration=Release /p:Platform=x64
