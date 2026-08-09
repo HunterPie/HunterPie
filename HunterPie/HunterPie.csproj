@@ -1,375 +1,367 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows7.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <StartupObject></StartupObject>
-    <Deterministic>true</Deterministic>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Authors>Haato</Authors>
-    <DebugType>full</DebugType>
-    <SignAssembly>True</SignAssembly>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Nullable>enable</Nullable>
-    <LangVersion>14.0</LangVersion>
-    <DelaySign>False</DelaySign>
-    <CETCompat>False</CETCompat>
-  </PropertyGroup>
-
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows7.0</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <IsPackable>false</IsPackable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <StartupObject />
+        <Deterministic>true</Deterministic>
+        <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Authors>Haato</Authors>
+        <DebugType>full</DebugType>
+        <SignAssembly>True</SignAssembly>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <Nullable>enable</Nullable>
+        <LangVersion>14.0</LangVersion>
+        <DelaySign>False</DelaySign>
+        <CETCompat>False</CETCompat>
+    </PropertyGroup>
     <ItemGroup>
-      <!-- Required so IDE0130 can evaluate folder paths against namespaces -->
-      <CompilerVisibleProperty Include="RootNamespace" />
-      <CompilerVisibleProperty Include="ProjectDir" />
+        <!-- Required so IDE0130 can evaluate folder paths against namespaces -->
+        <CompilerVisibleProperty Include="RootNamespace" />
+        <CompilerVisibleProperty Include="ProjectDir" />
     </ItemGroup>
-
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;DEPLOY;</DefineConstants>
-    <Optimize>True</Optimize>
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <Optimize>False</Optimize>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="GUI\Views\**" />
-    <EmbeddedResource Remove="GUI\Views\**" />
-    <None Remove="GUI\Views\**" />
-    <Page Remove="GUI\Views\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Remove="app.manifest" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="Themes\Default\Template.xaml" />
-    <Page Remove="Themes\Minimal\MonsterWidget.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
-    <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
-    <ProjectReference Include="..\HunterPie.Generators\HunterPie.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
-    <ProjectReference Include="..\HunterPie.Platforms\HunterPie.Platforms.csproj" />
-    <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Themes\Default\Template.xaml">
-      <Generator></Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Themes\Minimal\MonsterWidget.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Statistics\Details\Views\QuestDetailsActivity.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Statistics\Views\QuestStatisticsSummariesActivity.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Address\MonsterHunterRise.16.0.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.16.0.1.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.16.0.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.15.0.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.16.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.15.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.13.0.0.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.13.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.12.0.1.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.12.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.11.0.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.11.0.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.10.0.3.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.10.0.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.14.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterSunbreakDemo.1.0.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.3.9.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.3.9.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterRise.3.6.1.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.42.0.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.42.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.41.3.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.41.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.41.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.41.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.3.2.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.3.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.30.2.2.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.30.2.1.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.30.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.30.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.30.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.21.3.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.21.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.21.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.21.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.20.2.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.20.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.20.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.11.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.1.1.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.1.0.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.0.4.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.0.3.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWilds.1.40.3.0.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421810.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421740.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421652.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421631.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.408899.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.410013.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.410014.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.410918.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.413161.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.414136.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.416251.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.419914.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.420540.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421409.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421470.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Address\MonsterHunterWorld.421471.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\Rise\Data\AbnormalityData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\Rise\Data\MonsterData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\Wilds\Data\AbnormalityData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\Wilds\Data\MonsterData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\World\Data\AbnormalityData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Game\World\Data\MonsterData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Analytics\Strategies\" />
-    <Folder Include="Features\Backup\Strategies\" />
-    <Folder Include="Features\Settings\Factory\" />
-    <Folder Include="Features\Statistics\Details\Enums\" />
-    <Folder Include="Integrations\Poogie\Localization\Models\" />
-    <Folder Include="Integrations\Poogie\Patch\Models\" />
-    <Folder Include="Integrations\Poogie\Report\Models\" />
-    <Folder Include="Integrations\Poogie\Supporter\Models\" />
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)Localization\localization\*.xml&quot; &quot;$(TargetDir)Languages\&quot; /D /E /I /F /Y&#xD;&#xA;del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q&#xD;&#xA;echo &quot;Post-build event executed&quot;" />
-  </Target>
-
-  <ProjectExtensions>
-	  <VisualStudio>
-		  <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_DetectChanges="False" BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
-	  </VisualStudio>
-  </ProjectExtensions>
-
-  <Target Name="StripGeneratorDependencies" AfterTargets="ResolveAssemblyReferences">
-      <ItemGroup>
-          <!-- Removes the main DLLs and the satellite .resources.dll files -->
-          <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('Microsoft.CodeAnalysis'))" />
-      </ItemGroup>
-  </Target>
+        <DefineConstants>TRACE;DEPLOY;</DefineConstants>
+        <Optimize>True</Optimize>
+        <ShouldCreateLogs>True</ShouldCreateLogs>
+        <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+        <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+        <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+        <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+        <UpdatePackageVersion>False</UpdatePackageVersion>
+        <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+        <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <ShouldCreateLogs>True</ShouldCreateLogs>
+        <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+        <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+        <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+        <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+        <UpdatePackageVersion>False</UpdatePackageVersion>
+        <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+        <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+        <Optimize>False</Optimize>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Remove="GUI\Views\**" />
+        <EmbeddedResource Remove="GUI\Views\**" />
+        <None Remove="GUI\Views\**" />
+        <Page Remove="GUI\Views\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Remove="app.manifest" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="Resources\Icon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+        <Page Remove="Themes\Default\Template.xaml" />
+        <Page Remove="Themes\Minimal\MonsterWidget.xaml" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
+        <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
+        <ProjectReference Include="..\HunterPie.Generators\HunterPie.Generators.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
+        <ProjectReference Include="..\HunterPie.Platforms\HunterPie.Platforms.csproj" />
+        <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="Themes\Default\Template.xaml">
+            <Generator />
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Themes\Minimal\MonsterWidget.xaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <SubType>Designer</SubType>
+            <Generator />
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="DiscordRichPresence"
+                          Version="1.0.175" />
+    </ItemGroup>
+    <ItemGroup>
+        <Resource Include="Resources\Icon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Features\Statistics\Details\Views\QuestDetailsActivity.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Features\Statistics\Views\QuestStatisticsSummariesActivity.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Features\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Address\MonsterHunterRise.16.0.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.16.0.1.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.16.0.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.15.0.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.16.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.15.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.13.0.0.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.13.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.12.0.1.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.12.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.11.0.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.11.0.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.10.0.3.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.10.0.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.14.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterSunbreakDemo.1.0.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.3.9.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.3.9.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterRise.3.6.1.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.41.3.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.41.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.41.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.41.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.3.2.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.3.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.30.2.2.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.30.2.1.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.30.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.30.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.30.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.21.3.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.21.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.21.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.21.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.20.2.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.20.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.20.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.11.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.1.1.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.1.0.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.0.4.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.0.3.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.40.3.0.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421810.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421740.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421652.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421631.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.408899.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.410013.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.410014.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.410918.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.413161.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.414136.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.416251.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.419914.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.420540.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421409.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421470.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWorld.421471.map">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\Rise\Data\AbnormalityData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\Rise\Data\MonsterData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\Wilds\Data\AbnormalityData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\Wilds\Data\MonsterData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\World\Data\AbnormalityData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Game\World\Data\MonsterData.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Features\Analytics\Strategies\" />
+        <Folder Include="Features\Backup\Strategies\" />
+        <Folder Include="Features\Settings\Factory\" />
+        <Folder Include="Features\Statistics\Details\Enums\" />
+        <Folder Include="Integrations\Poogie\Localization\Models\" />
+        <Folder Include="Integrations\Poogie\Patch\Models\" />
+        <Folder Include="Integrations\Poogie\Report\Models\" />
+        <Folder Include="Integrations\Poogie\Supporter\Models\" />
+    </ItemGroup>
+    <Target Name="PostBuild"
+            AfterTargets="PostBuildEvent">
+        <Exec Command="xcopy &quot;$(SolutionDir)Localization\localization\*.xml&quot; &quot;$(TargetDir)Languages\&quot; /D /E /I /F /Y
+&#xA;del &quot;$(TargetDir)*.pdb&quot; /q
+&#xA;del &quot;$(TargetDir)ref&quot; /q
+&#xA;rmdir &quot;$(TargetDir)ref&quot;
+&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q
+&#xA;echo &quot;Post-build event executed&quot;" />
+    </Target>
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment"
+                            BuildVersion_DetectChanges="False"
+                            BuildVersion_StartDate="2000/1/1"
+                            BuildVersion_UpdateAssemblyVersion="True"
+                            BuildVersion_UpdateFileVersion="True" />
+        </VisualStudio>
+    </ProjectExtensions>
+    <Target Name="StripGeneratorDependencies"
+            AfterTargets="ResolveAssemblyReferences">
+        <ItemGroup>
+            <!-- Removes the main DLLs and the satellite .resources.dll files -->
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"
+                                     Condition="$([System.String]::Copy('%(Filename)').StartsWith('Microsoft.CodeAnalysis'))" />
+        </ItemGroup>
+    </Target>
 </Project>

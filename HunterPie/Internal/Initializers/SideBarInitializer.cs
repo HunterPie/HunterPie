@@ -30,6 +30,7 @@ internal class SideBarInitializer(
         NavigationHandler[] handlers = [
             dependencies.Get<HomeNavigationHandler>(),
             dependencies.Get<ConsoleNavigationHandler>(),
+            dependencies.Get<SettingsNavigationHandler>(),
             dependencies.Get<ThemeNavigationHandler>(),
             dependencies.Get<PatchNotesNavigationHandler>(),
             dependencies.Get<QuestStatisticsNavigationHandler>(),
@@ -40,8 +41,8 @@ internal class SideBarInitializer(
                 label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='LINKS_STRING']"),
                 icon: Resources.Icon("Icons.Link"),
                 [
-                    dependencies.Get<DiscordNavigationHandler>(),
-                    dependencies.Get<PatreonNavigationHandler>(),
+            dependencies.Get<DiscordNavigationHandler>(),
+            dependencies.Get<PatreonNavigationHandler>(),
                     dependencies.Get<GitHubNavigationHandler>(),
                 ]
             ),

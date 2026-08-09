@@ -2,6 +2,7 @@
 using HunterPie.Core.System;
 using HunterPie.Domain.Common;
 using HunterPie.UI.Assets.Application;
+using HunterPie.UI.Client.Sidebar.Entity;
 using HunterPie.UI.Client.Sidebar.Handler;
 using System.Threading.Tasks;
 
@@ -14,6 +15,12 @@ internal class PatreonNavigationHandler(
     icon: Resources.Icon("ICON_PATREON")
 )
 {
+    public override Task InitializeAsync()
+    {
+        State = SideBarButtonState.Enabled;
+        return Task.CompletedTask;
+    }
+
     public override Task ExecuteAsync()
     {
         BrowserService.OpenUrl(CommonLinks.PATREON);

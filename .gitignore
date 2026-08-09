@@ -8,7 +8,7 @@ packages
 x64
 HunterPie.Native/Debug
 Release
-
+!Scripts/release
 .env
 
 TestResults
