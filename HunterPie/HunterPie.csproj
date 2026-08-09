@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
@@ -66,9 +66,7 @@
     <ItemGroup>
         <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
         <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
-        <ProjectReference Include="..\HunterPie.Generators\HunterPie.Generators.csproj"
-                          OutputItemType="Analyzer"
-                          ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\HunterPie.Generators\HunterPie.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
         <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
         <ProjectReference Include="..\HunterPie.Platforms\HunterPie.Platforms.csproj" />
         <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
@@ -85,8 +83,7 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="DiscordRichPresence"
-                          Version="1.0.175" />
+        <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
     </ItemGroup>
     <ItemGroup>
         <Resource Include="Resources\Icon.ico" />
@@ -261,6 +258,12 @@
         <None Update="Address\MonsterHunterWilds.1.40.3.0.map">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Address\MonsterHunterWilds.1.42.0.0.map">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Address\MonsterHunterWilds.1.42.0.1.map">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Address\MonsterHunterWorld.421810.map">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -338,30 +341,18 @@
         <Folder Include="Integrations\Poogie\Report\Models\" />
         <Folder Include="Integrations\Poogie\Supporter\Models\" />
     </ItemGroup>
-    <Target Name="PostBuild"
-            AfterTargets="PostBuildEvent">
-        <Exec Command="xcopy &quot;$(SolutionDir)Localization\localization\*.xml&quot; &quot;$(TargetDir)Languages\&quot; /D /E /I /F /Y
-&#xA;del &quot;$(TargetDir)*.pdb&quot; /q
-&#xA;del &quot;$(TargetDir)ref&quot; /q
-&#xA;rmdir &quot;$(TargetDir)ref&quot;
-&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q
-&#xA;echo &quot;Post-build event executed&quot;" />
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="xcopy &quot;$(SolutionDir)Localization\localization\*.xml&quot; &quot;$(TargetDir)Languages\&quot; /D /E /I /F /Y&#xD;&#xA;&#xA;del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;&#xA;del &quot;$(TargetDir)ref&quot; /q&#xD;&#xA;&#xA;rmdir &quot;$(TargetDir)ref&quot;&#xD;&#xA;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q&#xD;&#xA;&#xA;echo &quot;Post-build event executed&quot;" />
     </Target>
     <ProjectExtensions>
         <VisualStudio>
-            <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment"
-                            BuildVersion_DetectChanges="False"
-                            BuildVersion_StartDate="2000/1/1"
-                            BuildVersion_UpdateAssemblyVersion="True"
-                            BuildVersion_UpdateFileVersion="True" />
+            <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_DetectChanges="False" BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
         </VisualStudio>
     </ProjectExtensions>
-    <Target Name="StripGeneratorDependencies"
-            AfterTargets="ResolveAssemblyReferences">
+    <Target Name="StripGeneratorDependencies" AfterTargets="ResolveAssemblyReferences">
         <ItemGroup>
             <!-- Removes the main DLLs and the satellite .resources.dll files -->
-            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"
-                                     Condition="$([System.String]::Copy('%(Filename)').StartsWith('Microsoft.CodeAnalysis'))" />
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('Microsoft.CodeAnalysis'))" />
         </ItemGroup>
     </Target>
 </Project>

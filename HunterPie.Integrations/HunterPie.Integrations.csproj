@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
@@ -11,8 +11,8 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyVersion>2.15.0.158</AssemblyVersion>
-        <FileVersion>2.15.0.158</FileVersion>
+        <AssemblyVersion>2.15.0.159</AssemblyVersion>
+        <FileVersion>2.15.0.159</FileVersion>
         <Version>2.15.0.158</Version>
         <LangVersion>14.0</LangVersion>
     </PropertyGroup>
