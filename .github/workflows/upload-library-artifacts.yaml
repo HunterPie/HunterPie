@@ -38,5 +38,5 @@ jobs:
           $packages = $(Get-ChildItem artifacts -File -Name)
 
           foreach ($package in $packages) {
-            dotnet nuget push ./artifacts/$package --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+            dotnet nuget push ./artifacts/$package --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
           }
