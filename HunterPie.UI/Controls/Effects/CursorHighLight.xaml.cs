@@ -9,6 +9,10 @@ namespace HunterPie.UI.Controls.Effects;
 /// </summary>
 public partial class CursorHighLight : Grid
 {
+
+
+    public new object Children { get => GetValue(ChildrenProperty); set => SetValue(ChildrenProperty, value); }
+
     public static readonly DependencyProperty ChildrenProperty =
         DependencyProperty.Register(
             nameof(Children),
@@ -16,11 +20,10 @@ public partial class CursorHighLight : Grid
             typeof(CursorHighLight),
             new PropertyMetadata(null));
 
-    public new object Children
-    {
-        get => GetValue(ChildrenProperty);
-        set => SetValue(ChildrenProperty, value);
-    }
+    public bool IsHighlightEnabled { get => (bool)GetValue(IsHighlightEnabledProperty); set => SetValue(IsHighlightEnabledProperty, value); }
+
+    public static readonly DependencyProperty IsHighlightEnabledProperty =
+        DependencyProperty.Register(nameof(IsHighlightEnabled), typeof(bool), typeof(CursorHighLight), new PropertyMetadata(true));
 
     public CursorHighLight()
     {

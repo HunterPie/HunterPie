@@ -5,5 +5,5 @@ namespace HunterPie.UI.Client.Sidebar.Service;
 
 public interface ISideBarRegistry
 {
-    public Task RegisterAsync(INavigationHandler handler);
+    public Task RegisterAsync(NavigationHandler handler);
 }

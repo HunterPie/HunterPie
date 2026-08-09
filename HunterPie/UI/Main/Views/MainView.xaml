@@ -17,7 +17,7 @@
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
         d:DesignHeight="600"
         d:DesignWidth="1000"
-        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
         Icon="pack://application:,,,/Resources/Icon.ico"
         PreviewKeyDown="OnKeyDown"
         SnapsToDevicePixels="True"

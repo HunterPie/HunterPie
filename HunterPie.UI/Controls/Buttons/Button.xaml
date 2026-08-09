@@ -60,7 +60,7 @@
 					</VisualBrush.Visual>
 				</VisualBrush>
 			</Grid.OpacityMask>
-			<effects:CursorHighLight>
+			<effects:CursorHighLight IsHighlightEnabled="{Binding IsHighlightEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}">
 				<Label Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
 				       HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
 				       VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"

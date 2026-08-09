@@ -27,58 +27,54 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="50" />
+			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
 		<!--  Content Navigation  -->
-		<ContentControl x:Name="PART_NavigationHost"
-		                Grid.Row="2"
-		                Grid.Column="1"
-		                Content="{Binding NavigationViewModel, Mode=OneWay, NotifyOnTargetUpdated=True}"
-		                ContentTemplateSelector="{StaticResource NavigationDataTemplateSelector}"
-		                RenderTransformOrigin="0.5,0.5"
-		                TargetUpdated="OnNavigationTargetUpdated">
-			<ContentControl.RenderTransform>
-				<ScaleTransform ScaleX="1" ScaleY="1" />
-			</ContentControl.RenderTransform>
-		</ContentControl>
+		<Border Grid.Row="3"
+		        Grid.Column="1"
+		        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+		        CornerRadius="8,0,0,0">
+			<Grid>
+				<ContentControl x:Name="PART_NavigationHost"
+				                Content="{Binding NavigationViewModel, Mode=OneWay, NotifyOnTargetUpdated=True}"
+				                ContentTemplateSelector="{StaticResource NavigationDataTemplateSelector}"
+				                RenderTransformOrigin="0.5,0.5"
+				                TargetUpdated="OnNavigationTargetUpdated">
+					<ContentControl.RenderTransform>
+						<ScaleTransform ScaleX="1" ScaleY="1" />
+					</ContentControl.RenderTransform>
+				</ContentControl>
+				<Rectangle Height="1"
+				           Margin="10,-1,0,0"
+				           VerticalAlignment="Top"
+				           Fill="{DynamicResource Brushes.HunterPie.Background.Secondary}">
+					<Rectangle.Effect>
+						<DropShadowEffect BlurRadius="10"
+						                  Opacity="1"
+						                  Color="Black" />
+					</Rectangle.Effect>
+				</Rectangle>
+			</Grid>
+		</Border>
+
 
 		<Border Grid.Row="1"
-		        Grid.Column="0"
+		        Grid.Column="1"
 		        Grid.ColumnSpan="2"
-		        Height="120"
+		        Height="80"
 		        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
-			<Border.Effect>
-				<DropShadowEffect Opacity="0.1" />
-			</Border.Effect>
 			<Grid>
-				<!--  Logo  -->
-				<StackPanel Margin="20"
-				            HorizontalAlignment="Left"
-				            VerticalAlignment="Center"
-				            Orientation="Horizontal">
-					<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-					            Height="50"
-					            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-					            Image="{DynamicResource ICON_HUNTERPIE}" />
-
-					<TextBlock Margin="5"
-					           VerticalAlignment="Center"
-					           FontSize="25"
-					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}">
-						<Run FontWeight="Medium"
-						     Text="Hunter" /><Run Text="Pie" />
-					</TextBlock>
-				</StackPanel>
 
 				<!--  Launch Game  -->
 				<buttons:ComboButton Height="45"
 				                     MinWidth="230"
-				                     Margin="20"
+				                     Margin="10,0"
 				                     HorizontalAlignment="Right"
 				                     VerticalAlignment="Center"
 				                     Click="OnLaunchButtonClick"
@@ -141,8 +137,8 @@
 
 		<!--  SideBar  -->
 		<views:SideBarView Grid.Row="2"
+		                   Grid.RowSpan="3"
 		                   Grid.Column="0"
-		                   Grid.ColumnSpan="2"
 		                   HorizontalAlignment="Left"
 		                   DataContext="{Binding SideBarViewModel, Mode=OneWay}" />
 

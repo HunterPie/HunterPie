@@ -44,6 +44,7 @@
 			<TextBlock Margin="5"
 			           FontSize="13"
 			           FontWeight="Medium"
+			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
 			           PreviewMouseDown="OnTitleClick"
 			           Text="{Binding Title, Mode=OneWay}" />
 		</DataTemplate>
@@ -197,7 +198,7 @@
 			</ItemsControl>
 		</DataTemplate>
 	</architecture:Activity.Resources>
-	<Grid>
+	<Grid Margin="5">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="80" />
 			<RowDefinition Height="*" />
@@ -205,7 +206,7 @@
 		<Border Grid.Row="0"
 		        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
 		        BorderThickness="1,1,1,1"
-		        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+		        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
 		        CornerRadius="5,5,0,0">
 			<Grid>
 				<Grid.ColumnDefinitions>
@@ -301,7 +302,7 @@
 							</viewer:SmoothScrollViewer>
 							<ContentPresenter x:Name="PART_SelectedContentHost"
 							                  Grid.Column="1"
-							                  Margin="{TemplateBinding Padding}"
+							                  Margin="0"
 							                  ContentSource="SelectedContent"
 							                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</Grid>

@@ -156,6 +156,13 @@
 	<SolidColorBrush x:Key="Brushes.HunterPie.Accent"
 	                 Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid}}" />
 
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent.Primary"
+	                 Color="{markup:BrushColor Brush={StaticResource Blue@100}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent.Secondary"
+	                 Color="{markup:BrushColor Brush={StaticResource Blue@600}}" />
+	<SolidColorBrush x:Key="Brushes.HunterPie.Accent.Tertiary"
+	                 Color="{markup:BrushColor Brush={StaticResource Blue@700}}" />
+
 	<SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
 	                 Color="{markup:BrushColor Brush={StaticResource White@100}}" />
 	<SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Secondary"

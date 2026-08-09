@@ -62,11 +62,11 @@
 					           Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;REFRESH_STRING&quot;]'}" />
 				</Grid>
 			</buttons:Button>
-			<buttons:Button BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+			<buttons:Button BorderBrush="{DynamicResource Brushes.HunterPie.Accent.Secondary}"
 			                BorderThickness="1"
-			                Margin="2"
+			                Margin="2,2,0,2"
 			                Padding="10,5"
-			                Background="{DynamicResource Brushes.HunterPie.Accent.Solid}"
+			                Background="{DynamicResource Brushes.HunterPie.Accent.Primary}"
 			                Click="OnInstallButtonClicked"
 			                Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;INSTALL_STRING&quot;]'}"
 			                CornerRadius="5" />

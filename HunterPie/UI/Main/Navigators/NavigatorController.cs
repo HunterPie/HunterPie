@@ -7,6 +7,7 @@ using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.SideBar.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ internal class NavigatorController(
             viewModel: mainBodyViewModel
         );
 
-        if (sideBar.Handlers.FirstOrDefault() is not { } sideBarElement)
+        if (sideBar.Handlers.FirstOrDefault(it => it is NavigationHandler.View) is not NavigationHandler.View sideBarElement)
             return;
 
         await sideBarElement.ExecuteAsync();
@@ -52,7 +53,9 @@ internal class NavigatorController(
 
         Type viewModelType = e.ViewModel.GetType();
 
-        sideBar.Handlers.ForEach(handler =>
+        IEnumerable<NavigationHandler> handlers = sideBar.Handlers.Concat(sideBar.FixedHandlers);
+
+        handlers.ForEach(handler =>
         {
             if (handler is NavigationHandler.View view)
                 view.IsActive = view.ViewType == viewModelType;

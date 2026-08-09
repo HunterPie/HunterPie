@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace HunterPie.UI.Client.Sidebar.Handler;
 
-public interface INavigationHandler
+public interface INavigationHandler : ILabeledNavigation
 {
     public string Label { get; set; }
 
