@@ -2,9 +2,9 @@ name: cd/upload-library-artifacts
 
 on:
   push:
-#     branches:
-#       - main
-#       - release/**
+    branches:
+      - main
+      - release/**
 
 defaults:
   run:
