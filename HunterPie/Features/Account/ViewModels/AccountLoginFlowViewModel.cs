@@ -62,7 +62,7 @@ internal class AccountLoginFlowViewModel(
         if (result is null || result.Error is { })
             return false;
 
-        appNavigator.Navigate<MainBodyViewModel>();
+        appNavigator.Navigate<MainActivityViewModel>();
 
         return true;
     }

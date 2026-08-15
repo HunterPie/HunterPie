@@ -1,30 +1,30 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Authors>Haato</Authors>
-    <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.14.0.162</AssemblyVersion>
-    <FileVersion>2.14.0.162</FileVersion>
-    <LangVersion>14.0</LangVersion>
-	<Nullable>enable</Nullable>
-	<Version>2.12.0.0</Version>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Observability\Logging\Internal\" />
-    <Folder Include="Settings\Adapters\" />
-    <Folder Include="Settings\Common\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
-  </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties BuildVersion_StartDate="2000/1/1" /></VisualStudio></ProjectExtensions>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Authors>Haato</Authors>
+        <Company>HunterPie</Company>
+        <PackageId>HunterPie.Core</PackageId>
+        <Description>The HunterPie core library provides the essential interfaces and services required for implementing plugins.</Description>
+        <PackageTags>hunterpie;core;plugins</PackageTags>
+        <RepositoryUrl>https://github.com/HunterPie/HunterPie</RepositoryUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <Configurations>Debug;Release;Deploy</Configurations>
+        <AssemblyVersion>2.15.0.160</AssemblyVersion>
+        <FileVersion>2.15.0.160</FileVersion>
+        <Version>2.15.0.159</Version>
+        <LangVersion>14.0</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Observability\Logging\Internal\" />
+        <Folder Include="Settings\Adapters\" />
+        <Folder Include="Settings\Common\" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
+    </ItemGroup>
 </Project>

@@ -1,0 +1,9 @@
+﻿<Strings>
+    <Client>
+        <Settings>
+            <Setting Id="DRAGONS_DOGMA_WIDGET"
+                     String="Dragon's Dogma Widget"
+                     Description="Dragon's Dogma Widget configuration" />
+        </Settings>
+    </Client>
+</Strings>

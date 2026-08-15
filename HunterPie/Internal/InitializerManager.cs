@@ -19,7 +19,7 @@ internal class InitializerManager
     private static readonly Type[] Initializers =
     [
         typeof(FileStreamLoggerInitializer),
-        
+
         // Core
         typeof(LocalConfigInitializer),
         
@@ -27,12 +27,15 @@ internal class InitializerManager
         typeof(FeatureFlagsInitializer),
 
         typeof(NativeLoggerInitializer),
-        
+
         // Config
         typeof(RemoteConfigSyncInitializer),
         typeof(ClientConfigMigrationInitializer),
         typeof(ClientConfigInitializer),
         typeof(ConfigManagerInitializer),
+
+        // Localization
+        typeof(ClientLocalizationInitializer),
 
         typeof(HunterPieLoggerInitializer),
         typeof(CustomThemeInitializer),
@@ -40,13 +43,12 @@ internal class InitializerManager
         typeof(ExceptionCatcherInitializer),
         typeof(DialogManagerInitializer),
         typeof(UITracerInitializer),
-        typeof(ClientLocalizationInitializer),
         typeof(SystemTrayInitializer),
         typeof(ClientConfigBindingsInitializer),
 
         // GUI
         typeof(NavigationTemplatesInitializer),
-        typeof(AppNotificationsInitializer),
+        typeof(SideBarInitializer),
     ];
 
     private static readonly Type[] UiInitializers =
@@ -55,10 +57,6 @@ internal class InitializerManager
 
         // Overlay
         typeof(OverlayWidgetsInitializer),
-
-        // Debugging
-        typeof(DebugWidgetInitializer),
-
     };
 
     public static async Task InitializeCore()

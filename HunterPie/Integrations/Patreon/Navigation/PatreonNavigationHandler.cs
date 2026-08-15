@@ -1,0 +1,23 @@
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.System;
+using HunterPie.Domain.Common;
+using HunterPie.UI.Assets.Application;
+using HunterPie.UI.Client.Sidebar.Handler;
+using System.Threading.Tasks;
+
+namespace HunterPie.Integrations.Patreon.Navigation;
+
+internal class PatreonNavigationHandler(
+    ILocalizationRepository localizationRepository
+) : NavigationHandler.Action(
+    label: localizationRepository.FindStringBy("//Strings/Client/Tabs/Tab[@Id='PATREON_STRING']"),
+    icon: Resources.Icon("ICON_PATREON")
+)
+{
+    public override Task ExecuteAsync()
+    {
+        BrowserService.OpenUrl(CommonLinks.PATREON);
+
+        return Task.CompletedTask;
+    }
+}

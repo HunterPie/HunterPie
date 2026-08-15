@@ -9,6 +9,6 @@ internal class IntegrationsModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<GameContextProvider>();
+            .WithSingle<GameContextFactory>();
     }
 }

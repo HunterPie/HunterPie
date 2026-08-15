@@ -1,0 +1,169 @@
+﻿<architecture:Activity x:Class="HunterPie.Features.Account.Views.AccountSignFlowActivity"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+                       xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:viewModels="clr-namespace:HunterPie.Features.Account.ViewModels"
+                       xmlns:views="clr-namespace:HunterPie.Features.Account.Views"
+                       d:DataContext="{d:DesignInstance viewModels:AccountSignFlowViewModel}"
+                       d:DesignHeight="450"
+                       d:DesignWidth="800"
+                       x:ClassModifier="internal"
+                       Unloaded="OnCloseClick"
+                       mc:Ignorable="d">
+	<architecture:Activity.Resources>
+		<DataTemplate x:Key="HeaderTemplate">
+			<buttons:TabItem />
+		</DataTemplate>
+
+		<Storyboard x:Key="SB_SLIDE_OUT"
+		            Completed="OnSlideOutCompleted">
+			<ThicknessAnimation Storyboard.TargetProperty="Margin"
+			                    From="50"
+			                    To="0,50,50,50"
+			                    Duration="0:0:0.3">
+				<ThicknessAnimation.EasingFunction>
+					<QuadraticEase />
+				</ThicknessAnimation.EasingFunction>
+			</ThicknessAnimation>
+			<DoubleAnimation Storyboard.TargetProperty="Opacity"
+			                 From="1"
+			                 To="0"
+			                 Duration="0:0:0.2" />
+		</Storyboard>
+	</architecture:Activity.Resources>
+	<Grid>
+		<Rectangle Fill="{DynamicResource Brushes.HunterPie.Background.Tertiary}" />
+
+		<Border x:Name="PART_Border"
+		        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+		        BorderThickness="1"
+		        Width="400"
+		        Margin="50"
+		        HorizontalAlignment="Center"
+		        VerticalAlignment="Stretch"
+		        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+		        ClipToBounds="True"
+		        CornerRadius="5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="32" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<StackPanel Margin="10,0,10,0"
+				            Opacity="0.2"
+				            Orientation="Horizontal">
+					<Image Margin="5"
+					       Source="{DynamicResource ICON_HUNTERPIE}" />
+					<TextBlock Margin="5,0,0,0"
+					           VerticalAlignment="Center"
+					           FontSize="16"
+					           FontWeight="Medium"
+					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+					           Text="HunterPie Account" />
+				</StackPanel>
+
+				<buttons:Button Grid.Row="0"
+				                Padding="10,0,10,0"
+				                HorizontalAlignment="Right"
+				                Click="OnCloseClick"
+				                Content="✕"
+				                FontSize="15" />
+
+				<Separator Grid.Row="1"
+				           Margin="10,0,10,0"
+				           VerticalAlignment="Top"
+				           Background="{DynamicResource Brushes.HunterPie.Border}"
+				           Opacity="0.2" />
+				<!--  Workaround for same tab width  -->
+				<UniformGrid Grid.Row="0"
+				             Margin="12"
+				             Columns="2">
+					<FrameworkElement x:Name="PART_Dummy" />
+				</UniformGrid>
+				<Rectangle x:Name="PART_SelectedSignFlowHighlight"
+				           Grid.Row="1"
+				           Width="{Binding ActualWidth, ElementName=PART_Dummy}"
+				           Height="30"
+				           Margin="12,12,0,10"
+				           HorizontalAlignment="Left"
+				           VerticalAlignment="Top"
+				           d:Width="50"
+				           Fill="{DynamicResource Brushes.HunterPie.Accent}"
+				           RadiusX="2"
+				           RadiusY="20">
+					<Rectangle.OpacityMask>
+						<LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+							<GradientStop Offset="1" Color="#00000000" />
+							<GradientStop Offset="0.1" Color="#30000000" />
+							<GradientStop Offset="0" Color="#DD000000" />
+						</LinearGradientBrush>
+					</Rectangle.OpacityMask>
+				</Rectangle>
+				<TabControl Grid.Row="1"
+				            BorderThickness="0"
+				            Margin="10"
+				            Background="Transparent"
+				            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+				            SourceUpdated="OnTabUpdate"
+				            TargetUpdated="OnTabUpdate">
+					<!--  Login View  -->
+					<TabItem>
+						<TabItem.Header>
+							<buttons:TabItem Title="Login"
+							                 Width="{Binding ActualWidth, ElementName=PART_Dummy}"
+							                 Background="Transparent"
+							                 Description="Login using an existing account"
+							                 FontSize="15"
+							                 Icon="{DynamicResource ICON_DISCONNECTED_ACCOUNT}" />
+						</TabItem.Header>
+
+						<views:AccountLoginFlowView />
+					</TabItem>
+					<!--  Register View  -->
+					<TabItem>
+						<TabItem.Header>
+							<buttons:TabItem Title="Create account"
+							                 Width="{Binding ActualWidth, ElementName=PART_Dummy}"
+							                 Background="Transparent"
+							                 Description="Create a new account"
+							                 FontSize="15"
+							                 Icon="{DynamicResource ICON_ADD}" />
+						</TabItem.Header>
+
+						<views:AccountRegisterFlowView />
+					</TabItem>
+				</TabControl>
+
+
+			</Grid>
+			<Border.Style>
+				<Style TargetType="Border">
+					<Style.Triggers>
+						<EventTrigger RoutedEvent="Loaded">
+							<BeginStoryboard>
+								<Storyboard>
+									<ThicknessAnimation Storyboard.TargetProperty="Margin"
+									                    From="80,50,50,50"
+									                    To="50"
+									                    Duration="0:0:0.3">
+										<ThicknessAnimation.EasingFunction>
+											<QuadraticEase />
+										</ThicknessAnimation.EasingFunction>
+									</ThicknessAnimation>
+									<DoubleAnimation Storyboard.TargetProperty="Opacity"
+									                 From="0"
+									                 To="1"
+									                 Duration="0:0:0.4" />
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Style.Triggers>
+				</Style>
+			</Border.Style>
+		</Border>
+	</Grid>
+</architecture:Activity>

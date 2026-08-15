@@ -4,78 +4,86 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
              xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
-             Width="{DynamicResource HunterPie.SideBar.Width}"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
              d:DesignHeight="450"
              mc:Ignorable="d">
-	<UserControl.Effect>
-		<DropShadowEffect BlurRadius="10"
-		                  Direction="0"
-		                  Opacity="0.03"
-		                  RenderingBias="Quality" />
-	</UserControl.Effect>
-	<Grid>
-		<Rectangle x:Name="PART_HitTest"
-		           Width="50"
-		           HorizontalAlignment="Left"
-		           VerticalAlignment="Stretch"
-		           Fill="White"
-		           MouseEnter="OnMouseEnter">
-			<Rectangle.RenderTransform>
-				<ScaleTransform ScaleX="1" />
-			</Rectangle.RenderTransform>
-			<Rectangle.Style>
-				<Style TargetType="Rectangle">
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsMouseInside.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SideBarView}}}"
-						             Value="True">
-							<DataTrigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)">
-										<DoubleAnimation BeginTime="0:0:0.3"
-										                 To="6"
-										                 Duration="0:0:0.4">
-											<DoubleAnimation.EasingFunction>
-												<CubicEase />
-											</DoubleAnimation.EasingFunction>
-										</DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</DataTrigger.EnterActions>
-							<DataTrigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)">
-										<DoubleAnimation To="1"
-										                 Duration="0:0:0.3">
-											<DoubleAnimation.EasingFunction>
-												<CubicEase />
-											</DoubleAnimation.EasingFunction>
-										</DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</DataTrigger.ExitActions>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Rectangle.Style>
-		</Rectangle>
-		<Grid x:Name="PART_SideBar"
-		      Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
-		      IsHitTestVisible="False"
-		      MouseLeave="OnMouseLeave">
+	<UserControl.Resources>
+		<DataTemplate x:Key="DefaultSideBarButtonDataTemplate">
+			<local:SideBarButtonView Width="40"
+			                         Height="40"
+			                         Margin="0,0,0,2" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="ExpandableDataTemplate">
+			<local:SideBarExpandableButtonView Width="40"
+			                                   Height="40"
+			                                   Margin="0,0,0,2" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="FixedSideBarButtonDataTemplate">
+			<local:SideBarButtonView Width="40"
+			                         Height="40"
+			                         Margin="0,2,0,0"
+			                         IsFixed="True" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="FixedExpandableDataTemplate">
+			<local:SideBarExpandableButtonView Width="40"
+			                                   Height="40"
+			                                   Margin="0,2,0,0"
+			                                   IsFixed="True" />
+		</DataTemplate>
+
+		<presentation:NavigationHandlerDataTemplateSelector x:Key="NavigationHandlerDataTemplateSelector"
+		                                                    DefaultDataTemplate="{StaticResource DefaultSideBarButtonDataTemplate}"
+		                                                    GroupDataTemplate="{StaticResource ExpandableDataTemplate}" />
+
+		<presentation:NavigationHandlerDataTemplateSelector x:Key="FixedNavigationHandlerDataTemplateSelector"
+		                                                    DefaultDataTemplate="{StaticResource FixedSideBarButtonDataTemplate}"
+		                                                    GroupDataTemplate="{StaticResource FixedExpandableDataTemplate}" />
+	</UserControl.Resources>
+	<Grid Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+	      RowDefinitions="*,Auto">
+		<Grid Grid.Row="0"
+		      Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
 			<Grid.OpacityMask>
-				<VisualBrush AlignmentX="Left"
-				             Stretch="None"
-				             Visual="{Binding ElementName=PART_HitTest}" />
+				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+					<GradientStop Offset="0.0" Color="Transparent" />
+					<GradientStop Offset="0.05" Color="White" />
+					<GradientStop Offset="0.95" Color="White" />
+					<GradientStop Offset="1.0" Color="Transparent" />
+				</LinearGradientBrush>
 			</Grid.OpacityMask>
-			<ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<local:SideBarButtonView Height="40" />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
+			<ItemsControl d:ItemsSource="{d:SampleData ItemCount=5}"
+			              ItemTemplateSelector="{StaticResource NavigationHandlerDataTemplateSelector}"
+			              ItemsSource="{Binding Elements, Mode=OneTime}">
+				<ItemsControl.Template>
+					<ControlTemplate>
+						<viewer:SmoothScrollViewer VerticalScrollBarVisibility="Hidden">
+							<StackPanel Margin="5,15"
+							            IsItemsHost="True"
+							            Orientation="Vertical" />
+						</viewer:SmoothScrollViewer>
+					</ControlTemplate>
+				</ItemsControl.Template>
 			</ItemsControl>
 		</Grid>
+
+
+		<ItemsControl Grid.Row="1"
+		              Margin="0,5"
+		              d:ItemsSource="{d:SampleData ItemCount=2}"
+		              ItemTemplateSelector="{StaticResource FixedNavigationHandlerDataTemplateSelector}"
+		              ItemsSource="{Binding FixedElements, Mode=OneTime}">
+			<ItemsControl.Template>
+				<ControlTemplate>
+					<StackPanel IsItemsHost="True"
+					            Orientation="Vertical" />
+				</ControlTemplate>
+			</ItemsControl.Template>
+		</ItemsControl>
 	</Grid>
 </UserControl>

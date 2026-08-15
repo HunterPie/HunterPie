@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="HunterPie.Playground.Dogma.Components.HealthBarUnit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.Playground.Dogma.Components"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:shapes="clr-namespace:HunterPie.UI.Controls.Shapes;assembly=HunterPie.UI"
+             x:Name="HealthBarUnitComponent"
+             d:DesignHeight="30"
+             d:DesignWidth="30"
+             mc:Ignorable="d">
+	<Grid>
+		<shapes:Diamond StrokeThickness="1">
+			<shapes:Diamond.Style>
+				<Style TargetType="shapes:Diamond">
+					<Setter Property="Fill" Value="#262626" />
+					<Setter Property="Stroke" Value="#707070" />
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsFull, ElementName=HealthBarUnitComponent}"
+						             Value="True">
+							<Setter Property="Stroke" Value="#ff4faa" />
+							<Setter Property="Fill" Value="#ad005a" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</shapes:Diamond.Style>
+			<shapes:Diamond.Effect>
+				<effects:AlligatorShaderEffect />
+			</shapes:Diamond.Effect>
+		</shapes:Diamond>
+	</Grid>
+</UserControl>

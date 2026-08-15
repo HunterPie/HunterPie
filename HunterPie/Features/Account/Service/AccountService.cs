@@ -22,8 +22,9 @@ internal class AccountService(
     ICredentialVault credentialVault,
     IAsyncCache cache,
     PoogieAccountConnector accountConnector,
-    ILocalizationRepository localizationRepository
-    ) : IAccountUseCase, IEventDispatcher
+    ILocalizationRepository localizationRepository,
+    INotificationService notificationService
+) : IAccountUseCase, IEventDispatcher
 {
     private const string ACCOUNT_CACHE_KEY = "account::key";
 
@@ -81,7 +82,7 @@ internal class AccountService(
             Description: data.Description,
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        Guid notificationId = await NotificationService.Show(progressNotification);
+        Guid notificationId = await notificationService.Show(progressNotification);
 
         PoogieResult<LoginResponse> loginResponse = await accountConnector.LoginAsync(request);
 
@@ -92,7 +93,7 @@ internal class AccountService(
                 Type = NotificationType.Error,
                 Description = localizationRepository.FindByEnum(err.Code).String
             };
-            NotificationService.Update(notificationId, errorNotification);
+            notificationService.Update(notificationId, errorNotification);
 
             return null;
         }
@@ -116,7 +117,7 @@ internal class AccountService(
             Description = localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
                 .Replace("{Username}", account.Username)
         };
-        NotificationService.Update(notificationId, successOptions);
+        notificationService.Update(notificationId, successOptions);
 
         this.Dispatch(SignIn, new AccountLoginEventArgs { Account = account });
 
@@ -131,7 +132,7 @@ internal class AccountService(
             Description: "Uploading profile picture...",
             DisplayTime: TimeSpan.FromSeconds(10)
         );
-        Guid notificationId = await NotificationService.Show(notificationOptions);
+        Guid notificationId = await notificationService.Show(notificationOptions);
 
         PoogieResult<MyUserAccountResponse> account = await accountConnector.UploadAvatarAsync(path);
 
@@ -143,7 +144,7 @@ internal class AccountService(
                 Description = localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime = TimeSpan.FromSeconds(10)
             };
-            NotificationService.Update(notificationId, errorOptions);
+            notificationService.Update(notificationId, errorOptions);
 
             return;
         }
@@ -153,7 +154,7 @@ internal class AccountService(
             Type = NotificationType.Success,
             Description = localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
         };
-        NotificationService.Update(notificationId, successOptions);
+        notificationService.Update(notificationId, successOptions);
 
         UserAccount? model = account.Response?.ToModel();
 

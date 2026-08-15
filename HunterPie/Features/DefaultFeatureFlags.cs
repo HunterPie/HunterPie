@@ -14,6 +14,7 @@ internal class DefaultFeatureFlags
         { FeatureFlags.FEATURE_ADVANCED_DEV, new Feature() },
         { FeatureFlags.FEATURE_REDIRECT_POOGIE, new Feature() },
         { FeatureFlags.FEATURE_IN_APP_NOTIFICATIONS, new Feature() },
+        { FeatureFlags.FEATURE_IS_PLUGINS_VIEW_ENABLED, new Feature() },
     };
 
     public IReadOnlyDictionary<string, IFeature> ReadOnlyFlags => Flags;

@@ -1,0 +1,42 @@
+name: cd/upload-library-artifacts
+
+on:
+  push:
+    branches:
+      - main
+      - release/**
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build-win-x64:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: setup-dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 10.0
+      
+      - name: setup-nuget
+        run: dotnet nuget add source --username HunterPie --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/HunterPie/index.json"
+
+      - name: restore-dependencies
+        run: dotnet restore HunterPie
+
+      - name: pack-artifacts
+        run: ./Scripts/package/pack-artifacts.ps1
+
+      - name: upload-artifacts
+        run: |
+          $packages = $(Get-ChildItem artifacts -File -Name)
+
+          foreach ($package in $packages) {
+            dotnet nuget push ./artifacts/$package --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
+          }

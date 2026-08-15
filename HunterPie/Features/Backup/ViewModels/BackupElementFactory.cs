@@ -1,17 +1,20 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Notification;
 using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.Integrations.Poogie.Backup.Models;
 using System.IO;
 
 namespace HunterPie.Features.Backup.ViewModels;
 
-internal class BackupElementFactory(PoogieBackupConnector backupConnector)
+internal class BackupElementFactory(
+    PoogieBackupConnector backupConnector,
+    INotificationService notificationService
+)
 {
-    private readonly PoogieBackupConnector _backupConnector = backupConnector;
-
     public BackupElementViewModel Create(BackupResponse response) =>
         new(
-            backupConnector: _backupConnector
+            backupConnector: backupConnector,
+            notificationService: notificationService
         )
         {
             BackupId = response.Id,

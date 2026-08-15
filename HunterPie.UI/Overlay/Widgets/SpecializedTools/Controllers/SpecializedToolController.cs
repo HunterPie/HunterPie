@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Entity;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using System;
 using System.ComponentModel;

@@ -27,7 +27,6 @@ internal class WeightedTargetDetectionService(
 
     private readonly IGame _game = context.Game;
     private readonly IPlayer _player = context.Game.Player;
-    private readonly DistanceFunc _distanceFunc = distanceFunc;
 
     private bool _isCalculatingTarget = false;
     private readonly Lock _lock = new();
@@ -74,7 +73,7 @@ internal class WeightedTargetDetectionService(
             : TargetType.Another;
     }
 
-    public void Initialize()
+    internal void Initialize()
     {
         _game.OnMonsterSpawn += OnMonsterSpawn;
         _game.OnMonsterDespawn += OnMonsterDespawn;
@@ -145,7 +144,7 @@ internal class WeightedTargetDetectionService(
 
     private void HandlePositionChange(IPlayer player, IMonster monster)
     {
-        float distance = _distanceFunc(player.Position, monster.Position);
+        float distance = distanceFunc(player.Position, monster.Position);
 
         _inferenceParams.AddOrUpdate(
             key: monster,

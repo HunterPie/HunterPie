@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Game.Enums;
 using System;
 
-namespace HunterPie.Core.Game.Entity;
+namespace HunterPie.Core.Game.Entity.Player;
 
 public interface ISpecializedTool
 {

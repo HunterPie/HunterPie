@@ -122,6 +122,12 @@ public partial class Button : ClickableControl
     public static readonly DependencyProperty KeyProperty =
         DependencyProperty.Register(nameof(Key), typeof(object), typeof(Button), new PropertyMetadata(null));
 
+    public bool IsHighlightEnabled { get => (bool)GetValue(IsHighlightEnabledProperty); set => SetValue(IsHighlightEnabledProperty, value); }
+
+    // Using a DependencyProperty as the backing store for IsHighlightEnabled.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IsHighlightEnabledProperty =
+        DependencyProperty.Register(nameof(IsHighlightEnabled), typeof(bool), typeof(Button), new PropertyMetadata(true));
+
     public Button()
     {
         InitializeComponent();

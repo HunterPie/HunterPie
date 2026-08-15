@@ -3,10 +3,10 @@ using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
+using HunterPie.Features.Settings.Navigation;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.Header.ViewModels;
@@ -15,13 +15,9 @@ internal class AccountMenuViewModel(
     IAccountUseCase accountUseCase,
     IAppNavigator appNavigator,
     IBodyNavigator bodyNavigator,
-    SettingsSideBarViewModel settingsSideBarViewModel) : ViewModel
+    SettingsNavigationHandler settingsSideBarViewModel
+) : ViewModel
 {
-    private readonly IAccountUseCase _accountUseCase = accountUseCase;
-    private readonly IAppNavigator _appNavigator = appNavigator;
-    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
-    private readonly SettingsSideBarViewModel _settingsSideBarViewModel = settingsSideBarViewModel;
-
     public bool IsLoading { get; set => SetValue(ref field, value); }
     public string AvatarUrl { get; set => SetValue(ref field, value); } = string.Empty;
     public string Username { get; set => SetValue(ref field, value); } = string.Empty;
@@ -33,19 +29,19 @@ internal class AccountMenuViewModel(
     {
         AccountSignFlowViewModel vm = DependencyContainer.Get<AccountSignFlowViewModel>();
 
-        _appNavigator.Navigate(vm);
+        appNavigator.Navigate(vm);
     }
 
     public async Task OpenAccountSettingsAsync()
     {
-        await _settingsSideBarViewModel.ExecuteAsync();
+        await settingsSideBarViewModel.ExecuteAsync();
     }
 
     public async void OpenAccountDetails()
     {
         AccountPreferencesViewModel viewModel = DependencyContainer.Get<AccountPreferencesViewModel>()
             .Apply(it => it.IsFetchingAccount = true);
-        UserAccount? account = await _accountUseCase.GetAsync();
+        UserAccount? account = await accountUseCase.GetAsync();
 
         if (account is not null)
             await viewModel.ApplyAsync(async it =>
@@ -58,12 +54,12 @@ internal class AccountMenuViewModel(
             });
 
 
-        _bodyNavigator.Navigate(viewModel);
+        bodyNavigator.Navigate(viewModel);
     }
 
     public async void SignOut()
     {
         IsLoggedIn = false;
-        await _accountUseCase.LogoutAsync();
+        await accountUseCase.LogoutAsync();
     }
 }

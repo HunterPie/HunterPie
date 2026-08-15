@@ -17,7 +17,7 @@
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
         d:DesignHeight="600"
         d:DesignWidth="1000"
-        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
+        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
         Icon="pack://application:,,,/Resources/Icon.ico"
         PreviewKeyDown="OnKeyDown"
         SnapsToDevicePixels="True"
@@ -41,10 +41,10 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<ContentControl Grid.Row="1"
-		                Grid.Column="0"
-		                Content="{Binding ContentViewModel, Mode=OneWay}"
-		                ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}" />
+		<ContentPresenter Grid.Row="1"
+		                  Grid.Column="0"
+		                  Content="{Binding ContentViewModel, Mode=OneWay}"
+		                  ContentTemplateSelector="{StaticResource MainBodyDataTemplateSelector}" />
 
 		<!--  Header  -->
 		<views:HeaderView Grid.Row="0"
@@ -61,7 +61,7 @@
 		              HorizontalContentAlignment="Right"
 		              VerticalContentAlignment="Bottom"
 		              Background="Transparent"
-		              ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}">
+		              ItemsSource="{Binding Notifications, Mode=OneWay}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<notification:Toast Margin="10,5"

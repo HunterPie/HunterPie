@@ -1,18 +1,21 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client.Configuration.Debug;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Domain.Logger;
+using HunterPie.Features.Observability.Tracing;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class UITracerInitializer : IInitializer
+internal class UITracerInitializer(
+    UITracer listener,
+    DevelopmentConfig config
+) : IInitializer
 {
     public Task Init()
     {
         PresentationTraceSources.Refresh();
-        _ = PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
-        PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Development.PresentationSourceLevel;
+        _ = PresentationTraceSources.DataBindingSource.Listeners.Add(listener);
+        PresentationTraceSources.DataBindingSource.Switch.Level = config.PresentationSourceLevel;
 
         return Task.CompletedTask;
     }

@@ -27,9 +27,9 @@ public static class ReflectionActivator
 
             return (T)constructor.Invoke(args);
         }
-        catch (DependencyNotRegisteredException)
+        catch (DependencyNotRegisteredException ex)
         {
-            throw new BeanActivationException(type);
+            throw new BeanActivationException(type, ex);
         }
 
     }

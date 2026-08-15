@@ -4,85 +4,145 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:handler="clr-namespace:HunterPie.UI.Client.Sidebar.Handler;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
-             d:DataContext="{d:DesignInstance viewModels:ISideBarViewModel}"
+             xmlns:presentation="clr-namespace:HunterPie.UI.SideBar.Presentation"
+             xmlns:resolvers="clr-namespace:HunterPie.UI.Architecture.Resolvers;assembly=HunterPie.UI"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
+             d:DataContext="{d:DesignInstance handler:NavigationHandler}"
              d:DesignHeight="40"
-             d:DesignWidth="300"
+             d:DesignWidth="40"
+             MouseEnter="OnMouseEnter"
+             MouseLeave="OnMouseLeave"
              mc:Ignorable="d">
 	<UserControl.Resources>
+		<CornerRadius x:Key="FixedButtonBorder">20</CornerRadius>
+		<CornerRadius x:Key="DefaultButtonBorder">5</CornerRadius>
+
 		<converters:IconResolver x:Key="IconResolver" />
 		<converters:LocalizationResolver x:Key="LocalizationResolver" />
+		<presentation:SideBarButtonStateToBooleanConverter x:Key="SideBarButtonStateToBooleanConverter" />
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter" />
+		<converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+		<resolvers:BooleanResolver x:Key="ActiveColorResolver"
+		                           Falsy="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+		                           Truthy="{StaticResource Brushes.HunterPie.Accent.Primary}" />
+		<resolvers:BooleanResolver x:Key="FixedButtonBorderResolver"
+		                           Falsy="{StaticResource DefaultButtonBorder}"
+		                           Truthy="{StaticResource FixedButtonBorder}" />
 	</UserControl.Resources>
-	<buttons:Button Padding="0"
-	                HorizontalContentAlignment="Stretch"
-	                VerticalContentAlignment="Stretch"
-	                Click="OnClick"
-	                IsEnabled="{Binding IsAvailable, Mode=OneWay}">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="50" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
+	<Grid>
+		<Popup x:Name="PART_Popup"
+		       AllowsTransparency="True"
+		       Placement="Right"
+		       PlacementTarget="{Binding ElementName=PART_Button}">
+			<Grid Height="{Binding ActualHeight, ElementName=PART_Button}">
+				<Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+				        BorderThickness="1"
+				        Margin="2"
+				        Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+				        CornerRadius="5"
+				        RenderTransformOrigin="0.5,0.5">
+					<Border.RenderTransform>
+						<ScaleTransform ScaleX="1" ScaleY="1" />
+					</Border.RenderTransform>
+					<TextBlock Margin="5"
+					           VerticalAlignment="Center"
+					           FontSize="14"
+					           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+					           Text="{Binding Label, Mode=OneWay}" />
 
-			<Rectangle Grid.Column="0"
-			           Fill="{DynamicResource Brushes.HunterPie.Accent}">
-				<Rectangle.Style>
-					<Style TargetType="Rectangle">
-						<Style.Triggers>
-							<DataTrigger Binding="{Binding IsSelected, Mode=OneWay}"
-							             Value="True">
-								<DataTrigger.EnterActions>
-									<BeginStoryboard>
-										<Storyboard>
-											<DoubleAnimation Storyboard.TargetProperty="Width"
-											                 From="0"
-											                 To="3"
-											                 Duration="0:0:0.25">
-												<DoubleAnimation.EasingFunction>
-													<QuadraticEase EasingMode="EaseIn" />
-												</DoubleAnimation.EasingFunction>
-											</DoubleAnimation>
-										</Storyboard>
-									</BeginStoryboard>
-								</DataTrigger.EnterActions>
+					<Border.Style>
+						<Style TargetType="Border">
+							<Style.Triggers>
+								<Trigger Property="IsVisible" Value="True">
+									<Trigger.EnterActions>
+										<BeginStoryboard>
+											<Storyboard>
+												<DoubleAnimation Storyboard.TargetProperty="Opacity"
+												                 From="0"
+												                 To="1"
+												                 Duration="0:0:0.25">
+													<DoubleAnimation.EasingFunction>
+														<QuadraticEase />
+													</DoubleAnimation.EasingFunction>
+												</DoubleAnimation>
+												<DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+												                 From="0.8"
+												                 To="1"
+												                 Duration="0:0:0.2">
+													<DoubleAnimation.EasingFunction>
+														<QuadraticEase />
+													</DoubleAnimation.EasingFunction>
+												</DoubleAnimation>
+												<DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+												                 From="0.8"
+												                 To="1"
+												                 Duration="0:0:0.2">
+													<DoubleAnimation.EasingFunction>
+														<QuadraticEase />
+													</DoubleAnimation.EasingFunction>
+												</DoubleAnimation>
+											</Storyboard>
+										</BeginStoryboard>
+									</Trigger.EnterActions>
+								</Trigger>
+							</Style.Triggers>
+						</Style>
+					</Border.Style>
+				</Border>
 
-								<DataTrigger.ExitActions>
-									<BeginStoryboard>
-										<Storyboard>
-											<DoubleAnimation Storyboard.TargetProperty="Width"
-											                 From="3"
-											                 To="0"
-											                 Duration="0:0:0.25">
-												<DoubleAnimation.EasingFunction>
-													<QuadraticEase EasingMode="EaseIn" />
-												</DoubleAnimation.EasingFunction>
-											</DoubleAnimation>
-										</Storyboard>
-									</BeginStoryboard>
-								</DataTrigger.ExitActions>
-							</DataTrigger>
-						</Style.Triggers>
-					</Style>
-				</Rectangle.Style>
-			</Rectangle>
 
-			<image:Icon Grid.Column="1"
-			            Padding="12"
-			            d:Image="{DynamicResource ICON_HUNTERPIE}"
-			            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-			            Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}" />
+			</Grid>
+		</Popup>
+		<buttons:Button x:Name="PART_Button"
+		                Padding="0"
+		                HorizontalContentAlignment="Stretch"
+		                VerticalContentAlignment="Stretch"
+		                Click="OnClick"
+		                CornerRadius="{Binding IsFixed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SideBarButtonView}}, Converter={StaticResource FixedButtonBorderResolver}}"
+		                IsEnabled="{Binding State, Mode=OneWay, Converter={StaticResource SideBarButtonStateToBooleanConverter}}">
+			<buttons:Button.Style>
+				<Style TargetType="buttons:Button">
+					<Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}" />
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
+						             Value="True">
+							<Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Accent.Tertiary}" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</buttons:Button.Style>
+			<Grid>
+				<image:Icon Margin="10"
+				            d:Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+				            d:Image="{DynamicResource ICON_HUNTERPIE}"
+				            Foreground="{Binding IsActive, Mode=OneWay, Converter={StaticResource ActiveColorResolver}}"
+				            Image="{Binding Icon, Mode=OneWay}" />
 
-			<TextBlock Grid.Column="2"
-			           Margin="10,0"
-			           VerticalAlignment="Center"
-			           d:Text="Button"
-			           FontSize="18"
-			           FontWeight="Medium"
-			           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-			           Text="{Binding Label, Mode=OneWay, Converter={StaticResource LocalizationResolver}}" />
-		</Grid>
-	</buttons:Button>
+				<Rectangle Width="8"
+				           Margin="-4,10,0,10"
+				           HorizontalAlignment="Left"
+				           VerticalAlignment="Stretch"
+				           Fill="{DynamicResource Brushes.HunterPie.Accent.Primary}"
+				           RadiusX="4"
+				           RadiusY="4">
+					<Rectangle.Visibility>
+						<MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+							<Binding FallbackValue="False"
+							         Mode="OneWay"
+							         Path="IsActive" />
+							<Binding Converter="{StaticResource InvertBooleanConverter}"
+							         Mode="OneWay"
+							         Path="IsFixed"
+							         RelativeSource="{RelativeSource AncestorType={x:Type local:SideBarButtonView}}" />
+						</MultiBinding>
+					</Rectangle.Visibility>
+				</Rectangle>
+			</Grid>
+		</buttons:Button>
+	</Grid>
 </UserControl>

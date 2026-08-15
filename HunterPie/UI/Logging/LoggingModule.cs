@@ -1,6 +1,7 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
 using HunterPie.UI.Logging.Entity;
+using HunterPie.UI.Logging.Navigation;
 using HunterPie.UI.Logging.Services;
 using HunterPie.UI.Logging.ViewModels;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ internal class LoggingModule : IDependencyModule
             .WithSingle(r => new HunterPieLogWriter(
                 dispatcher: r.Get<Dispatcher>(),
                 logs: stream
-            ));
+            ))
+            .WithSingle<ConsoleNavigationHandler>();
     }
 }

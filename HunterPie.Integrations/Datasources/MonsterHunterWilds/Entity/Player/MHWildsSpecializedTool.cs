@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 

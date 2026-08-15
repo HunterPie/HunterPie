@@ -4,7 +4,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 
 namespace HunterPie.Core.Client.Configuration.Versions;
 
-public class V5Config : VersionedConfig
+public class V5Config : VersionedConfig, IConfiguration
 {
     public V5Config() : base(4) { }
 

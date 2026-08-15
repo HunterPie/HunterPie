@@ -71,13 +71,13 @@
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
+    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml.cs">
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationsActivity.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml.cs">
@@ -105,9 +105,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Text\Title.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Dialog\DialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Views\WidgetHeader.xaml.cs">
@@ -391,13 +388,13 @@
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
+    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml">
+    <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationsActivity.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml">
@@ -425,9 +422,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Text\Title.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Dialog\DialogView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Views\WidgetHeader.xaml">

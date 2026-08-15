@@ -1,12 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<LangVersion>14.0</LangVersion>
-    <AssemblyVersion>1.2.0.88</AssemblyVersion>
-    <FileVersion>1.2.0.88</FileVersion>
-  </PropertyGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Authors>Haato</Authors>
+        <Company>HunterPie</Company>
+        <PackageId>HunterPie.DI</PackageId>
+        <Description>The HunterPie dependency injection library that handles service registration and resolution throughout the application architecture.</Description>
+        <PackageTags>hunterpie;core;plugins</PackageTags>
+        <RepositoryUrl>https://github.com/HunterPie/HunterPie</RepositoryUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>14.0</LangVersion>
+        <AssemblyVersion>1.3.0.116</AssemblyVersion>
+        <FileVersion>1.3.0.116</FileVersion>
+        <Version>1.3.0.115</Version>
+    </PropertyGroup>
 </Project>

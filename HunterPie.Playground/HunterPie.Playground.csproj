@@ -1,29 +1,57 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0-windows7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.1.0.1</AssemblyVersion>
-    <FileVersion>1.1.0.1</FileVersion>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Themes\simple-health-bar\theme.manifest.json">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Themes\simple-health-bar\monster-widget.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-  </ItemGroup>
-
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0-windows7.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyVersion>1.2.0.84</AssemblyVersion>
+        <FileVersion>1.2.0.84</FileVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <ShouldCreateLogs>True</ShouldCreateLogs>
+        <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+        <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+        <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+        <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+        <UpdatePackageVersion>False</UpdatePackageVersion>
+        <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+        <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+        <AssemblyVersionSettings>None.None.None.None</AssemblyVersionSettings>
+        <AssemblyFileVersionSettings>None.None.None.None</AssemblyFileVersionSettings>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <ShouldCreateLogs>True</ShouldCreateLogs>
+        <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+        <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+        <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+        <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+        <AssemblyVersionSettings>None.None.None.None</AssemblyVersionSettings>
+        <UpdatePackageVersion>False</UpdatePackageVersion>
+        <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+        <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+        <AssemblyFileVersionSettings>None.None.None.None</AssemblyFileVersionSettings>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
+        <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Languages\en-us.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="plugin.manifest.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Themes\simple-health-bar\theme.manifest.json">
+            <Generator>MSBuild:Compile</Generator>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Page Update="Themes\simple-health-bar\monster-widget.xaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Page>
+    </ItemGroup>
 </Project>
