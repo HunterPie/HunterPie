@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Networking.Http.Exceptions;
+﻿using HunterPie.Core.Networking.Http;
+using HunterPie.Core.Networking.Http.Exceptions;
 using HunterPie.Core.Networking.Http.Intercept;
 using HunterPie.Core.Networking.Http.Models;
 using HunterPie.Core.Observability.Logging;
@@ -7,10 +8,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using NetHttpClient = System.Net.Http.HttpClient;
 
-namespace HunterPie.Core.Networking.Http.Internal;
+namespace HunterPie.Architecture.Http.Client;
 
 internal class HttpClient(
     NetHttpClient client,
@@ -75,7 +77,21 @@ internal class HttpClient(
 
         var chain = new HttpChain(
             interceptors: interceptors,
-            executeRequest: async (request) => await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+            executeRequest: async (request) =>
+            {
+                try
+                {
+                    return await client.SendAsync(
+                        request: request,
+                        completionOption: HttpCompletionOption.ResponseHeadersRead,
+                        cancellationToken: options.TokenSource?.Token ?? CancellationToken.None
+                    );
+                }
+                finally
+                {
+                    options.TokenSource?.Dispose();
+                }
+            }
         );
 
         try

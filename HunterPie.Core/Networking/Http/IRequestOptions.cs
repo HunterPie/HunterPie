@@ -1,12 +1,16 @@
-﻿namespace HunterPie.Core.Networking.Http;
+﻿using System;
+
+namespace HunterPie.Core.Networking.Http;
 
 public interface IRequestOptions
 {
-    void WithHeader(string key, string value);
+    IRequestOptions WithHeader(string key, string value);
 
-    void WithQuery(string key, object? value);
+    IRequestOptions WithQuery(string key, object? value);
 
-    void WithJSON<T>(T obj) where T : class;
+    IRequestOptions WithJson<T>(T obj);
 
-    void WithFile(string name, string path);
+    IRequestOptions WithFile(string name, string path);
+
+    IRequestOptions WithTimeout(TimeSpan timeout);
 }

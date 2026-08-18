@@ -1,86 +1,112 @@
 ﻿using HunterPie.Core.Networking.Http;
+using HunterPie.Core.Networking.Http.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common;
 
-internal class PoogieConnector(PoogieHttpProvider poogieHttpProvider) : IPoogieClientAsync
+internal class PoogieConnector(IHttpClient client) : IPoogieClientAsync
 {
-    private readonly PoogieHttpProvider _poogieHttpProvider = poogieHttpProvider;
-
     public async Task<PoogieResult<T>> GetAsync<T>(string path, Dictionary<string, object>? query = null)
     {
-        HttpClientBuilder clientBuilder = _poogieHttpProvider.Default()
-            .Get(path);
+        Response response = await client.GetAsync(path, (cfg) =>
+        {
+            if (query is null)
+                return;
 
-        if (query is not null)
-            clientBuilder.WithQuery(query);
+            foreach ((string key, object? value) in query)
+                cfg.WithQuery(key, value);
+        });
 
-        using HttpClient client = clientBuilder.Build();
-
-        using HttpClientResponse response = await client.RequestAsync();
-
-        return await PoogieResult<T>.FromAsync(response);
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => await PoogieResult<T>.FromAsync(res),
+            _ => throw new UnreachableException()
+        };
     }
 
-    public async Task<HttpClientResponse> DownloadAsync(string path)
+    public async Task<Response.Success> DownloadAsync(string path)
     {
-        using HttpClient client = _poogieHttpProvider.Default()
-            .Get(path)
-            .WithTimeout(TimeSpan.FromSeconds(60))
-            .Build();
+        Response response = await client.GetAsync(path);
 
-        return await client.RequestAsync();
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => res,
+            _ => throw new UnreachableException()
+        };
     }
 
     public async Task<PoogieResult<TOut>> PostAsync<TIn, TOut>(string path, TIn payload)
     {
-        using HttpClient client = _poogieHttpProvider.Default()
-            .Post(path)
-            .WithJson(payload)
-            .Build();
+        Response response = await client.PostAsync(
+            path: path,
+            (cfg) =>
+                cfg
+                .WithJson(payload)
+        );
 
-        using HttpClientResponse response = await client.RequestAsync();
-
-        return await PoogieResult<TOut>.FromAsync(response);
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => await PoogieResult<TOut>.FromAsync(res),
+            _ => throw new UnreachableException()
+        };
     }
 
     public async Task<PoogieResult<T>> SendFileAsync<T>(string path, string filename)
     {
-        using HttpClient client = _poogieHttpProvider.Default()
-            .Post(path)
-            .WithTimeout(TimeSpan.FromSeconds(60))
-            .WithFile("file", filename)
-            .Build();
+        Response response = await client.PostAsync(
+            path: path,
+            (cfg) =>
+                cfg
+                .WithFile("file", filename)
+                .WithTimeout(TimeSpan.FromSeconds(60))
+        );
 
-        using HttpClientResponse response = await client.RequestAsync();
-
-        return await PoogieResult<T>.FromAsync(response);
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => await PoogieResult<T>.FromAsync(res),
+            _ => throw new UnreachableException()
+        };
     }
 
     public async Task<PoogieResult<TOut>> DeleteAsync<TIn, TOut>(string path, TIn payload)
     {
-        using HttpClient client = _poogieHttpProvider.Default()
-            .Delete(path)
-            .WithJson(payload)
-            .Build();
+        Response response = await client.DeleteAsync(
+            path: path,
+            (cfg) =>
+                cfg
+                .WithJson(payload)
+        );
 
-        using HttpClientResponse response = await client.RequestAsync();
-
-        return await PoogieResult<TOut>.FromAsync(response);
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => await PoogieResult<TOut>.FromAsync(res),
+            _ => throw new UnreachableException()
+        };
     }
 
     public async Task<PoogieResult<TOut>> PatchAsync<TIn, TOut>(string path, TIn payload)
     {
-        using HttpClient client = _poogieHttpProvider.Default()
-            .Patch(path)
-            .WithJson(payload)
-            .Build();
+        Response response = await client.PatchAsync(
+            path: path,
+            (cfg) =>
+                cfg
+                .WithJson(payload)
+        );
 
-        using HttpClientResponse response = await client.RequestAsync();
-
-        return await PoogieResult<TOut>.FromAsync(response);
+        return response switch
+        {
+            Response.Error err => throw err.Exception,
+            Response.Success res => await PoogieResult<TOut>.FromAsync(res),
+            _ => throw new UnreachableException()
+        };
     }
 }

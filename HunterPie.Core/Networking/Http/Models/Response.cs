@@ -28,6 +28,18 @@ public record class Response
             }
         }
 
+        public async Task<string> TextAsync()
+        {
+            try
+            {
+                return await Body.ReadToEndAsync();
+            }
+            finally
+            {
+                Body.Dispose();
+            }
+        }
+
         public async Task DownloadAsync(string outputPath)
         {
             try

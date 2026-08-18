@@ -1,8 +1,10 @@
-﻿using HunterPie.DI;
+﻿using HunterPie.Core.Networking.Http;
+using HunterPie.DI;
 using HunterPie.DI.Module;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.Integrations.Poogie.Common;
+using HunterPie.Integrations.Poogie.Http.Interceptors;
 using HunterPie.Integrations.Poogie.Localization;
 using HunterPie.Integrations.Poogie.Notification;
 using HunterPie.Integrations.Poogie.Patch;
@@ -16,10 +18,26 @@ namespace HunterPie.Integrations.Poogie;
 
 internal class PoogieModule : IDependencyModule
 {
+    private static readonly string[] Hosts = ["https://api.hunterpie.com", "https://mirror.hunterpie.com/mirror"];
+
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithFactory<PoogieConnector>()
+            .WithFactory(r =>
+            {
+                return new PoogieConnector(
+                    client: r.Get<IHttpClientFactory>()
+                             .Create(
+                                urls: Hosts,
+                                retry: 3,
+                                interceptors: [
+                                    r.Get<PoogieHeadersInterceptor>(),
+                                    r.Get<AuthHttpInterceptor>(),
+                                    r.Get<PoogieRedirectInterceptor>()
+                                ]
+                             )
+                );
+            })
             .WithSingle<PoogieHttpProvider>()
             .WithFactory<PoogieAccountConnector>()
             .WithFactory<PoogieBackupConnector>()

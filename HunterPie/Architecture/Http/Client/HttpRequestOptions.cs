@@ -1,26 +1,31 @@
 ﻿using HunterPie.Core.Json;
+using HunterPie.Core.Networking.Http;
 using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Web;
 
-namespace HunterPie.Core.Networking.Http.Internal;
+namespace HunterPie.Architecture.Http.Client;
 
 internal class HttpRequestOptions(HttpRequestMessage message) : IRequestOptions
 {
-    public void WithHeader(string key, string value)
+    public CancellationTokenSource? TokenSource { get; private set; }
+
+    public IRequestOptions WithHeader(string key, string value)
     {
         message.Headers.Add(key, value);
+        return this;
     }
 
-    public void WithQuery(string key, object? value)
+    public IRequestOptions WithQuery(string key, object? value)
     {
         Uri? url = message.RequestUri;
 
         if (url is null || value is null)
-            return;
+            return this;
 
         var builder = new UriBuilder(url);
 
@@ -28,9 +33,11 @@ internal class HttpRequestOptions(HttpRequestMessage message) : IRequestOptions
         query.Add(key, value.ToString());
 
         message.RequestUri = builder.Uri;
+
+        return this;
     }
 
-    public void WithFile(string name, string path)
+    public IRequestOptions WithFile(string name, string path)
     {
         Stream stream = File.OpenRead(path);
         var content = new StreamContent(stream);
@@ -42,15 +49,27 @@ internal class HttpRequestOptions(HttpRequestMessage message) : IRequestOptions
             }
         };
 
+
         form.Add(content, name, name);
 
         message.Content = form;
+
+        return this;
     }
 
-    public void WithJSON<T>(T obj) where T : class
+    public IRequestOptions WithJson<T>(T obj)
     {
         string serialized = JsonProvider.Serializer(obj);
 
         message.Content = new StringContent(serialized, Encoding.UTF8, "application/json; charset=utf-8");
+
+        return this;
+    }
+
+    public IRequestOptions WithTimeout(TimeSpan timeout)
+    {
+        TokenSource = new CancellationTokenSource(timeout);
+
+        return this;
     }
 }
