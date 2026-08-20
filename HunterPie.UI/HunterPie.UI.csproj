@@ -13,8 +13,8 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <UseWindowsForms>true</UseWindowsForms>
         <Configurations>Debug;Release;Deploy</Configurations>
-        <AssemblyVersion>2.15.0.188</AssemblyVersion>
-        <FileVersion>2.15.0.188</FileVersion>
+        <AssemblyVersion>2.15.0.190</AssemblyVersion>
+        <FileVersion>2.15.0.190</FileVersion>
         <Version>2.15.0.181</Version>
         <Nullable>enable</Nullable>
     </PropertyGroup>

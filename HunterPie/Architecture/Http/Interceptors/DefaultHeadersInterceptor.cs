@@ -25,7 +25,7 @@ internal class DefaultHeadersInterceptor : DelegatingHandler
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        request.Headers.Add(UserAgentHeader, UserAgent);
+        request.Headers.UserAgent.ParseAdd(GetUserAgent());
         request.Headers.Add(SessionIdHeader, Session);
         request.Headers.Add(ClientTypeHeader, ClientType);
         request.Headers.Add(AppVersionHeader, AppVersion);

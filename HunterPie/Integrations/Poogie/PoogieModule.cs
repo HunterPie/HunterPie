@@ -23,7 +23,10 @@ internal class PoogieModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithFactory(r =>
+            .WithFactory<PoogieHeadersInterceptor>()
+            .WithFactory<AuthHttpInterceptor>()
+            .WithFactory<PoogieRedirectInterceptor>()
+            .WithSingle(r =>
             {
                 return new PoogieConnector(
                     client: r.Get<IHttpClientFactory>()

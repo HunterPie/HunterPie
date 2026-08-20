@@ -10,8 +10,8 @@
         <RepositoryUrl>https://github.com/HunterPie/HunterPie</RepositoryUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <Configurations>Debug;Release;Deploy</Configurations>
-        <AssemblyVersion>2.15.0.165</AssemblyVersion>
-        <FileVersion>2.15.0.165</FileVersion>
+        <AssemblyVersion>2.15.0.167</AssemblyVersion>
+        <FileVersion>2.15.0.167</FileVersion>
         <Version>2.15.0.159</Version>
         <LangVersion>14.0</LangVersion>
         <Nullable>enable</Nullable>

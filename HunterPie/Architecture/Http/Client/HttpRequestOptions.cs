@@ -61,7 +61,7 @@ internal class HttpRequestOptions(HttpRequestMessage message) : IRequestOptions
     {
         string serialized = JsonProvider.Serializer(obj);
 
-        message.Content = new StringContent(serialized, Encoding.UTF8, "application/json; charset=utf-8");
+        message.Content = new StringContent(serialized, Encoding.UTF8, "application/json");
 
         return this;
     }

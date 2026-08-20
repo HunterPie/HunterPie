@@ -11,8 +11,8 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyVersion>2.15.0.163</AssemblyVersion>
-        <FileVersion>2.15.0.163</FileVersion>
+        <AssemblyVersion>2.15.0.165</AssemblyVersion>
+        <FileVersion>2.15.0.165</FileVersion>
         <Version>2.15.0.158</Version>
         <LangVersion>14.0</LangVersion>
     </PropertyGroup>
