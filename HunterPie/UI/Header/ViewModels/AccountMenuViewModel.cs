@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Remote;
+﻿using HunterPie.Core.Assets;
 using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
@@ -7,6 +7,7 @@ using HunterPie.Features.Settings.Navigation;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
+using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.Header.ViewModels;
@@ -15,7 +16,8 @@ internal class AccountMenuViewModel(
     IAccountUseCase accountUseCase,
     IAppNavigator appNavigator,
     IBodyNavigator bodyNavigator,
-    SettingsNavigationHandler settingsSideBarViewModel
+    SettingsNavigationHandler settingsSideBarViewModel,
+    IAssetResolver assetResolver
 ) : ViewModel
 {
     public bool IsLoading { get; set => SetValue(ref field, value); }
@@ -46,9 +48,11 @@ internal class AccountMenuViewModel(
         if (account is not null)
             await viewModel.ApplyAsync(async it =>
             {
+                var uri = new Uri(account.AvatarUrl);
+
                 it.Email = account.Email;
                 it.Username = account.Username;
-                it.AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
+                it.AvatarUrl = await assetResolver.Resolve(uri.AbsolutePath);
                 it.IsSupporter = account.IsSupporter;
                 it.IsFetchingAccount = false;
             });

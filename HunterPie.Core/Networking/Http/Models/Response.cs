@@ -1,7 +1,9 @@
 ﻿using HunterPie.Core.Json;
+using HunterPie.Core.Networking.Http.Events;
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Networking.Http.Models;
@@ -12,6 +14,7 @@ public record class Response
 
     public record class Success(
         HttpStatusCode StatusCode,
+        HttpResponseMessage Message,
         StreamReader Body
     ) : Response, IDisposable
     {
@@ -40,19 +43,46 @@ public record class Response
             }
         }
 
-        public async Task DownloadAsync(string outputPath)
+        public async Task DownloadAsync(string outputPath, DownloadEventHandler? callback = null)
         {
+            long? totalBytes = Message.Content.Headers.ContentLength;
+
+            long totalBytesRead = 0;
+            Memory<byte> buffer = new byte[8192];
+
             try
             {
-                FileStream file = File.Create(
+                string? directoryPath = Path.GetDirectoryName(outputPath);
+                if (directoryPath is not null && !Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
+                await using var file = new FileStream(
                     path: outputPath,
-                    bufferSize: BufferSize
+                    mode: FileMode.Create,
+                    access: FileAccess.Write,
+                    share: FileShare.None,
+                    bufferSize: buffer.Length,
+                    useAsync: true
                 );
 
-                await Body.BaseStream.CopyToAsync(
-                    destination: file,
-                    bufferSize: BufferSize
-                );
+                do
+                {
+                    int bytesRead = await Body.BaseStream.ReadAsync(buffer);
+                    totalBytesRead += bytesRead;
+
+                    var eventModel = new DownloadEvent(
+                        IsLengthUnknown: totalBytes is null,
+                        DownloadedBytes: totalBytesRead,
+                        TotalBytes: totalBytes ?? 0
+                    );
+
+                    callback?.Invoke(eventModel);
+
+                    if (bytesRead is 0)
+                        return;
+
+                    await file.WriteAsync(buffer[..bytesRead]);
+                } while (true);
             }
             finally
             {

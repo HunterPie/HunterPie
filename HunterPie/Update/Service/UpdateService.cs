@@ -179,10 +179,10 @@ internal class UpdateService(
         bool success = await _gateway.DownloadVersionAsync(
             version: version.ToString(),
             output: packagePath,
-            callback: (_, args) =>
+            callback: (e) =>
             {
-                vm.DownloadedBytes = args.BytesDownloaded;
-                vm.TotalBytes = args.TotalBytes;
+                vm.DownloadedBytes = e.DownloadedBytes;
+                vm.TotalBytes = e.TotalBytes;
             });
 
         if (success)

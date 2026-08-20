@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Remote;
+﻿using HunterPie.Core.Assets;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
@@ -13,7 +13,8 @@ namespace HunterPie.Features.Account.Controller;
 internal class AccountController(
     IAccountUseCase accountUseCase,
     AccountMenuViewModel menuViewModel,
-    MainBodyNavigator mainBodyNavigator
+    MainBodyNavigator mainBodyNavigator,
+    IAssetResolver assetResolver
 )
 {
     public async Task SetupAsync()
@@ -34,7 +35,9 @@ internal class AccountController(
 
     private async void OnAvatarChange(object? sender, AccountAvatarEventArgs e)
     {
-        menuViewModel.AvatarUrl = await CDN.GetAsset(e.AvatarUrl);
+        var uri = new Uri(e.AvatarUrl);
+
+        menuViewModel.AvatarUrl = await assetResolver.Resolve(uri.AbsolutePath);
     }
 
     private void OnSignOut(object? sender, EventArgs e)
@@ -51,8 +54,10 @@ internal class AccountController(
 
     private async void UpdateViewModels(UserAccount account)
     {
+        var uri = new Uri(account.AvatarUrl);
+
         menuViewModel.Username = account.Username;
-        menuViewModel.AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
+        menuViewModel.AvatarUrl = await assetResolver.Resolve(uri.AbsolutePath);
         menuViewModel.IsLoggedIn = true;
         menuViewModel.IsLoading = false;
     }

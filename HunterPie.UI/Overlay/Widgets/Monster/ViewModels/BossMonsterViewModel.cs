@@ -1,15 +1,9 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Observability.Logging;
-using HunterPie.Core.Remote;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Images;
-using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
@@ -24,13 +18,7 @@ public class BossMonsterViewModel(MonsterWidgetConfig config) : ViewModel
     private readonly ObservableCollection<string> _types = new();
 
     // Monster data
-    public string Name
-    {
-        get;
-        set => SetValue(ref field, value);
-    }
-
-    public string Em
+    public string? Name
     {
         get;
         set => SetValue(ref field, value);
@@ -130,7 +118,7 @@ public class BossMonsterViewModel(MonsterWidgetConfig config) : ViewModel
         set => SetValue(ref field, value);
     } = true;
 
-    public string Icon
+    public string? Icon
     {
         get;
         set => SetValue(ref field, value);
@@ -138,46 +126,4 @@ public class BossMonsterViewModel(MonsterWidgetConfig config) : ViewModel
 
     public bool IsAlive { get; set => SetValue(ref field, value); }
 
-    public async void FetchMonsterIcon()
-    {
-        IsLoadingIcon = true;
-
-        string imageName = Em;
-        string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
-
-        // If file doesn't exist locally, we can check for the CDN
-        if (!File.Exists(imagePath))
-            imagePath = await CDN.GetMonsterIconUrl(imageName);
-
-        if (IsQurio)
-            imagePath = await FetchQurioIcon(imagePath);
-
-        IsLoadingIcon = false;
-        Icon = imagePath;
-    }
-
-    private async Task<string> FetchQurioIcon(string defaultImagePath)
-    {
-        string maskPath = ClientInfo.GetPathFor($"Assets/Monsters/Masks/qurio_mask.png");
-        string imageName = $"{Em}_qurio";
-        string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
-
-        if (File.Exists(imagePath))
-            return imagePath;
-
-        try
-        {
-            imagePath = await ImageMergerService.MergeAsync(
-                imagePath,
-                defaultImagePath,
-                maskPath
-            );
-        }
-        catch (Exception ex)
-        {
-            _logger.Warning($"Failed to generate Qurio icon, defaulting to non-qurio icon. Error: {ex}");
-        }
-
-        return imagePath;
-    }
 }

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Assets;
 using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.UI.Architecture.Adapter;
@@ -17,7 +18,9 @@ namespace HunterPie.Features.Statistics.Details.Builders;
 
 internal sealed class MonsterDetailsViewModelBuilder(
     MonsterNameAdapter monsterNameAdapter,
-    ILocalizationRepository localizationRepository)
+    ILocalizationRepository localizationRepository,
+    IMonsterIconResolver monsterIconResolver
+)
 {
     private static readonly Brush EnrageBrush = Resources.Get<Brush>("Brushes.Ailments.Enrage");
     private static readonly Brush HealthStepBrush = Resources.Get<Brush>("Brushes.HunterPie.Foreground.Primary");
@@ -72,7 +75,7 @@ internal sealed class MonsterDetailsViewModelBuilder(
         return new MonsterDetailsViewModel
         {
             Name = _monsterNameAdapter.From(hunt.Game, monster.Id, monster.Variant),
-            Icon = await MonsterIconAdapter.UriFrom(hunt.Game, monster.Id),
+            Icon = await monsterIconResolver.Get(hunt.Game, monster.Id),
             TimeElapsed = hunt.FinishedAt - hunt.StartedAt,
             MaxHealth = monster.MaxHealth,
             HuntElapsed = huntElapsed,

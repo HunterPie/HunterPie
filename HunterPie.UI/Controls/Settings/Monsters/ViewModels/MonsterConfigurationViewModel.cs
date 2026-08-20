@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay.Monster;
+using HunterPie.Core.Game.Assets;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Adapter;
 
 namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 
-#nullable enable
-public class MonsterConfigurationViewModel : ViewModel
+public class MonsterConfigurationViewModel(
+    IMonsterIconResolver monsterIconResolver
+) : ViewModel
 {
     public required string Name { get; init; }
 
@@ -20,6 +21,6 @@ public class MonsterConfigurationViewModel : ViewModel
 
     public async void FetchIcon()
     {
-        Icon = await MonsterIconAdapter.UriFrom(GameType, Configuration.Id);
+        Icon = await monsterIconResolver.Get(GameType, Configuration.Id);
     }
 }

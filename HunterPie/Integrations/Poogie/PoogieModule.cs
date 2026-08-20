@@ -38,7 +38,6 @@ internal class PoogieModule : IDependencyModule
                              )
                 );
             })
-            .WithSingle<PoogieHttpProvider>()
             .WithFactory<PoogieAccountConnector>()
             .WithFactory<PoogieBackupConnector>()
             .WithFactory<PoogieLocalizationConnector>()

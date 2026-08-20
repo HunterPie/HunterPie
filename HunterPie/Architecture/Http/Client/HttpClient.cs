@@ -100,6 +100,7 @@ internal class HttpClient(
 
             return new Response.Success(
                 StatusCode: response.StatusCode,
+                Message: response,
                 Body: new StreamReader(await response.Content.ReadAsStreamAsync())
             );
         }

@@ -1,13 +1,14 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Game.Assets;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Adapter;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics.ViewModels;
 
-public class MonsterSummaryViewModel : ViewModel
+internal class MonsterSummaryViewModel : ViewModel
 {
     public GameType GameType { get; set => SetValue(ref field, value); }
     public int Id { get; set => SetValue(ref field, value); }
@@ -16,23 +17,19 @@ public class MonsterSummaryViewModel : ViewModel
     public MonsterHuntType? HuntType { get; set => SetValue(ref field, value); }
     public VariantType Variant { get; set => SetValue(ref field, value); }
 
-    public MonsterSummaryViewModel() { }
-
-    internal MonsterSummaryViewModel(
+    public static async Task<MonsterSummaryViewModel> CreateAsync(
+        IMonsterIconResolver iconResolver,
         GameType game,
-        PoogieMonsterSummaryModel model)
+        PoogieMonsterSummaryModel model
+    )
     {
-        GameType = game;
-        Id = model.Id;
-        IsTarget = model.IsTarget;
-        HuntType = model.HuntType;
-        Variant = (VariantType?)model.Variant ?? VariantType.Normal;
-
-        FetchMonsterIcon();
-    }
-
-    private async void FetchMonsterIcon()
-    {
-        Icon = await MonsterIconAdapter.UriFrom(GameType, Id);
+        return new MonsterSummaryViewModel
+        {
+            GameType = game,
+            Id = model.Id,
+            Icon = await iconResolver.Get(game, model.Id),
+            IsTarget = model.IsTarget,
+            Variant = (VariantType?)model.Variant ?? VariantType.Normal
+        };
     }
 }

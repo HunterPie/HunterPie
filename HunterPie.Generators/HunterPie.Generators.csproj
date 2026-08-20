@@ -12,8 +12,8 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <LangVersion>11.0</LangVersion>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-        <AssemblyVersion>1.0.0.99</AssemblyVersion>
-        <FileVersion>1.0.0.99</FileVersion>
+        <AssemblyVersion>1.0.0.101</AssemblyVersion>
+        <FileVersion>1.0.0.101</FileVersion>
         <Version>1.0.0.98</Version>
         <NoWarn>$(NoWarn);RS2008</NoWarn>
     </PropertyGroup>

@@ -3,6 +3,8 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
 using HunterPie.Core.Notification.Model;
+using HunterPie.Core.Utils;
+using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Statistics.Details.Builders;
@@ -13,7 +15,6 @@ using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +26,8 @@ internal class QuestStatisticsSummariesViewModel(
     IBodyNavigator bodyNavigator,
     QuestDetailsViewModelBuilder questDetailsViewModelBuilder,
     ILocalizationRepository localizationRepository,
-    INotificationService notificationService
+    INotificationService notificationService,
+    IDependencyRegistry registry
 ) : ViewModel
 {
     public bool HasQuests
@@ -59,7 +61,7 @@ internal class QuestStatisticsSummariesViewModel(
         set => SetValue(ref field, value);
     }
 
-    public ObservableCollection<int> PageLimitSizes { get; } = new() { 10, 20, 30, 40, 50 };
+    public System.Collections.ObjectModel.ObservableCollection<int> PageLimitSizes { get; } = new() { 10, 20, 30, 40, 50 };
     public int LimitSize { get; set => SetValue(ref field, value); } = 10;
 
     public QuestSupporterTierMessageType MessageType { get; set => SetValue(ref field, value); }
@@ -110,10 +112,15 @@ internal class QuestStatisticsSummariesViewModel(
         }
 
         Summaries.Replace(
-            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(
-                model: it,
-                localizationRepository: localizationRepository
-            ))
+            collection: summaries.Elements.Select(async it =>
+            {
+                return await QuestStatisticsSummaryViewModel.CreateAsync(
+                    registry: registry,
+                    model: it
+                );
+            })
+            .ToAsyncEnumerable()
+            .Collect()
         );
 
         LastPage = summaries.TotalPages;

@@ -16,7 +16,7 @@ internal class MonsterDetailsViewModel : ViewModel
     private bool _isInitialized;
 
     public string Name { get; set => SetValue(ref field, value); } = string.Empty;
-    public string Icon { get; set => SetValue(ref field, value); } = string.Empty;
+    public string? Icon { get; set => SetValue(ref field, value); } = string.Empty;
     public TimeSpan? HuntElapsed { get; set => SetValue(ref field, value); }
     public TimeSpan TimeElapsed { get; set => SetValue(ref field, value); }
     public Crown Crown { get; set => SetValue(ref field, value); }

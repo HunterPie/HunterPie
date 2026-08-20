@@ -5,13 +5,13 @@ using QuestLevelType = HunterPie.Core.Game.Entity.Game.Quest.QuestLevel;
 
 namespace HunterPie.Features.Statistics.ViewModels;
 
-public class MockQuestStatisticsSummaryViewModel : QuestStatisticsSummaryViewModel
+internal class MockQuestStatisticsSummaryViewModel : QuestStatisticsSummaryViewModel
 {
     private static readonly MonsterSummaryViewModel[] MonsterVms =
     {
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Slay},
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = false, HuntType = MonsterHuntType.None },
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Capture }
+        new() { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Slay},
+        new() { GameType = GameType.Rise, Id = 64, IsTarget = false, HuntType = MonsterHuntType.None },
+        new() { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Capture }
     };
 
     public MockQuestStatisticsSummaryViewModel()

@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Networking.Http;
+﻿using HunterPie.Core.Networking.Http.Models;
 using HunterPie.Integrations.Poogie.Backup.Models;
 using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Common.Models;
@@ -20,7 +20,7 @@ internal class PoogieBackupConnector(IPoogieClientAsync client)
     public async Task<PoogieResult<BackupResponse>> UploadAsync(GameType gameType, string filename) =>
         await _client.SendFileAsync<BackupResponse>($"{BACKUP_ENDPOINT}/upload/{gameType}", filename);
 
-    public async Task<HttpClientResponse> DownloadAsync(string backupId) =>
+    public async Task<Response.Success> DownloadAsync(string backupId) =>
         await _client.DownloadAsync($"{BACKUP_ENDPOINT}/{backupId}");
 
     public async Task<PoogieResult<BackupDeleteResponse>> DeleteAsync(string backupId) =>

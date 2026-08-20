@@ -1,11 +1,12 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Networking.Http;
+using HunterPie.Core.Networking.Http.Models;
 using HunterPie.Core.Notification;
 using HunterPie.Core.Notification.Model;
 using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.UI.Architecture;
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.ViewModels;
@@ -31,23 +32,22 @@ internal class BackupElementViewModel(
     {
         IsDownloading = true;
 
-        using HttpClientResponse response = await _backupConnector.DownloadAsync(BackupId);
+        Response.Success response = await _backupConnector.DownloadAsync(BackupId);
 
 
-        if (!response.Success)
+        if (response.StatusCode is >= HttpStatusCode.BadRequest)
         {
             IsDownloading = false;
             return;
         }
 
-        response.OnDownloadProgressChanged += (_, args) =>
-        {
-            BytesDownloaded = args.BytesDownloaded;
-            BytesToDownload = args.TotalBytes;
-        };
-
         await response.DownloadAsync(
-            outPath: ClientInfo.GetPathFor($"Backups/{BackupId}.zip")
+            outputPath: ClientInfo.GetPathFor($"Backups/{BackupId}.zip"),
+            (e) =>
+            {
+                BytesDownloaded = e.DownloadedBytes;
+                BytesToDownload = e.TotalBytes;
+            }
         );
 
         IsDownloading = false;

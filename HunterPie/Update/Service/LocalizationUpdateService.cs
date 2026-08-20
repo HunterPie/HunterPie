@@ -1,23 +1,25 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Assets;
+using HunterPie.Core.Client;
 using HunterPie.Core.Crypto;
 using HunterPie.Core.Observability.Logging;
-using HunterPie.Core.Remote;
 using HunterPie.Update.Gateway;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace HunterPie.Update.Service;
 
-internal class LocalizationUpdateService(UpdateGateway gateway)
+internal class LocalizationUpdateService(
+    UpdateGateway gateway,
+    IAssetResolver resolver
+)
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly UpdateGateway _gateway = gateway;
-
     public async Task InvokeAsync()
     {
-        Dictionary<string, string> latestChecksum = await _gateway.GetLocalizationsChecksumAsync();
+        Dictionary<string, string> latestChecksum = await gateway.GetLocalizationsChecksumAsync();
 
         foreach ((string name, string checksum) in latestChecksum)
         {
@@ -33,7 +35,21 @@ internal class LocalizationUpdateService(UpdateGateway gateway)
                 continue;
 
             _logger.Debug($"Downloading {name}... Remote checksum: {checksum} | Local checksum: {localChecksum}");
-            await CDN.GetFile($"/{name}", localFilePath);
+
+            try
+            {
+                string resolvedUri = await resolver.Resolve($"/{name}");
+
+                File.Move(
+                    sourceFileName: resolvedUri,
+                    destFileName: localFilePath,
+                    overwrite: true
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Failed to download localization file: {ex}");
+            }
         }
     }
 }

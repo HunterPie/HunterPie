@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Overlay.Service;
@@ -26,7 +25,7 @@ internal class MonsterWidgetMocker : IWidgetMocker
         viewModel.Monsters.Add(new MockBossMonsterViewModel(config)
         {
             Name = "Monster",
-            Em = "Rise_32",
+            Icon = "Rise_32",
             MaxHealth = 35000,
             Health = 35000,
             Stamina = 10000,
@@ -41,7 +40,6 @@ internal class MonsterWidgetMocker : IWidgetMocker
         viewModel.Monsters.Add(new MockBossMonsterViewModel(config)
         {
             Name = "Monster 2",
-            Em = "Rise_32",
             MaxHealth = 35000,
             Health = 35000,
             Stamina = 10000,
@@ -56,7 +54,6 @@ internal class MonsterWidgetMocker : IWidgetMocker
         viewModel.Monsters.Add(new MockBossMonsterViewModel(config)
         {
             Name = "Monster 3",
-            Em = "Rise_32",
             MaxHealth = 35000,
             Health = 35000 * 0.53,
             Stamina = 8500,
@@ -71,8 +68,6 @@ internal class MonsterWidgetMocker : IWidgetMocker
         });
 
         viewModel.Monster = viewModel.Monsters[0];
-
-        viewModel.Monsters.ForEach(it => it.FetchMonsterIcon());
 
         return overlay.Register(viewModel);
     }

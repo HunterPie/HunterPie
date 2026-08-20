@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Entity.Enemy;
+﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
@@ -11,6 +12,8 @@ namespace HunterPie.Core.Game.Entity.Game;
 
 public interface IGame : IDisposable
 {
+    public GameType Type { get; }
+
     public IPlayer Player { get; }
 
     public IAbnormalityCategorizationService AbnormalityCategorizationService { get; }

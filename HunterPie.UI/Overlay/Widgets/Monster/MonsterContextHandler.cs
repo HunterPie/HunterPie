@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Assets;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Enums;
@@ -13,6 +14,7 @@ using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
 
@@ -20,17 +22,21 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 {
     private readonly IGame _game;
     private readonly ITargetDetectionService _targetDetectionService;
+    private readonly IMonsterIconResolver _monsterIconResolver;
+
     public readonly IMonster Context;
 
     public MonsterContextHandler(
         IGame game,
         IMonster context,
         ITargetDetectionService targetDetectionService,
-        MonsterWidgetConfig config
+        MonsterWidgetConfig config,
+        IMonsterIconResolver monsterIconResolver
     ) : base(config)
     {
         _game = game;
         _targetDetectionService = targetDetectionService;
+        _monsterIconResolver = monsterIconResolver;
         Context = context;
         HookEvents();
 
@@ -95,16 +101,14 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         IsQurio = Context is MHRMonster { MonsterType: MonsterType.Qurio };
         Name = Context.Name;
 
-        Em = BuildMonsterEmByContext();
-
         IsAlive = true;
 
-        FetchMonsterIcon();
-
-        UIThread.BeginInvoke(() =>
+        UIThread.BeginInvoke(async () =>
         {
             if (Types.Count > 0)
                 return;
+
+            Icon = await _monsterIconResolver.Get(_game.Type, Context.Id, IsQurio);
 
             foreach (string typeId in Context.Types)
                 Types.Add(typeId);
@@ -198,9 +202,10 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         if (Context.Id > -1)
         {
             Name = Context.Name;
-            Em = BuildMonsterEmByContext();
 
-            FetchMonsterIcon();
+            _monsterIconResolver
+                .Get(_game.Type, Context.Id, IsQurio)
+                .ContinueWith(task => Icon = task.Result, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         MaxHealth = Context.MaxHealth;

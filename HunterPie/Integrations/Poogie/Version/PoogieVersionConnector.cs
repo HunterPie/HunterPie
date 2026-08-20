@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Networking.Http;
+﻿using HunterPie.Core.Networking.Http.Models;
 using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Version.Models;
@@ -8,13 +8,11 @@ namespace HunterPie.Integrations.Poogie.Version;
 
 internal class PoogieVersionConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client = client;
-
     private const string VERSION_ENDPOINT = "/v1/version";
 
     public async Task<PoogieResult<VersionResponse>> Latest() =>
-        await _client.GetAsync<VersionResponse>(VERSION_ENDPOINT);
+        await client.GetAsync<VersionResponse>(VERSION_ENDPOINT);
 
-    public async Task<HttpClientResponse> Download(string version) =>
-        await _client.DownloadAsync($"{VERSION_ENDPOINT}/{version}");
+    public async Task<Response.Success> Download(string version) =>
+        await client.DownloadAsync($"{VERSION_ENDPOINT}/{version}");
 }

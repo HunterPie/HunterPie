@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Assets;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Game.Services.Monster.Events;
+using HunterPie.DI;
 using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
@@ -44,7 +46,8 @@ public class MonsterWidgetContextHandler : IContextHandler
                 game: _context.Game,
                 context: monster,
                 targetDetectionService: _targetDetectionService,
-                config: _config
+                config: _config,
+                monsterIconResolver: DependencyContainer.Get<IMonsterIconResolver>()
             );
             _viewModel.Monsters.Add(handler);
         }
@@ -111,7 +114,8 @@ public class MonsterWidgetContextHandler : IContextHandler
                 game: _context.Game,
                 context: monster,
                 targetDetectionService: _targetDetectionService,
-                config: _config
+                config: _config,
+                monsterIconResolver: DependencyContainer.Get<IMonsterIconResolver>()
             );
             _viewModel.Monsters.Add(handler);
 

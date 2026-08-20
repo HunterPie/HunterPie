@@ -1,6 +1,9 @@
 ﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
@@ -11,6 +14,7 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
+using System.Diagnostics;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
 
@@ -19,6 +23,8 @@ public abstract class CommonGame(
     IScanService scanService
 ) : Scannable(process, scanService), IGame, IEventDispatcher
 {
+    public GameType Type { get; } = MapFactory.Map<GameProcessType, GameType?>(process.Type) ?? throw new UnreachableException();
+
     public abstract IPlayer Player { get; }
 
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
