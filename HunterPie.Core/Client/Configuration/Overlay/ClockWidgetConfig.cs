@@ -41,4 +41,8 @@ public class ClockWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("IS_MOON_PHASES_ENABLED", group: CommonConfigurationGroups.WIDGET, availableGames: GameProcessType.MonsterHunterWilds)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsMoonPhaseEnabled { get; set; } = true;
+
+    [ConfigurationProperty("WORLD_TIME_24H_FORMAT", group: CommonConfigurationGroups.WIDGET)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> Use24HourFormat { get; set; } = false;
 }
