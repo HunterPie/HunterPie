@@ -183,6 +183,15 @@
     <None Update="Address\MonsterHunterRise.3.6.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Address\MonsterHunterWilds.1.42.0.2.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.42.0.1.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.42.0.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterWilds.1.41.3.0.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
